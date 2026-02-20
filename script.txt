@@ -1,0 +1,15 @@
+python scripts/bowling_seasonality.py --data data/2023.csv data/2024.csv data/2025.csv --forecast-weeks 48 --actuals data/actuals.csv
+
+# Full year forecast from Jan 1 (for dashboard bowling_forecast.json):
+python scripts/bowling_seasonality.py --data data/2023.csv data/2024.csv data/2025.csv data/jan2026.csv --forecast-full-year 2026 --save-forecast output/bowling_forecast.csv
+
+
+
+# Same invocation pattern as bowling_seasonality
+python scripts/bowling_sarima.py --data data/2023.csv data/2024.csv data/2025.csv data/jan2026.csv --forecast-weeks 12 --save-forecast output/bowling_sarima_forecast.csv
+
+# With actuals overlay
+python scripts/bowling_sarima.py --data data/2023.csv data/2024.csv data/2025.csv --forecast-weeks 8 --actuals data/jan2026.csv
+
+# Compare saved forecast to current data
+python scripts/bowling_sarima.py --data data/2023.csv data/2024.csv data/2025.csv data/jan2026.csv --compare-forecast output/bowling_sarima_forecast.csv

@@ -1,0 +1,798 @@
+# Data Subdomain Architecture Blueprint
+
+> **Purpose:** AI-agent-ingestible architecture reference for replicating the `data.demoredesign.com` subdomain pattern to new client projects. Covers tech stack, project structure, styling system, dashboard configuration, and extensibility patterns.
+
+---
+
+## Table of Contents
+
+1. [System Overview](#system-overview)
+2. [Tech Stack](#tech-stack)
+3. [Repository Structure](#repository-structure)
+4. [Monorepo Configuration](#monorepo-configuration)
+5. [Routing & Page Architecture](#routing--page-architecture)
+6. [Type System & Data Models](#type-system--data-models)
+7. [Component Architecture](#component-architecture)
+8. [Styling System](#styling-system)
+9. [Dashboard Pattern (Recharts)](#dashboard-pattern-recharts)
+10. [Data Layer](#data-layer)
+11. [External Integrations](#external-integrations)
+12. [Deployment & Infrastructure](#deployment--infrastructure)
+13. [Extensibility Guide for New Clients](#extensibility-guide-for-new-clients)
+14. [Ad-Hoc Reporting Dashboard Configuration](#ad-hoc-reporting-dashboard-configuration)
+
+---
+
+## System Overview
+
+The data subdomain is a **standalone Next.js application** within an npm workspaces monorepo. It serves as a portfolio of data analytics projects — rendering GitHub READMEs, embedding Tableau/Power BI dashboards, and hosting fully interactive React-based dashboards built with Recharts.
+
+**Architecture Style:** Static-first (SSG) with client-side interactivity for dashboards and filtering.
+
+**Key Characteristics:**
+- Dark theme (pure black `#000000` background) with emerald/cyan accent gradients
+- Masonry grid project listing with type-based filtering
+- Dynamic detail pages via `[slug]` routing
+- Custom interactive dashboards via dedicated route pages
+- GitHub README auto-fetching and markdown rendering
+- Tableau/Power BI iframe embedding with loading states
+- Fully typed TypeScript codebase with strict mode
+
+---
+
+## Tech Stack
+
+| Layer | Technology | Version | Purpose |
+|-------|-----------|---------|---------|
+| **Framework** | Next.js (App Router) | 16.0.7 | SSR/SSG, routing, build |
+| **Runtime** | React | 19.2.0 | UI rendering |
+| **Language** | TypeScript | ^5 | Type safety |
+| **Styling** | Tailwind CSS | ^4 | Utility-first CSS |
+| **CSS Plugin** | @tailwindcss/typography | ^0.5.19 | Prose styling for markdown |
+| **CSS Pipeline** | @tailwindcss/postcss | ^4 | PostCSS integration |
+| **Charts** | Recharts | ^3.7.0 | Bar, Pie, Line, Composed charts |
+| **Icons** | lucide-react | ^0.556.0 | SVG icon library |
+| **Markdown** | react-markdown | ^10.1.0 | GitHub README rendering |
+| **Markdown Plugins** | remark-gfm, rehype-raw | ^4.0.1 / ^7.0.0 | GFM tables, raw HTML support |
+| **Fonts** | Geist, Geist Mono | via next/font | Typography |
+| **Build Tool** | Turbo | ^1.10.0 | Monorepo task runner |
+| **Linting** | ESLint + eslint-config-next | ^9 | Code quality |
+
+### Key Dependency Notes
+- **No backend/database** — all data is static TypeScript files
+- **No auth** — public portfolio site
+- **No state management library** — React `useState`/`useMemo` suffices
+- **No component library** — all UI is custom Tailwind
+
+---
+
+## Repository Structure
+
+```
+demore-design-monorepo/
+├── package.json                    # Workspaces root (npm workspaces)
+├── .eslintrc.json                  # Root ESLint config
+├── .gitignore
+├── apps/
+│   ├── data/                       # ← THE DATA SUBDOMAIN
+│   │   ├── package.json            # @demore-design/data
+│   │   ├── tsconfig.json
+│   │   ├── next.config.ts
+│   │   ├── postcss.config.mjs      # @tailwindcss/postcss plugin
+│   │   ├── eslint.config.mjs
+│   │   ├── ADDING_PROJECTS.md      # Content contributor guide
+│   │   ├── ARCHITECTURE.md         # This file
+│   │   ├── public/
+│   │   │   └── projects/           # Project thumbnail images
+│   │   └── app/
+│   │       ├── layout.tsx          # Root layout (dark theme, Geist fonts, metadata)
+│   │       ├── page.tsx            # Homepage (Hero + FilterBar + MasonryGrid)
+│   │       ├── globals.css         # Theme variables, utilities, animations
+│   │       ├── types/
+│   │       │   └── project.ts      # Type definitions (Project, filters, tags)
+│   │       ├── data/
+│   │       │   ├── projects.ts     # Project registry (array of Project objects)
+│   │       │   └── food-sales-data.ts  # Dashboard dataset + helpers
+│   │       ├── lib/
+│   │       │   └── github.ts       # GitHub API: README fetching, URL parsing
+│   │       ├── components/
+│   │       │   ├── Hero.tsx        # Landing hero section
+│   │       │   ├── FilterBar.tsx   # Sticky type filter bar
+│   │       │   ├── MasonryGrid.tsx # Responsive masonry layout
+│   │       │   ├── ProjectCard.tsx # Project card (thumbnail, badges, tags)
+│   │       │   ├── ProjectEmbed.tsx # Tableau/Power BI iframe embed
+│   │       │   ├── GitHubReadme.tsx # Markdown renderer for READMEs
+│   │       │   └── dashboard/
+│   │       │       ├── FoodSalesDashboard.tsx  # Dashboard orchestrator
+│   │       │       ├── KpiCards.tsx            # KPI summary cards
+│   │       │       ├── RevenueBarChart.tsx     # Horizontal bar (top 20 by $)
+│   │       │       ├── QuantityBarChart.tsx    # Horizontal bar (top 20 by qty)
+│   │       │       ├── WeeklyTrendsChart.tsx   # Line+bar composed chart
+│   │       │       ├── CategoryPieChart.tsx    # Donut chart + legend
+│   │       │       ├── MonthlyCategoryChart.tsx # Stacked bar chart
+│   │       │       └── ItemDetailTable.tsx     # Sortable/filterable data table
+│   │       └── projects/
+│   │           ├── [slug]/
+│   │           │   ├── page.tsx               # Generic project detail (SSG)
+│   │           │   └── ProjectDetailClient.tsx # Client wrapper for embeds
+│   │           └── food-sales-dashboard/
+│   │               └── page.tsx               # Custom dashboard detail page
+│   ├── web/                        # Main portfolio site (demoredesign.com)
+│   ├── photo/                      # Photo subdomain
+│   └── home/                       # Home landing page
+```
+
+---
+
+## Monorepo Configuration
+
+### Root `package.json`
+```json
+{
+  "name": "demore-design-monorepo",
+  "workspaces": ["apps/*"],
+  "scripts": {
+    "dev:data": "npm run dev -w apps/data",
+    "build:all": "npm run build --workspaces"
+  },
+  "devDependencies": { "turbo": "^1.10.0" },
+  "dependencies": { "lucide-react": "^0.556.0" }
+}
+```
+
+Each app in `apps/` is an independent Next.js project with its own `package.json`, `tsconfig.json`, and build config. They share `lucide-react` from the root but otherwise manage their own dependencies.
+
+### PostCSS Config (per app)
+```javascript
+// postcss.config.mjs
+const config = {
+  plugins: { "@tailwindcss/postcss": {} },
+};
+export default config;
+```
+
+Tailwind v4 is used via the `@tailwindcss/postcss` plugin — no `tailwind.config.ts` file needed. Theme extension happens in `globals.css` via `@theme inline {}`.
+
+---
+
+## Routing & Page Architecture
+
+### Next.js App Router Structure
+
+| Route | File | Rendering | Purpose |
+|-------|------|-----------|---------|
+| `/` | `app/page.tsx` | Client (`'use client'`) | Homepage with Hero, filters, masonry grid |
+| `/projects/[slug]` | `app/projects/[slug]/page.tsx` | Server (SSG) | Generic project detail page |
+| `/projects/food-sales-dashboard` | `app/projects/food-sales-dashboard/page.tsx` | Hybrid | Custom dashboard page |
+
+### Routing Pattern
+
+1. **Homepage** (`page.tsx`): Client-rendered. Uses `useState` for filter state, `useMemo` for filtered/counted projects. Renders `Hero` → `FilterBar` → `MasonryGrid`.
+
+2. **Generic Detail** (`[slug]/page.tsx`): Server-rendered with `generateStaticParams()` for SSG. Fetches GitHub README at build time. Renders project narrative (problem/approach/outcome), embedded dashboards, and sidebar metadata.
+
+3. **Custom Dashboard** (`food-sales-dashboard/page.tsx`): Dedicated route that bypasses the generic `[slug]` page. Renders the full `FoodSalesDashboard` component with its own hero/narrative. This pattern is used for **react-dashboard** type projects where you want a fully interactive in-page dashboard.
+
+### Route Priority
+Next.js resolves specific routes before dynamic ones, so `/projects/food-sales-dashboard` takes priority over `/projects/[slug]`.
+
+---
+
+## Type System & Data Models
+
+### Core Types (`app/types/project.ts`)
+
+```typescript
+type ProjectType = 'github' | 'tableau' | 'powerbi' | 'jupyter' | 'react-dashboard' | 'other';
+type ProjectStatus = 'published' | 'featured' | 'wip';
+type DomainTag = 'Healthcare' | 'Operations' | 'AI/ML' | 'Data Engineering' | ... ;
+type ToolTag = 'Python' | 'SQL' | 'Django' | 'Tableau' | 'React' | 'Recharts' | ... ;
+
+interface Project {
+  slug: string;            // URL identifier
+  title: string;           // Display title
+  tagline: string;         // Card description
+  type: ProjectType;       // Determines rendering behavior
+  status: ProjectStatus;   // Controls badges & ordering
+  domainTags: DomainTag[]; // Business domain classification
+  toolTags: ToolTag[];     // Technology tags
+
+  // Optional URLs (type-specific)
+  thumbnail?: string;
+  repoUrl?: string;        // GitHub repo → triggers README fetch
+  embedUrl?: string;       // Tableau/PowerBI → triggers iframe embed
+  liveUrl?: string;        // External dashboard link
+  notebookUrl?: string;    // Jupyter/Colab link
+
+  // Optional narrative (detail page)
+  problemStatement?: string;
+  approach?: string;
+  outcome?: string;
+  dateCompleted?: string;
+}
+
+interface ProjectFilters {
+  type?: ProjectType | 'all';
+  domain?: DomainTag | 'all';
+  status?: ProjectStatus | 'all';
+}
+```
+
+### Helper Functions
+```typescript
+isEmbeddableProject(project)     // true for tableau/powerbi
+getProjectTypeIcon(type)         // returns lucide icon name
+getProjectTypeLabel(type)        // returns display label
+```
+
+### Extensibility
+To add new project types, domain tags, or tool tags, edit the union types in `project.ts`. TypeScript will enforce valid values at compile time across the entire codebase.
+
+---
+
+## Component Architecture
+
+### Component Hierarchy
+
+```
+Layout (layout.tsx)
+└── Page (page.tsx) — Homepage
+    ├── Nav (inline in page)
+    ├── Hero
+    ├── FilterBar
+    │   └── type filter buttons (pill-style, with count badges)
+    ├── MasonryGrid
+    │   └── ProjectCard (×N)
+    │       ├── thumbnail / type icon fallback
+    │       ├── type badge
+    │       ├── title + tagline
+    │       ├── domain tags (max 3 shown)
+    │       └── tool tags (max 3 shown)
+    └── Footer (inline in page)
+
+Layout (layout.tsx)
+└── ProjectPage ([slug]/page.tsx) — Detail
+    ├── Nav (back button + action links)
+    ├── Hero (type badge, title, tagline, meta)
+    ├── ProjectDetailClient → ProjectEmbed (if embedUrl)
+    ├── GitHubReadme (if github type + repoUrl)
+    ├── Narrative (problem/approach/outcome)
+    └── Sidebar (domains, technologies, links)
+
+Layout (layout.tsx)
+└── FoodSalesDashboardPage — Custom Dashboard
+    ├── Nav + Hero
+    ├── FoodSalesDashboard
+    │   ├── KpiCards (4× metric cards)
+    │   ├── WeeklyTrendsChart (ComposedChart: Line + Bar)
+    │   ├── CategoryPieChart (donut + interactive legend)
+    │   ├── MonthlyCategoryChart (stacked bar)
+    │   ├── RevenueBarChart (horizontal bar, top 20)
+    │   ├── QuantityBarChart (horizontal bar, top 20)
+    │   └── ItemDetailTable (sortable, filterable, paginated)
+    ├── Narrative
+    └── Sidebar
+```
+
+### Component Patterns
+
+1. **All dashboard/interactive components use `'use client'`** — required for hooks and event handlers.
+2. **Server components** are used for the generic `[slug]` detail page (data fetching at build time).
+3. **No prop drilling beyond 2 levels** — data is imported directly from data files.
+4. **Custom tooltips** for every Recharts chart — matching the dark theme.
+5. **Responsive breakpoints** managed via Tailwind (`sm:`, `md:`, `lg:`, `xl:`).
+
+---
+
+## Styling System
+
+### Design Tokens (`globals.css`)
+
+```css
+:root {
+  --color-bg: #000000;
+  --color-bg-secondary: #0a0a0a;
+  --color-bg-card: #0d0d0d;
+  --color-border: #1f1f1f;
+  --color-border-hover: #2f2f2f;
+
+  --color-text-primary: #ffffff;
+  --color-text-secondary: #a1a1aa;
+  --color-text-muted: #71717a;
+
+  --color-accent-1: #10b981;       /* emerald-500 */
+  --color-accent-2: #22d3ee;       /* cyan-400 */
+
+  --gradient-accent: linear-gradient(135deg, var(--color-accent-1), var(--color-accent-2));
+  --gradient-bg-subtle: linear-gradient(135deg, rgba(16,185,129,0.05), rgba(34,211,238,0.05));
+
+  --font-sans: var(--font-geist-sans), system-ui, sans-serif;
+  --font-mono: var(--font-geist-mono), 'SF Mono', Monaco, monospace;
+
+  --nav-height: 4rem;
+  --transition-fast: 150ms ease;
+  --transition-base: 200ms ease;
+  --transition-slow: 300ms ease;
+}
+```
+
+### Tailwind v4 Theme Extension
+```css
+@import "tailwindcss";
+@plugin "@tailwindcss/typography";
+
+@theme inline {
+  --color-background: var(--color-bg);
+  --color-foreground: var(--color-text-primary);
+  --font-sans: var(--font-sans);
+  --font-mono: var(--font-mono);
+}
+```
+
+### Custom CSS Utilities
+| Class | Effect |
+|-------|--------|
+| `.text-gradient` | Emerald→cyan gradient text |
+| `.glass` | Frosted glass background (blur + transparency) |
+| `.glow` | Emerald box-shadow glow |
+| `.glow-hover:hover` | Intensified glow on hover |
+| `.line-clamp-2`, `.line-clamp-3` | Text truncation |
+| `.animate-fade-in` | Fade in + slide up |
+| `.animate-slide-up` | Slide up animation |
+| `.animate-pulse-glow` | Pulsing glow effect |
+| `.stagger-1` through `.stagger-5` | Staggered animation delays |
+| `.embed-container` | 16:9 responsive iframe container |
+| `.embed-container.powerbi` | 4:3 ratio for Power BI |
+| `.embed-container.tableau` | Custom ratio for Tableau |
+
+### Styling Patterns Used Throughout
+
+1. **Cards**: `rounded-2xl border border-gray-800/50 bg-gray-950/50` with hover: `hover:border-emerald-500/30 hover:bg-gray-900/50 hover:-translate-y-1`
+2. **Badges/Pills**: `px-2.5 py-1 rounded-full text-xs font-medium` with type-specific colors
+3. **Gradient CTAs**: `bg-gradient-to-r from-emerald-500 to-cyan-500 text-black font-semibold rounded-full`
+4. **Nav**: `fixed top-0 z-50 bg-black/80 backdrop-blur-lg border-b border-gray-800/50`
+5. **Section spacing**: `py-20` for major sections, `space-y-8` for chart groups
+6. **Max width**: `max-w-7xl mx-auto px-6` for content containers, `max-w-5xl` for detail pages
+7. **Typography hierarchy**: `text-5xl font-bold` (h1), `text-3xl font-bold` (h2), `text-lg font-semibold` (h3), `text-sm text-gray-400` (body), `text-xs text-gray-500` (meta)
+
+### Color Palette for Charts (Category Colors)
+```typescript
+const categoryColors = {
+  'Appetizers & Sides': '#10b981',  // emerald
+  'Beverages':          '#22d3ee',  // cyan
+  'Wings & Chicken':    '#f59e0b',  // amber
+  'Burgers & Sliders':  '#ef4444',  // red
+  'Sandwiches':         '#8b5cf6',  // violet
+  'Tacos & Mexican':    '#f97316',  // orange
+  'Party Platters':     '#ec4899',  // pink
+  'Salads':             '#84cc16',  // lime
+  'Kids Menu':          '#06b6d4',  // cyan-dark
+  'Pizza':              '#e879f9',  // fuchsia
+  'Soups':              '#a78bfa',  // violet-light
+};
+```
+
+---
+
+## Dashboard Pattern (Recharts)
+
+### Dashboard Orchestrator Pattern
+
+Each dashboard is composed of independent chart components orchestrated by a parent component:
+
+```typescript
+// FoodSalesDashboard.tsx — orchestrator
+export default function FoodSalesDashboard() {
+  return (
+    <div className="space-y-8">
+      <KpiCards />
+      <WeeklyTrendsChart />
+      <div className="grid grid-cols-1 xl:grid-cols-2 gap-8">
+        <CategoryPieChart />
+        <MonthlyCategoryChart />
+      </div>
+      <div className="grid grid-cols-1 xl:grid-cols-2 gap-8">
+        <RevenueBarChart />
+        <QuantityBarChart />
+      </div>
+      <ItemDetailTable />
+    </div>
+  );
+}
+```
+
+### Chart Component Template
+
+Every chart component follows this pattern:
+
+```typescript
+'use client';
+
+import { /* Recharts components */ } from 'recharts';
+import { /* data + formatters */ } from '../../data/food-sales-data';
+
+// 1. Transform/derive data at module level (not inside component)
+const data = getTopItemsByRevenue(20).map(item => ({ ... }));
+
+// 2. Custom tooltip matching dark theme
+function CustomTooltip({ active, payload, label }) {
+  if (!active || !payload?.length) return null;
+  return (
+    <div className="bg-gray-900 border border-gray-700 rounded-lg px-4 py-3 shadow-xl">
+      {/* formatted content */}
+    </div>
+  );
+}
+
+// 3. Chart component with card wrapper
+export default function RevenueBarChart() {
+  return (
+    <div className="rounded-2xl border border-gray-800/50 bg-gray-950/50 p-6">
+      <h3 className="text-lg font-semibold text-white mb-1">Title</h3>
+      <p className="text-sm text-gray-500 mb-6">Subtitle with insight</p>
+      <div className="h-[520px]">
+        <ResponsiveContainer width="100%" height="100%">
+          {/* Recharts chart */}
+        </ResponsiveContainer>
+      </div>
+    </div>
+  );
+}
+```
+
+### Chart Types Used
+
+| Chart | Recharts Components | Use Case |
+|-------|-------------------|----------|
+| **KPI Cards** | Custom (no Recharts) | 4-column metric summary with icons |
+| **Weekly Trends** | `ComposedChart`, `Line`, `Bar`, `ReferenceLine` | Dual-axis: revenue line + transaction volume bars |
+| **Category Pie** | `PieChart`, `Pie`, `Cell` | Donut with center label + interactive legend list |
+| **Monthly Stacked** | `BarChart`, `Bar` (stackId) | Stacked bars by category per month |
+| **Revenue Ranking** | `BarChart` (layout="vertical"), `Bar`, `Cell` | Horizontal bars, color-coded by category |
+| **Volume Ranking** | Same as revenue | Horizontal bars for quantity |
+| **Item Table** | Custom HTML table | Sortable, searchable, filterable, paginated |
+
+### Recharts Configuration Patterns
+
+**Axis styling (dark theme):**
+```tsx
+<XAxis stroke="#525252" fontSize={12} axisLine={false} tickLine={false} />
+```
+
+**Grid (subtle):**
+```tsx
+<CartesianGrid strokeDasharray="3 3" stroke="#1f1f1f" vertical={false} />
+```
+
+**Bar styling:**
+```tsx
+<Bar radius={[0, 6, 6, 0]} maxBarSize={24} fillOpacity={0.85}>
+  {data.map((entry, i) => (
+    <Cell key={i} fill={categoryColors[entry.category]} />
+  ))}
+</Bar>
+```
+
+**Line styling:**
+```tsx
+<Line
+  type="monotone"
+  stroke="#10b981"
+  strokeWidth={2.5}
+  dot={{ r: 3, fill: '#10b981', stroke: '#000', strokeWidth: 2 }}
+  activeDot={{ r: 5, fill: '#10b981', stroke: '#fff', strokeWidth: 2 }}
+/>
+```
+
+---
+
+## Data Layer
+
+### Static Data Pattern
+
+All data lives in TypeScript files under `app/data/`. No API calls, no database, no CMS.
+
+**Project Registry** (`data/projects.ts`):
+```typescript
+export const projects: Project[] = [
+  {
+    slug: 'food-sales-dashboard',
+    title: 'Food & Beverage Sales Dashboard',
+    type: 'react-dashboard',
+    status: 'featured',
+    domainTags: ['Food & Beverage', 'Analytics'],
+    toolTags: ['React', 'Recharts', 'TypeScript'],
+    // ... URLs, narrative
+  },
+];
+
+// Helper functions
+export function getProjectBySlug(slug: string): Project | undefined
+export function getAllDomainTags(): string[]
+export function getAllToolTags(): string[]
+export function getFeaturedProjects(): Project[]
+```
+
+**Dashboard Data** (`data/food-sales-data.ts`):
+```typescript
+// KPI summary object
+export const kpiSummary = { totalRevenue: 312658, ... };
+
+// Full item detail array (81 items)
+export const itemDetail: FoodItem[] = [ ... ];
+
+// Category breakdown for pie chart
+export const categoryBreakdown: CategoryBreakdown[] = [ ... ];
+
+// Weekly trend data (19 weeks)
+export const weeklyTrends: WeeklyTrend[] = [ ... ];
+
+// Monthly data by category (5 months × 11 categories)
+export const monthlyByCategory: MonthlyCategory[] = [ ... ];
+
+// Color map for categories
+export const categoryColors: Record<FoodCategory, string> = { ... };
+
+// Derived data helpers
+export function getTopItemsByRevenue(n: number): FoodItem[]
+export function getTopItemsByQuantity(n: number): FoodItem[]
+export function getBottomItems(maxQty: number): FoodItem[]
+
+// Formatting helpers
+export function formatCurrency(value: number): string
+export function formatCompactCurrency(value: number): string
+export function formatNumber(value: number): string
+```
+
+### Data Shape for New Dashboards
+
+To add a new dashboard for a different client, create a data file following this interface pattern:
+
+```typescript
+// Required exports:
+export const kpiSummary = { ... };        // Top-level KPI metrics
+export const itemDetail: ItemType[] = []; // Granular row data for tables
+export const categoryBreakdown = [];      // For pie/donut charts
+export const timeSeries = [];             // For trend lines
+export const groupedTimeSeries = [];      // For stacked/grouped bars
+export const categoryColors = {};         // Color mapping
+export function getTopItems(n: number)    // Derived data helpers
+export function formatCurrency(v: number) // Formatting helpers
+```
+
+---
+
+## External Integrations
+
+### GitHub API (`lib/github.ts`)
+
+Fetches repository README at build time (SSG) with 1-hour cache:
+
+```typescript
+async function fetchGitHubReadme(repoUrl: string): Promise<string | null>
+```
+
+- Primary: GitHub REST API (`Accept: application/vnd.github.v3.raw`)
+- Fallback: `raw.githubusercontent.com` (tries `main` then `master`)
+- Caching: `next: { revalidate: 3600 }` (ISR 1 hour)
+- No auth token required (public repos)
+
+### Markdown Rendering (`GitHubReadme.tsx`)
+
+Uses `react-markdown` with plugins:
+- `remark-gfm` — GitHub Flavored Markdown (tables, strikethrough, task lists)
+- `rehype-raw` — raw HTML passthrough (badges, shields)
+
+Custom renderers:
+- Images: Relative paths show `[Image: alt]` placeholder; absolute URLs render normally
+- Links: All open in new tab (`target="_blank"`)
+
+Typography via `@tailwindcss/typography` prose classes with dark theme overrides:
+```
+prose prose-invert prose-emerald
+prose-headings:text-white
+prose-code:text-emerald-300 prose-code:bg-gray-900
+prose-a:text-emerald-400
+prose-blockquote:border-l-emerald-500
+```
+
+### Embed System (`ProjectEmbed.tsx`)
+
+For Tableau and Power BI projects:
+- Responsive iframe in `aspect-video` container
+- Loading spinner overlay during iframe load
+- Toggle fullscreen button
+- "Open Full View" external link
+
+---
+
+## Deployment & Infrastructure
+
+| Concern | Details |
+|---------|---------|
+| **Hosting** | Vercel (inferred from Next.js + Vercel font) |
+| **Domain** | `data.demoredesign.com` (subdomain of main site) |
+| **Build** | `next build` per workspace |
+| **Static Generation** | `generateStaticParams()` for project detail pages |
+| **Revalidation** | ISR with 1-hour revalidate for GitHub READMEs |
+| **Assets** | `/public/projects/` for thumbnails; external URLs for hosted images |
+| **SEO** | Full metadata in `layout.tsx` (OpenGraph, Twitter cards, robots, canonical) |
+
+---
+
+## Extensibility Guide for New Clients
+
+### Step 1: Clone the Data App Structure
+
+Copy the `apps/data/` directory as a new workspace (e.g., `apps/client-data/`):
+
+```bash
+cp -r apps/data apps/client-data
+```
+
+Update `package.json` name to `@client/data`.
+
+### Step 2: Customize Branding
+
+Edit these files:
+- `app/layout.tsx` — metadata, title, canonical URL, brand name
+- `app/globals.css` — accent colors (`--color-accent-1`, `--color-accent-2`), gradients
+- `app/page.tsx` — logo, nav links, hero text, footer
+- `app/components/Hero.tsx` — bio text, tech stack pills
+
+### Step 3: Define Client's Project Types
+
+Edit `app/types/project.ts`:
+- Add/remove `ProjectType` values
+- Add/remove `DomainTag` and `ToolTag` values
+- TypeScript compiler enforces valid values everywhere
+
+### Step 4: Add Client's Projects
+
+Edit `app/data/projects.ts`:
+- Add project objects following the `Project` interface
+- Each project gets a card on the homepage and a detail page at `/projects/[slug]`
+
+### Step 5: Add Custom Dashboards
+
+For each interactive dashboard:
+
+1. Create a data file: `app/data/[dashboard-name]-data.ts`
+2. Create chart components: `app/components/dashboard/[DashboardName]/*.tsx`
+3. Create an orchestrator: `app/components/dashboard/[DashboardName].tsx`
+4. Create a dedicated route: `app/projects/[dashboard-name]/page.tsx`
+5. Register in `app/data/projects.ts` with `type: 'react-dashboard'`
+
+### Step 6: Deploy
+
+Deploy as a separate Vercel project pointing to the new subdomain.
+
+---
+
+## Ad-Hoc Reporting Dashboard Configuration
+
+The dashboard pattern is designed to be **data-driven and composable**. Here's how to configure ad-hoc reporting dashboards:
+
+### Dashboard Configuration Schema
+
+A dashboard is defined by:
+
+1. **A data file** (TypeScript) containing:
+   - KPI summary object
+   - One or more data arrays (items, time series, categories)
+   - Category/group definitions and color maps
+   - Formatting helpers
+
+2. **A set of chart components** (each self-contained, each importing from the data file)
+
+3. **An orchestrator component** (arranges charts in a responsive grid)
+
+4. **A page route** (renders the orchestrator with hero/narrative wrapper)
+
+### Creating a New Dashboard from Scratch
+
+```typescript
+// 1. Define types
+interface SalesItem {
+  id: number;
+  name: string;
+  category: string;
+  revenue: number;
+  quantity: number;
+  avgPrice: number;
+}
+
+// 2. Create data file
+export const kpiSummary = {
+  totalRevenue: 500000,
+  totalItems: 12000,
+  avgOrderValue: 42,
+  topCategory: 'Electronics',
+};
+
+export const items: SalesItem[] = [ /* ... */ ];
+
+export const categoryColors: Record<string, string> = {
+  'Electronics': '#10b981',
+  'Clothing': '#22d3ee',
+  // ...
+};
+
+// 3. Create chart components (follow the template in Dashboard Pattern section)
+// 4. Create orchestrator
+// 5. Create page route
+```
+
+### Chart Component Checklist
+
+For each chart component:
+- [ ] `'use client'` directive
+- [ ] Import data from data file (not props)
+- [ ] Transform data at module level (outside component)
+- [ ] Custom tooltip matching dark theme
+- [ ] Card wrapper with `rounded-2xl border border-gray-800/50 bg-gray-950/50 p-6`
+- [ ] Title (`text-lg font-semibold text-white`) + subtitle (`text-sm text-gray-500`)
+- [ ] Fixed height container (e.g., `h-[520px]`)
+- [ ] `ResponsiveContainer width="100%" height="100%"`
+- [ ] Dark theme axis styling (stroke `#525252`, no axis lines)
+- [ ] Category-based coloring via `Cell` components
+
+### Table Component Checklist
+
+For data tables:
+- [ ] Search input with icon
+- [ ] Category/filter dropdown
+- [ ] Sortable column headers with sort direction indicators
+- [ ] Show more/less pagination
+- [ ] Summary row showing count and notes
+- [ ] Category color dots
+- [ ] Tabular-nums for numeric alignment
+- [ ] Responsive horizontal scroll (`overflow-x-auto`)
+
+### Layout Grid Patterns
+
+```
+Full width:        <Component />
+Side by side:      <div className="grid grid-cols-1 xl:grid-cols-2 gap-8">
+Three column:      <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+Content + sidebar: <div className="grid md:grid-cols-3 gap-12">
+                     <div className="md:col-span-2">content</div>
+                     <aside>sidebar</aside>
+                   </div>
+```
+
+---
+
+## Quick Reference: File-to-Feature Map
+
+| Feature | Primary File(s) |
+|---------|-----------------|
+| Add a project | `app/data/projects.ts` |
+| Add a tag type | `app/types/project.ts` |
+| Change brand colors | `app/globals.css` (CSS vars) |
+| Change logo/nav | `app/page.tsx`, `app/projects/[slug]/page.tsx` |
+| Add a chart | `app/components/dashboard/NewChart.tsx` + data file |
+| Add a dashboard | `app/projects/[slug]/page.tsx` (new dedicated route) |
+| Modify card layout | `app/components/ProjectCard.tsx` |
+| Modify filtering | `app/components/FilterBar.tsx`, `app/page.tsx` |
+| Modify embed behavior | `app/components/ProjectEmbed.tsx` |
+| Modify README rendering | `app/components/GitHubReadme.tsx` |
+| Add GitHub integration | `app/lib/github.ts` |
+
+---
+
+## AI Agent Integration Notes
+
+This document is structured for AI agent consumption. Key patterns for automated dashboard generation:
+
+1. **Data files are pure TypeScript** — an AI agent can generate data files from CSV/JSON/API responses by mapping to the typed interfaces.
+
+2. **Chart components are self-contained** — each chart imports its own data and renders independently. An agent can generate chart components from a template + data shape description.
+
+3. **The orchestrator is a simple grid layout** — composing charts requires only arranging components in a responsive grid.
+
+4. **Type safety prevents invalid configurations** — the TypeScript compiler will reject invalid project types, tags, or data shapes.
+
+5. **Styling is consistent via Tailwind utilities** — the same card/heading/text patterns are used everywhere, making it straightforward to generate new components that match.
+
+6. **No runtime dependencies on external services** — all data is baked in at build time, so dashboards work offline and load instantly.

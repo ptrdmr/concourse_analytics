@@ -1,0 +1,56 @@
+@import "tailwindcss";
+
+@theme inline {
+  --color-background: #000000;
+  --color-foreground: #ffffff;
+  --color-card: #0d0d0d;
+  --color-card-hover: #141414;
+  --color-border: #1f1f1f;
+  --color-border-hover: #2f2f2f;
+  --color-muted: #71717a;
+  --color-secondary: #a1a1aa;
+  --color-accent: #10b981;
+  --color-accent-2: #22d3ee;
+}
+
+:root {
+  --font-sans: system-ui, -apple-system, sans-serif;
+  --font-mono: 'SF Mono', Monaco, 'Cascadia Code', monospace;
+  --nav-height: 4rem;
+}
+
+body {
+  background: var(--color-background);
+  color: var(--color-foreground);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.text-gradient {
+  background: linear-gradient(135deg, var(--color-accent), var(--color-accent-2));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.card {
+  background: var(--color-card);
+  border: 1px solid var(--color-border);
+  border-radius: 1rem;
+  transition: border-color 200ms ease, background-color 200ms ease;
+}
+
+.card:hover {
+  border-color: var(--color-border-hover);
+  background: var(--color-card-hover);
+}
+
+@keyframes fade-in {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-fade-in {
+  animation: fade-in 0.5s ease forwards;
+}

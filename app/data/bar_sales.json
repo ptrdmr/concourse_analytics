@@ -1,0 +1,2270 @@
+{
+  "kpiSummary": {
+    "totalRevenue": 598732.91,
+    "totalItems": 72191,
+    "avgWeeklyRevenue": 31512.26,
+    "numWeeks": 19,
+    "topSeller": {
+      "name": "Modelo Draft",
+      "revenue": 43448.0
+    },
+    "dateRange": [
+      "Oct 01, 2025",
+      "Feb 05, 2026"
+    ],
+    "top10Concentration": 39.8
+  },
+  "categoryColors": {
+    "Draft Beer": "#f5a623",
+    "Liquor": "#ff5252",
+    "Bottle Beer": "#00e676",
+    "Mocktails": "#03dac6",
+    "Drink tickets": "#bb86fc",
+    "Beer Buckets": "#00b0ff"
+  },
+  "categoryOrder": [
+    "Draft Beer",
+    "Liquor",
+    "Bottle Beer",
+    "Beer Buckets",
+    "Mocktails",
+    "Drink tickets"
+  ],
+  "categoryBreakdown": [
+    {
+      "category": "Draft Beer",
+      "revenue": 278765.91,
+      "quantity": 35370,
+      "percentage": 46.6
+    },
+    {
+      "category": "Liquor",
+      "revenue": 253410.0,
+      "quantity": 25744,
+      "percentage": 42.3
+    },
+    {
+      "category": "Bottle Beer",
+      "revenue": 51464.0,
+      "quantity": 9220,
+      "percentage": 8.6
+    },
+    {
+      "category": "Drink tickets",
+      "revenue": 14652.0,
+      "quantity": 1458,
+      "percentage": 2.4
+    },
+    {
+      "category": "Mocktails",
+      "revenue": 441.0,
+      "quantity": 63,
+      "percentage": 0.1
+    },
+    {
+      "category": "Beer Buckets",
+      "revenue": 0.0,
+      "quantity": 336,
+      "percentage": 0.0
+    }
+  ],
+  "weeklyTrends": [
+    {
+      "weekStart": "2025-09-29",
+      "label": "Sep 29",
+      "revenue": 32324.0,
+      "transactions": 3269
+    },
+    {
+      "weekStart": "2025-10-06",
+      "label": "Oct 06",
+      "revenue": 31626.99,
+      "transactions": 3793
+    },
+    {
+      "weekStart": "2025-10-13",
+      "label": "Oct 13",
+      "revenue": 32336.0,
+      "transactions": 4006
+    },
+    {
+      "weekStart": "2025-10-20",
+      "label": "Oct 20",
+      "revenue": 27054.99,
+      "transactions": 3294
+    },
+    {
+      "weekStart": "2025-10-27",
+      "label": "Oct 27",
+      "revenue": 27789.99,
+      "transactions": 3351
+    },
+    {
+      "weekStart": "2025-11-03",
+      "label": "Nov 03",
+      "revenue": 37422.99,
+      "transactions": 4445
+    },
+    {
+      "weekStart": "2025-11-10",
+      "label": "Nov 10",
+      "revenue": 42223.98,
+      "transactions": 5006
+    },
+    {
+      "weekStart": "2025-11-17",
+      "label": "Nov 17",
+      "revenue": 30951.0,
+      "transactions": 3780
+    },
+    {
+      "weekStart": "2025-11-24",
+      "label": "Nov 24",
+      "revenue": 27862.99,
+      "transactions": 3301
+    },
+    {
+      "weekStart": "2025-12-01",
+      "label": "Dec 01",
+      "revenue": 31703.0,
+      "transactions": 3484
+    },
+    {
+      "weekStart": "2025-12-08",
+      "label": "Dec 08",
+      "revenue": 37622.0,
+      "transactions": 4066
+    },
+    {
+      "weekStart": "2025-12-15",
+      "label": "Dec 15",
+      "revenue": 41594.0,
+      "transactions": 4809
+    },
+    {
+      "weekStart": "2025-12-22",
+      "label": "Dec 22",
+      "revenue": 29104.99,
+      "transactions": 3494
+    },
+    {
+      "weekStart": "2025-12-29",
+      "label": "Dec 29",
+      "revenue": 38855.0,
+      "transactions": 4624
+    },
+    {
+      "weekStart": "2026-01-05",
+      "label": "Jan 05",
+      "revenue": 28586.0,
+      "transactions": 3465
+    },
+    {
+      "weekStart": "2026-01-12",
+      "label": "Jan 12",
+      "revenue": 32815.0,
+      "transactions": 3815
+    },
+    {
+      "weekStart": "2026-01-19",
+      "label": "Jan 19",
+      "revenue": 29147.99,
+      "transactions": 3541
+    },
+    {
+      "weekStart": "2026-01-26",
+      "label": "Jan 26",
+      "revenue": 25901.0,
+      "transactions": 3136
+    },
+    {
+      "weekStart": "2026-02-02",
+      "label": "Feb 02",
+      "revenue": 13811.0,
+      "transactions": 1693
+    }
+  ],
+  "monthlyByCategory": [
+    {
+      "month": "2025-10",
+      "label": "Oct 2025",
+      "categories": {
+        "Draft Beer": 62260.97,
+        "Liquor": 64664.0,
+        "Bottle Beer": 12648.0,
+        "Mocktails": 91.0,
+        "Drink tickets": 4989.0
+      }
+    },
+    {
+      "month": "2025-11",
+      "label": "Nov 2025",
+      "categories": {
+        "Draft Beer": 71848.96,
+        "Liquor": 61054.0,
+        "Bottle Beer": 11438.0,
+        "Mocktails": 119.0,
+        "Drink tickets": 480.0
+      }
+    },
+    {
+      "month": "2025-12",
+      "label": "Dec 2025",
+      "categories": {
+        "Draft Beer": 70907.99,
+        "Liquor": 60726.0,
+        "Bottle Beer": 11406.0,
+        "Mocktails": 77.0,
+        "Drink tickets": 7623.0
+      }
+    },
+    {
+      "month": "2026-01",
+      "label": "Jan 2026",
+      "categories": {
+        "Draft Beer": 66847.99,
+        "Liquor": 59077.0,
+        "Bottle Beer": 14149.0,
+        "Mocktails": 140.0,
+        "Drink tickets": 1560.0
+      }
+    },
+    {
+      "month": "2026-02",
+      "label": "Feb 2026",
+      "categories": {
+        "Draft Beer": 6900.0,
+        "Liquor": 7889.0,
+        "Bottle Beer": 1823.0,
+        "Mocktails": 14.0
+      }
+    }
+  ],
+  "itemDetail": [
+    {
+      "rank": 1,
+      "name": "Modelo Draft",
+      "category": "Draft Beer",
+      "quantity": 5431,
+      "revenue": 43448.0,
+      "avgPrice": 8.0,
+      "weeklyAvg": 285.8
+    },
+    {
+      "rank": 2,
+      "name": "Pacifico Draft",
+      "category": "Draft Beer",
+      "quantity": 4804,
+      "revenue": 38432.0,
+      "avgPrice": 8.0,
+      "weeklyAvg": 252.8
+    },
+    {
+      "rank": 3,
+      "name": "Michelob Ultra Draft",
+      "category": "Draft Beer",
+      "quantity": 4297,
+      "revenue": 29177.99,
+      "avgPrice": 6.79,
+      "weeklyAvg": 226.2
+    },
+    {
+      "rank": 4,
+      "name": "Coors Light Draft",
+      "category": "Draft Beer",
+      "quantity": 3571,
+      "revenue": 24118.0,
+      "avgPrice": 6.75,
+      "weeklyAvg": 187.9
+    },
+    {
+      "rank": 5,
+      "name": "Titos",
+      "category": "Liquor",
+      "quantity": 2147,
+      "revenue": 21470.0,
+      "avgPrice": 10.0,
+      "weeklyAvg": 113.0
+    },
+    {
+      "rank": 6,
+      "name": "Huckleberry Draft",
+      "category": "Draft Beer",
+      "quantity": 2461,
+      "revenue": 19688.0,
+      "avgPrice": 8.0,
+      "weeklyAvg": 129.5
+    },
+    {
+      "rank": 7,
+      "name": "Slap N Tickle Draft",
+      "category": "Draft Beer",
+      "quantity": 1956,
+      "revenue": 17604.0,
+      "avgPrice": 9.0,
+      "weeklyAvg": 102.9
+    },
+    {
+      "rank": 8,
+      "name": "Firestone 805 Draft",
+      "category": "Draft Beer",
+      "quantity": 2057,
+      "revenue": 16455.95,
+      "avgPrice": 8.0,
+      "weeklyAvg": 108.3
+    },
+    {
+      "rank": 9,
+      "name": "Jameson",
+      "category": "Liquor",
+      "quantity": 1429,
+      "revenue": 14290.0,
+      "avgPrice": 10.0,
+      "weeklyAvg": 75.2
+    },
+    {
+      "rank": 10,
+      "name": "BTL - Coors Light",
+      "category": "Bottle Beer",
+      "quantity": 2687,
+      "revenue": 13435.0,
+      "avgPrice": 5.0,
+      "weeklyAvg": 141.4
+    },
+    {
+      "rank": 11,
+      "name": "Space Dust Draft",
+      "category": "Draft Beer",
+      "quantity": 1421,
+      "revenue": 12789.0,
+      "avgPrice": 9.0,
+      "weeklyAvg": 74.8
+    },
+    {
+      "rank": 12,
+      "name": "Patron",
+      "category": "Liquor",
+      "quantity": 1120,
+      "revenue": 12320.0,
+      "avgPrice": 11.0,
+      "weeklyAvg": 58.9
+    },
+    {
+      "rank": 13,
+      "name": "Well Vodka",
+      "category": "Liquor",
+      "quantity": 1522,
+      "revenue": 12176.0,
+      "avgPrice": 8.0,
+      "weeklyAvg": 80.1
+    },
+    {
+      "rank": 14,
+      "name": "Mango Cart Draft",
+      "category": "Draft Beer",
+      "quantity": 1515,
+      "revenue": 12120.0,
+      "avgPrice": 8.0,
+      "weeklyAvg": 79.7
+    },
+    {
+      "rank": 15,
+      "name": "Jack Daniels",
+      "category": "Liquor",
+      "quantity": 1089,
+      "revenue": 10890.0,
+      "avgPrice": 10.0,
+      "weeklyAvg": 57.3
+    },
+    {
+      "rank": 16,
+      "name": "Brewery X Blonde",
+      "category": "Draft Beer",
+      "quantity": 1480,
+      "revenue": 10742.0,
+      "avgPrice": 7.26,
+      "weeklyAvg": 77.9
+    },
+    {
+      "rank": 17,
+      "name": "Watermelon Margarita",
+      "category": "Liquor",
+      "quantity": 847,
+      "revenue": 9784.0,
+      "avgPrice": 11.55,
+      "weeklyAvg": 44.6
+    },
+    {
+      "rank": 18,
+      "name": "Cali Squeeze Draft",
+      "category": "Draft Beer",
+      "quantity": 1122,
+      "revenue": 8976.0,
+      "avgPrice": 8.0,
+      "weeklyAvg": 59.1
+    },
+    {
+      "rank": 19,
+      "name": "Drink Tickets - Beer, Wine & Well",
+      "category": "Drink tickets",
+      "quantity": 948,
+      "revenue": 8532.0,
+      "avgPrice": 9.0,
+      "weeklyAvg": 49.9
+    },
+    {
+      "rank": 20,
+      "name": "Well Tequila",
+      "category": "Liquor",
+      "quantity": 956,
+      "revenue": 7648.0,
+      "avgPrice": 8.0,
+      "weeklyAvg": 50.3
+    },
+    {
+      "rank": 21,
+      "name": "Fuzzy Logic IPA Draft",
+      "category": "Draft Beer",
+      "quantity": 849,
+      "revenue": 7641.0,
+      "avgPrice": 9.0,
+      "weeklyAvg": 44.7
+    },
+    {
+      "rank": 22,
+      "name": "Margarita",
+      "category": "Liquor",
+      "quantity": 717,
+      "revenue": 7170.0,
+      "avgPrice": 10.0,
+      "weeklyAvg": 37.7
+    },
+    {
+      "rank": 23,
+      "name": "Guinness Draft",
+      "category": "Draft Beer",
+      "quantity": 671,
+      "revenue": 6710.0,
+      "avgPrice": 10.0,
+      "weeklyAvg": 35.3
+    },
+    {
+      "rank": 24,
+      "name": "Pina Paloma",
+      "category": "Liquor",
+      "quantity": 571,
+      "revenue": 6584.0,
+      "avgPrice": 11.53,
+      "weeklyAvg": 30.1
+    },
+    {
+      "rank": 25,
+      "name": "Stella Draft",
+      "category": "Draft Beer",
+      "quantity": 810,
+      "revenue": 6479.98,
+      "avgPrice": 8.0,
+      "weeklyAvg": 42.6
+    },
+    {
+      "rank": 26,
+      "name": "Drink Tickets - Premium",
+      "category": "Drink tickets",
+      "quantity": 510,
+      "revenue": 6120.0,
+      "avgPrice": 12.0,
+      "weeklyAvg": 26.8
+    },
+    {
+      "rank": 27,
+      "name": "Casamigos Silver",
+      "category": "Liquor",
+      "quantity": 597,
+      "revenue": 5970.0,
+      "avgPrice": 10.0,
+      "weeklyAvg": 31.4
+    },
+    {
+      "rank": 28,
+      "name": "BTL - Corona",
+      "category": "Bottle Beer",
+      "quantity": 992,
+      "revenue": 5952.0,
+      "avgPrice": 6.0,
+      "weeklyAvg": 52.2
+    },
+    {
+      "rank": 29,
+      "name": "Green Tea Shot",
+      "category": "Liquor",
+      "quantity": 631,
+      "revenue": 5679.0,
+      "avgPrice": 9.0,
+      "weeklyAvg": 33.2
+    },
+    {
+      "rank": 30,
+      "name": "Casamigos Reposado",
+      "category": "Liquor",
+      "quantity": 515,
+      "revenue": 5665.0,
+      "avgPrice": 11.0,
+      "weeklyAvg": 27.1
+    },
+    {
+      "rank": 31,
+      "name": "Mexican Lolipop Shot",
+      "category": "Liquor",
+      "quantity": 612,
+      "revenue": 5508.0,
+      "avgPrice": 9.0,
+      "weeklyAvg": 32.2
+    },
+    {
+      "rank": 32,
+      "name": "She Shot First",
+      "category": "Draft Beer",
+      "quantity": 603,
+      "revenue": 5283.0,
+      "avgPrice": 8.76,
+      "weeklyAvg": 31.7
+    },
+    {
+      "rank": 33,
+      "name": "Cazadores Reposado",
+      "category": "Liquor",
+      "quantity": 459,
+      "revenue": 5049.0,
+      "avgPrice": 11.0,
+      "weeklyAvg": 24.2
+    },
+    {
+      "rank": 34,
+      "name": "Lalo Blanco Tequila",
+      "category": "Liquor",
+      "quantity": 490,
+      "revenue": 4900.0,
+      "avgPrice": 10.0,
+      "weeklyAvg": 25.8
+    },
+    {
+      "rank": 35,
+      "name": "Long Island Iced Tea",
+      "category": "Liquor",
+      "quantity": 390,
+      "revenue": 4680.0,
+      "avgPrice": 12.0,
+      "weeklyAvg": 20.5
+    },
+    {
+      "rank": 36,
+      "name": "Bomb Pop",
+      "category": "Liquor",
+      "quantity": 506,
+      "revenue": 4554.0,
+      "avgPrice": 9.0,
+      "weeklyAvg": 26.6
+    },
+    {
+      "rank": 37,
+      "name": "Ketel One",
+      "category": "Liquor",
+      "quantity": 404,
+      "revenue": 4444.0,
+      "avgPrice": 11.0,
+      "weeklyAvg": 21.3
+    },
+    {
+      "rank": 38,
+      "name": "Angry Orchard Draft",
+      "category": "Draft Beer",
+      "quantity": 536,
+      "revenue": 4288.0,
+      "avgPrice": 8.0,
+      "weeklyAvg": 28.2
+    },
+    {
+      "rank": 39,
+      "name": "BTL - Coors Banquet",
+      "category": "Bottle Beer",
+      "quantity": 848,
+      "revenue": 4240.0,
+      "avgPrice": 5.0,
+      "weeklyAvg": 44.6
+    },
+    {
+      "rank": 40,
+      "name": "Dos Equis Ambar",
+      "category": "Draft Beer",
+      "quantity": 580,
+      "revenue": 4152.0,
+      "avgPrice": 7.16,
+      "weeklyAvg": 30.5
+    },
+    {
+      "rank": 41,
+      "name": "Cactus Cooler Shot",
+      "category": "Liquor",
+      "quantity": 410,
+      "revenue": 3690.0,
+      "avgPrice": 9.0,
+      "weeklyAvg": 21.6
+    },
+    {
+      "rank": 42,
+      "name": "CAN White Claw Black Cherry",
+      "category": "Bottle Beer",
+      "quantity": 495,
+      "revenue": 3380.0,
+      "avgPrice": 6.83,
+      "weeklyAvg": 26.1
+    },
+    {
+      "rank": 43,
+      "name": "El Jimador Silver",
+      "category": "Liquor",
+      "quantity": 354,
+      "revenue": 3186.0,
+      "avgPrice": 9.0,
+      "weeklyAvg": 18.6
+    },
+    {
+      "rank": 44,
+      "name": "Makers Mark",
+      "category": "Liquor",
+      "quantity": 283,
+      "revenue": 3113.0,
+      "avgPrice": 11.0,
+      "weeklyAvg": 14.9
+    },
+    {
+      "rank": 45,
+      "name": "BTL-Miller Lite",
+      "category": "Bottle Beer",
+      "quantity": 622,
+      "revenue": 3110.0,
+      "avgPrice": 5.0,
+      "weeklyAvg": 32.7
+    },
+    {
+      "rank": 46,
+      "name": "CAN - Twisted Tea Peach",
+      "category": "Bottle Beer",
+      "quantity": 337,
+      "revenue": 3033.0,
+      "avgPrice": 9.0,
+      "weeklyAvg": 17.7
+    },
+    {
+      "rank": 47,
+      "name": "CAN White Claw Waltermelon",
+      "category": "Bottle Beer",
+      "quantity": 431,
+      "revenue": 3017.0,
+      "avgPrice": 7.0,
+      "weeklyAvg": 22.7
+    },
+    {
+      "rank": 48,
+      "name": "BTL - Bud Light",
+      "category": "Bottle Beer",
+      "quantity": 581,
+      "revenue": 2905.0,
+      "avgPrice": 5.0,
+      "weeklyAvg": 30.6
+    },
+    {
+      "rank": 49,
+      "name": "Fireball",
+      "category": "Liquor",
+      "quantity": 321,
+      "revenue": 2889.0,
+      "avgPrice": 9.0,
+      "weeklyAvg": 16.9
+    },
+    {
+      "rank": 50,
+      "name": "Hennessey",
+      "category": "Liquor",
+      "quantity": 261,
+      "revenue": 2871.0,
+      "avgPrice": 11.0,
+      "weeklyAvg": 13.7
+    },
+    {
+      "rank": 51,
+      "name": "Well Bourbon",
+      "category": "Liquor",
+      "quantity": 355,
+      "revenue": 2840.0,
+      "avgPrice": 8.0,
+      "weeklyAvg": 18.7
+    },
+    {
+      "rank": 52,
+      "name": "Double Actuator",
+      "category": "Draft Beer",
+      "quantity": 278,
+      "revenue": 2780.0,
+      "avgPrice": 10.0,
+      "weeklyAvg": 14.6
+    },
+    {
+      "rank": 53,
+      "name": "Sweet Tart Shot",
+      "category": "Liquor",
+      "quantity": 304,
+      "revenue": 2736.0,
+      "avgPrice": 9.0,
+      "weeklyAvg": 16.0
+    },
+    {
+      "rank": 54,
+      "name": "Crown Royal",
+      "category": "Liquor",
+      "quantity": 253,
+      "revenue": 2530.0,
+      "avgPrice": 10.0,
+      "weeklyAvg": 13.3
+    },
+    {
+      "rank": 55,
+      "name": "Can Sun Cruiser Iced Tea",
+      "category": "Bottle Beer",
+      "quantity": 352,
+      "revenue": 2464.0,
+      "avgPrice": 7.0,
+      "weeklyAvg": 18.5
+    },
+    {
+      "rank": 56,
+      "name": "Cadillac Margarita",
+      "category": "Liquor",
+      "quantity": 191,
+      "revenue": 2292.0,
+      "avgPrice": 12.0,
+      "weeklyAvg": 10.1
+    },
+    {
+      "rank": 57,
+      "name": "October Fest",
+      "category": "Draft Beer",
+      "quantity": 280,
+      "revenue": 2240.0,
+      "avgPrice": 8.0,
+      "weeklyAvg": 14.7
+    },
+    {
+      "rank": 58,
+      "name": "Buffalo Trace",
+      "category": "Liquor",
+      "quantity": 248,
+      "revenue": 2232.0,
+      "avgPrice": 9.0,
+      "weeklyAvg": 13.1
+    },
+    {
+      "rank": 59,
+      "name": "Captain Morgan",
+      "category": "Liquor",
+      "quantity": 244,
+      "revenue": 2196.0,
+      "avgPrice": 9.0,
+      "weeklyAvg": 12.8
+    },
+    {
+      "rank": 60,
+      "name": "Bulliet Bourbon",
+      "category": "Liquor",
+      "quantity": 217,
+      "revenue": 2170.0,
+      "avgPrice": 10.0,
+      "weeklyAvg": 11.4
+    },
+    {
+      "rank": 61,
+      "name": "Malibu",
+      "category": "Liquor",
+      "quantity": 239,
+      "revenue": 2151.0,
+      "avgPrice": 9.0,
+      "weeklyAvg": 12.6
+    },
+    {
+      "rank": 62,
+      "name": "Can Sun cruiser Lemonade",
+      "category": "Bottle Beer",
+      "quantity": 304,
+      "revenue": 2128.0,
+      "avgPrice": 7.0,
+      "weeklyAvg": 16.0
+    },
+    {
+      "rank": 63,
+      "name": "Coconut Mojito",
+      "category": "Liquor",
+      "quantity": 185,
+      "revenue": 2106.0,
+      "avgPrice": 11.38,
+      "weeklyAvg": 9.7
+    },
+    {
+      "rank": 64,
+      "name": "Hendricks",
+      "category": "Liquor",
+      "quantity": 186,
+      "revenue": 2046.0,
+      "avgPrice": 11.0,
+      "weeklyAvg": 9.8
+    },
+    {
+      "rank": 65,
+      "name": "The Old Traveler",
+      "category": "Liquor",
+      "quantity": 176,
+      "revenue": 1974.0,
+      "avgPrice": 11.22,
+      "weeklyAvg": 9.3
+    },
+    {
+      "rank": 66,
+      "name": "Lemon drop shot",
+      "category": "Liquor",
+      "quantity": 216,
+      "revenue": 1944.0,
+      "avgPrice": 9.0,
+      "weeklyAvg": 11.4
+    },
+    {
+      "rank": 67,
+      "name": "Irish car bomb",
+      "category": "Liquor",
+      "quantity": 160,
+      "revenue": 1920.0,
+      "avgPrice": 12.0,
+      "weeklyAvg": 8.4
+    },
+    {
+      "rank": 68,
+      "name": "Vodka Rockstar",
+      "category": "Liquor",
+      "quantity": 171,
+      "revenue": 1881.0,
+      "avgPrice": 11.0,
+      "weeklyAvg": 9.0
+    },
+    {
+      "rank": 69,
+      "name": "Espresso Martini",
+      "category": "Liquor",
+      "quantity": 160,
+      "revenue": 1814.0,
+      "avgPrice": 11.34,
+      "weeklyAvg": 8.4
+    },
+    {
+      "rank": 70,
+      "name": "Well Rum",
+      "category": "Liquor",
+      "quantity": 221,
+      "revenue": 1768.0,
+      "avgPrice": 8.0,
+      "weeklyAvg": 11.6
+    },
+    {
+      "rank": 71,
+      "name": "Moscow Mule",
+      "category": "Liquor",
+      "quantity": 173,
+      "revenue": 1730.0,
+      "avgPrice": 10.0,
+      "weeklyAvg": 9.1
+    },
+    {
+      "rank": 72,
+      "name": "Titos Lemon Drop Martini",
+      "category": "Liquor",
+      "quantity": 140,
+      "revenue": 1618.0,
+      "avgPrice": 11.56,
+      "weeklyAvg": 7.4
+    },
+    {
+      "rank": 73,
+      "name": "BTL- Heineken",
+      "category": "Bottle Beer",
+      "quantity": 268,
+      "revenue": 1608.0,
+      "avgPrice": 6.0,
+      "weeklyAvg": 14.1
+    },
+    {
+      "rank": 74,
+      "name": "Seagrams 7",
+      "category": "Liquor",
+      "quantity": 178,
+      "revenue": 1602.0,
+      "avgPrice": 9.0,
+      "weeklyAvg": 9.4
+    },
+    {
+      "rank": 75,
+      "name": "Trinity Oaks Chardonay",
+      "category": "Liquor",
+      "quantity": 215,
+      "revenue": 1582.0,
+      "avgPrice": 7.36,
+      "weeklyAvg": 11.3
+    },
+    {
+      "rank": 76,
+      "name": "Joel Gott Chardonnay",
+      "category": "Liquor",
+      "quantity": 158,
+      "revenue": 1580.0,
+      "avgPrice": 10.0,
+      "weeklyAvg": 8.3
+    },
+    {
+      "rank": 77,
+      "name": "Snake Bite",
+      "category": "Draft Beer",
+      "quantity": 172,
+      "revenue": 1548.0,
+      "avgPrice": 9.0,
+      "weeklyAvg": 9.1
+    },
+    {
+      "rank": 78,
+      "name": "Adios MF",
+      "category": "Liquor",
+      "quantity": 139,
+      "revenue": 1529.0,
+      "avgPrice": 11.0,
+      "weeklyAvg": 7.3
+    },
+    {
+      "rank": 79,
+      "name": "Trinity Oaks Pinot Grigio",
+      "category": "Liquor",
+      "quantity": 200,
+      "revenue": 1514.0,
+      "avgPrice": 7.57,
+      "weeklyAvg": 10.5
+    },
+    {
+      "rank": 80,
+      "name": "Bloody Mary",
+      "category": "Liquor",
+      "quantity": 148,
+      "revenue": 1480.0,
+      "avgPrice": 10.0,
+      "weeklyAvg": 7.8
+    },
+    {
+      "rank": 81,
+      "name": "Well Gin",
+      "category": "Liquor",
+      "quantity": 184,
+      "revenue": 1472.0,
+      "avgPrice": 8.0,
+      "weeklyAvg": 9.7
+    },
+    {
+      "rank": 82,
+      "name": "Naughty Sauce",
+      "category": "Draft Beer",
+      "quantity": 156,
+      "revenue": 1404.0,
+      "avgPrice": 9.0,
+      "weeklyAvg": 8.2
+    },
+    {
+      "rank": 83,
+      "name": "Hendricks Cucumber Splash",
+      "category": "Liquor",
+      "quantity": 121,
+      "revenue": 1372.0,
+      "avgPrice": 11.34,
+      "weeklyAvg": 6.4
+    },
+    {
+      "rank": 84,
+      "name": "Cazadores Anejo",
+      "category": "Liquor",
+      "quantity": 112,
+      "revenue": 1344.0,
+      "avgPrice": 12.0,
+      "weeklyAvg": 5.9
+    },
+    {
+      "rank": 85,
+      "name": "Bulliet Rye",
+      "category": "Liquor",
+      "quantity": 128,
+      "revenue": 1280.0,
+      "avgPrice": 10.0,
+      "weeklyAvg": 6.7
+    },
+    {
+      "rank": 86,
+      "name": "Crown Royal Apple",
+      "category": "Liquor",
+      "quantity": 128,
+      "revenue": 1280.0,
+      "avgPrice": 10.0,
+      "weeklyAvg": 6.7
+    },
+    {
+      "rank": 87,
+      "name": "Scooby Snack Shot",
+      "category": "Liquor",
+      "quantity": 140,
+      "revenue": 1260.0,
+      "avgPrice": 9.0,
+      "weeklyAvg": 7.4
+    },
+    {
+      "rank": 88,
+      "name": "Trinity Oaks Cabernet",
+      "category": "Liquor",
+      "quantity": 162,
+      "revenue": 1250.0,
+      "avgPrice": 7.72,
+      "weeklyAvg": 8.5
+    },
+    {
+      "rank": 89,
+      "name": "Bombay Saphire",
+      "category": "Liquor",
+      "quantity": 108,
+      "revenue": 1188.0,
+      "avgPrice": 11.0,
+      "weeklyAvg": 5.7
+    },
+    {
+      "rank": 90,
+      "name": "BTL - Corona Light",
+      "category": "Bottle Beer",
+      "quantity": 198,
+      "revenue": 1188.0,
+      "avgPrice": 6.0,
+      "weeklyAvg": 10.4
+    },
+    {
+      "rank": 91,
+      "name": "Apple Cider Margarita",
+      "category": "Liquor",
+      "quantity": 96,
+      "revenue": 1118.0,
+      "avgPrice": 11.65,
+      "weeklyAvg": 5.1
+    },
+    {
+      "rank": 92,
+      "name": "Screw Ball",
+      "category": "Liquor",
+      "quantity": 126,
+      "revenue": 1008.0,
+      "avgPrice": 8.0,
+      "weeklyAvg": 6.6
+    },
+    {
+      "rank": 93,
+      "name": "Jager Bomb",
+      "category": "Liquor",
+      "quantity": 99,
+      "revenue": 990.0,
+      "avgPrice": 10.0,
+      "weeklyAvg": 5.2
+    },
+    {
+      "rank": 94,
+      "name": "CAN Happy Dad Fruit Punch",
+      "category": "Bottle Beer",
+      "quantity": 123,
+      "revenue": 984.0,
+      "avgPrice": 8.0,
+      "weeklyAvg": 6.5
+    },
+    {
+      "rank": 95,
+      "name": "Kamikazi Shot",
+      "category": "Liquor",
+      "quantity": 108,
+      "revenue": 972.0,
+      "avgPrice": 9.0,
+      "weeklyAvg": 5.7
+    },
+    {
+      "rank": 96,
+      "name": "Woodford Reserve",
+      "category": "Liquor",
+      "quantity": 95,
+      "revenue": 950.0,
+      "avgPrice": 10.0,
+      "weeklyAvg": 5.0
+    },
+    {
+      "rank": 97,
+      "name": "Sam Adams Hopscape",
+      "category": "Draft Beer",
+      "quantity": 118,
+      "revenue": 944.0,
+      "avgPrice": 8.0,
+      "weeklyAvg": 6.2
+    },
+    {
+      "rank": 98,
+      "name": "Jagermeister",
+      "category": "Liquor",
+      "quantity": 104,
+      "revenue": 936.0,
+      "avgPrice": 9.0,
+      "weeklyAvg": 5.5
+    },
+    {
+      "rank": 99,
+      "name": "Buttery Nipple",
+      "category": "Liquor",
+      "quantity": 102,
+      "revenue": 918.0,
+      "avgPrice": 9.0,
+      "weeklyAvg": 5.4
+    },
+    {
+      "rank": 100,
+      "name": "Midori Sour",
+      "category": "Liquor",
+      "quantity": 100,
+      "revenue": 900.0,
+      "avgPrice": 9.0,
+      "weeklyAvg": 5.3
+    },
+    {
+      "rank": 101,
+      "name": "CAN Happy Dad Grape",
+      "category": "Bottle Beer",
+      "quantity": 112,
+      "revenue": 896.0,
+      "avgPrice": 8.0,
+      "weeklyAvg": 5.9
+    },
+    {
+      "rank": 102,
+      "name": "Athletic Upside Dawn",
+      "category": "Bottle Beer",
+      "quantity": 127,
+      "revenue": 864.0,
+      "avgPrice": 6.8,
+      "weeklyAvg": 6.7
+    },
+    {
+      "rank": 103,
+      "name": "Long Beach Iced Tea",
+      "category": "Liquor",
+      "quantity": 71,
+      "revenue": 852.0,
+      "avgPrice": 12.0,
+      "weeklyAvg": 3.7
+    },
+    {
+      "rank": 104,
+      "name": "Cactus Cooler Drink",
+      "category": "Liquor",
+      "quantity": 77,
+      "revenue": 847.0,
+      "avgPrice": 11.0,
+      "weeklyAvg": 4.1
+    },
+    {
+      "rank": 105,
+      "name": "White Tea Shot",
+      "category": "Liquor",
+      "quantity": 81,
+      "revenue": 810.0,
+      "avgPrice": 10.0,
+      "weeklyAvg": 4.3
+    },
+    {
+      "rank": 106,
+      "name": "Greyhound IPA",
+      "category": "Draft Beer",
+      "quantity": 89,
+      "revenue": 801.0,
+      "avgPrice": 9.0,
+      "weeklyAvg": 4.7
+    },
+    {
+      "rank": 107,
+      "name": "J Roget Champagne Split",
+      "category": "Liquor",
+      "quantity": 104,
+      "revenue": 728.0,
+      "avgPrice": 7.0,
+      "weeklyAvg": 5.5
+    },
+    {
+      "rank": 108,
+      "name": "Peanut Butter Espresso Martini",
+      "category": "Liquor",
+      "quantity": 65,
+      "revenue": 728.0,
+      "avgPrice": 11.2,
+      "weeklyAvg": 3.4
+    },
+    {
+      "rank": 109,
+      "name": "Snapple",
+      "category": "Liquor",
+      "quantity": 60,
+      "revenue": 720.0,
+      "avgPrice": 12.0,
+      "weeklyAvg": 3.2
+    },
+    {
+      "rank": 110,
+      "name": "Mojito",
+      "category": "Liquor",
+      "quantity": 66,
+      "revenue": 660.0,
+      "avgPrice": 10.0,
+      "weeklyAvg": 3.5
+    },
+    {
+      "rank": 111,
+      "name": "Wet Pussy Shot",
+      "category": "Liquor",
+      "quantity": 65,
+      "revenue": 650.0,
+      "avgPrice": 10.0,
+      "weeklyAvg": 3.4
+    },
+    {
+      "rank": 112,
+      "name": "Tequila Sunrise",
+      "category": "Liquor",
+      "quantity": 70,
+      "revenue": 630.0,
+      "avgPrice": 9.0,
+      "weeklyAvg": 3.7
+    },
+    {
+      "rank": 113,
+      "name": "White Gummy Shot",
+      "category": "Liquor",
+      "quantity": 70,
+      "revenue": 630.0,
+      "avgPrice": 9.0,
+      "weeklyAvg": 3.7
+    },
+    {
+      "rank": 114,
+      "name": "Johnny Walker Black",
+      "category": "Liquor",
+      "quantity": 52,
+      "revenue": 624.0,
+      "avgPrice": 12.0,
+      "weeklyAvg": 2.7
+    },
+    {
+      "rank": 115,
+      "name": "Four Roses",
+      "category": "Liquor",
+      "quantity": 61,
+      "revenue": 610.0,
+      "avgPrice": 10.0,
+      "weeklyAvg": 3.2
+    },
+    {
+      "rank": 116,
+      "name": "Athletic Run Wild IPA",
+      "category": "Bottle Beer",
+      "quantity": 82,
+      "revenue": 559.0,
+      "avgPrice": 6.82,
+      "weeklyAvg": 4.3
+    },
+    {
+      "rank": 117,
+      "name": "BTL - Budweiser",
+      "category": "Bottle Beer",
+      "quantity": 109,
+      "revenue": 545.0,
+      "avgPrice": 5.0,
+      "weeklyAvg": 5.7
+    },
+    {
+      "rank": 118,
+      "name": "BYO BEER BUCKET",
+      "category": "Bottle Beer",
+      "quantity": 23,
+      "revenue": 545.0,
+      "avgPrice": 23.7,
+      "weeklyAvg": 1.2
+    },
+    {
+      "rank": 119,
+      "name": "Trinity Oaks Merlot",
+      "category": "Liquor",
+      "quantity": 71,
+      "revenue": 540.0,
+      "avgPrice": 7.61,
+      "weeklyAvg": 3.7
+    },
+    {
+      "rank": 120,
+      "name": "Lemon Drop Martini",
+      "category": "Liquor",
+      "quantity": 47,
+      "revenue": 517.0,
+      "avgPrice": 11.0,
+      "weeklyAvg": 2.5
+    },
+    {
+      "rank": 121,
+      "name": "Mai Tai",
+      "category": "Liquor",
+      "quantity": 43,
+      "revenue": 516.0,
+      "avgPrice": 12.0,
+      "weeklyAvg": 2.3
+    },
+    {
+      "rank": 122,
+      "name": "Chocolate Cake Shake",
+      "category": "Liquor",
+      "quantity": 56,
+      "revenue": 504.0,
+      "avgPrice": 9.0,
+      "weeklyAvg": 2.9
+    },
+    {
+      "rank": 123,
+      "name": "Amaretto",
+      "category": "Liquor",
+      "quantity": 61,
+      "revenue": 488.0,
+      "avgPrice": 8.0,
+      "weeklyAvg": 3.2
+    },
+    {
+      "rank": 124,
+      "name": "Irish Trash Can",
+      "category": "Liquor",
+      "quantity": 39,
+      "revenue": 468.0,
+      "avgPrice": 12.0,
+      "weeklyAvg": 2.1
+    },
+    {
+      "rank": 125,
+      "name": "Titos Kami",
+      "category": "Liquor",
+      "quantity": 39,
+      "revenue": 468.0,
+      "avgPrice": 12.0,
+      "weeklyAvg": 2.1
+    },
+    {
+      "rank": 126,
+      "name": "Maple Bourbon Smash",
+      "category": "Liquor",
+      "quantity": 39,
+      "revenue": 444.0,
+      "avgPrice": 11.38,
+      "weeklyAvg": 2.1
+    },
+    {
+      "rank": 127,
+      "name": "Pistachio Shot",
+      "category": "Liquor",
+      "quantity": 47,
+      "revenue": 423.0,
+      "avgPrice": 9.0,
+      "weeklyAvg": 2.5
+    },
+    {
+      "rank": 128,
+      "name": "White Russian",
+      "category": "Liquor",
+      "quantity": 41,
+      "revenue": 410.0,
+      "avgPrice": 10.0,
+      "weeklyAvg": 2.2
+    },
+    {
+      "rank": 129,
+      "name": "White Gummy Bear Drink",
+      "category": "Liquor",
+      "quantity": 35,
+      "revenue": 385.0,
+      "avgPrice": 11.0,
+      "weeklyAvg": 1.8
+    },
+    {
+      "rank": 130,
+      "name": "The Glenlivet",
+      "category": "Liquor",
+      "quantity": 32,
+      "revenue": 384.0,
+      "avgPrice": 12.0,
+      "weeklyAvg": 1.7
+    },
+    {
+      "rank": 131,
+      "name": "Sex On The Beach",
+      "category": "Liquor",
+      "quantity": 42,
+      "revenue": 378.0,
+      "avgPrice": 9.0,
+      "weeklyAvg": 2.2
+    },
+    {
+      "rank": 132,
+      "name": "Vegas Bomb",
+      "category": "Liquor",
+      "quantity": 30,
+      "revenue": 360.0,
+      "avgPrice": 12.0,
+      "weeklyAvg": 1.6
+    },
+    {
+      "rank": 133,
+      "name": "Mexican Lolipop Drink",
+      "category": "Liquor",
+      "quantity": 31,
+      "revenue": 341.0,
+      "avgPrice": 11.0,
+      "weeklyAvg": 1.6
+    },
+    {
+      "rank": 134,
+      "name": "Pinnacle Cherry Vodka",
+      "category": "Liquor",
+      "quantity": 42,
+      "revenue": 336.0,
+      "avgPrice": 8.0,
+      "weeklyAvg": 2.2
+    },
+    {
+      "rank": 135,
+      "name": "Shoot The Root",
+      "category": "Liquor",
+      "quantity": 35,
+      "revenue": 315.0,
+      "avgPrice": 9.0,
+      "weeklyAvg": 1.8
+    },
+    {
+      "rank": 136,
+      "name": "Kona Big Wave Draft",
+      "category": "Draft Beer",
+      "quantity": 43,
+      "revenue": 314.0,
+      "avgPrice": 7.3,
+      "weeklyAvg": 2.3
+    },
+    {
+      "rank": 137,
+      "name": "Tokyo Tea",
+      "category": "Liquor",
+      "quantity": 26,
+      "revenue": 312.0,
+      "avgPrice": 12.0,
+      "weeklyAvg": 1.4
+    },
+    {
+      "rank": 138,
+      "name": "Fireball Apple",
+      "category": "Liquor",
+      "quantity": 34,
+      "revenue": 306.0,
+      "avgPrice": 9.0,
+      "weeklyAvg": 1.8
+    },
+    {
+      "rank": 139,
+      "name": "Blow Job",
+      "category": "Liquor",
+      "quantity": 30,
+      "revenue": 300.0,
+      "avgPrice": 10.0,
+      "weeklyAvg": 1.6
+    },
+    {
+      "rank": 140,
+      "name": "Smirnoff Watermelon Vodka",
+      "category": "Liquor",
+      "quantity": 33,
+      "revenue": 297.0,
+      "avgPrice": 9.0,
+      "weeklyAvg": 1.7
+    },
+    {
+      "rank": 141,
+      "name": "J Roget Champagne Bottle",
+      "category": "Liquor",
+      "quantity": 27,
+      "revenue": 292.0,
+      "avgPrice": 10.81,
+      "weeklyAvg": 1.4
+    },
+    {
+      "rank": 142,
+      "name": "Gentleman Jack",
+      "category": "Liquor",
+      "quantity": 24,
+      "revenue": 288.0,
+      "avgPrice": 12.0,
+      "weeklyAvg": 1.3
+    },
+    {
+      "rank": 143,
+      "name": "Smirnoff Orange Vodka",
+      "category": "Liquor",
+      "quantity": 31,
+      "revenue": 279.0,
+      "avgPrice": 9.0,
+      "weeklyAvg": 1.6
+    },
+    {
+      "rank": 144,
+      "name": "Pumpkin Spiced Martini",
+      "category": "Liquor",
+      "quantity": 25,
+      "revenue": 268.0,
+      "avgPrice": 10.72,
+      "weeklyAvg": 1.3
+    },
+    {
+      "rank": 145,
+      "name": "Jack Daniels Blackberry",
+      "category": "Liquor",
+      "quantity": 26,
+      "revenue": 260.0,
+      "avgPrice": 10.0,
+      "weeklyAvg": 1.4
+    },
+    {
+      "rank": 146,
+      "name": "Smirnoff Rasberry Vodka",
+      "category": "Liquor",
+      "quantity": 27,
+      "revenue": 243.0,
+      "avgPrice": 9.0,
+      "weeklyAvg": 1.4
+    },
+    {
+      "rank": 147,
+      "name": "Sierra Nevada Pale Ale",
+      "category": "Draft Beer",
+      "quantity": 27,
+      "revenue": 243.0,
+      "avgPrice": 9.0,
+      "weeklyAvg": 1.4
+    },
+    {
+      "rank": 148,
+      "name": "Pink Starburst Shot",
+      "category": "Liquor",
+      "quantity": 26,
+      "revenue": 234.0,
+      "avgPrice": 9.0,
+      "weeklyAvg": 1.4
+    },
+    {
+      "rank": 149,
+      "name": "Black & Tan",
+      "category": "Draft Beer",
+      "quantity": 26,
+      "revenue": 234.0,
+      "avgPrice": 9.0,
+      "weeklyAvg": 1.4
+    },
+    {
+      "rank": 150,
+      "name": "Bacardi",
+      "category": "Liquor",
+      "quantity": 25,
+      "revenue": 225.0,
+      "avgPrice": 9.0,
+      "weeklyAvg": 1.3
+    },
+    {
+      "rank": 151,
+      "name": "Green Tea Drink",
+      "category": "Liquor",
+      "quantity": 20,
+      "revenue": 220.0,
+      "avgPrice": 11.0,
+      "weeklyAvg": 1.1
+    },
+    {
+      "rank": 152,
+      "name": "Washington Apple Shot",
+      "category": "Liquor",
+      "quantity": 24,
+      "revenue": 216.0,
+      "avgPrice": 9.0,
+      "weeklyAvg": 1.3
+    },
+    {
+      "rank": 153,
+      "name": "Lynchburg Lemonade",
+      "category": "Liquor",
+      "quantity": 19,
+      "revenue": 214.0,
+      "avgPrice": 11.26,
+      "weeklyAvg": 1.0
+    },
+    {
+      "rank": 154,
+      "name": "Tanqeray Sevilla",
+      "category": "Liquor",
+      "quantity": 19,
+      "revenue": 209.0,
+      "avgPrice": 11.0,
+      "weeklyAvg": 1.0
+    },
+    {
+      "rank": 155,
+      "name": "Scooby Snack Drink",
+      "category": "Liquor",
+      "quantity": 13,
+      "revenue": 169.0,
+      "avgPrice": 13.0,
+      "weeklyAvg": 0.7
+    },
+    {
+      "rank": 156,
+      "name": "Malibu Mai Tai",
+      "category": "Liquor",
+      "quantity": 14,
+      "revenue": 168.0,
+      "avgPrice": 12.0,
+      "weeklyAvg": 0.7
+    },
+    {
+      "rank": 157,
+      "name": "Cosmopolitan",
+      "category": "Liquor",
+      "quantity": 13,
+      "revenue": 156.0,
+      "avgPrice": 12.0,
+      "weeklyAvg": 0.7
+    },
+    {
+      "rank": 158,
+      "name": "LA Water",
+      "category": "Liquor",
+      "quantity": 14,
+      "revenue": 154.0,
+      "avgPrice": 11.0,
+      "weeklyAvg": 0.7
+    },
+    {
+      "rank": 159,
+      "name": "Refresh Rate IPA",
+      "category": "Draft Beer",
+      "quantity": 17,
+      "revenue": 153.0,
+      "avgPrice": 9.0,
+      "weeklyAvg": 0.9
+    },
+    {
+      "rank": 160,
+      "name": "Irish Mule",
+      "category": "Liquor",
+      "quantity": 13,
+      "revenue": 150.0,
+      "avgPrice": 11.54,
+      "weeklyAvg": 0.7
+    },
+    {
+      "rank": 161,
+      "name": "Summer Sunrise",
+      "category": "Mocktails",
+      "quantity": 21,
+      "revenue": 147.0,
+      "avgPrice": 7.0,
+      "weeklyAvg": 1.1
+    },
+    {
+      "rank": 162,
+      "name": "Tanqeray London Dry",
+      "category": "Liquor",
+      "quantity": 13,
+      "revenue": 143.0,
+      "avgPrice": 11.0,
+      "weeklyAvg": 0.7
+    },
+    {
+      "rank": 163,
+      "name": "Washington Apple Drink",
+      "category": "Liquor",
+      "quantity": 13,
+      "revenue": 143.0,
+      "avgPrice": 11.0,
+      "weeklyAvg": 0.7
+    },
+    {
+      "rank": 164,
+      "name": "Fireball CranApple shot",
+      "category": "Liquor",
+      "quantity": 20,
+      "revenue": 140.0,
+      "avgPrice": 7.0,
+      "weeklyAvg": 1.1
+    },
+    {
+      "rank": 165,
+      "name": "Trinity Oaks Chardonnay Bottle",
+      "category": "Liquor",
+      "quantity": 6,
+      "revenue": 132.0,
+      "avgPrice": 22.0,
+      "weeklyAvg": 0.3
+    },
+    {
+      "rank": 166,
+      "name": "BTL - Pacifico",
+      "category": "Bottle Beer",
+      "quantity": 21,
+      "revenue": 126.0,
+      "avgPrice": 6.0,
+      "weeklyAvg": 1.1
+    },
+    {
+      "rank": 167,
+      "name": "Aperol Spritz",
+      "category": "Liquor",
+      "quantity": 11,
+      "revenue": 121.0,
+      "avgPrice": 11.0,
+      "weeklyAvg": 0.6
+    },
+    {
+      "rank": 168,
+      "name": "BTL - Modelo Negra",
+      "category": "Bottle Beer",
+      "quantity": 19,
+      "revenue": 114.0,
+      "avgPrice": 6.0,
+      "weeklyAvg": 1.0
+    },
+    {
+      "rank": 169,
+      "name": "BTL - Modelo",
+      "category": "Bottle Beer",
+      "quantity": 19,
+      "revenue": 114.0,
+      "avgPrice": 6.0,
+      "weeklyAvg": 1.0
+    },
+    {
+      "rank": 170,
+      "name": "BTL - Michelob Ultra",
+      "category": "Bottle Beer",
+      "quantity": 22,
+      "revenue": 110.0,
+      "avgPrice": 5.0,
+      "weeklyAvg": 1.2
+    },
+    {
+      "rank": 171,
+      "name": "Mudslide",
+      "category": "Liquor",
+      "quantity": 10,
+      "revenue": 110.0,
+      "avgPrice": 11.0,
+      "weeklyAvg": 0.5
+    },
+    {
+      "rank": 172,
+      "name": "Traveler",
+      "category": "Liquor",
+      "quantity": 10,
+      "revenue": 100.0,
+      "avgPrice": 10.0,
+      "weeklyAvg": 0.5
+    },
+    {
+      "rank": 173,
+      "name": "Old Fashioned",
+      "category": "Liquor",
+      "quantity": 9,
+      "revenue": 99.0,
+      "avgPrice": 11.0,
+      "weeklyAvg": 0.5
+    },
+    {
+      "rank": 174,
+      "name": "Cucumber Refresher",
+      "category": "Mocktails",
+      "quantity": 14,
+      "revenue": 98.0,
+      "avgPrice": 7.0,
+      "weeklyAvg": 0.7
+    },
+    {
+      "rank": 175,
+      "name": "Creamy PB",
+      "category": "Liquor",
+      "quantity": 9,
+      "revenue": 90.0,
+      "avgPrice": 10.0,
+      "weeklyAvg": 0.5
+    },
+    {
+      "rank": 176,
+      "name": "Pink Starburst Drink",
+      "category": "Liquor",
+      "quantity": 8,
+      "revenue": 88.0,
+      "avgPrice": 11.0,
+      "weeklyAvg": 0.4
+    },
+    {
+      "rank": 177,
+      "name": "Trinity Oaks Pino Grigio Bottle",
+      "category": "Liquor",
+      "quantity": 4,
+      "revenue": 88.0,
+      "avgPrice": 22.0,
+      "weeklyAvg": 0.2
+    },
+    {
+      "rank": 178,
+      "name": "Can- Stone Delicious IPA",
+      "category": "Bottle Beer",
+      "quantity": 12,
+      "revenue": 84.0,
+      "avgPrice": 7.0,
+      "weeklyAvg": 0.6
+    },
+    {
+      "rank": 179,
+      "name": "Jolly Rancher Drink",
+      "category": "Liquor",
+      "quantity": 9,
+      "revenue": 81.0,
+      "avgPrice": 9.0,
+      "weeklyAvg": 0.5
+    },
+    {
+      "rank": 180,
+      "name": "Red Headed Slut",
+      "category": "Liquor",
+      "quantity": 8,
+      "revenue": 80.0,
+      "avgPrice": 10.0,
+      "weeklyAvg": 0.4
+    },
+    {
+      "rank": 181,
+      "name": "Jolly Rancher Shot",
+      "category": "Liquor",
+      "quantity": 10,
+      "revenue": 80.0,
+      "avgPrice": 8.0,
+      "weeklyAvg": 0.5
+    },
+    {
+      "rank": 182,
+      "name": "Jager & Rockstar",
+      "category": "Liquor",
+      "quantity": 7,
+      "revenue": 77.0,
+      "avgPrice": 11.0,
+      "weeklyAvg": 0.4
+    },
+    {
+      "rank": 183,
+      "name": "Sweet Tart Drink",
+      "category": "Liquor",
+      "quantity": 7,
+      "revenue": 77.0,
+      "avgPrice": 11.0,
+      "weeklyAvg": 0.4
+    },
+    {
+      "rank": 184,
+      "name": "Irish Manor",
+      "category": "Liquor",
+      "quantity": 9,
+      "revenue": 72.0,
+      "avgPrice": 8.0,
+      "weeklyAvg": 0.5
+    },
+    {
+      "rank": 185,
+      "name": "Ryan's Irish Cream",
+      "category": "Liquor",
+      "quantity": 10,
+      "revenue": 70.0,
+      "avgPrice": 7.0,
+      "weeklyAvg": 0.5
+    },
+    {
+      "rank": 186,
+      "name": "Mocktail Mule",
+      "category": "Mocktails",
+      "quantity": 10,
+      "revenue": 70.0,
+      "avgPrice": 7.0,
+      "weeklyAvg": 0.5
+    },
+    {
+      "rank": 187,
+      "name": "CAN - Logic Light",
+      "category": "Bottle Beer",
+      "quantity": 9,
+      "revenue": 63.0,
+      "avgPrice": 7.0,
+      "weeklyAvg": 0.5
+    },
+    {
+      "rank": 188,
+      "name": "Chivas Regal",
+      "category": "Liquor",
+      "quantity": 6,
+      "revenue": 60.0,
+      "avgPrice": 10.0,
+      "weeklyAvg": 0.3
+    },
+    {
+      "rank": 189,
+      "name": "Apple Martini",
+      "category": "Liquor",
+      "quantity": 5,
+      "revenue": 60.0,
+      "avgPrice": 12.0,
+      "weeklyAvg": 0.3
+    },
+    {
+      "rank": 190,
+      "name": "Premium Long Island Iced Tea",
+      "category": "Liquor",
+      "quantity": 4,
+      "revenue": 56.0,
+      "avgPrice": 14.0,
+      "weeklyAvg": 0.2
+    },
+    {
+      "rank": 191,
+      "name": "Bloody Maria",
+      "category": "Liquor",
+      "quantity": 5,
+      "revenue": 50.0,
+      "avgPrice": 10.0,
+      "weeklyAvg": 0.3
+    },
+    {
+      "rank": 192,
+      "name": "Mojito Mocktail",
+      "category": "Mocktails",
+      "quantity": 7,
+      "revenue": 49.0,
+      "avgPrice": 7.0,
+      "weeklyAvg": 0.4
+    },
+    {
+      "rank": 193,
+      "name": "Peachtree Scnnapps",
+      "category": "Liquor",
+      "quantity": 7,
+      "revenue": 49.0,
+      "avgPrice": 7.0,
+      "weeklyAvg": 0.4
+    },
+    {
+      "rank": 194,
+      "name": "Island Time",
+      "category": "Liquor",
+      "quantity": 8,
+      "revenue": 48.0,
+      "avgPrice": 6.0,
+      "weeklyAvg": 0.4
+    },
+    {
+      "rank": 195,
+      "name": "CORKAGE FEE",
+      "category": "Liquor",
+      "quantity": 3,
+      "revenue": 45.0,
+      "avgPrice": 15.0,
+      "weeklyAvg": 0.2
+    },
+    {
+      "rank": 196,
+      "name": "Rasp. lemondrop martini",
+      "category": "Liquor",
+      "quantity": 4,
+      "revenue": 44.0,
+      "avgPrice": 11.0,
+      "weeklyAvg": 0.2
+    },
+    {
+      "rank": 197,
+      "name": "Skinny Margarita Mocktail",
+      "category": "Mocktails",
+      "quantity": 6,
+      "revenue": 42.0,
+      "avgPrice": 7.0,
+      "weeklyAvg": 0.3
+    },
+    {
+      "rank": 198,
+      "name": "Myers Dark Rum",
+      "category": "Liquor",
+      "quantity": 4,
+      "revenue": 40.0,
+      "avgPrice": 10.0,
+      "weeklyAvg": 0.2
+    },
+    {
+      "rank": 199,
+      "name": "Raspberry Kamikazi",
+      "category": "Liquor",
+      "quantity": 4,
+      "revenue": 36.0,
+      "avgPrice": 9.0,
+      "weeklyAvg": 0.2
+    },
+    {
+      "rank": 200,
+      "name": "Old Forrester",
+      "category": "Liquor",
+      "quantity": 4,
+      "revenue": 36.0,
+      "avgPrice": 9.0,
+      "weeklyAvg": 0.2
+    },
+    {
+      "rank": 201,
+      "name": "Sober Mary Mocktail",
+      "category": "Mocktails",
+      "quantity": 5,
+      "revenue": 35.0,
+      "avgPrice": 7.0,
+      "weeklyAvg": 0.3
+    },
+    {
+      "rank": 202,
+      "name": "Dr. McGillicuddy's Peppermint",
+      "category": "Liquor",
+      "quantity": 5,
+      "revenue": 35.0,
+      "avgPrice": 7.0,
+      "weeklyAvg": 0.3
+    },
+    {
+      "rank": 203,
+      "name": "Blue Hawaiian",
+      "category": "Liquor",
+      "quantity": 3,
+      "revenue": 33.0,
+      "avgPrice": 11.0,
+      "weeklyAvg": 0.2
+    },
+    {
+      "rank": 204,
+      "name": "Well Scotch",
+      "category": "Liquor",
+      "quantity": 4,
+      "revenue": 32.0,
+      "avgPrice": 8.0,
+      "weeklyAvg": 0.2
+    },
+    {
+      "rank": 205,
+      "name": "Hacienda Margarita",
+      "category": "Liquor",
+      "quantity": 3,
+      "revenue": 32.0,
+      "avgPrice": 10.67,
+      "weeklyAvg": 0.2
+    },
+    {
+      "rank": 206,
+      "name": "Hazlenut",
+      "category": "Liquor",
+      "quantity": 4,
+      "revenue": 28.0,
+      "avgPrice": 7.0,
+      "weeklyAvg": 0.2
+    },
+    {
+      "rank": 207,
+      "name": "Rasberry Lemon Drop Shot",
+      "category": "Liquor",
+      "quantity": 3,
+      "revenue": 27.0,
+      "avgPrice": 9.0,
+      "weeklyAvg": 0.2
+    },
+    {
+      "rank": 208,
+      "name": "Smirnoff Vanilla Vodka",
+      "category": "Liquor",
+      "quantity": 3,
+      "revenue": 27.0,
+      "avgPrice": 9.0,
+      "weeklyAvg": 0.2
+    },
+    {
+      "rank": 209,
+      "name": "Manhattan",
+      "category": "Liquor",
+      "quantity": 2,
+      "revenue": 22.0,
+      "avgPrice": 11.0,
+      "weeklyAvg": 0.1
+    },
+    {
+      "rank": 210,
+      "name": "Kamikazi Drink",
+      "category": "Liquor",
+      "quantity": 2,
+      "revenue": 22.0,
+      "avgPrice": 11.0,
+      "weeklyAvg": 0.1
+    },
+    {
+      "rank": 211,
+      "name": "Black Russian",
+      "category": "Liquor",
+      "quantity": 2,
+      "revenue": 18.0,
+      "avgPrice": 9.0,
+      "weeklyAvg": 0.1
+    },
+    {
+      "rank": 212,
+      "name": "Watermelon Pucker",
+      "category": "Liquor",
+      "quantity": 2,
+      "revenue": 14.0,
+      "avgPrice": 7.0,
+      "weeklyAvg": 0.1
+    },
+    {
+      "rank": 213,
+      "name": "Basil Gimlet",
+      "category": "Liquor",
+      "quantity": 1,
+      "revenue": 12.0,
+      "avgPrice": 12.0,
+      "weeklyAvg": 0.1
+    },
+    {
+      "rank": 214,
+      "name": "Dirty Martini",
+      "category": "Liquor",
+      "quantity": 1,
+      "revenue": 12.0,
+      "avgPrice": 12.0,
+      "weeklyAvg": 0.1
+    },
+    {
+      "rank": 215,
+      "name": "Black Tea Drink",
+      "category": "Liquor",
+      "quantity": 1,
+      "revenue": 11.0,
+      "avgPrice": 11.0,
+      "weeklyAvg": 0.1
+    },
+    {
+      "rank": 216,
+      "name": "Melon Ball",
+      "category": "Liquor",
+      "quantity": 1,
+      "revenue": 9.0,
+      "avgPrice": 9.0,
+      "weeklyAvg": 0.1
+    },
+    {
+      "rank": 217,
+      "name": "Sea Breeze",
+      "category": "Liquor",
+      "quantity": 1,
+      "revenue": 9.0,
+      "avgPrice": 9.0,
+      "weeklyAvg": 0.1
+    },
+    {
+      "rank": 218,
+      "name": "Gran Gala",
+      "category": "Liquor",
+      "quantity": 1,
+      "revenue": 9.0,
+      "avgPrice": 9.0,
+      "weeklyAvg": 0.1
+    },
+    {
+      "rank": 219,
+      "name": "Razzmatazz",
+      "category": "Liquor",
+      "quantity": 1,
+      "revenue": 7.0,
+      "avgPrice": 7.0,
+      "weeklyAvg": 0.1
+    },
+    {
+      "rank": 220,
+      "name": "Banana",
+      "category": "Liquor",
+      "quantity": 1,
+      "revenue": 7.0,
+      "avgPrice": 7.0,
+      "weeklyAvg": 0.1
+    },
+    {
+      "rank": 221,
+      "name": "Bucket",
+      "category": "Bottle Beer",
+      "quantity": 427,
+      "revenue": 0.0,
+      "avgPrice": 0.0,
+      "weeklyAvg": 22.5
+    },
+    {
+      "rank": 222,
+      "name": "Bud Light Bucket",
+      "category": "Beer Buckets",
+      "quantity": 30,
+      "revenue": 0.0,
+      "avgPrice": 0.0,
+      "weeklyAvg": 1.6
+    },
+    {
+      "rank": 223,
+      "name": "Coors Banquet Bucket",
+      "category": "Beer Buckets",
+      "quantity": 45,
+      "revenue": 0.0,
+      "avgPrice": 0.0,
+      "weeklyAvg": 2.4
+    },
+    {
+      "rank": 224,
+      "name": "Coors Light Bucket",
+      "category": "Beer Buckets",
+      "quantity": 243,
+      "revenue": 0.0,
+      "avgPrice": 0.0,
+      "weeklyAvg": 12.8
+    },
+    {
+      "rank": 225,
+      "name": "Miller Lite Bucket",
+      "category": "Beer Buckets",
+      "quantity": 18,
+      "revenue": 0.0,
+      "avgPrice": 0.0,
+      "weeklyAvg": 0.9
+    }
+  ]
+}

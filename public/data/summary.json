@@ -1,0 +1,169 @@
+{
+  "generatedAt": "2026-02-20T14:14:14.782944",
+  "dateRange": [
+    "2023-01-01",
+    "2026-02-15"
+  ],
+  "totalRevenue": 17847021.44,
+  "departments": {
+    "Arcade": {
+      "revenue": 120220.35,
+      "quantity": 2339,
+      "transactions": 2315,
+      "uniqueItems": 5,
+      "categories": [
+        "Arcade",
+        "Online Lane Reservations"
+      ],
+      "dateRange": [
+        "2023-12-07",
+        "2026-02-10"
+      ]
+    },
+    "Bar": {
+      "revenue": 4297938.44,
+      "quantity": 514409,
+      "transactions": 504011,
+      "uniqueItems": 478,
+      "categories": [
+        "Bottle Beer",
+        "Draft Beer",
+        "Drink tickets",
+        "Liquor",
+        "Mocktails"
+      ],
+      "dateRange": [
+        "2023-05-26",
+        "2026-02-15"
+      ]
+    },
+    "Bowling": {
+      "revenue": 7433160.15,
+      "quantity": 8018185,
+      "transactions": 390706,
+      "uniqueItems": 64,
+      "categories": [
+        "Game Bowling",
+        "General Income",
+        "General Parties",
+        "Online Lane Reservations",
+        "Rental Shoes",
+        "Supercharge",
+        "Time Bowling",
+        "VIP SUITES",
+        "Youth Groups"
+      ],
+      "dateRange": [
+        "2023-01-01",
+        "2026-02-15"
+      ]
+    },
+    "Food": {
+      "revenue": 2892458.36,
+      "quantity": 310906,
+      "transactions": 283884,
+      "uniqueItems": 187,
+      "categories": [
+        "Appetizers & Sides",
+        "Beverages",
+        "Burgers & Sliders",
+        "Catering",
+        "Food",
+        "Kids Menu",
+        "N/A Bev",
+        "Party Platters",
+        "Pizza",
+        "Salads",
+        "Sandwiches",
+        "Soups",
+        "Tacos & Mexican",
+        "Wings & Chicken"
+      ],
+      "dateRange": [
+        "2023-05-26",
+        "2026-02-15"
+      ]
+    },
+    "General Income": {
+      "revenue": 27205.18,
+      "quantity": 604,
+      "transactions": 604,
+      "uniqueItems": 1,
+      "categories": [
+        "Processing Fee"
+      ],
+      "dateRange": [
+        "2024-07-12",
+        "2026-02-15"
+      ]
+    },
+    "League Fees": {
+      "revenue": 2514617.43,
+      "quantity": 143985,
+      "transactions": 41149,
+      "uniqueItems": 96,
+      "categories": [
+        "League Bowling",
+        "League Fees"
+      ],
+      "dateRange": [
+        "2023-06-01",
+        "2026-02-13"
+      ]
+    },
+    "Parties": {
+      "revenue": 557581.53,
+      "quantity": 39524,
+      "transactions": 1842,
+      "uniqueItems": 32,
+      "categories": [
+        "Catering",
+        "Parties"
+      ],
+      "dateRange": [
+        "2023-05-26",
+        "2025-07-11"
+      ]
+    },
+    "Vending Machines": {
+      "revenue": 3840.0,
+      "quantity": 21083,
+      "transactions": 390,
+      "uniqueItems": 22,
+      "categories": [
+        "League Bowling"
+      ],
+      "dateRange": [
+        "2023-01-06",
+        "2023-06-06"
+      ]
+    }
+  },
+  "categoryColors": {
+    "Appetizers & Sides": "#f5a623",
+    "Wings & Chicken": "#ff5252",
+    "Pizza": "#00e676",
+    "Burgers & Sliders": "#00b0ff",
+    "Sandwiches": "#bb86fc",
+    "Tacos & Mexican": "#03dac6",
+    "Salads": "#c6ff00",
+    "Kids Menu": "#ff6eb4",
+    "Beverages": "#64b5f6",
+    "Soups": "#ffd700",
+    "Party Platters": "#ff9100",
+    "Draft Beer": "#f5a623",
+    "Liquor": "#ff5252",
+    "Bottle Beer": "#00e676",
+    "Mocktails": "#03dac6",
+    "Drink tickets": "#bb86fc",
+    "Beer Buckets": "#00b0ff",
+    "Game Bowling": "#f5a623",
+    "Time Bowling": "#00b0ff",
+    "Rental Shoes": "#03dac6",
+    "Online Lane Reservations": "#bb86fc",
+    "VIP SUITES": "#ff6eb4",
+    "General Parties": "#ff9100",
+    "League Fees": "#ffd700",
+    "League Bowling": "#c6ff00"
+  }
+}

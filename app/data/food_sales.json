@@ -1,0 +1,973 @@
+{
+  "kpiSummary": {
+    "totalRevenue": 420480.95,
+    "totalItems": 38662,
+    "avgWeeklyRevenue": 22130.58,
+    "numWeeks": 19,
+    "topSeller": {
+      "name": "BYO Pizza",
+      "revenue": 65818.75
+    },
+    "dateRange": [
+      "Oct 01, 2025",
+      "Feb 05, 2026"
+    ],
+    "top10Concentration": 57.3
+  },
+  "categoryColors": {
+    "Appetizers & Sides": "#f5a623",
+    "Wings & Chicken": "#ff5252",
+    "Pizza": "#00e676",
+    "Burgers & Sliders": "#00b0ff",
+    "Sandwiches": "#bb86fc",
+    "Tacos & Mexican": "#03dac6",
+    "Salads": "#c6ff00",
+    "Kids Menu": "#ff6eb4",
+    "Beverages": "#64b5f6",
+    "Soups": "#ffd700",
+    "Party Platters": "#ff9100"
+  },
+  "categoryOrder": [
+    "Appetizers & Sides",
+    "Wings & Chicken",
+    "Pizza",
+    "Beverages",
+    "Burgers & Sliders",
+    "Sandwiches",
+    "Tacos & Mexican",
+    "Salads",
+    "Party Platters",
+    "Kids Menu",
+    "Soups"
+  ],
+  "categoryBreakdown": [
+    {
+      "category": "Pizza",
+      "revenue": 111811.24,
+      "quantity": 5143,
+      "percentage": 26.6
+    },
+    {
+      "category": "Appetizers & Sides",
+      "revenue": 78772.0,
+      "quantity": 8196,
+      "percentage": 18.7
+    },
+    {
+      "category": "Beverages",
+      "revenue": 63743.75,
+      "quantity": 13763,
+      "percentage": 15.2
+    },
+    {
+      "category": "Wings & Chicken",
+      "revenue": 60666.48,
+      "quantity": 4079,
+      "percentage": 14.4
+    },
+    {
+      "category": "Burgers & Sliders",
+      "revenue": 30602.98,
+      "quantity": 2159,
+      "percentage": 7.3
+    },
+    {
+      "category": "Sandwiches",
+      "revenue": 18161.5,
+      "quantity": 1375,
+      "percentage": 4.3
+    },
+    {
+      "category": "Tacos & Mexican",
+      "revenue": 16463.0,
+      "quantity": 1432,
+      "percentage": 3.9
+    },
+    {
+      "category": "Party Platters",
+      "revenue": 16350.0,
+      "quantity": 463,
+      "percentage": 3.9
+    },
+    {
+      "category": "Salads",
+      "revenue": 14955.0,
+      "quantity": 1236,
+      "percentage": 3.6
+    },
+    {
+      "category": "Kids Menu",
+      "revenue": 8487.0,
+      "quantity": 738,
+      "percentage": 2.0
+    },
+    {
+      "category": "Soups",
+      "revenue": 468.0,
+      "quantity": 78,
+      "percentage": 0.1
+    }
+  ],
+  "weeklyTrends": [
+    {
+      "weekStart": "2025-09-29",
+      "label": "Sep 29",
+      "revenue": 17289.0,
+      "transactions": 1407
+    },
+    {
+      "weekStart": "2025-10-06",
+      "label": "Oct 06",
+      "revenue": 20265.99,
+      "transactions": 1634
+    },
+    {
+      "weekStart": "2025-10-13",
+      "label": "Oct 13",
+      "revenue": 19888.75,
+      "transactions": 1856
+    },
+    {
+      "weekStart": "2025-10-20",
+      "label": "Oct 20",
+      "revenue": 18968.25,
+      "transactions": 1648
+    },
+    {
+      "weekStart": "2025-10-27",
+      "label": "Oct 27",
+      "revenue": 20282.99,
+      "transactions": 1780
+    },
+    {
+      "weekStart": "2025-11-03",
+      "label": "Nov 03",
+      "revenue": 22276.24,
+      "transactions": 1883
+    },
+    {
+      "weekStart": "2025-11-10",
+      "label": "Nov 10",
+      "revenue": 34571.74,
+      "transactions": 2972
+    },
+    {
+      "weekStart": "2025-11-17",
+      "label": "Nov 17",
+      "revenue": 21136.25,
+      "transactions": 1924
+    },
+    {
+      "weekStart": "2025-11-24",
+      "label": "Nov 24",
+      "revenue": 21935.75,
+      "transactions": 2036
+    },
+    {
+      "weekStart": "2025-12-01",
+      "label": "Dec 01",
+      "revenue": 18198.5,
+      "transactions": 1483
+    },
+    {
+      "weekStart": "2025-12-08",
+      "label": "Dec 08",
+      "revenue": 20537.25,
+      "transactions": 1645
+    },
+    {
+      "weekStart": "2025-12-15",
+      "label": "Dec 15",
+      "revenue": 24283.25,
+      "transactions": 1860
+    },
+    {
+      "weekStart": "2025-12-22",
+      "label": "Dec 22",
+      "revenue": 25082.0,
+      "transactions": 2278
+    },
+    {
+      "weekStart": "2025-12-29",
+      "label": "Dec 29",
+      "revenue": 40384.75,
+      "transactions": 3626
+    },
+    {
+      "weekStart": "2026-01-05",
+      "label": "Jan 05",
+      "revenue": 25060.75,
+      "transactions": 2238
+    },
+    {
+      "weekStart": "2026-01-12",
+      "label": "Jan 12",
+      "revenue": 19266.0,
+      "transactions": 1700
+    },
+    {
+      "weekStart": "2026-01-19",
+      "label": "Jan 19",
+      "revenue": 21900.25,
+      "transactions": 1983
+    },
+    {
+      "weekStart": "2026-01-26",
+      "label": "Jan 26",
+      "revenue": 20928.0,
+      "transactions": 1871
+    },
+    {
+      "weekStart": "2026-02-02",
+      "label": "Feb 02",
+      "revenue": 8225.25,
+      "transactions": 755
+    }
+  ],
+  "monthlyByCategory": [
+    {
+      "month": "2025-10",
+      "label": "Oct 2025",
+      "categories": {
+        "Appetizers & Sides": 14578.0,
+        "Wings & Chicken": 12646.99,
+        "Pizza": 24083.75,
+        "Beverages": 12228.75,
+        "Burgers & Sliders": 7325.99,
+        "Sandwiches": 4536.5,
+        "Tacos & Mexican": 4814.5,
+        "Salads": 4106.0,
+        "Party Platters": 3975.0,
+        "Kids Menu": 1863.0,
+        "Soups": 48.0
+      }
+    },
+    {
+      "month": "2025-11",
+      "label": "Nov 2025",
+      "categories": {
+        "Appetizers & Sides": 20938.0,
+        "Wings & Chicken": 15474.49,
+        "Pizza": 28089.75,
+        "Beverages": 15890.25,
+        "Burgers & Sliders": 7678.99,
+        "Sandwiches": 4172.0,
+        "Tacos & Mexican": 3642.0,
+        "Salads": 3586.5,
+        "Party Platters": 4290.0,
+        "Kids Menu": 2472.5,
+        "Soups": 174.0
+      }
+    },
+    {
+      "month": "2025-12",
+      "label": "Dec 2025",
+      "categories": {
+        "Appetizers & Sides": 19481.5,
+        "Wings & Chicken": 14516.0,
+        "Pizza": 27085.25,
+        "Beverages": 17942.25,
+        "Burgers & Sliders": 6501.0,
+        "Sandwiches": 3762.0,
+        "Tacos & Mexican": 3116.5,
+        "Salads": 2900.5,
+        "Party Platters": 5475.0,
+        "Kids Menu": 1794.0,
+        "Soups": 78.0
+      }
+    },
+    {
+      "month": "2026-01",
+      "label": "Jan 2026",
+      "categories": {
+        "Appetizers & Sides": 21752.5,
+        "Wings & Chicken": 16274.0,
+        "Pizza": 29924.5,
+        "Beverages": 16149.75,
+        "Burgers & Sliders": 8212.0,
+        "Sandwiches": 5125.0,
+        "Tacos & Mexican": 3904.5,
+        "Salads": 3710.5,
+        "Party Platters": 2345.0,
+        "Kids Menu": 2173.5,
+        "Soups": 144.0
+      }
+    },
+    {
+      "month": "2026-02",
+      "label": "Feb 2026",
+      "categories": {
+        "Appetizers & Sides": 2022.0,
+        "Wings & Chicken": 1755.0,
+        "Pizza": 2628.0,
+        "Beverages": 1532.75,
+        "Burgers & Sliders": 885.0,
+        "Sandwiches": 566.0,
+        "Tacos & Mexican": 985.5,
+        "Salads": 651.5,
+        "Party Platters": 265.0,
+        "Kids Menu": 184.0,
+        "Soups": 24.0
+      }
+    }
+  ],
+  "itemDetail": [
+    {
+      "rank": 1,
+      "name": "BYO Pizza",
+      "category": "Pizza",
+      "quantity": 3049,
+      "revenue": 65818.75,
+      "avgPrice": 21.59,
+      "weeklyAvg": 160.5
+    },
+    {
+      "rank": 2,
+      "name": "Soda",
+      "category": "Beverages",
+      "quantity": 9194,
+      "revenue": 34477.5,
+      "avgPrice": 3.75,
+      "weeklyAvg": 483.9
+    },
+    {
+      "rank": 3,
+      "name": "Chicken Wings",
+      "category": "Wings & Chicken",
+      "quantity": 2036,
+      "revenue": 32575.98,
+      "avgPrice": 16.0,
+      "weeklyAvg": 107.2
+    },
+    {
+      "rank": 4,
+      "name": "Chicken Strips",
+      "category": "Wings & Chicken",
+      "quantity": 1670,
+      "revenue": 24215.0,
+      "avgPrice": 14.5,
+      "weeklyAvg": 87.9
+    },
+    {
+      "rank": 5,
+      "name": "French Fries",
+      "category": "Appetizers & Sides",
+      "quantity": 2952,
+      "revenue": 19188.0,
+      "avgPrice": 6.5,
+      "weeklyAvg": 155.4
+    },
+    {
+      "rank": 6,
+      "name": "Soda Pitcher",
+      "category": "Beverages",
+      "quantity": 1078,
+      "revenue": 16170.0,
+      "avgPrice": 15.0,
+      "weeklyAvg": 56.7
+    },
+    {
+      "rank": 7,
+      "name": "Mozzarella Sticks",
+      "category": "Appetizers & Sides",
+      "quantity": 1411,
+      "revenue": 14815.5,
+      "avgPrice": 10.5,
+      "weeklyAvg": 74.3
+    },
+    {
+      "rank": 8,
+      "name": "Meat Lovers",
+      "category": "Pizza",
+      "quantity": 533,
+      "revenue": 13320.24,
+      "avgPrice": 24.99,
+      "weeklyAvg": 28.1
+    },
+    {
+      "rank": 9,
+      "name": "Concourse Nacho",
+      "category": "Appetizers & Sides",
+      "quantity": 626,
+      "revenue": 10955.0,
+      "avgPrice": 17.5,
+      "weeklyAvg": 32.9
+    },
+    {
+      "rank": 10,
+      "name": "Smash Burger",
+      "category": "Burgers & Sliders",
+      "quantity": 725,
+      "revenue": 9425.0,
+      "avgPrice": 13.0,
+      "weeklyAvg": 38.2
+    },
+    {
+      "rank": 11,
+      "name": "Unlimited Soda",
+      "category": "Beverages",
+      "quantity": 1345,
+      "revenue": 7878.0,
+      "avgPrice": 5.86,
+      "weeklyAvg": 70.8
+    },
+    {
+      "rank": 12,
+      "name": "Bowlers Combo",
+      "category": "Pizza",
+      "quantity": 293,
+      "revenue": 7164.25,
+      "avgPrice": 24.45,
+      "weeklyAvg": 15.4
+    },
+    {
+      "rank": 13,
+      "name": "Party Platter - Wings",
+      "category": "Party Platters",
+      "quantity": 65,
+      "revenue": 7150.0,
+      "avgPrice": 110.0,
+      "weeklyAvg": 3.4
+    },
+    {
+      "rank": 14,
+      "name": "Classic Cheeseburger",
+      "category": "Burgers & Sliders",
+      "quantity": 477,
+      "revenue": 6916.5,
+      "avgPrice": 14.5,
+      "weeklyAvg": 25.1
+    },
+    {
+      "rank": 15,
+      "name": "Pretzel Sticks",
+      "category": "Appetizers & Sides",
+      "quantity": 550,
+      "revenue": 6477.5,
+      "avgPrice": 11.78,
+      "weeklyAvg": 28.9
+    },
+    {
+      "rank": 16,
+      "name": "Sliders",
+      "category": "Burgers & Sliders",
+      "quantity": 459,
+      "revenue": 6293.5,
+      "avgPrice": 13.71,
+      "weeklyAvg": 24.2
+    },
+    {
+      "rank": 17,
+      "name": "Hot Honey Pep",
+      "category": "Pizza",
+      "quantity": 237,
+      "revenue": 5684.5,
+      "avgPrice": 23.99,
+      "weeklyAvg": 12.5
+    },
+    {
+      "rank": 18,
+      "name": "Irish Nachos",
+      "category": "Appetizers & Sides",
+      "quantity": 310,
+      "revenue": 5602.0,
+      "avgPrice": 18.07,
+      "weeklyAvg": 16.3
+    },
+    {
+      "rank": 19,
+      "name": "Bbq Chicken",
+      "category": "Pizza",
+      "quantity": 235,
+      "revenue": 5566.0,
+      "avgPrice": 23.69,
+      "weeklyAvg": 12.4
+    },
+    {
+      "rank": 20,
+      "name": "Turkey Avocado",
+      "category": "Sandwiches",
+      "quantity": 370,
+      "revenue": 5550.0,
+      "avgPrice": 15.0,
+      "weeklyAvg": 19.5
+    },
+    {
+      "rank": 21,
+      "name": "HH MED PEPPERONI",
+      "category": "Pizza",
+      "quantity": 360,
+      "revenue": 5495.0,
+      "avgPrice": 15.26,
+      "weeklyAvg": 18.9
+    },
+    {
+      "rank": 22,
+      "name": "Waffle Fries",
+      "category": "Appetizers & Sides",
+      "quantity": 622,
+      "revenue": 5287.0,
+      "avgPrice": 8.5,
+      "weeklyAvg": 32.7
+    },
+    {
+      "rank": 23,
+      "name": "Onion Rings",
+      "category": "Appetizers & Sides",
+      "quantity": 539,
+      "revenue": 5120.5,
+      "avgPrice": 9.5,
+      "weeklyAvg": 28.4
+    },
+    {
+      "rank": 24,
+      "name": "Quesadilla",
+      "category": "Tacos & Mexican",
+      "quantity": 463,
+      "revenue": 5093.0,
+      "avgPrice": 11.0,
+      "weeklyAvg": 24.4
+    },
+    {
+      "rank": 25,
+      "name": "Hawaiian",
+      "category": "Pizza",
+      "quantity": 230,
+      "revenue": 4991.25,
+      "avgPrice": 21.7,
+      "weeklyAvg": 12.1
+    },
+    {
+      "rank": 26,
+      "name": "Kids Chicken Strips",
+      "category": "Kids Menu",
+      "quantity": 427,
+      "revenue": 4910.5,
+      "avgPrice": 11.5,
+      "weeklyAvg": 22.5
+    },
+    {
+      "rank": 27,
+      "name": "Cobb Salad",
+      "category": "Salads",
+      "quantity": 322,
+      "revenue": 4830.0,
+      "avgPrice": 15.0,
+      "weeklyAvg": 16.9
+    },
+    {
+      "rank": 28,
+      "name": "Mini Corn Dogs",
+      "category": "Appetizers & Sides",
+      "quantity": 476,
+      "revenue": 4760.0,
+      "avgPrice": 10.0,
+      "weeklyAvg": 25.1
+    },
+    {
+      "rank": 29,
+      "name": "Cali Burger",
+      "category": "Burgers & Sliders",
+      "quantity": 283,
+      "revenue": 4527.98,
+      "avgPrice": 16.0,
+      "weeklyAvg": 14.9
+    },
+    {
+      "rank": 30,
+      "name": "Chipotle Chicken Melt",
+      "category": "Sandwiches",
+      "quantity": 290,
+      "revenue": 4350.0,
+      "avgPrice": 15.0,
+      "weeklyAvg": 15.3
+    },
+    {
+      "rank": 31,
+      "name": "Taco Plate",
+      "category": "Tacos & Mexican",
+      "quantity": 363,
+      "revenue": 4278.0,
+      "avgPrice": 11.79,
+      "weeklyAvg": 19.1
+    },
+    {
+      "rank": 32,
+      "name": "Southwest Bowl",
+      "category": "Tacos & Mexican",
+      "quantity": 370,
+      "revenue": 3700.0,
+      "avgPrice": 10.0,
+      "weeklyAvg": 19.5
+    },
+    {
+      "rank": 33,
+      "name": "Kids Sliders",
+      "category": "Kids Menu",
+      "quantity": 311,
+      "revenue": 3576.5,
+      "avgPrice": 11.5,
+      "weeklyAvg": 16.4
+    },
+    {
+      "rank": 34,
+      "name": "BBQ Bacon Cheeseburger",
+      "category": "Burgers & Sliders",
+      "quantity": 215,
+      "revenue": 3440.0,
+      "avgPrice": 16.0,
+      "weeklyAvg": 11.3
+    },
+    {
+      "rank": 35,
+      "name": "Buffalo Chicken Strips",
+      "category": "Wings & Chicken",
+      "quantity": 227,
+      "revenue": 3291.5,
+      "avgPrice": 14.5,
+      "weeklyAvg": 11.9
+    },
+    {
+      "rank": 36,
+      "name": "Shrimp Tacos",
+      "category": "Tacos & Mexican",
+      "quantity": 224,
+      "revenue": 3248.0,
+      "avgPrice": 14.5,
+      "weeklyAvg": 11.8
+    },
+    {
+      "rank": 37,
+      "name": "Hummus Trio",
+      "category": "Appetizers & Sides",
+      "quantity": 262,
+      "revenue": 3008.0,
+      "avgPrice": 11.48,
+      "weeklyAvg": 13.8
+    },
+    {
+      "rank": 38,
+      "name": "Veggie Tray",
+      "category": "Appetizers & Sides",
+      "quantity": 307,
+      "revenue": 2763.0,
+      "avgPrice": 9.0,
+      "weeklyAvg": 16.2
+    },
+    {
+      "rank": 39,
+      "name": "Party Platters - French Fries",
+      "category": "Party Platters",
+      "quantity": 67,
+      "revenue": 2680.0,
+      "avgPrice": 40.0,
+      "weeklyAvg": 3.5
+    },
+    {
+      "rank": 40,
+      "name": "Veggie Lovers",
+      "category": "Pizza",
+      "quantity": 121,
+      "revenue": 2641.25,
+      "avgPrice": 21.83,
+      "weeklyAvg": 6.4
+    },
+    {
+      "rank": 41,
+      "name": "Chinese Chicken Salad",
+      "category": "Salads",
+      "quantity": 175,
+      "revenue": 2450.0,
+      "avgPrice": 14.0,
+      "weeklyAvg": 9.2
+    },
+    {
+      "rank": 42,
+      "name": "BBQ Chicken Sandwich",
+      "category": "Sandwiches",
+      "quantity": 170,
+      "revenue": 2380.0,
+      "avgPrice": 14.0,
+      "weeklyAvg": 8.9
+    },
+    {
+      "rank": 43,
+      "name": "Grilled Cheese",
+      "category": "Sandwiches",
+      "quantity": 231,
+      "revenue": 2310.0,
+      "avgPrice": 10.0,
+      "weeklyAvg": 12.2
+    },
+    {
+      "rank": 44,
+      "name": "Party Platters - Corn Dogs/Fries",
+      "category": "Party Platters",
+      "quantity": 37,
+      "revenue": 2220.0,
+      "avgPrice": 60.0,
+      "weeklyAvg": 1.9
+    },
+    {
+      "rank": 45,
+      "name": "Taco Salad",
+      "category": "Salads",
+      "quantity": 153,
+      "revenue": 2142.0,
+      "avgPrice": 14.0,
+      "weeklyAvg": 8.1
+    },
+    {
+      "rank": 46,
+      "name": "Caesar Salad",
+      "category": "Salads",
+      "quantity": 242,
+      "revenue": 2057.0,
+      "avgPrice": 8.5,
+      "weeklyAvg": 12.7
+    },
+    {
+      "rank": 47,
+      "name": "House Salad",
+      "category": "Salads",
+      "quantity": 240,
+      "revenue": 1920.0,
+      "avgPrice": 8.0,
+      "weeklyAvg": 12.6
+    },
+    {
+      "rank": 48,
+      "name": "online soda pitcher",
+      "category": "Beverages",
+      "quantity": 118,
+      "revenue": 1770.0,
+      "avgPrice": 15.0,
+      "weeklyAvg": 6.2
+    },
+    {
+      "rank": 49,
+      "name": "Fried Chicken Salad",
+      "category": "Salads",
+      "quantity": 103,
+      "revenue": 1545.0,
+      "avgPrice": 15.0,
+      "weeklyAvg": 5.4
+    },
+    {
+      "rank": 50,
+      "name": "Hot Italian",
+      "category": "Sandwiches",
+      "quantity": 106,
+      "revenue": 1431.0,
+      "avgPrice": 13.5,
+      "weeklyAvg": 5.6
+    },
+    {
+      "rank": 51,
+      "name": "Online Soda",
+      "category": "Beverages",
+      "quantity": 375,
+      "revenue": 1406.25,
+      "avgPrice": 3.75,
+      "weeklyAvg": 19.7
+    },
+    {
+      "rank": 52,
+      "name": "Soup & Half Sandwich",
+      "category": "Sandwiches",
+      "quantity": 135,
+      "revenue": 1350.0,
+      "avgPrice": 10.0,
+      "weeklyAvg": 7.1
+    },
+    {
+      "rank": 53,
+      "name": "Party Platters - Large Salad Bowl",
+      "category": "Party Platters",
+      "quantity": 37,
+      "revenue": 1295.0,
+      "avgPrice": 35.0,
+      "weeklyAvg": 1.9
+    },
+    {
+      "rank": 54,
+      "name": "Refill",
+      "category": "Beverages",
+      "quantity": 1264,
+      "revenue": 1264.0,
+      "avgPrice": 1.0,
+      "weeklyAvg": 66.5
+    },
+    {
+      "rank": 55,
+      "name": "HH MED CHEESE",
+      "category": "Pizza",
+      "quantity": 85,
+      "revenue": 1130.0,
+      "avgPrice": 13.29,
+      "weeklyAvg": 4.5
+    },
+    {
+      "rank": 56,
+      "name": "Party Platters - Veg Hum & Pita",
+      "category": "Party Platters",
+      "quantity": 13,
+      "revenue": 780.0,
+      "avgPrice": 60.0,
+      "weeklyAvg": 0.7
+    },
+    {
+      "rank": 57,
+      "name": "Party Platters - Mnstr Nacho Chk",
+      "category": "Party Platters",
+      "quantity": 13,
+      "revenue": 780.0,
+      "avgPrice": 60.0,
+      "weeklyAvg": 0.7
+    },
+    {
+      "rank": 58,
+      "name": "Bottled Water",
+      "category": "Beverages",
+      "quantity": 389,
+      "revenue": 778.0,
+      "avgPrice": 2.0,
+      "weeklyAvg": 20.5
+    },
+    {
+      "rank": 59,
+      "name": "Chips and Cheese",
+      "category": "Appetizers & Sides",
+      "quantity": 119,
+      "revenue": 773.5,
+      "avgPrice": 6.5,
+      "weeklyAvg": 6.3
+    },
+    {
+      "rank": 60,
+      "name": "Chicken Breast",
+      "category": "Wings & Chicken",
+      "quantity": 146,
+      "revenue": 584.0,
+      "avgPrice": 4.0,
+      "weeklyAvg": 7.7
+    },
+    {
+      "rank": 61,
+      "name": "Party Platters - Mnstr Nacho Beef",
+      "category": "Party Platters",
+      "quantity": 9,
+      "revenue": 540.0,
+      "avgPrice": 60.0,
+      "weeklyAvg": 0.5
+    },
+    {
+      "rank": 62,
+      "name": "BLT",
+      "category": "Sandwiches",
+      "quantity": 52,
+      "revenue": 507.0,
+      "avgPrice": 9.75,
+      "weeklyAvg": 2.7
+    },
+    {
+      "rank": 63,
+      "name": "Party Platters - Chips & Salsa",
+      "category": "Party Platters",
+      "quantity": 13,
+      "revenue": 455.0,
+      "avgPrice": 35.0,
+      "weeklyAvg": 0.7
+    },
+    {
+      "rank": 64,
+      "name": "Party Platters - Veggies & Ranch",
+      "category": "Party Platters",
+      "quantity": 9,
+      "revenue": 450.0,
+      "avgPrice": 50.0,
+      "weeklyAvg": 0.5
+    },
+    {
+      "rank": 65,
+      "name": "Soup Of The Day!",
+      "category": "Soups",
+      "quantity": 66,
+      "revenue": 396.0,
+      "avgPrice": 6.0,
+      "weeklyAvg": 3.5
+    },
+    {
+      "rank": 66,
+      "name": "Chicken Sandwich",
+      "category": "Sandwiches",
+      "quantity": 21,
+      "revenue": 283.5,
+      "avgPrice": 13.5,
+      "weeklyAvg": 1.1
+    },
+    {
+      "rank": 67,
+      "name": "Carne Asada Torta",
+      "category": "Tacos & Mexican",
+      "quantity": 12,
+      "revenue": 144.0,
+      "avgPrice": 12.0,
+      "weeklyAvg": 0.6
+    },
+    {
+      "rank": 68,
+      "name": "Chicken Tortilla Soup",
+      "category": "Soups",
+      "quantity": 12,
+      "revenue": 72.0,
+      "avgPrice": 6.0,
+      "weeklyAvg": 0.6
+    },
+    {
+      "rank": 69,
+      "name": "Hard boiled Egg",
+      "category": "Appetizers & Sides",
+      "quantity": 22,
+      "revenue": 22.0,
+      "avgPrice": 1.0,
+      "weeklyAvg": 1.2
+    },
+    {
+      "rank": 70,
+      "name": "Red Plum Salad",
+      "category": "Salads",
+      "quantity": 1,
+      "revenue": 11.0,
+      "avgPrice": 11.0,
+      "weeklyAvg": 0.1
+    },
+    {
+      "rank": 71,
+      "name": "Party Fry Platter",
+      "category": "Party Platters",
+      "quantity": 32,
+      "revenue": 0.0,
+      "avgPrice": 0.0,
+      "weeklyAvg": 1.7
+    },
+    {
+      "rank": 72,
+      "name": "Party Salad Bowl",
+      "category": "Party Platters",
+      "quantity": 15,
+      "revenue": 0.0,
+      "avgPrice": 0.0,
+      "weeklyAvg": 0.8
+    },
+    {
+      "rank": 73,
+      "name": "Party Unlimited Soda",
+      "category": "Party Platters",
+      "quantity": 153,
+      "revenue": 0.0,
+      "avgPrice": 0.0,
+      "weeklyAvg": 8.1
+    }
+  ]
+}
