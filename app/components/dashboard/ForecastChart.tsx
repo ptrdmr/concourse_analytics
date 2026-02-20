@@ -35,6 +35,12 @@ const MODEL_LABELS: Record<string, string> = {
 
 function CustomTooltip({ active, payload, label }: { active?: boolean; payload?: Array<{ dataKey: string; value: number; color: string }>; label?: string }) {
   if (!active || !payload?.length) return null;
+  const actual = payload.find(p => p.dataKey === 'actual')?.value;
+  const predicted = payload.find(p => p.dataKey === 'seasonal')?.value;
+  const hasBoth = actual != null && predicted != null && predicted > 0;
+  const error = hasBoth ? actual - predicted : null;
+  const pctError = hasBoth ? ((actual - predicted) / predicted) * 100 : null;
+
   return (
     <div className="bg-gray-900 border border-gray-700 rounded-lg px-4 py-3 shadow-xl">
       <p className="text-xs text-muted mb-2">{label}</p>
@@ -45,6 +51,15 @@ function CustomTooltip({ active, payload, label }: { active?: boolean; payload?:
           <span className="text-white font-mono">{formatCurrency(p.value)}</span>
         </p>
       ))}
+      {error != null && (
+        <p className="text-sm mt-2 pt-2 border-t border-gray-700">
+          <span className="text-secondary">Error: </span>
+          <span className={`font-mono ${error >= 0 ? 'text-emerald-400' : 'text-rose-400'}`}>
+            {error >= 0 ? '+' : ''}{formatCurrency(error)}
+            {pctError != null && ` (${pctError >= 0 ? '+' : ''}${pctError.toFixed(1)}%)`}
+          </span>
+        </p>
+      )}
     </div>
   );
 }
