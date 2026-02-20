@@ -282,7 +282,8 @@ def main():
     )
     parser.add_argument(
         '--end', type=str, default=None,
-        help='End date YYYY-MM-DD (default: last date in data)'
+        help='End date YYYY-MM-DD for training data (default: last date in data). '
+             'Use e.g. --end 2025-12-31 to avoid training on 2026 when backtesting.'
     )
     parser.add_argument(
         '--output', default=DEFAULT_OUTPUT,

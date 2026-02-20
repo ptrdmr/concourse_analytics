@@ -132,14 +132,23 @@ def compute_weekly_forecast(weekly, by_year_week, num_future_weeks=4,
     If start_from_year is set, forecast a full 52 weeks from Jan 1 (week 1) of that year.
     Otherwise, forecast num_future_weeks starting from the week after last data.
     Returns list of (week_start, forecast_value).
+
+    IMPORTANT: When forecasting a year, we exclude that year from the seasonal mean
+    to avoid data leakage (using actuals to "predict" actuals).
     """
     week_starts = sorted(weekly.keys())
     if not week_starts:
         return []
 
-    # Fallback: flat 4-week moving average
-    recent_revs = [weekly[w] for w in week_starts[-lookback:]] if len(week_starts) >= lookback else list(weekly.values())
-    fallback_avg = statistics.mean(recent_revs) if recent_revs else 0
+    # Fallback: flat 4-week moving average. When forecasting a specific year,
+    # use only data from prior years to avoid leakage.
+    exclude_year = start_from_year
+    if exclude_year is not None:
+        historical_weeks = [w for w in week_starts if w.year < exclude_year]
+        fallback_revs = [weekly[w] for w in historical_weeks[-lookback:]] if historical_weeks else []
+    else:
+        fallback_revs = [weekly[w] for w in week_starts[-lookback:]] if len(week_starts) >= lookback else list(weekly.values())
+    fallback_avg = statistics.mean(fallback_revs) if fallback_revs else 0
 
     if start_from_year is not None:
         # Full year from Jan 1: start at Monday of week 1
@@ -154,10 +163,14 @@ def compute_weekly_forecast(weekly, by_year_week, num_future_weeks=4,
     for i in range(num_weeks):
         next_week = first_week + timedelta(days=7 * i)
         week_num = min(next_week.isocalendar()[1], 52)
+        forecast_year = next_week.year
 
-        # Collect historical revenue for this week-of-year across all years
+        # Collect historical revenue for this week-of-year across PRIOR years only.
+        # Exclude the forecast year to prevent data leakage.
         seasonal_values = []
-        for year_data in by_year_week.values():
+        for year, year_data in by_year_week.items():
+            if year >= forecast_year:
+                continue  # Don't use current/future year when predicting it
             if week_num in year_data and year_data[week_num] > 0:
                 seasonal_values.append(year_data[week_num])
 
