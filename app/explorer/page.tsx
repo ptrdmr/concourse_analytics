@@ -10,6 +10,7 @@ import { KpiRow } from '@/components/dashboard/KpiRow';
 import { CategoryPieChart } from '@/components/dashboard/CategoryPieChart';
 import { WeeklyTrendsChart } from '@/components/dashboard/WeeklyTrendsChart';
 import { TopItemsChart } from '@/components/dashboard/TopItemsChart';
+import { SpecialtyCocktailsPanel } from '@/components/dashboard/SpecialtyCocktailsPanel';
 import { ItemDetailTable } from '@/components/dashboard/ItemDetailTable';
 import { Nav } from '@/components/Nav';
 
@@ -86,6 +87,10 @@ function ExplorerContent() {
           <CategoryPieChart data={categoryBreakdown} colors={categoryColors} />
           <WeeklyTrendsChart data={weeklyTrends} />
         </div>
+
+        {filters.department === 'Bar' && (
+          <SpecialtyCocktailsPanel items={topItems} colors={categoryColors} />
+        )}
 
         <TopItemsChart items={topItems.slice(0, 20)} colors={categoryColors} />
 
