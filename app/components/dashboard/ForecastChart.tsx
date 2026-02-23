@@ -70,15 +70,18 @@ export function ForecastChart({ data }: Props) {
 
     for (const [model, items] of Object.entries(data.forecasts)) {
       for (const item of items) {
-        const existing = allWeeks.get(item.weekStart) || { weekStart: item.weekStart } as Record<string, number>;
-        existing[model] = item.predictedRevenue;
-        allWeeks.set(item.weekStart, existing);
+        const existing = allWeeks.get(item.weekStart);
+        if (!existing) {
+          allWeeks.set(item.weekStart, { [model]: item.predictedRevenue });
+        } else {
+          existing[model] = item.predictedRevenue;
+        }
       }
     }
 
-    return Array.from(allWeeks.values()).sort((a, b) =>
-      String(a.weekStart).localeCompare(String(b.weekStart))
-    );
+    return Array.from(allWeeks.entries())
+      .map(([weekStart, values]) => ({ weekStart, ...values }))
+      .sort((a, b) => a.weekStart.localeCompare(b.weekStart));
   }, [data]);
 
   const models = Object.keys(data.forecasts);

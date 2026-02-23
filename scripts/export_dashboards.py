@@ -60,6 +60,7 @@ CATEGORY_COLORS = {
     'Online Lane Reservations': '#bb86fc',
     'VIP SUITES':         '#ff6eb4',
     'General Parties':    '#ff9100',
+    'Parties':            '#ff9100',
     'League Fees':        '#ffd700',
     'League Bowling':     '#c6ff00',
 }
@@ -259,11 +260,13 @@ def aggregate_item_date(products, category_overrides):
     for (name, date_str, dept), data in agg.items():
         subdept = data['subdepartment']
         category = category_overrides.get(name) or subdept or dept
+        # Reassign department when category override moves item to Parties
+        department = 'Parties' if category == 'Parties' else dept
 
         rows.append({
             'date': date_str,
             'name': name,
-            'department': dept,
+            'department': department,
             'subdepartment': subdept,
             'category': category,
             'quantity': round(data['quantity']),

@@ -1,19 +1,18 @@
 {
-  "generatedAt": "2026-02-20T14:59:39.362859",
+  "generatedAt": "2026-02-20T15:21:40.240765",
   "dateRange": [
     "2023-01-01",
     "2026-02-15"
   ],
-  "totalRevenue": 17847021.44,
+  "totalRevenue": 17847021.45,
   "departments": {
     "Arcade": {
-      "revenue": 120220.35,
-      "quantity": 2339,
-      "transactions": 2315,
-      "uniqueItems": 5,
+      "revenue": 120122.5,
+      "quantity": 2338,
+      "transactions": 2314,
+      "uniqueItems": 4,
       "categories": [
-        "Arcade",
-        "Online Lane Reservations"
+        "Arcade"
       ],
       "dateRange": [
         "2023-12-07",
@@ -38,15 +37,14 @@
       ]
     },
     "Bowling": {
-      "revenue": 7433160.15,
-      "quantity": 8018185,
-      "transactions": 390706,
-      "uniqueItems": 64,
+      "revenue": 5283043.84,
+      "quantity": 6932999,
+      "transactions": 372847,
+      "uniqueItems": 51,
       "categories": [
         "Game Bowling",
         "General Income",
         "General Parties",
-        "Online Lane Reservations",
         "Rental Shoes",
         "Supercharge",
         "Time Bowling",
@@ -112,17 +110,17 @@
       ]
     },
     "Parties": {
-      "revenue": 557581.53,
-      "quantity": 39524,
-      "transactions": 1842,
-      "uniqueItems": 32,
+      "revenue": 2707795.7,
+      "quantity": 1124712,
+      "transactions": 19703,
+      "uniqueItems": 40,
       "categories": [
         "Catering",
         "Parties"
       ],
       "dateRange": [
         "2023-05-26",
-        "2025-07-11"
+        "2026-02-15"
       ]
     },
     "Vending Machines": {
@@ -163,6 +161,7 @@
     "Online Lane Reservations": "#bb86fc",
     "VIP SUITES": "#ff6eb4",
     "General Parties": "#ff9100",
+    "Parties": "#ff9100",
     "League Fees": "#ffd700",
     "League Bowling": "#c6ff00"
   }
