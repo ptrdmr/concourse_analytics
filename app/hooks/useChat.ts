@@ -9,7 +9,7 @@ export interface ChatMessage {
   content: string;
 }
 
-type ChatStatus = 'idle' | 'thinking' | 'searching' | 'streaming';
+type ChatStatus = 'idle' | 'thinking' | 'searching';
 
 export function useChat() {
   const [messages, setMessages] = useState<ChatMessage[]>([]);
@@ -17,49 +17,6 @@ export function useChat() {
   const [error, setError] = useState<string | null>(null);
   const abortRef = useRef<AbortController | null>(null);
   const { summary: dataContext, transactions } = useDataContext();
-
-  const streamResponse = async (res: Response, controller: AbortController) => {
-    const reader = res.body?.getReader();
-    if (!reader) throw new Error('No response stream');
-
-    const decoder = new TextDecoder();
-    let assistantContent = '';
-    setMessages(prev => [...prev, { role: 'assistant', content: '' }]);
-    setStatus('streaming');
-
-    let buffer = '';
-    while (true) {
-      const { done, value } = await reader.read();
-      if (done) break;
-      if (controller.signal.aborted) break;
-
-      buffer += decoder.decode(value, { stream: true });
-      const lines = buffer.split('\n');
-      buffer = lines.pop() || '';
-
-      for (const line of lines) {
-        const trimmedLine = line.trim();
-        if (!trimmedLine || !trimmedLine.startsWith('data: ')) continue;
-        const data = trimmedLine.slice(6);
-        if (data === '[DONE]') continue;
-
-        try {
-          const parsed = JSON.parse(data);
-          const delta = parsed.choices?.[0]?.delta?.content;
-          if (delta) {
-            assistantContent += delta;
-            setMessages(prev => {
-              const copy = [...prev];
-              copy[copy.length - 1] = { role: 'assistant', content: assistantContent };
-              return copy;
-            });
-          }
-        } catch {
-          // skip malformed SSE chunks
-        }
-      }
-    }
-  };
 
   const send = useCallback(async (userMessage: string) => {
     const trimmed = userMessage.trim();
@@ -74,82 +31,62 @@ export function useChat() {
     const controller = new AbortController();
     abortRef.current = controller;
 
+    const MAX_TOOL_ROUNDS = 5;
+
     try {
-      const apiMessages = updatedMessages.map(m => ({
+      let apiMessages: Array<Record<string, unknown>> = updatedMessages.map(m => ({
         role: m.role,
         content: m.content,
       }));
 
-      const res = await fetch('/api/chat', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          messages: apiMessages,
-          dataContext,
-          mode: 'with_tools',
-        }),
-        signal: controller.signal,
-      });
-
-      if (!res.ok) {
-        const errBody = await res.json().catch(() => ({}));
-        throw new Error(errBody.error || `Request failed (${res.status})`);
-      }
-
-      const firstResponse = await res.json();
-
-      if (firstResponse.type === 'tool_calls') {
-        setStatus('searching');
-
-        const toolCalls = firstResponse.calls as Array<{
-          id: string;
-          type: string;
-          function: { name: string; arguments: string };
-        }>;
-
-        const toolResults = toolCalls.map(call => {
-          let args: Record<string, unknown>;
-          try {
-            args = JSON.parse(call.function.arguments);
-          } catch {
-            args = {};
-          }
-          const result = executeToolCall(
-            { name: call.function.name, arguments: args },
-            transactions
-          );
-          return {
-            role: 'tool' as const,
-            tool_call_id: call.id,
-            content: result,
-          };
-        });
-
-        const followUpMessages = [
-          ...apiMessages,
-          firstResponse.message,
-          ...toolResults,
-        ];
-
-        const followUpRes = await fetch('/api/chat', {
+      for (let round = 0; round < MAX_TOOL_ROUNDS; round++) {
+        const res = await fetch('/api/chat', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            messages: followUpMessages,
-            dataContext,
-            mode: 'follow_up',
-          }),
+          body: JSON.stringify({ messages: apiMessages, dataContext }),
           signal: controller.signal,
         });
 
-        if (!followUpRes.ok) {
-          const errBody = await followUpRes.json().catch(() => ({}));
-          throw new Error(errBody.error || `Follow-up request failed (${followUpRes.status})`);
+        if (!res.ok) {
+          const errBody = await res.json().catch(() => ({}));
+          throw new Error(errBody.error || `Request failed (${res.status})`);
         }
 
-        await streamResponse(followUpRes, controller);
-      } else if (firstResponse.type === 'content') {
-        setMessages(prev => [...prev, { role: 'assistant', content: firstResponse.content }]);
+        const response = await res.json();
+
+        if (response.type === 'tool_calls') {
+          setStatus('searching');
+
+          const toolCalls = response.calls as Array<{
+            id: string;
+            type: string;
+            function: { name: string; arguments: string };
+          }>;
+
+          const toolResults = toolCalls.map(call => {
+            let args: Record<string, unknown>;
+            try {
+              args = JSON.parse(call.function.arguments);
+            } catch {
+              args = {};
+            }
+            const result = executeToolCall(
+              { name: call.function.name, arguments: args },
+              transactions
+            );
+            return {
+              role: 'tool' as const,
+              tool_call_id: call.id,
+              content: result,
+            };
+          });
+
+          apiMessages = [...apiMessages, response.message, ...toolResults];
+          continue;
+        }
+
+        setMessages(prev => [...prev, { role: 'assistant', content: response.content }]);
+        break;
       }
     } catch (err: unknown) {
       if (err instanceof Error && err.name === 'AbortError') return;
@@ -166,10 +103,6 @@ export function useChat() {
     }
   }, [messages, status, dataContext, transactions]);
 
-  const stop = useCallback(() => {
-    abortRef.current?.abort();
-  }, []);
-
   const clear = useCallback(() => {
     abortRef.current?.abort();
     setMessages([]);
@@ -179,5 +112,5 @@ export function useChat() {
 
   const streaming = status !== 'idle';
 
-  return { messages, status, streaming, error, send, stop, clear };
+  return { messages, status, streaming, error, send, clear };
 }

@@ -1,13 +1,13 @@
 'use client';
 
 import { useState, useRef, useEffect, type KeyboardEvent } from 'react';
-import { MessageSquare, X, Send, Square, Trash2, Search, Loader2 } from 'lucide-react';
+import { MessageSquare, X, Send, Trash2, Search, Loader2 } from 'lucide-react';
 import { useChat } from '@/hooks/useChat';
 
 export function ChatWidget() {
   const [open, setOpen] = useState(false);
   const [input, setInput] = useState('');
-  const { messages, status, streaming, error, send, stop, clear } = useChat();
+  const { messages, status, streaming, error, send, clear } = useChat();
   const scrollRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLTextAreaElement>(null);
 
@@ -116,9 +116,6 @@ export function ChatWidget() {
               }`}
             >
               {msg.content}
-              {streaming && i === messages.length - 1 && msg.role === 'assistant' && (
-                <span className="inline-block w-1.5 h-4 bg-accent/60 ml-0.5 animate-pulse" />
-              )}
             </div>
           </div>
         ))}
@@ -157,25 +154,15 @@ export function ChatWidget() {
                        placeholder:text-muted outline-none py-2 px-1
                        max-h-[80px] overflow-y-auto"
           />
-          {streaming ? (
-            <button
-              onClick={stop}
-              className="p-2 rounded-lg bg-white/10 text-white hover:bg-white/15 transition-colors"
-              aria-label="Stop generating"
-            >
-              <Square className="w-4 h-4" />
-            </button>
-          ) : (
-            <button
-              onClick={handleSend}
-              disabled={!input.trim()}
-              className="p-2 rounded-lg bg-accent text-black hover:bg-accent/80
-                         disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
-              aria-label="Send message"
-            >
-              <Send className="w-4 h-4" />
-            </button>
-          )}
+          <button
+            onClick={handleSend}
+            disabled={!input.trim() || streaming}
+            className="p-2 rounded-lg bg-accent text-black hover:bg-accent/80
+                       disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
+            aria-label="Send message"
+          >
+            <Send className="w-4 h-4" />
+          </button>
         </div>
       </div>
     </div>

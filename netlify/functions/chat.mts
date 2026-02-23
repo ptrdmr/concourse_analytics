@@ -119,7 +119,6 @@ interface ChatMessage {
 interface RequestBody {
   messages: ChatMessage[];
   dataContext: string;
-  mode?: "with_tools" | "follow_up";
 }
 
 export default async function handler(req: Request, _context: Context) {
@@ -159,7 +158,7 @@ export default async function handler(req: Request, _context: Context) {
     });
   }
 
-  const { messages, dataContext, mode } = body;
+  const { messages, dataContext } = body;
   if (!messages || !Array.isArray(messages) || messages.length === 0) {
     return new Response(
       JSON.stringify({ error: "messages array is required" }),
@@ -172,22 +171,7 @@ export default async function handler(req: Request, _context: Context) {
     content: `${SYSTEM_PROMPT}\n\n--- CURRENT DASHBOARD DATA ---\n${dataContext || "No data context provided."}`,
   };
 
-  const isFollowUp = mode === "follow_up";
   const deepseekMessages = [systemMessage, ...messages.slice(-20)];
-
-  const requestBody: Record<string, unknown> = {
-    model: "deepseek-chat",
-    messages: deepseekMessages,
-    max_tokens: 1024,
-    temperature: 0.3,
-  };
-
-  if (!isFollowUp) {
-    requestBody.tools = TOOLS;
-    requestBody.stream = false;
-  } else {
-    requestBody.stream = true;
-  }
 
   const response = await fetch(DEEPSEEK_URL, {
     method: "POST",
@@ -195,7 +179,14 @@ export default async function handler(req: Request, _context: Context) {
       "Content-Type": "application/json",
       Authorization: `Bearer ${apiKey}`,
     },
-    body: JSON.stringify(requestBody),
+    body: JSON.stringify({
+      model: "deepseek-chat",
+      messages: deepseekMessages,
+      tools: TOOLS,
+      stream: false,
+      max_tokens: 1024,
+      temperature: 0.3,
+    }),
   });
 
   if (!response.ok) {
@@ -206,32 +197,16 @@ export default async function handler(req: Request, _context: Context) {
     );
   }
 
-  if (!isFollowUp) {
-    const result = await response.json();
-    const choice = result.choices?.[0];
-    const message = choice?.message;
+  const result = await response.json();
+  const choice = result.choices?.[0];
+  const message = choice?.message;
 
-    if (message?.tool_calls && message.tool_calls.length > 0) {
-      return new Response(
-        JSON.stringify({
-          type: "tool_calls",
-          calls: message.tool_calls,
-          message,
-        }),
-        {
-          status: 200,
-          headers: {
-            "Content-Type": "application/json",
-            "Access-Control-Allow-Origin": "*",
-          },
-        }
-      );
-    }
-
+  if (message?.tool_calls && message.tool_calls.length > 0) {
     return new Response(
       JSON.stringify({
-        type: "content",
-        content: message?.content || "",
+        type: "tool_calls",
+        calls: message.tool_calls,
+        message,
       }),
       {
         status: 200,
@@ -243,13 +218,17 @@ export default async function handler(req: Request, _context: Context) {
     );
   }
 
-  return new Response(response.body, {
-    status: 200,
-    headers: {
-      "Content-Type": "text/event-stream",
-      "Cache-Control": "no-cache",
-      Connection: "keep-alive",
-      "Access-Control-Allow-Origin": "*",
-    },
-  });
+  return new Response(
+    JSON.stringify({
+      type: "content",
+      content: message?.content || "",
+    }),
+    {
+      status: 200,
+      headers: {
+        "Content-Type": "application/json",
+        "Access-Control-Allow-Origin": "*",
+      },
+    }
+  );
 }
