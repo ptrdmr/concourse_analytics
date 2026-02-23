@@ -1,13 +1,13 @@
 'use client';
 
 import { useState, useRef, useEffect, type KeyboardEvent } from 'react';
-import { MessageSquare, X, Send, Square, Trash2 } from 'lucide-react';
+import { MessageSquare, X, Send, Square, Trash2, Search, Loader2 } from 'lucide-react';
 import { useChat } from '@/hooks/useChat';
 
 export function ChatWidget() {
   const [open, setOpen] = useState(false);
   const [input, setInput] = useState('');
-  const { messages, streaming, error, send, stop, clear } = useChat();
+  const { messages, status, streaming, error, send, stop, clear } = useChat();
   const scrollRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLTextAreaElement>(null);
 
@@ -122,6 +122,19 @@ export function ChatWidget() {
             </div>
           </div>
         ))}
+
+        {(status === 'thinking' || status === 'searching') && (
+          <div className="flex justify-start">
+            <div className="flex items-center gap-2 px-3 py-2 rounded-2xl rounded-bl-md bg-white/[0.05] text-secondary text-sm">
+              {status === 'searching' ? (
+                <Search className="w-3.5 h-3.5 animate-pulse text-accent" />
+              ) : (
+                <Loader2 className="w-3.5 h-3.5 animate-spin text-accent" />
+              )}
+              {status === 'searching' ? 'Searching data...' : 'Thinking...'}
+            </div>
+          </div>
+        )}
 
         {error && (
           <div className="text-xs text-red-400 bg-red-400/10 rounded-lg px-3 py-2">
