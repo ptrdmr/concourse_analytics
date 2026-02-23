@@ -1,10 +1,12 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import { Nav } from '@/components/Nav';
 import { SeasonalityChart } from '@/components/dashboard/SeasonalityChart';
 import { ForecastChart } from '@/components/dashboard/ForecastChart';
 import { formatCompact } from '@/lib/format';
+import { buildBowlingSummary } from '@/lib/build-data-summary';
+import { useDataContext } from '@/context/DataContext';
 
 interface SeasonalityData {
   byYearWeek: Record<string, Array<{ week: number; revenue: number }>>;
@@ -30,6 +32,7 @@ export default function BowlingPage() {
   const [seasonality, setSeasonality] = useState<SeasonalityData | null>(null);
   const [forecast, setForecast] = useState<ForecastData | null>(null);
   const [loading, setLoading] = useState(true);
+  const { setDataSummary } = useDataContext();
 
   useEffect(() => {
     Promise.all([
@@ -41,6 +44,23 @@ export default function BowlingPage() {
       setLoading(false);
     }).catch(() => setLoading(false));
   }, []);
+
+  const summaryText = useMemo(() => {
+    if (!seasonality) return '';
+    const currentYear = seasonality.years[seasonality.years.length - 1];
+    return buildBowlingSummary({
+      totalRevenue: seasonality.totalRevenue,
+      years: seasonality.years,
+      dateRange: seasonality.dateRange,
+      currentYearWeeks: currentYear
+        ? seasonality.byYearWeek[String(currentYear)]
+        : undefined,
+    });
+  }, [seasonality]);
+
+  useEffect(() => {
+    if (summaryText) setDataSummary(summaryText);
+  }, [summaryText, setDataSummary]);
 
   if (loading) {
     return (

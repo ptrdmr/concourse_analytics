@@ -5,6 +5,8 @@ import { useSearchParams } from 'next/navigation';
 import { useTransactions, useSummary, useFilteredData } from '@/hooks/useTransactions';
 import type { Filters } from '@/types';
 import { getYTD } from '@/lib/date-ranges';
+import { buildExplorerSummary } from '@/lib/build-data-summary';
+import { useDataContext } from '@/context/DataContext';
 import { FilterBar } from '@/components/dashboard/FilterBar';
 import { KpiRow } from '@/components/dashboard/KpiRow';
 import { CategoryPieChart } from '@/components/dashboard/CategoryPieChart';
@@ -17,6 +19,7 @@ import { Nav } from '@/components/Nav';
 function ExplorerContent() {
   const searchParams = useSearchParams();
   const initialDept = searchParams.get('dept') || 'All';
+  const { setDataSummary } = useDataContext();
 
   const { raw, loading: txnLoading } = useTransactions();
   const { summary, loading: sumLoading } = useSummary();
@@ -53,6 +56,22 @@ function ExplorerContent() {
 
   const { filtered, kpis, categoryBreakdown, weeklyTrends, topItems } =
     useFilteredData(raw, filters);
+
+  const summaryText = useMemo(() => {
+    if (txnLoading || sumLoading) return '';
+    return buildExplorerSummary({
+      department: filters.department,
+      dateRange: filters.dateRange,
+      kpis,
+      categoryBreakdown,
+      weeklyTrends,
+      topItems,
+    });
+  }, [txnLoading, sumLoading, filters.department, filters.dateRange, kpis, categoryBreakdown, weeklyTrends, topItems]);
+
+  useEffect(() => {
+    if (summaryText) setDataSummary(summaryText);
+  }, [summaryText, setDataSummary]);
 
   const loading = txnLoading || sumLoading;
 

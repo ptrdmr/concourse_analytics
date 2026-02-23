@@ -1,8 +1,10 @@
 'use client';
 
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect } from 'react';
 import { useTransactions, useSummary, useFilteredData } from '@/hooks/useTransactions';
 import { formatCompact, formatNumber } from '@/lib/format';
+import { buildOverviewSummary } from '@/lib/build-data-summary';
+import { useDataContext } from '@/context/DataContext';
 import { DollarSign, ShoppingCart, TrendingUp, Package } from 'lucide-react';
 import Link from 'next/link';
 import { Nav } from '@/components/Nav';
@@ -22,14 +24,15 @@ const DEPT_ICONS: Record<string, string> = {
 export default function HomePage() {
   const { raw, loading: txnLoading } = useTransactions();
   const { summary, loading: sumLoading } = useSummary();
+  const { setDataSummary } = useDataContext();
 
   const [dateRange, setDateRange] = useState<[string, string] | null>(getYTD());
-  const filters: Filters = {
+  const filters = useMemo<Filters>(() => ({
     department: 'All',
     dateRange,
     categories: [],
     searchTerm: '',
-  };
+  }), [dateRange]);
 
   const { filtered, kpis } = useFilteredData(raw, filters);
 
@@ -70,6 +73,24 @@ export default function HomePage() {
       }))
       .sort((a, b) => b.revenue - a.revenue);
   }, [filtered]);
+
+  const summaryText = useMemo(() => {
+    if (txnLoading || sumLoading) return '';
+    return buildOverviewSummary({
+      dateRange,
+      kpis,
+      departments: depts.map(d => ({
+        name: d.name,
+        revenue: d.revenue,
+        transactions: d.transactions,
+        uniqueItems: d.uniqueItems,
+      })),
+    });
+  }, [txnLoading, sumLoading, dateRange, kpis, depts]);
+
+  useEffect(() => {
+    if (summaryText) setDataSummary(summaryText);
+  }, [summaryText, setDataSummary]);
 
   const loading = txnLoading || sumLoading;
 

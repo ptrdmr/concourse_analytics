@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import './globals.css';
+import { ClientShell } from './ClientShell';
 
 export const metadata: Metadata = {
   title: 'Analytics Dashboard',
@@ -14,7 +15,7 @@ export default function RootLayout({
   return (
     <html lang="en" className="dark">
       <body className="min-h-screen bg-background text-foreground antialiased">
-        {children}
+        <ClientShell>{children}</ClientShell>
       </body>
     </html>
   );

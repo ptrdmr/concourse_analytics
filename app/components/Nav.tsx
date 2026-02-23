@@ -1,6 +1,7 @@
 'use client';
 
 import Link from 'next/link';
+import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 
 const NAV_LINKS = [
@@ -15,8 +16,16 @@ export function Nav() {
   return (
     <nav className="sticky top-0 z-50 bg-black/80 backdrop-blur-lg border-b border-border">
       <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
-        <Link href="/" className="text-xl font-bold text-gradient">
-          Analytics
+        <Link href="/" className="flex items-center gap-3">
+          <Image
+            src="/concourse-logo-trans.png"
+            alt="Concourse"
+            width={108}
+            height={48}
+            className="object-contain"
+            priority
+          />
+          <span className="text-xl font-bold text-gradient">Analytics</span>
         </Link>
         <div className="flex items-center gap-1">
           {NAV_LINKS.map(link => {
