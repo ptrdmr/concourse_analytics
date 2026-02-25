@@ -69,14 +69,12 @@ def get_holiday_periods(years):
                 periods.append(("Labor Day Weekend Sunday", dt - timedelta(days=1), year))
                 periods.append((display_name, dt, year))
             elif name in ("Thanksgiving", "Thanksgiving Day"):
-                display_name = "Thanksgiving"
-                periods.append((display_name, dt, year))
+                # Closed Thanksgiving Day; keep Black Friday + weekend
                 periods.append(("Black Friday", dt + timedelta(days=1), year))
                 periods.append(("Thanksgiving Weekend Saturday", dt + timedelta(days=2), year))
                 periods.append(("Thanksgiving Weekend Sunday", dt + timedelta(days=3), year))
             elif name == "Christmas Day":
-                periods.append(("Christmas Eve", datetime(year, 12, 24).date(), year))
-                periods.append((display_name, dt, year))
+                # Closed Christmas Eve & Christmas Day; keep Day after Christmas
                 periods.append(("Day after Christmas", datetime(year, 12, 26).date(), year))
             else:
                 # MLK, Juneteenth, Veterans, Presidents' Day, etc. – single day

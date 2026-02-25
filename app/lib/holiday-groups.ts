@@ -4,15 +4,12 @@
  * Order of groups determines display order.
  */
 export const HOLIDAY_GROUPS: Record<string, string[]> = {
-  'Thanksgiving': [
-    'Thanksgiving',
+  'Thanksgiving Weekend': [
     'Black Friday',
     'Thanksgiving Weekend Saturday',
     'Thanksgiving Weekend Sunday',
   ],
   'Christmas': [
-    'Christmas Eve',
-    'Christmas Day',
     'Day after Christmas',
   ],
   'New Year\'s': [
