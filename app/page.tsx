@@ -126,9 +126,9 @@ export default function HomePage() {
     <main className="min-h-screen">
       <Nav />
 
-      <section className="max-w-7xl mx-auto px-6 py-12">
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 py-8 sm:py-12">
         <div className="mb-6">
-          <h2 className="text-4xl font-bold mb-2">Business Overview</h2>
+          <h2 className="text-2xl sm:text-4xl font-bold mb-2">Business Overview</h2>
           <DateRangePicker value={dateRange} onChange={setDateRange} />
           <p className="text-secondary mt-2">
             {displayDateRange}

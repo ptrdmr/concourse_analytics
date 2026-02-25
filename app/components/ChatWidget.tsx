@@ -40,7 +40,7 @@ export function ChatWidget() {
     return (
       <button
         onClick={() => setOpen(true)}
-        className="fixed bottom-6 right-6 z-50 w-14 h-14 rounded-full
+        className="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-50 w-14 h-14 rounded-full
                    bg-accent text-black flex items-center justify-center
                    shadow-lg shadow-accent/25 hover:scale-105 transition-transform"
         aria-label="Open chat"
@@ -51,7 +51,7 @@ export function ChatWidget() {
   }
 
   return (
-    <div className="fixed bottom-6 right-6 z-50 w-[380px] max-h-[600px] flex flex-col
+    <div className="fixed bottom-4 right-4 left-4 sm:left-auto sm:w-[380px] z-50 max-h-[85vh] sm:max-h-[600px] flex flex-col
                     rounded-2xl border border-border bg-[#0a0a0a] shadow-2xl shadow-black/50
                     animate-fade-in overflow-hidden">
       {/* Header */}
