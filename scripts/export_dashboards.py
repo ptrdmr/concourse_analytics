@@ -610,20 +610,32 @@ def main():
     category_overrides = load_category_overrides()
     print(f'Category overrides: {len(category_overrides)} entries')
 
-    print('\n[1/4] Transactions...')
+    print('\n[1/5] Transactions...')
     rows = export_transactions(csv_files, category_overrides)
 
-    print('\n[2/4] Summary...')
+    print('\n[2/5] Summary...')
     summary = export_summary(rows)
     for dept, info in summary['departments'].items():
         print(f'  {dept}: ${info["revenue"]:,.0f}  '
               f'({info["uniqueItems"]} items, {info["transactions"]:,} txns)')
 
-    print('\n[3/4] Bowling Seasonality...')
+    print('\n[3/5] Bowling Seasonality...')
     export_bowling_seasonality(csv_files)
 
-    print('\n[4/4] Bowling Forecast...')
+    print('\n[4/5] Bowling Forecast...')
     export_bowling_forecast(csv_files)
+
+    print('\n[5/5] Holiday Analysis...')
+    try:
+        import sys
+        _scripts = os.path.join(_ROOT, 'scripts')
+        if _scripts not in sys.path:
+            sys.path.insert(0, _scripts)
+        from holiday_analysis import export_holiday_analysis
+        if export_holiday_analysis(rows, quiet=True) == 0:
+            print(f'  -> {os.path.join(OUTPUT_DIR, "holiday_analysis.json")}')
+    except ImportError as e:
+        print(f'  SKIP: holiday_analysis not available ({e})')
 
     print('\n' + '=' * 60)
     print(f'Done! {len(rows):,} transaction rows written to {OUTPUT_DIR}')

@@ -96,17 +96,25 @@ export default function HomePage() {
 
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center">
+      <main className="min-h-screen flex flex-col items-center justify-center gap-4">
+        <Nav />
         <div className="text-secondary animate-pulse text-lg">Loading dashboard...</div>
-      </div>
+        <p className="text-sm text-muted">Loading 125K+ transactions — this may take a moment</p>
+      </main>
     );
   }
 
   if (!summary) {
     return (
-      <div className="min-h-screen flex items-center justify-center">
-        <div className="text-red-400">Failed to load data.</div>
-      </div>
+      <main className="min-h-screen flex flex-col items-center justify-center gap-4">
+        <Nav />
+        <div className="text-red-400 text-center max-w-md">
+          <p className="font-medium">Failed to load data.</p>
+          <p className="text-sm text-muted mt-2">
+            Run <code className="text-accent">python scripts/export_dashboards.py</code> to generate the data files, then refresh.
+          </p>
+        </div>
+      </main>
     );
   }
 

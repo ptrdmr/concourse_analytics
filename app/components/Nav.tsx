@@ -8,6 +8,7 @@ const NAV_LINKS = [
   { href: '/', label: 'Overview' },
   { href: '/explorer', label: 'Data Explorer' },
   { href: '/bowling', label: 'Bowling Forecast' },
+  { href: '/holidays', label: 'Holiday Analysis' },
 ];
 
 export function Nav() {

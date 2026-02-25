@@ -3,14 +3,31 @@
 import { useState, useEffect, useMemo } from 'react';
 import type { Transaction, Summary, Filters } from '@/types';
 
+const LOAD_TIMEOUT_MS = 60000; // 60 seconds for large transactions.json
+
+function fetchWithTimeout(url: string, timeout = LOAD_TIMEOUT_MS): Promise<Response> {
+  return Promise.race([
+    fetch(url),
+    new Promise<never>((_, reject) =>
+      setTimeout(() => reject(new Error('Load timeout')), timeout)
+    ),
+  ]);
+}
+
 export function useSummary() {
   const [summary, setSummary] = useState<Summary | null>(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch('/data/summary.json')
-      .then(res => res.json())
-      .then(data => { setSummary(data); setLoading(false); })
+    fetchWithTimeout('/data/summary.json', 15000)
+      .then((res) => {
+        if (!res.ok) throw new Error(`Failed to load (${res.status})`);
+        return res.json();
+      })
+      .then((data) => {
+        setSummary(data);
+        setLoading(false);
+      })
       .catch(() => setLoading(false));
   }, []);
 
@@ -22,9 +39,15 @@ export function useTransactions() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch('/data/transactions.json')
-      .then(res => res.json())
-      .then((data: Transaction[]) => { setRaw(data); setLoading(false); })
+    fetchWithTimeout('/data/transactions.json')
+      .then((res) => {
+        if (!res.ok) throw new Error(`Failed to load (${res.status})`);
+        return res.json();
+      })
+      .then((data: Transaction[]) => {
+        setRaw(data);
+        setLoading(false);
+      })
       .catch(() => setLoading(false));
   }, []);
 
