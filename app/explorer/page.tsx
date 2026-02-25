@@ -38,7 +38,8 @@ function ExplorerContent() {
 
   const departments = useMemo(() => {
     if (!summary) return [];
-    return ['All', ...Object.keys(summary.departments).sort((a, b) => {
+    const depts = Object.keys(summary.departments).filter(d => d !== 'Vending Machines');
+    return ['All', ...depts.sort((a, b) => {
       return (summary.departments[b]?.revenue || 0) - (summary.departments[a]?.revenue || 0);
     })];
   }, [summary]);
