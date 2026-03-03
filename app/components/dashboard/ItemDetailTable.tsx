@@ -4,7 +4,7 @@ import { useState, useMemo } from 'react';
 import { ChevronDown, ChevronUp } from 'lucide-react';
 import { formatCurrency, formatNumber } from '@/lib/format';
 
-interface ItemData {
+export interface ItemData {
   name: string;
   revenue: number;
   quantity: number;
@@ -14,6 +14,7 @@ interface ItemData {
 interface Props {
   items: ItemData[];
   colors: Record<string, string>;
+  onItemClick?: (item: ItemData) => void;
 }
 
 type SortKey = 'name' | 'category' | 'revenue' | 'quantity';
@@ -22,7 +23,7 @@ type SortDir = 'asc' | 'desc';
 const FALLBACK = '#10b981';
 const PAGE_SIZE = 25;
 
-export function ItemDetailTable({ items, colors }: Props) {
+export function ItemDetailTable({ items, colors, onItemClick }: Props) {
   const [sortKey, setSortKey] = useState<SortKey>('revenue');
   const [sortDir, setSortDir] = useState<SortDir>('desc');
   const [page, setPage] = useState(0);
@@ -62,7 +63,14 @@ export function ItemDetailTable({ items, colors }: Props) {
 
   return (
     <div className="card p-6">
-      <h3 className="text-lg font-semibold text-white mb-1">Item Detail</h3>
+      <div className="flex items-center gap-3 mb-1">
+        <h3 className="text-lg font-semibold text-white">Item Detail</h3>
+        {onItemClick && (
+          <span className="text-sm text-accent font-medium px-2.5 py-0.5 rounded-md bg-accent/10 border border-accent/30 shrink-0">
+            Click any item to see monthly sales
+          </span>
+        )}
+      </div>
       <p className="text-sm text-muted mb-4">
         {items.length} items — showing {page * PAGE_SIZE + 1}–{Math.min((page + 1) * PAGE_SIZE, items.length)}
       </p>
@@ -85,7 +93,11 @@ export function ItemDetailTable({ items, colors }: Props) {
           </thead>
           <tbody>
             {pageItems.map(item => (
-              <tr key={item.name} className="border-b border-border/50 hover:bg-white/[0.02]">
+              <tr
+                key={item.name}
+                onClick={() => onItemClick?.(item)}
+                className={`border-b border-border/50 hover:bg-white/[0.02] ${onItemClick ? 'cursor-pointer' : ''}`}
+              >
                 <td className="py-2.5 px-3 font-medium">{item.name}</td>
                 <td className="py-2.5 px-3">
                   <span className="flex items-center gap-2">

@@ -14,6 +14,8 @@ import { WeeklyTrendsChart } from '@/components/dashboard/WeeklyTrendsChart';
 import { TopItemsChart } from '@/components/dashboard/TopItemsChart';
 import { SpecialtyCocktailsPanel } from '@/components/dashboard/SpecialtyCocktailsPanel';
 import { ItemDetailTable } from '@/components/dashboard/ItemDetailTable';
+import { ItemHistoryPanel } from '@/components/dashboard/ItemHistoryPanel';
+import type { ItemData } from '@/components/dashboard/ItemDetailTable';
 import { Nav } from '@/components/Nav';
 
 function ExplorerContent() {
@@ -30,6 +32,7 @@ function ExplorerContent() {
     categories: [],
     searchTerm: '',
   });
+  const [selectedItem, setSelectedItem] = useState<ItemData | null>(null);
 
   useEffect(() => {
     const dept = searchParams.get('dept');
@@ -114,8 +117,21 @@ function ExplorerContent() {
 
         <TopItemsChart items={topItems.slice(0, 20)} colors={categoryColors} />
 
-        <ItemDetailTable items={topItems} colors={categoryColors} />
+        <ItemDetailTable
+          items={topItems}
+          colors={categoryColors}
+          onItemClick={setSelectedItem}
+        />
       </div>
+
+      {selectedItem && (
+        <ItemHistoryPanel
+          item={selectedItem}
+          transactions={filtered}
+          colors={categoryColors}
+          onClose={() => setSelectedItem(null)}
+        />
+      )}
     </main>
   );
 }
