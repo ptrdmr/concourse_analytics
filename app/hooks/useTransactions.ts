@@ -54,6 +54,34 @@ export function useTransactions() {
   return { raw, loading };
 }
 
+export interface ModifierData {
+  name: string;
+  count: number;
+  revenue: number;
+  unitPrice: number;
+  subdepartment: string;
+}
+
+export function useModifiers() {
+  const [modifiers, setModifiers] = useState<ModifierData[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    fetchWithTimeout('/data/modifiers.json', 10000)
+      .then((res) => {
+        if (!res.ok) throw new Error(`Failed to load (${res.status})`);
+        return res.json();
+      })
+      .then((data: { modifiers: ModifierData[] }) => {
+        setModifiers(data.modifiers || []);
+        setLoading(false);
+      })
+      .catch(() => setLoading(false));
+  }, []);
+
+  return { modifiers, loading };
+}
+
 export function useFilteredData(raw: Transaction[], filters: Filters) {
   const filtered = useMemo(() => {
     let data = raw;

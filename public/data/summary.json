@@ -1,10 +1,10 @@
 {
-  "generatedAt": "2026-03-02T13:58:26.468153",
+  "generatedAt": "2026-03-05T11:01:12.156876",
   "dateRange": [
     "2023-01-01",
     "2026-03-01"
   ],
-  "totalRevenue": 18120946.32,
+  "totalRevenue": 18936449.53,
   "departments": {
     "Arcade": {
       "revenue": 122229.5,
@@ -92,6 +92,22 @@
         "2026-03-01"
       ]
     },
+    "Modifiers": {
+      "revenue": 815503.21,
+      "quantity": 218246,
+      "transactions": 208475,
+      "uniqueItems": 362,
+      "categories": [
+        "Catering",
+        "Food",
+        "Food Mods",
+        "N/A Bev"
+      ],
+      "dateRange": [
+        "2023-05-26",
+        "2026-03-01"
+      ]
+    },
     "Parties": {
       "revenue": 3202397.04,
       "quantity": 1249535,
@@ -146,6 +162,10 @@
     "General Parties": "#ff9100",
     "Parties": "#ff9100",
     "League Fees": "#ffd700",
-    "League Bowling": "#c6ff00"
+    "League Bowling": "#c6ff00",
+    "Food Mods": "#10b981",
+    "Food": "#34d399",
+    "N/A Bev": "#6ee7b7",
+    "Catering": "#059669"
   }
 }

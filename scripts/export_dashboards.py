@@ -63,6 +63,11 @@ CATEGORY_COLORS = {
     'Parties':            '#ff9100',
     'League Fees':        '#ffd700',
     'League Bowling':     '#c6ff00',
+    # Modifiers subdepartments
+    'Food Mods':           '#10b981',
+    'Food':                '#34d399',
+    'N/A Bev':             '#6ee7b7',
+    'Catering':            '#059669',
 }
 
 YEAR_COLORS = ['#00b0ff', '#f5a623', '#ff5252', '#03dac6', '#ff9100', '#bb86fc']
@@ -281,11 +286,89 @@ def aggregate_item_date(products, category_overrides):
 
 
 # =============================================================================
+# MODIFIER ROWS (date-granular, same format as product rows)
+# =============================================================================
+
+def aggregate_modifier_transactions(csv_files):
+    """
+    Read modifier rows from CSVs, aggregate by (name, date).
+    Returns rows in same format as product transactions for Modifiers department.
+    """
+    agg = defaultdict(lambda: {'quantity': 0.0, 'revenue': 0.0, 'transactions': 0, 'subdepartment': ''})
+
+    columns = [
+        'Transaction ID', 'Item ID', 'Name', 'Item Type',
+        'Department', 'Subdepartment', 'Quantity', 'Unit Amount',
+        'Total', 'Transaction Type', 'Deleted', 'Voided', 'Item Created Date',
+    ]
+
+    seen = set()
+    for csv_path in csv_files:
+        with open(csv_path, 'r', encoding='utf-8') as f:
+            reader = csv.reader(f, delimiter=';')
+            header = next(reader)
+            idx = {c: header.index(c) for c in columns if c in header}
+            if 'Transaction ID' not in idx or 'Item ID' not in idx or 'Item Type' not in idx:
+                continue
+            max_idx = max(idx.values())
+
+            for row in reader:
+                if len(row) <= max_idx:
+                    continue
+                if row[idx['Deleted']] != 'False' or row[idx['Voided']] != 'False':
+                    continue
+                if 'Transaction Type' in idx and row[idx['Transaction Type']] != 'Sales':
+                    continue
+                if row[idx['Item Type']] != 'Modifier':
+                    continue
+                if row[idx.get('Department', 0)].strip() != 'Food':
+                    continue
+
+                key = (row[idx['Transaction ID']], row[idx['Item ID']])
+                if key in seen:
+                    continue
+                seen.add(key)
+
+                name = row[idx['Name']].strip()
+                date_str = row[idx['Item Created Date']].strip()
+                subdept = normalize_subdepartment(row[idx.get('Subdepartment', 0)].strip()) if 'Subdepartment' in idx else ''
+                qty = float(row[idx['Quantity']] or 0)
+                unit = float(row[idx['Unit Amount']] or 0)
+                total = float(row[idx['Total']] or 0) if 'Total' in idx else 0
+                revenue = total if total != 0 else (unit * qty if qty else unit)
+
+                bucket_key = (name, date_str)
+                bucket = agg[bucket_key]
+                bucket['quantity'] += qty if qty else 1
+                bucket['revenue'] += revenue
+                bucket['transactions'] += 1
+                if subdept:
+                    bucket['subdepartment'] = subdept
+
+    rows = []
+    for (name, date_str), data in agg.items():
+        category = data['subdepartment'] or 'Food Mods'
+        rows.append({
+            'date': date_str,
+            'name': name,
+            'department': 'Modifiers',
+            'subdepartment': data['subdepartment'] or '',
+            'category': category,
+            'quantity': round(data['quantity']),
+            'revenue': round(data['revenue'], 2),
+            'transactions': data['transactions'],
+        })
+
+    rows.sort(key=lambda r: (r['date'], r['name']))
+    return rows
+
+
+# =============================================================================
 # EXPORT: transactions.json
 # =============================================================================
 
 def export_transactions(csv_files, category_overrides):
-    """Export item x date rows for all departments."""
+    """Export item x date rows for all departments, including Modifiers."""
     print('  Reading CSVs...')
     raw_rows = list(read_all_csvs(csv_files))
 
@@ -301,6 +384,11 @@ def export_transactions(csv_files, category_overrides):
     rows = aggregate_item_date(products, category_overrides)
     print(f'  {len(rows):,} item x date rows')
 
+    print('  Adding modifier transactions...')
+    modifier_rows = aggregate_modifier_transactions(csv_files)
+    rows.extend(modifier_rows)
+    print(f'  + {len(modifier_rows):,} modifier rows')
+
     out = os.path.join(OUTPUT_DIR, 'transactions.json')
     with open(out, 'w', encoding='utf-8') as f:
         json.dump(rows, f, separators=(',', ':'))
@@ -308,6 +396,87 @@ def export_transactions(csv_files, category_overrides):
     size_kb = os.path.getsize(out) / 1024
     print(f'  -> {out}  ({size_kb:.0f} KB)')
     return rows
+
+
+# =============================================================================
+# EXPORT: modifiers.json
+# =============================================================================
+
+def export_modifiers(csv_files):
+    """
+    Extract and aggregate all Modifier items (Food department only).
+    Outputs modifiers.json for the Data Explorer Modifiers section.
+    """
+    modifiers = defaultdict(lambda: {'count': 0, 'revenue': 0.0, 'unit_price': 0.0, 'subdepartment': ''})
+
+    columns = [
+        'Transaction ID', 'Item ID', 'Name', 'Item Type',
+        'Department', 'Subdepartment', 'Quantity', 'Unit Amount',
+        'Total', 'Transaction Type', 'Deleted', 'Voided',
+    ]
+
+    seen = set()
+    for csv_path in csv_files:
+        with open(csv_path, 'r', encoding='utf-8') as f:
+            reader = csv.reader(f, delimiter=';')
+            header = next(reader)
+            idx = {c: header.index(c) for c in columns if c in header}
+            if 'Transaction ID' not in idx or 'Item ID' not in idx or 'Item Type' not in idx:
+                continue
+            max_idx = max(idx.values())
+
+            for row in reader:
+                if len(row) <= max_idx:
+                    continue
+                if row[idx['Deleted']] != 'False' or row[idx['Voided']] != 'False':
+                    continue
+                if 'Transaction Type' in idx and row[idx['Transaction Type']] != 'Sales':
+                    continue
+                if row[idx['Item Type']] != 'Modifier':
+                    continue
+                if row[idx.get('Department', 0)].strip() != 'Food':
+                    continue
+
+                key = (row[idx['Transaction ID']], row[idx['Item ID']])
+                if key in seen:
+                    continue
+                seen.add(key)
+
+                name = row[idx['Name']].strip()
+                subdept = normalize_subdepartment(row[idx.get('Subdepartment', 0)].strip()) if 'Subdepartment' in idx else ''
+                qty = float(row[idx['Quantity']] or 0)
+                unit = float(row[idx['Unit Amount']] or 0)
+                total = float(row[idx['Total']] or 0) if 'Total' in idx else 0
+
+                m = modifiers[name]
+                m['count'] += 1
+                m['revenue'] += total if total != 0 else (unit * qty if qty else unit)
+                if unit > 0:
+                    m['unit_price'] = unit
+                if subdept:
+                    m['subdepartment'] = subdept
+
+    rows = [
+        {
+            'name': name,
+            'count': data['count'],
+            'revenue': round(data['revenue'], 2),
+            'unitPrice': round(data['unit_price'], 2),
+            'subdepartment': data['subdepartment'] or '',
+        }
+        for name, data in sorted(modifiers.items(), key=lambda x: x[1]['count'], reverse=True)
+    ]
+
+    data = {
+        'modifiers': rows,
+        'generatedAt': datetime.now().isoformat(),
+    }
+
+    out = os.path.join(OUTPUT_DIR, 'modifiers.json')
+    with open(out, 'w', encoding='utf-8') as f:
+        json.dump(data, f, separators=(',', ':'))
+    print(f'  -> {out}  ({len(rows)} modifiers)')
+    return data
 
 
 # =============================================================================
@@ -610,22 +779,25 @@ def main():
     category_overrides = load_category_overrides()
     print(f'Category overrides: {len(category_overrides)} entries')
 
-    print('\n[1/5] Transactions...')
+    print('\n[1/6] Transactions...')
     rows = export_transactions(csv_files, category_overrides)
 
-    print('\n[2/5] Summary...')
+    print('\n[2/6] Modifiers...')
+    export_modifiers(csv_files)
+
+    print('\n[3/6] Summary...')
     summary = export_summary(rows)
     for dept, info in summary['departments'].items():
         print(f'  {dept}: ${info["revenue"]:,.0f}  '
               f'({info["uniqueItems"]} items, {info["transactions"]:,} txns)')
 
-    print('\n[3/5] Bowling Seasonality...')
+    print('\n[4/6] Bowling Seasonality...')
     export_bowling_seasonality(csv_files)
 
-    print('\n[4/5] Bowling Forecast...')
+    print('\n[5/6] Bowling Forecast...')
     export_bowling_forecast(csv_files)
 
-    print('\n[5/5] Holiday Analysis...')
+    print('\n[6/6] Holiday Analysis...')
     try:
         import sys
         _scripts = os.path.join(_ROOT, 'scripts')

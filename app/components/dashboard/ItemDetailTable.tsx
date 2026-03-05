@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useMemo } from 'react';
-import { ChevronDown, ChevronUp } from 'lucide-react';
+import { ChevronDown, ChevronUp, Search, X } from 'lucide-react';
 import { formatCurrency, formatNumber } from '@/lib/format';
 
 export interface ItemData {
@@ -27,9 +27,20 @@ export function ItemDetailTable({ items, colors, onItemClick }: Props) {
   const [sortKey, setSortKey] = useState<SortKey>('revenue');
   const [sortDir, setSortDir] = useState<SortDir>('desc');
   const [page, setPage] = useState(0);
+  const [searchTerm, setSearchTerm] = useState('');
+
+  const filtered = useMemo(() => {
+    if (!searchTerm.trim()) return items;
+    const term = searchTerm.toLowerCase().trim();
+    return items.filter(
+      item =>
+        item.name.toLowerCase().includes(term) ||
+        item.category.toLowerCase().includes(term)
+    );
+  }, [items, searchTerm]);
 
   const sorted = useMemo(() => {
-    const copy = [...items];
+    const copy = [...filtered];
     copy.sort((a, b) => {
       const av = a[sortKey];
       const bv = b[sortKey];
@@ -39,7 +50,7 @@ export function ItemDetailTable({ items, colors, onItemClick }: Props) {
       return sortDir === 'asc' ? (av as number) - (bv as number) : (bv as number) - (av as number);
     });
     return copy;
-  }, [items, sortKey, sortDir]);
+  }, [filtered, sortKey, sortDir]);
 
   const totalPages = Math.ceil(sorted.length / PAGE_SIZE);
   const pageItems = sorted.slice(page * PAGE_SIZE, (page + 1) * PAGE_SIZE);
@@ -63,18 +74,53 @@ export function ItemDetailTable({ items, colors, onItemClick }: Props) {
 
   return (
     <div className="card p-6">
-      <div className="flex items-center gap-3 mb-1">
-        <h3 className="text-lg font-semibold text-white">Item Detail</h3>
-        {onItemClick && (
-          <span className="text-sm text-accent font-medium px-2.5 py-0.5 rounded-md bg-accent/10 border border-accent/30 shrink-0">
-            Click any item to see monthly sales
-          </span>
-        )}
+      <div className="flex flex-wrap items-center justify-between gap-4 mb-4">
+        <div className="flex items-center gap-3">
+          <h3 className="text-lg font-semibold text-white">Item Detail</h3>
+          {onItemClick && (
+            <span className="text-sm text-accent font-medium px-2.5 py-0.5 rounded-md bg-accent/10 border border-accent/30 shrink-0">
+              Click any item to see monthly sales
+            </span>
+          )}
+        </div>
+        <div className="relative min-w-0 sm:min-w-[200px] max-w-xs">
+          <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted" />
+          <input
+            type="text"
+            placeholder="Search items..."
+            value={searchTerm}
+            onChange={e => {
+              setSearchTerm(e.target.value);
+              setPage(0);
+            }}
+            className="w-full pl-10 pr-8 py-2 rounded-lg bg-white/5 border border-border text-sm placeholder:text-muted focus:outline-none focus:border-accent/50"
+          />
+          {searchTerm && (
+            <button
+              onClick={() => {
+                setSearchTerm('');
+                setPage(0);
+              }}
+              className="absolute right-2 top-1/2 -translate-y-1/2 text-muted hover:text-white"
+              aria-label="Clear search"
+            >
+              <X className="w-4 h-4" />
+            </button>
+          )}
+        </div>
       </div>
       <p className="text-sm text-muted mb-4">
-        {items.length} items — showing {page * PAGE_SIZE + 1}–{Math.min((page + 1) * PAGE_SIZE, items.length)}
+        {filtered.length} items{searchTerm ? ` matching "${searchTerm}"` : ''}
+        {sorted.length > 0 && (
+          <> — showing {page * PAGE_SIZE + 1}–{Math.min((page + 1) * PAGE_SIZE, sorted.length)}</>
+        )}
       </p>
       <div className="overflow-x-auto">
+        {pageItems.length === 0 ? (
+          <p className="py-8 text-center text-muted">
+            {searchTerm ? `No items match "${searchTerm}"` : 'No items in this selection'}
+          </p>
+        ) : (
         <table className="w-full text-sm">
           <thead>
             <tr className="border-b border-border">
@@ -118,6 +164,7 @@ export function ItemDetailTable({ items, colors, onItemClick }: Props) {
             ))}
           </tbody>
         </table>
+        )}
       </div>
       {totalPages > 1 && (
         <div className="flex items-center justify-between mt-4">
