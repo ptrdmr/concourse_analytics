@@ -88,11 +88,11 @@ export function ForecastChart({ data }: Props) {
 
   return (
     <div className="card p-6">
-      <h3 className="text-lg font-semibold text-white mb-1">Bowling Revenue Forecast</h3>
+      <h3 className="text-lg font-semibold text-white mb-1">Bowling Sales Forecast</h3>
       <p className="text-sm text-muted mb-4">
         {models.includes('actual') && models.includes('seasonal')
-          ? 'Actual vs predicted weekly revenue'
-          : `Predicted weekly revenue — ${models.length} model${models.length !== 1 ? 's' : ''}`}
+          ? 'Actual vs predicted weekly sales'
+          : `Predicted weekly sales — ${models.length} model${models.length !== 1 ? 's' : ''}`}
       </p>
 
       <div className="flex flex-wrap gap-4 mb-6">

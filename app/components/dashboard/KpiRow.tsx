@@ -14,7 +14,7 @@ interface Props {
 
 export function KpiRow({ kpis }: Props) {
   const cards = [
-    { icon: <DollarSign className="w-5 h-5" />, label: 'Revenue', value: formatCompact(kpis.totalRevenue), accent: true },
+    { icon: <DollarSign className="w-5 h-5" />, label: 'Sales', value: formatCompact(kpis.totalRevenue), accent: true },
     { icon: <ShoppingCart className="w-5 h-5" />, label: 'Quantity Sold', value: formatNumber(kpis.totalQuantity) },
     { icon: <TrendingUp className="w-5 h-5" />, label: 'Transactions', value: formatNumber(kpis.totalTransactions) },
     { icon: <Package className="w-5 h-5" />, label: 'Unique Items', value: String(kpis.uniqueItems) },

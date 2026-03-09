@@ -79,7 +79,7 @@ export default function BowlingPage() {
           <>
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
               <div className="card p-5">
-                <div className="text-sm text-secondary mb-1">Total Revenue</div>
+                <div className="text-sm text-secondary mb-1">Total Sales</div>
                 <div className="text-2xl font-bold font-mono text-gradient">
                   {formatCompact(seasonality.totalRevenue)}
                 </div>

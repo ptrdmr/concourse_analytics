@@ -1,10 +1,10 @@
 {
-  "generatedAt": "2026-03-05T11:01:12.156876",
+  "generatedAt": "2026-03-09T12:14:32.130671",
   "dateRange": [
     "2023-01-01",
-    "2026-03-01"
+    "2026-03-08"
   ],
-  "totalRevenue": 18936449.53,
+  "totalRevenue": 18260739.87,
   "departments": {
     "Arcade": {
       "revenue": 122229.5,
@@ -20,10 +20,10 @@
       ]
     },
     "Bar": {
-      "revenue": 4363921.44,
-      "quantity": 522399,
-      "transactions": 511965,
-      "uniqueItems": 481,
+      "revenue": 4396489.44,
+      "quantity": 526336,
+      "transactions": 515848,
+      "uniqueItems": 483,
       "categories": [
         "Bottle Beer",
         "Draft Beer",
@@ -33,13 +33,13 @@
       ],
       "dateRange": [
         "2023-05-26",
-        "2026-03-01"
+        "2026-03-08"
       ]
     },
     "Bowling": {
-      "revenue": 4922913.06,
-      "quantity": 6906615,
-      "transactions": 375746,
+      "revenue": 4950392.98,
+      "quantity": 6942052,
+      "transactions": 377860,
       "uniqueItems": 37,
       "categories": [
         "Game Bowling",
@@ -49,13 +49,13 @@
       ],
       "dateRange": [
         "2023-01-01",
-        "2026-03-01"
+        "2026-03-08"
       ]
     },
     "Food": {
-      "revenue": 2943432.35,
-      "quantity": 315570,
-      "transactions": 288298,
+      "revenue": 2965990.77,
+      "quantity": 317626,
+      "transactions": 290291,
       "uniqueItems": 187,
       "categories": [
         "Appetizers & Sides",
@@ -75,13 +75,13 @@
       ],
       "dateRange": [
         "2023-05-26",
-        "2026-03-01"
+        "2026-03-08"
       ]
     },
     "League Fees": {
-      "revenue": 2562212.93,
-      "quantity": 146308,
-      "transactions": 41833,
+      "revenue": 2602555.93,
+      "quantity": 147678,
+      "transactions": 42361,
       "uniqueItems": 97,
       "categories": [
         "League Bowling",
@@ -89,29 +89,13 @@
       ],
       "dateRange": [
         "2023-06-01",
-        "2026-03-01"
-      ]
-    },
-    "Modifiers": {
-      "revenue": 815503.21,
-      "quantity": 218246,
-      "transactions": 208475,
-      "uniqueItems": 362,
-      "categories": [
-        "Catering",
-        "Food",
-        "Food Mods",
-        "N/A Bev"
-      ],
-      "dateRange": [
-        "2023-05-26",
-        "2026-03-01"
+        "2026-03-08"
       ]
     },
     "Parties": {
-      "revenue": 3202397.04,
-      "quantity": 1249535,
-      "transactions": 22082,
+      "revenue": 3219241.25,
+      "quantity": 1254878,
+      "transactions": 22195,
       "uniqueItems": 49,
       "categories": [
         "Catering",
@@ -119,7 +103,7 @@
       ],
       "dateRange": [
         "2023-05-26",
-        "2026-03-01"
+        "2026-03-08"
       ]
     },
     "Vending Machines": {

@@ -124,7 +124,7 @@ export function ItemDetailTable({ items, colors, onItemClick }: Props) {
         <table className="w-full text-sm">
           <thead>
             <tr className="border-b border-border">
-              {([['name', 'Item'], ['category', 'Category'], ['revenue', 'Revenue'], ['quantity', 'Qty Sold']] as [SortKey, string][]).map(([key, label]) => (
+              {([['name', 'Item'], ['category', 'Category'], ['revenue', 'Sales'], ['quantity', 'Qty Sold']] as [SortKey, string][]).map(([key, label]) => (
                 <th
                   key={key}
                   onClick={() => toggleSort(key)}

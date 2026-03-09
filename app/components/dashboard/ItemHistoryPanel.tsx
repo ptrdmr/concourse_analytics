@@ -73,7 +73,7 @@ function PeriodTooltip({
       {payload.map((p) => (
         <p key={p.dataKey} className="text-sm">
           <span className="text-secondary">
-            {p.dataKey === 'revenue' ? 'Revenue' : 'Transactions'}:{' '}
+            {p.dataKey === 'revenue' ? 'Sales' : 'Transactions'}:{' '}
           </span>
           <span className="text-white font-mono">
             {p.dataKey === 'revenue' ? formatCurrency(p.value) : formatNumber(p.value)}
@@ -145,7 +145,7 @@ export function ItemHistoryPanel({ item, transactions, colors, onClose }: Props)
               <span className="text-sm text-secondary">{item.category}</span>
             </div>
             <p className="mt-2 text-sm text-muted">
-              Total: {formatCurrency(item.revenue)} revenue · {formatNumber(item.quantity)} sold
+              Total: {formatCurrency(item.revenue)} sales · {formatNumber(item.quantity)} sold
             </p>
           </div>
           <div className="flex items-center gap-1 shrink-0">
@@ -267,7 +267,7 @@ export function ItemHistoryPanel({ item, transactions, colors, onClose }: Props)
                           {periodLabel}
                         </th>
                         <th className="text-right py-2 px-3 text-secondary font-medium">
-                          Revenue
+                          Sales
                         </th>
                         <th className="text-right py-2 px-3 text-secondary font-medium">
                           Qty

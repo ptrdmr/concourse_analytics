@@ -15,6 +15,8 @@ import { TopItemsChart } from '@/components/dashboard/TopItemsChart';
 import { SpecialtyCocktailsPanel } from '@/components/dashboard/SpecialtyCocktailsPanel';
 import { ItemDetailTable } from '@/components/dashboard/ItemDetailTable';
 import { ItemHistoryPanel } from '@/components/dashboard/ItemHistoryPanel';
+import { RevenueCalendarCard } from '@/components/dashboard/RevenueCalendarCard';
+import { DayDetailModal } from '@/components/dashboard/DayDetailModal';
 import type { ItemData } from '@/components/dashboard/ItemDetailTable';
 import { Nav } from '@/components/Nav';
 
@@ -33,6 +35,8 @@ function ExplorerContent() {
     searchTerm: '',
   });
   const [selectedItem, setSelectedItem] = useState<ItemData | null>(null);
+  const [selectedDate, setSelectedDate] = useState<string | null>(null);
+  const [selectedCard, setSelectedCard] = useState<'category' | 'trends' | 'calendar' | null>(null);
 
   useEffect(() => {
     const dept = searchParams.get('dept');
@@ -58,7 +62,7 @@ function ExplorerContent() {
     return summary.departments[filters.department]?.categories || [];
   }, [summary, filters.department]);
 
-  const { filtered, kpis, categoryBreakdown, weeklyTrends, topItems } =
+  const { filtered, kpis, categoryBreakdown, weeklyTrends, topItems, dailyRevenue, dailyRevenueAllTime } =
     useFilteredData(raw, filters);
 
   const summaryText = useMemo(() => {
@@ -106,9 +110,61 @@ function ExplorerContent() {
 
         <KpiRow kpis={kpis} />
 
-        <div className="grid grid-cols-1 xl:grid-cols-2 gap-8">
-          <CategoryPieChart data={categoryBreakdown} colors={categoryColors} />
-          <WeeklyTrendsChart data={weeklyTrends} />
+        <div className="grid grid-cols-1 xl:grid-cols-3 gap-6 xl:gap-8">
+          <div
+            className={`transition-all duration-300 ${selectedCard === 'category' ? 'xl:col-span-2' : ''} ${selectedCard === 'category' ? 'order-first' : selectedCard ? 'order-1' : ''}`}
+            onClick={() => setSelectedCard((s) => (s === 'category' ? null : 'category'))}
+          >
+            <div
+              className={`h-full cursor-pointer transition-all duration-200 ${
+                selectedCard === 'category'
+                  ? 'ring-2 ring-accent/50 rounded-xl'
+                  : ''
+              }`}
+            >
+              <CategoryPieChart
+                data={categoryBreakdown}
+                colors={categoryColors}
+                onCategoryClick={() => setSelectedCard('category')}
+              />
+            </div>
+          </div>
+          <div
+            className={`transition-all duration-300 ${selectedCard === 'trends' ? 'xl:col-span-2' : ''} ${selectedCard === 'trends' ? 'order-first' : selectedCard === 'category' ? 'order-2' : selectedCard === 'calendar' ? 'order-1' : ''}`}
+            onClick={() => setSelectedCard((s) => (s === 'trends' ? null : 'trends'))}
+          >
+            <div
+              className={`h-full cursor-pointer transition-all duration-200 ${
+                selectedCard === 'trends'
+                  ? 'ring-2 ring-accent/50 rounded-xl'
+                  : ''
+              }`}
+            >
+              <WeeklyTrendsChart data={weeklyTrends} />
+            </div>
+          </div>
+          <div
+            className={`transition-all duration-300 ${selectedCard === 'calendar' ? 'xl:col-span-2' : ''} ${selectedCard === 'calendar' ? 'order-first' : selectedCard ? 'order-2' : ''}`}
+            onClick={() => setSelectedCard((s) => (s === 'calendar' ? null : 'calendar'))}
+          >
+            <div
+              className={`h-full cursor-pointer transition-all duration-200 ${
+                selectedCard === 'calendar'
+                  ? 'ring-2 ring-accent/50 rounded-xl'
+                  : ''
+              }`}
+            >
+              <RevenueCalendarCard
+                dailyRevenue={dailyRevenueAllTime}
+                dateRange={null}
+                department={filters.department}
+                onDayClick={(date) => {
+                  setSelectedCard('calendar');
+                  setSelectedDate(date);
+                }}
+              />
+            </div>
+          </div>
         </div>
 
         {filters.department === 'Bar' && (
@@ -132,6 +188,21 @@ function ExplorerContent() {
           onClose={() => setSelectedItem(null)}
         />
       )}
+
+      {selectedDate && (() => {
+        const dayData = dailyRevenueAllTime.find(d => d.date === selectedDate);
+        const items = dayData?.items ?? [];
+        const totalRevenue = dayData?.revenue ?? items.reduce((s, r) => s + r.revenue, 0);
+        return (
+          <DayDetailModal
+            date={selectedDate}
+            items={items}
+            totalRevenue={totalRevenue}
+            colors={categoryColors}
+            onClose={() => setSelectedDate(null)}
+          />
+        );
+      })()}
     </main>
   );
 }

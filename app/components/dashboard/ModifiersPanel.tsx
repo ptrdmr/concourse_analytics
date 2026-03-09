@@ -78,7 +78,7 @@ export function ModifiersPanel({ modifiers }: Props) {
                 ['subdepartment', 'Subdepartment'],
                 ['count', 'Count'],
                 ['unitPrice', 'Unit $'],
-                ['revenue', 'Revenue'],
+                ['revenue', 'Sales'],
               ] as [SortKey, string][]).map(([key, label]) => (
                 <th
                   key={key}

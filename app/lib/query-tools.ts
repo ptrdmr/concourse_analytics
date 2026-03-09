@@ -73,7 +73,7 @@ function searchItems(transactions: Transaction[], args: Record<string, unknown>)
   items.forEach((item, i) => {
     lines.push(`${i + 1}. ${item.name} - ${formatCurrency(item.revenue)} rev, ${formatNumber(item.quantity)} qty, ${formatNumber(item.transactions)} txns (${item.category}, ${item.department})`);
   });
-  lines.push(`Total: ${formatCurrency(totalRev)} revenue across ${items.length} items`);
+  lines.push(`Total: ${formatCurrency(totalRev)} sales across ${items.length} items`);
   return lines.join('\n');
 }
 
@@ -161,7 +161,7 @@ function comparePeriods(transactions: Transaction[], args: Record<string, unknow
     `Period 1 (${period1Start} to ${period1End}): ${formatCurrency(a1.revenue)} rev, ${formatNumber(a1.quantity)} qty, ${formatNumber(a1.transactions)} txns`,
     `Period 2 (${period2Start} to ${period2End}): ${formatCurrency(a2.revenue)} rev, ${formatNumber(a2.quantity)} qty, ${formatNumber(a2.transactions)} txns`,
     '',
-    `Revenue change: ${pctRev >= 0 ? '+' : ''}${formatPercent(pctRev)}`,
+    `Sales change: ${pctRev >= 0 ? '+' : ''}${formatPercent(pctRev)}`,
     `Quantity change: ${pctQty >= 0 ? '+' : ''}${formatPercent(pctQty)}`,
   ];
 

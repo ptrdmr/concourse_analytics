@@ -11,6 +11,7 @@ interface CategoryData {
 interface Props {
   data: CategoryData[];
   colors: Record<string, string>;
+  onCategoryClick?: (category: string) => void;
 }
 
 const FALLBACK_COLORS = [
@@ -34,27 +35,37 @@ function CustomTooltip({ active, payload }: { active?: boolean; payload?: Array<
   );
 }
 
-export function CategoryPieChart({ data, colors }: Props) {
+export function CategoryPieChart({ data, colors, onCategoryClick }: Props) {
   const total = data.reduce((s, d) => s + d.revenue, 0);
+  const displayData = data.slice(0, 12);
 
   return (
     <div className="card p-6">
-      <h3 className="text-lg font-semibold text-white mb-1">Revenue by Category</h3>
-      <p className="text-sm text-muted mb-6">Top categories by total revenue</p>
+      <div className="flex items-center justify-between gap-4 mb-1">
+        <h3 className="text-lg font-semibold text-white">Sales by Category</h3>
+        <span className="text-xs text-muted/80 shrink-0">Click to expand</span>
+      </div>
+      <p className="text-sm text-muted mb-6">Top categories by total sales</p>
       <div className="flex flex-col lg:flex-row gap-6">
         <div className="h-[300px] flex-1">
           <ResponsiveContainer width="100%" height="100%">
             <PieChart>
               <Pie
-                data={data.slice(0, 12)}
+                data={displayData}
                 cx="50%"
                 cy="50%"
                 innerRadius={60}
                 outerRadius={120}
                 paddingAngle={2}
                 dataKey="revenue"
+                onClick={(entry: unknown, _index: number, e: React.MouseEvent) => {
+                  e.stopPropagation();
+                  const d = entry as CategoryData | undefined;
+                  if (d?.category) onCategoryClick?.(d.category);
+                }}
+                style={onCategoryClick ? { cursor: 'pointer' } : undefined}
               >
-                {data.slice(0, 12).map((entry, i) => (
+                {displayData.map((entry, i) => (
                   <Cell key={entry.category} fill={getColor(entry.category, i, colors)} />
                 ))}
               </Pie>
@@ -63,7 +74,7 @@ export function CategoryPieChart({ data, colors }: Props) {
           </ResponsiveContainer>
         </div>
         <div className="flex-1 space-y-2 max-h-[300px] overflow-y-auto pr-2">
-          {data.slice(0, 12).map((d, i) => (
+          {displayData.map((d, i) => (
             <div key={d.category} className="flex items-center justify-between text-sm">
               <div className="flex items-center gap-2 min-w-0">
                 <span

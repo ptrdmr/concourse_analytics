@@ -384,11 +384,6 @@ def export_transactions(csv_files, category_overrides):
     rows = aggregate_item_date(products, category_overrides)
     print(f'  {len(rows):,} item x date rows')
 
-    print('  Adding modifier transactions...')
-    modifier_rows = aggregate_modifier_transactions(csv_files)
-    rows.extend(modifier_rows)
-    print(f'  + {len(modifier_rows):,} modifier rows')
-
     out = os.path.join(OUTPUT_DIR, 'transactions.json')
     with open(out, 'w', encoding='utf-8') as f:
         json.dump(rows, f, separators=(',', ':'))

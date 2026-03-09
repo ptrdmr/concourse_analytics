@@ -69,8 +69,8 @@ export function SeasonalityChart({ data }: Props) {
 
   return (
     <div className="card p-6">
-      <h3 className="text-lg font-semibold text-white mb-1">Bowling Revenue Seasonality</h3>
-      <p className="text-sm text-muted mb-4">Weekly revenue by year — 52-week overlay</p>
+      <h3 className="text-lg font-semibold text-white mb-1">Bowling Sales Seasonality</h3>
+      <p className="text-sm text-muted mb-4">Weekly sales by year — 52-week overlay</p>
 
       <div className="flex flex-wrap gap-2 mb-6">
         {data.years.map((year, i) => {

@@ -138,7 +138,7 @@ export default function HomePage() {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mt-8">
           <KpiCard
             icon={<DollarSign className="w-5 h-5" />}
-            label="Total Revenue"
+            label="Total Sales"
             value={formatCompact(kpis.totalRevenue)}
             accent
           />
@@ -173,7 +173,7 @@ export default function HomePage() {
               </div>
               <div className="space-y-2 text-sm">
                 <div className="flex justify-between">
-                  <span className="text-secondary">Revenue</span>
+                  <span className="text-secondary">Sales</span>
                   <span className="font-mono font-medium text-accent">
                     {formatCompact(revenue)}
                   </span>

@@ -157,5 +157,49 @@ export function useFilteredData(raw: Transaction[], filters: Filters) {
       .sort((a, b) => b.revenue - a.revenue);
   }, [filtered]);
 
-  return { filtered, kpis, categoryBreakdown, weeklyTrends, topItems };
+  const dailyRevenue = useMemo(() => {
+    const map = new Map<string, { revenue: number; transactions: number; items: Transaction[] }>();
+    for (const r of filtered) {
+      const entry = map.get(r.date) || { revenue: 0, transactions: 0, items: [] };
+      entry.revenue += r.revenue;
+      entry.transactions += r.transactions;
+      entry.items.push(r);
+      map.set(r.date, entry);
+    }
+    return Array.from(map.entries())
+      .map(([date, data]) => ({ date, ...data }))
+      .sort((a, b) => a.date.localeCompare(b.date));
+  }, [filtered]);
+
+  // All-time data for calendar: same filters except date range (department, categories, search only)
+  const allTimeFiltered = useMemo(() => {
+    let data = raw;
+    if (filters.department && filters.department !== 'All') {
+      data = data.filter(r => r.department === filters.department);
+    }
+    if (filters.categories.length > 0) {
+      data = data.filter(r => filters.categories.includes(r.category));
+    }
+    if (filters.searchTerm) {
+      const term = filters.searchTerm.toLowerCase();
+      data = data.filter(r => r.name.toLowerCase().includes(term));
+    }
+    return data;
+  }, [raw, filters.department, filters.categories, filters.searchTerm]);
+
+  const dailyRevenueAllTime = useMemo(() => {
+    const map = new Map<string, { revenue: number; transactions: number; items: Transaction[] }>();
+    for (const r of allTimeFiltered) {
+      const entry = map.get(r.date) || { revenue: 0, transactions: 0, items: [] };
+      entry.revenue += r.revenue;
+      entry.transactions += r.transactions;
+      entry.items.push(r);
+      map.set(r.date, entry);
+    }
+    return Array.from(map.entries())
+      .map(([date, data]) => ({ date, ...data }))
+      .sort((a, b) => a.date.localeCompare(b.date));
+  }, [allTimeFiltered]);
+
+  return { filtered, kpis, categoryBreakdown, weeklyTrends, topItems, dailyRevenue, dailyRevenueAllTime };
 }

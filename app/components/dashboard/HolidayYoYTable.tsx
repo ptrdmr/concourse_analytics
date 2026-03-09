@@ -48,7 +48,7 @@ export function HolidayYoYTable({ years, department }: Props) {
     <div className="card overflow-hidden">
       <div className="p-4 border-b border-border">
         <h3 className="text-lg font-semibold text-white">Year-over-Year</h3>
-        <p className="text-sm text-muted">Revenue and transactions by year with YoY change</p>
+        <p className="text-sm text-muted">Sales and transactions by year with YoY change</p>
       </div>
       <div className="overflow-x-auto">
         <table className="w-full text-sm">
@@ -56,7 +56,7 @@ export function HolidayYoYTable({ years, department }: Props) {
             <tr className="border-b border-border text-left text-secondary">
               <th className="px-4 py-3 font-medium">Year</th>
               <th className="px-4 py-3 font-medium">Date Range</th>
-              <th className="px-4 py-3 font-medium text-right">Revenue</th>
+              <th className="px-4 py-3 font-medium text-right">Sales</th>
               <th className="px-4 py-3 font-medium text-right">YoY %</th>
               <th className="px-4 py-3 font-medium text-right">Transactions</th>
               <th className="px-4 py-3 font-medium text-right">YoY %</th>

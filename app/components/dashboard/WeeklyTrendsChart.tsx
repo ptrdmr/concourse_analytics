@@ -23,7 +23,7 @@ function CustomTooltip({ active, payload, label }: { active?: boolean; payload?:
       <p className="text-xs text-muted mb-1">Week of {label}</p>
       {payload.map(p => (
         <p key={p.dataKey} className="text-sm">
-          <span className="text-secondary">{p.dataKey === 'revenue' ? 'Revenue' : 'Transactions'}: </span>
+          <span className="text-secondary">{p.dataKey === 'revenue' ? 'Sales' : 'Transactions'}: </span>
           <span className="text-white font-mono">
             {p.dataKey === 'revenue' ? formatCurrency(p.value) : formatNumber(p.value)}
           </span>
@@ -38,8 +38,11 @@ export function WeeklyTrendsChart({ data }: Props) {
 
   return (
     <div className="card p-6">
-      <h3 className="text-lg font-semibold text-white mb-1">Weekly Trends</h3>
-      <p className="text-sm text-muted mb-6">Revenue and transaction volume over time</p>
+      <div className="flex items-center justify-between gap-4 mb-1">
+        <h3 className="text-lg font-semibold text-white">Weekly Trends</h3>
+        <span className="text-xs text-muted/80 shrink-0">Click to expand</span>
+      </div>
+      <p className="text-sm text-muted mb-6">Sales and transaction volume over time</p>
       <div className="h-[300px]">
         <ResponsiveContainer width="100%" height="100%">
           <ComposedChart data={displayData}>

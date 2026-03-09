@@ -40,7 +40,7 @@ export function HolidayComparisonChart({ years, department, yearColors }: Props)
 
   return (
     <div className="card p-6">
-      <h3 className="text-lg font-semibold text-white mb-1">Revenue by Year</h3>
+      <h3 className="text-lg font-semibold text-white mb-1">Sales by Year</h3>
       <p className="text-sm text-muted mb-6">
         {department === 'All' ? 'All departments' : department} — {years.length} years
       </p>

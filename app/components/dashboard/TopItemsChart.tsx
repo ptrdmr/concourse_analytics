@@ -35,8 +35,8 @@ function CustomTooltip({ active, payload }: { active?: boolean; payload?: Array<
 export function TopItemsChart({ items, colors }: Props) {
   return (
     <div className="card p-6">
-      <h3 className="text-lg font-semibold text-white mb-1">Top 20 Items by Revenue</h3>
-      <p className="text-sm text-muted mb-6">Highest revenue-generating items</p>
+      <h3 className="text-lg font-semibold text-white mb-1">Top 20 Items by Sales</h3>
+      <p className="text-sm text-muted mb-6">Highest sales-generating items</p>
       <div className="h-[520px]">
         <ResponsiveContainer width="100%" height="100%">
           <BarChart data={items} layout="vertical" margin={{ left: 120 }}>
