@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useMemo, Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
-import { useTransactions, useSummary, useFilteredData } from '@/hooks/useTransactions';
+import { useTransactions, useSummary, useFilteredData, useModifiers, useModifierTransactions } from '@/hooks/useTransactions';
 import type { Filters } from '@/types';
 import { getYTD } from '@/lib/date-ranges';
 import { buildExplorerSummary } from '@/lib/build-data-summary';
@@ -13,6 +13,7 @@ import { CategoryPieChart } from '@/components/dashboard/CategoryPieChart';
 import { WeeklyTrendsChart } from '@/components/dashboard/WeeklyTrendsChart';
 import { TopItemsChart } from '@/components/dashboard/TopItemsChart';
 import { SpecialtyCocktailsPanel } from '@/components/dashboard/SpecialtyCocktailsPanel';
+import { ModifiersPanel } from '@/components/dashboard/ModifiersPanel';
 import { ItemDetailTable } from '@/components/dashboard/ItemDetailTable';
 import { ItemHistoryPanel } from '@/components/dashboard/ItemHistoryPanel';
 import { RevenueCalendarCard } from '@/components/dashboard/RevenueCalendarCard';
@@ -27,6 +28,8 @@ function ExplorerContent() {
 
   const { raw, loading: txnLoading } = useTransactions();
   const { summary, loading: sumLoading } = useSummary();
+  const { modifiers } = useModifiers();
+  const { modifierTransactions, loading: modTxnLoading } = useModifierTransactions();
 
   const [filters, setFilters] = useState<Filters>({
     department: initialDept,
@@ -46,9 +49,14 @@ function ExplorerContent() {
   const departments = useMemo(() => {
     if (!summary) return [];
     const depts = Object.keys(summary.departments).filter(d => d !== 'Vending Machines');
-    return ['All', ...depts.sort((a, b) => {
+    const sorted = depts.sort((a, b) => {
       return (summary.departments[b]?.revenue || 0) - (summary.departments[a]?.revenue || 0);
-    })];
+    });
+    // Modifiers comes from modifiers.json, not transactions - add so user can view it
+    if (!sorted.includes('Modifiers')) {
+      sorted.push('Modifiers');
+    }
+    return ['All', ...sorted];
   }, [summary]);
 
   const availableCategories = useMemo(() => {
@@ -59,29 +67,44 @@ function ExplorerContent() {
       }
       return Array.from(cats).sort();
     }
+    if (filters.department === 'Modifiers') {
+      const cats = new Set(modifiers.map(m => m.subdepartment || 'Other').filter(Boolean));
+      return Array.from(cats).sort();
+    }
     return summary.departments[filters.department]?.categories || [];
-  }, [summary, filters.department]);
+  }, [summary, filters.department, modifiers]);
 
   const { filtered, kpis, categoryBreakdown, weeklyTrends, topItems, dailyRevenue, dailyRevenueAllTime } =
     useFilteredData(raw, filters);
+
+  const modifierFiltered = useFilteredData(modifierTransactions, filters);
+  const isModifiersView = filters.department === 'Modifiers';
+
+  // When Modifiers is selected, use date-granular modifier_transactions.json for full dashboard
+  const displayKpis = isModifiersView ? modifierFiltered.kpis : kpis;
+  const displayCategoryBreakdown = isModifiersView ? modifierFiltered.categoryBreakdown : categoryBreakdown;
+  const displayTopItems = isModifiersView ? modifierFiltered.topItems : topItems;
+  const displayWeeklyTrends = isModifiersView ? modifierFiltered.weeklyTrends : weeklyTrends;
+  const displayDailyRevenueAllTime = isModifiersView ? modifierFiltered.dailyRevenueAllTime : dailyRevenueAllTime;
+  const displayFiltered = isModifiersView ? modifierFiltered.filtered : filtered;
 
   const summaryText = useMemo(() => {
     if (txnLoading || sumLoading) return '';
     return buildExplorerSummary({
       department: filters.department,
       dateRange: filters.dateRange,
-      kpis,
-      categoryBreakdown,
-      weeklyTrends,
-      topItems,
+      kpis: displayKpis,
+      categoryBreakdown: displayCategoryBreakdown,
+      weeklyTrends: displayWeeklyTrends,
+      topItems: displayTopItems,
     });
-  }, [txnLoading, sumLoading, filters.department, filters.dateRange, kpis, categoryBreakdown, weeklyTrends, topItems]);
+  }, [txnLoading, sumLoading, filters.department, filters.dateRange, displayKpis, displayCategoryBreakdown, displayWeeklyTrends, displayTopItems]);
 
   useEffect(() => {
     if (summaryText) setDataSummary(summaryText);
   }, [summaryText, setDataSummary]);
 
-  const loading = txnLoading || sumLoading;
+  const loading = txnLoading || sumLoading || (isModifiersView && modTxnLoading);
 
   if (loading) {
     return (
@@ -108,7 +131,7 @@ function ExplorerContent() {
           onChange={setFilters}
         />
 
-        <KpiRow kpis={kpis} />
+        <KpiRow kpis={displayKpis} />
 
         <div className="grid grid-cols-1 xl:grid-cols-3 gap-6 xl:gap-8">
           <div
@@ -123,7 +146,7 @@ function ExplorerContent() {
               }`}
             >
               <CategoryPieChart
-                data={categoryBreakdown}
+                data={displayCategoryBreakdown}
                 colors={categoryColors}
                 onCategoryClick={() => setSelectedCard('category')}
               />
@@ -140,7 +163,7 @@ function ExplorerContent() {
                   : ''
               }`}
             >
-              <WeeklyTrendsChart data={weeklyTrends} />
+              <WeeklyTrendsChart data={displayWeeklyTrends} />
             </div>
           </div>
           <div
@@ -155,7 +178,7 @@ function ExplorerContent() {
               }`}
             >
               <RevenueCalendarCard
-                dailyRevenue={dailyRevenueAllTime}
+                dailyRevenue={displayDailyRevenueAllTime}
                 dateRange={null}
                 department={filters.department}
                 onDayClick={(date) => {
@@ -171,10 +194,14 @@ function ExplorerContent() {
           <SpecialtyCocktailsPanel items={topItems} colors={categoryColors} />
         )}
 
-        <TopItemsChart items={topItems.slice(0, 20)} colors={categoryColors} />
+        {(filters.department === 'Food' || filters.department === 'Modifiers') && (
+          <ModifiersPanel modifiers={modifiers} />
+        )}
+
+        <TopItemsChart items={displayTopItems.slice(0, 20)} colors={categoryColors} />
 
         <ItemDetailTable
-          items={topItems}
+          items={displayTopItems}
           colors={categoryColors}
           onItemClick={setSelectedItem}
         />
@@ -183,14 +210,14 @@ function ExplorerContent() {
       {selectedItem && (
         <ItemHistoryPanel
           item={selectedItem}
-          transactions={filtered}
+          transactions={displayFiltered}
           colors={categoryColors}
           onClose={() => setSelectedItem(null)}
         />
       )}
 
       {selectedDate && (() => {
-        const dayData = dailyRevenueAllTime.find(d => d.date === selectedDate);
+        const dayData = displayDailyRevenueAllTime.find(d => d.date === selectedDate);
         const items = dayData?.items ?? [];
         const totalRevenue = dayData?.revenue ?? items.reduce((s, r) => s + r.revenue, 0);
         return (

@@ -82,6 +82,27 @@ export function useModifiers() {
   return { modifiers, loading };
 }
 
+/** Date-granular modifier rows for Modifiers department view (calendar, trends, KPIs). */
+export function useModifierTransactions() {
+  const [data, setData] = useState<Transaction[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    fetchWithTimeout('/data/modifier_transactions.json', 60000)
+      .then((res) => {
+        if (!res.ok) throw new Error(`Failed to load (${res.status})`);
+        return res.json();
+      })
+      .then((rows: Transaction[]) => {
+        setData(Array.isArray(rows) ? rows : []);
+        setLoading(false);
+      })
+      .catch(() => setLoading(false));
+  }, []);
+
+  return { modifierTransactions: data, loading };
+}
+
 export function useFilteredData(raw: Transaction[], filters: Filters) {
   const filtered = useMemo(() => {
     let data = raw;
@@ -120,6 +141,16 @@ export function useFilteredData(raw: Transaction[], filters: Filters) {
     const map = new Map<string, number>();
     for (const r of filtered) {
       map.set(r.category, (map.get(r.category) || 0) + r.revenue);
+    }
+    return Array.from(map.entries())
+      .map(([category, revenue]) => ({ category, revenue }))
+      .sort((a, b) => b.revenue - a.revenue);
+  }, [filtered]);
+
+  const departmentBreakdown = useMemo(() => {
+    const map = new Map<string, number>();
+    for (const r of filtered) {
+      map.set(r.department, (map.get(r.department) || 0) + r.revenue);
     }
     return Array.from(map.entries())
       .map(([category, revenue]) => ({ category, revenue }))
@@ -201,5 +232,5 @@ export function useFilteredData(raw: Transaction[], filters: Filters) {
       .sort((a, b) => a.date.localeCompare(b.date));
   }, [allTimeFiltered]);
 
-  return { filtered, kpis, categoryBreakdown, weeklyTrends, topItems, dailyRevenue, dailyRevenueAllTime };
+  return { filtered, kpis, categoryBreakdown, departmentBreakdown, weeklyTrends, topItems, dailyRevenue, dailyRevenueAllTime };
 }

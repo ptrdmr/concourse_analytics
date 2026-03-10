@@ -10,6 +10,7 @@ import { Menu, X } from 'lucide-react';
 const NAV_LINKS = [
   { href: '/', label: 'Overview' },
   { href: '/explorer', label: 'Data Explorer' },
+  { href: '/compare', label: 'Compare' },
   { href: '/bowling', label: 'Bowling Forecast' },
   { href: '/holidays', label: 'Holiday Analysis' },
 ];

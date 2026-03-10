@@ -103,6 +103,61 @@ def find_csv_files():
 
 
 # =============================================================================
+# DEDUCTIONS: Adjustments + Refunds (to align with POS Total Sale)
+# =============================================================================
+
+def read_deductions(csv_files):
+    """
+    Read Adjustments (Transaction Type=Sales, Item Type=Adjustment) and
+    Refunds (Transaction Type=Refund, Product/Modifier/Package).
+    Yields (date, department, amount) where amount reduces sales.
+    """
+    columns = [
+        'Transaction ID', 'Item ID', 'Transaction Type', 'Item Type',
+        'Department', 'Quantity', 'Unit Amount', 'Total',
+        'Item Created Date', 'Deleted', 'Voided',
+    ]
+    for csv_path in csv_files:
+        with open(csv_path, 'r', encoding='utf-8') as f:
+            reader = csv.reader(f, delimiter=';')
+            header = next(reader)
+            idx = {c: i for i, c in enumerate(header) if c in columns}
+            if 'Item Created Date' not in idx or 'Item Type' not in idx:
+                continue
+            max_idx = max(idx.values())
+            for row in reader:
+                if len(row) <= max_idx:
+                    continue
+                if row[idx['Deleted']] != 'False' or row[idx['Voided']] != 'False':
+                    continue
+                txn_type = row[idx.get('Transaction Type', 0)].strip() if 'Transaction Type' in idx else 'Sales'
+                item_type = row[idx['Item Type']].strip()
+                date_str = row[idx['Item Created Date']].strip()
+                dept = row[idx.get('Department', 0)].strip() if 'Department' in idx else ''
+                total = float(row[idx.get('Total', 0)] or 0) if 'Total' in idx else 0
+                qty = float(row[idx.get('Quantity', 0)] or 0) if 'Quantity' in idx else 0
+                unit = float(row[idx.get('Unit Amount', 0)] or 0) if 'Unit Amount' in idx else 0
+                amount = total if total != 0 else (unit * qty if qty else unit)
+                if not date_str or len(date_str) < 10:
+                    continue
+                # Adjustments: Sales txn, Adjustment item (discounts, comps - reduce sales)
+                if txn_type == 'Sales' and item_type == 'Adjustment':
+                    yield (date_str, dept or '(blank)', amount)
+                # Refunds: Refund txn, Product/Modifier/Package (money back - reduce sales)
+                elif txn_type == 'Refund' and item_type in ('Product', 'Modifier', 'Package'):
+                    # Amount may be positive or negative in CSV; we need to subtract from sales
+                    yield (date_str, dept or '(blank)', -abs(amount) if amount != 0 else 0)
+
+
+def aggregate_deductions_by_date_dept(csv_files):
+    """Aggregate deductions to (date, department) -> total amount to subtract."""
+    agg = defaultdict(float)
+    for date_str, dept, amount in read_deductions(csv_files):
+        agg[(date_str, dept)] += amount
+    return agg
+
+
+# =============================================================================
 # PHASE 1: Read all CSVs, deduplicate, yield raw rows
 # =============================================================================
 
@@ -201,8 +256,8 @@ def resolve_all_products(transactions):
         for r in rows:
             if r['item_type'] == 'Package':
                 if current is not None:
-                    if current['unit_price'] == 0 and mod_cost > 0:
-                        current['unit_price'] = mod_cost
+                    if mod_cost > 0:
+                        current['item_total'] = current.get('item_total', 0) + mod_cost
                     yield current
                     current = None
                     mod_cost = 0.0
@@ -211,18 +266,20 @@ def resolve_all_products(transactions):
 
             if r['item_type'] == 'Product':
                 if current is not None:
-                    if current['unit_price'] == 0 and mod_cost > 0:
-                        current['unit_price'] = mod_cost
+                    if mod_cost > 0:
+                        current['item_total'] = current.get('item_total', 0) + mod_cost
                     yield current
                 current = r
                 mod_cost = 0.0
 
             elif r['item_type'] == 'Modifier' and current is not None:
-                mod_cost += r['unit_price']
+                mt = r.get('item_total', 0)
+                mod_rev = mt if mt != 0 else (r['unit_price'] * (r['qty'] if r.get('qty') else 1))
+                mod_cost += mod_rev
 
         if current is not None:
-            if current['unit_price'] == 0 and mod_cost > 0:
-                current['unit_price'] = mod_cost
+            if mod_cost > 0:
+                current['item_total'] = current.get('item_total', 0) + mod_cost
             yield current
 
 
@@ -364,11 +421,31 @@ def aggregate_modifier_transactions(csv_files):
 
 
 # =============================================================================
+# EXPORT: modifier_transactions.json (date-granular, for Modifiers dashboard view)
+# =============================================================================
+
+def export_modifier_transactions(csv_files):
+    """
+    Export modifier rows with date granularity to a separate file.
+    Used for the Modifiers department view (calendar, weekly trends, etc.)
+    without double-counting in main transactions.json.
+    """
+    rows = aggregate_modifier_transactions(csv_files)
+    out = os.path.join(OUTPUT_DIR, 'modifier_transactions.json')
+    with open(out, 'w', encoding='utf-8') as f:
+        json.dump(rows, f, separators=(',', ':'))
+    size_kb = os.path.getsize(out) / 1024
+    print(f'  -> {out}  ({len(rows):,} rows, {size_kb:.0f} KB)')
+    return rows
+
+
+# =============================================================================
 # EXPORT: transactions.json
 # =============================================================================
 
 def export_transactions(csv_files, category_overrides):
-    """Export item x date rows for all departments, including Modifiers."""
+    """Export item x date rows for all departments, including Modifiers.
+    Includes Adjustments and Refunds as deduction rows to align with POS Total Sale."""
     print('  Reading CSVs...')
     raw_rows = list(read_all_csvs(csv_files))
 
@@ -383,6 +460,29 @@ def export_transactions(csv_files, category_overrides):
     print('  Aggregating to item x date...')
     rows = aggregate_item_date(products, category_overrides)
     print(f'  {len(rows):,} item x date rows')
+
+    print('  Adding adjustments & refunds (POS alignment)...')
+    deductions = aggregate_deductions_by_date_dept(csv_files)
+    SKIP_DEPARTMENTS = {'', 'TEST DEPARTMENT', 'Parties test'}
+    deduction_count = 0
+    for (date_str, dept), amount in deductions.items():
+        if abs(amount) < 0.01:
+            continue
+        if dept in SKIP_DEPARTMENTS or dept == '(blank)':
+            continue
+        rows.append({
+            'date': date_str,
+            'name': '[Adjustments & Refunds]',
+            'department': dept,
+            'subdepartment': '',
+            'category': dept,
+            'quantity': 0,
+            'revenue': round(amount, 2),
+            'transactions': 0,
+        })
+        deduction_count += 1
+    rows.sort(key=lambda r: (r['date'], r['department'], r['name']))
+    print(f'  Added {deduction_count:,} deduction rows')
 
     out = os.path.join(OUTPUT_DIR, 'transactions.json')
     with open(out, 'w', encoding='utf-8') as f:
@@ -779,6 +879,8 @@ def main():
 
     print('\n[2/6] Modifiers...')
     export_modifiers(csv_files)
+    print('  Modifier transactions (date-granular)...')
+    export_modifier_transactions(csv_files)
 
     print('\n[3/6] Summary...')
     summary = export_summary(rows)

@@ -1,16 +1,16 @@
 {
-  "generatedAt": "2026-03-09T12:14:32.130671",
+  "generatedAt": "2026-03-10T12:39:01.834865",
   "dateRange": [
     "2023-01-01",
     "2026-03-08"
   ],
-  "totalRevenue": 18260739.87,
+  "totalRevenue": 18219924.22,
   "departments": {
     "Arcade": {
-      "revenue": 122229.5,
+      "revenue": 122251.16,
       "quantity": 2390,
       "transactions": 2318,
-      "uniqueItems": 4,
+      "uniqueItems": 5,
       "categories": [
         "Arcade"
       ],
@@ -20,11 +20,12 @@
       ]
     },
     "Bar": {
-      "revenue": 4396489.44,
+      "revenue": 4399916.25,
       "quantity": 526336,
       "transactions": 515848,
-      "uniqueItems": 483,
+      "uniqueItems": 484,
       "categories": [
+        "Bar",
         "Bottle Beer",
         "Draft Beer",
         "Drink tickets",
@@ -37,11 +38,12 @@
       ]
     },
     "Bowling": {
-      "revenue": 4950392.98,
+      "revenue": 4907976.63,
       "quantity": 6942052,
       "transactions": 377860,
-      "uniqueItems": 37,
+      "uniqueItems": 38,
       "categories": [
+        "Bowling",
         "Game Bowling",
         "General Income",
         "Rental Shoes",
@@ -53,10 +55,10 @@
       ]
     },
     "Food": {
-      "revenue": 2965990.77,
+      "revenue": 2903987.87,
       "quantity": 317626,
       "transactions": 290291,
-      "uniqueItems": 187,
+      "uniqueItems": 188,
       "categories": [
         "Appetizers & Sides",
         "Beverages",
@@ -78,11 +80,24 @@
         "2026-03-08"
       ]
     },
+    "General Income": {
+      "revenue": 27827.02,
+      "quantity": 641,
+      "transactions": 643,
+      "uniqueItems": 1,
+      "categories": [
+        "Processing Fee"
+      ],
+      "dateRange": [
+        "2024-07-12",
+        "2026-03-07"
+      ]
+    },
     "League Fees": {
-      "revenue": 2602555.93,
+      "revenue": 2601556.93,
       "quantity": 147678,
       "transactions": 42361,
-      "uniqueItems": 97,
+      "uniqueItems": 98,
       "categories": [
         "League Bowling",
         "League Fees"
@@ -93,9 +108,9 @@
       ]
     },
     "Parties": {
-      "revenue": 3219241.25,
-      "quantity": 1254878,
-      "transactions": 22195,
+      "revenue": 3252568.36,
+      "quantity": 1254237,
+      "transactions": 21552,
       "uniqueItems": 49,
       "categories": [
         "Catering",
