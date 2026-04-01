@@ -4,7 +4,7 @@ POS sales analysis for Oct 2025 - Jan 2026. Dashboards, exports, and lightweight
 
 ## Data
 
-Raw transaction CSVs (`data/2023.csv`, `data/2024.csv`, `data/2025.csv`, `data/oct25-jan26.csv`) are excluded from the repo due to GitHub's 100MB file limit. Place your own exports in `data/` and run `python scripts/export_dashboards.py` to regenerate `public/data/` for the dashboard (including `holiday_analysis.json` for the Holiday Analysis page).
+CSV files are not committed (large POS exports and local forecast inputs). Place your exports in `data/` (and any forecast CSVs under `output/` as needed), then run `python scripts/export_dashboards.py` to regenerate `public/data/` for the dashboard (including `holiday_analysis.json` for the Holiday Analysis page).
 
 ## Structure
 

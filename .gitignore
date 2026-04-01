@@ -31,11 +31,8 @@ yarn-error.log*
 .DS_Store
 Thumbs.db
 
-# Large data files (exceed GitHub 100MB limit)
-data/2023.csv
-data/2024.csv
-data/2025.csv
-data/oct25-jan26.csv
+# POS exports and forecast CSVs — keep local; run export_dashboards.py to refresh public/data
+*.csv
 data/drive-download-*/
 
 # Python
