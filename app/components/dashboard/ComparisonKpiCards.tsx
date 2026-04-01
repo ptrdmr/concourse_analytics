@@ -46,11 +46,11 @@ export function ComparisonKpiCards({ kpisA, kpisB, labelA = 'Period A', labelB =
             <div className="grid grid-cols-2 gap-2 text-sm">
               <div>
                 <div className="text-xs text-muted">{labelA}</div>
-                <div className="font-mono font-semibold text-[#10b981]">{format(a)}</div>
+                <div className="font-mono font-semibold text-[#2563eb]">{format(a)}</div>
               </div>
               <div>
                 <div className="text-xs text-muted">{labelB}</div>
-                <div className="font-mono font-semibold text-[#22d3ee]">{format(b)}</div>
+                <div className="font-mono font-semibold text-[#60a5fa]">{format(b)}</div>
               </div>
             </div>
             <div className={`mt-2 text-xs font-mono ${

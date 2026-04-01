@@ -20,7 +20,7 @@ interface Props {
 type SortKey = 'name' | 'category' | 'revenue' | 'quantity';
 type SortDir = 'asc' | 'desc';
 
-const FALLBACK = '#10b981';
+const FALLBACK = '#2563eb';
 const PAGE_SIZE = 25;
 
 export function ItemDetailTable({ items, colors, onItemClick }: Props) {

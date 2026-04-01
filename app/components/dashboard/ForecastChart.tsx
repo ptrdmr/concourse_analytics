@@ -24,8 +24,8 @@ interface Props {
 }
 
 const MODEL_COLORS: Record<string, string> = {
-  actual: '#10b981',
-  seasonal: '#22d3ee',
+  actual: '#2563eb',
+  seasonal: '#60a5fa',
 };
 
 const MODEL_LABELS: Record<string, string> = {
@@ -54,7 +54,7 @@ function CustomTooltip({ active, payload, label }: { active?: boolean; payload?:
       {error != null && (
         <p className="text-sm mt-2 pt-2 border-t border-gray-700">
           <span className="text-secondary">Error: </span>
-          <span className={`font-mono ${error >= 0 ? 'text-emerald-400' : 'text-rose-400'}`}>
+          <span className={`font-mono ${error >= 0 ? 'text-blue-400' : 'text-rose-400'}`}>
             {error >= 0 ? '+' : ''}{formatCurrency(error)}
             {pctError != null && ` (${pctError >= 0 ? '+' : ''}${pctError.toFixed(1)}%)`}
           </span>

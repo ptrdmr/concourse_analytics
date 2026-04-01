@@ -15,7 +15,7 @@ interface Props {
 }
 
 const FALLBACK_COLORS = [
-  '#10b981', '#22d3ee', '#f59e0b', '#ef4444', '#8b5cf6',
+  '#2563eb', '#60a5fa', '#f59e0b', '#ef4444', '#8b5cf6',
   '#f97316', '#ec4899', '#84cc16', '#06b6d4', '#e879f9',
   '#a78bfa', '#14b8a6', '#f43f5e', '#eab308', '#6366f1',
 ];

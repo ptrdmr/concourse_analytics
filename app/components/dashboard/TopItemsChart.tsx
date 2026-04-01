@@ -18,7 +18,7 @@ interface Props {
   colors: Record<string, string>;
 }
 
-const FALLBACK = '#10b981';
+const FALLBACK = '#2563eb';
 
 function CustomTooltip({ active, payload }: { active?: boolean; payload?: Array<{ payload: ItemData }> }) {
   if (!active || !payload?.length) return null;

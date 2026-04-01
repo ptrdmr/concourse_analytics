@@ -30,7 +30,7 @@ interface Props {
   onClose: () => void;
 }
 
-const FALLBACK = '#10b981';
+const FALLBACK = '#2563eb';
 
 const GRANULARITY_OPTIONS: { value: HistoryGranularity; label: string }[] = [
   { value: 'month', label: 'Month' },
@@ -231,7 +231,7 @@ export function ItemHistoryPanel({ item, transactions, colors, onClose }: Props)
                       <Bar
                         yAxisId="txns"
                         dataKey="transactions"
-                        fill="#22d3ee"
+                        fill="#60a5fa"
                         fillOpacity={0.2}
                         radius={[2, 2, 0, 0]}
                         maxBarSize={12}
@@ -240,12 +240,12 @@ export function ItemHistoryPanel({ item, transactions, colors, onClose }: Props)
                         yAxisId="revenue"
                         type="monotone"
                         dataKey="revenue"
-                        stroke="#10b981"
+                        stroke="#2563eb"
                         strokeWidth={2}
                         dot={false}
                         activeDot={{
                           r: 4,
-                          fill: '#10b981',
+                          fill: '#2563eb',
                           stroke: '#000',
                           strokeWidth: 2,
                         }}

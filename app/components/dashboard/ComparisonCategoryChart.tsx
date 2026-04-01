@@ -19,7 +19,7 @@ interface Props {
   subtitle?: string;
 }
 
-const FALLBACK_COLORS = ['#10b981', '#22d3ee', '#f59e0b', '#ef4444', '#8b5cf6', '#f97316'];
+const FALLBACK_COLORS = ['#2563eb', '#60a5fa', '#f59e0b', '#ef4444', '#8b5cf6', '#f97316'];
 
 function getColor(cat: string, i: number, colors: Record<string, string>) {
   return colors[cat] || FALLBACK_COLORS[i % FALLBACK_COLORS.length];
@@ -39,7 +39,7 @@ function CustomTooltip({
       <p className="text-sm font-semibold text-white mb-2">{cat}</p>
       {payload.map(p => (
         <p key={p.dataKey} className="text-sm">
-          <span className={p.dataKey === 'periodA' ? 'text-[#10b981]' : 'text-[#22d3ee]'}>
+          <span className={p.dataKey === 'periodA' ? 'text-[#2563eb]' : 'text-[#60a5fa]'}>
             {p.dataKey === 'periodA' ? 'Period A' : 'Period B'}:
           </span>{' '}
           <span className="font-mono text-white">{formatCurrency(p.value)}</span>
@@ -93,8 +93,8 @@ export function ComparisonCategoryChart({ dataA, dataB, colors, title = 'Sales b
             />
             <Tooltip content={<CustomTooltip />} />
             <Legend />
-            <Bar dataKey="periodA" name="Period A" fill="#10b981" radius={[0, 2, 2, 0]} maxBarSize={14} />
-            <Bar dataKey="periodB" name="Period B" fill="#22d3ee" radius={[0, 2, 2, 0]} maxBarSize={14} />
+            <Bar dataKey="periodA" name="Period A" fill="#2563eb" radius={[0, 2, 2, 0]} maxBarSize={14} />
+            <Bar dataKey="periodB" name="Period B" fill="#60a5fa" radius={[0, 2, 2, 0]} maxBarSize={14} />
           </BarChart>
         </ResponsiveContainer>
       </div>

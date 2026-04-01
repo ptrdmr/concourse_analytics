@@ -65,7 +65,7 @@ export function HolidayComparisonChart({ years, department, yearColors }: Props)
             <Tooltip content={<CustomTooltip />} />
             <Bar
               dataKey="revenue"
-              fill="#10b981"
+              fill="#2563eb"
               radius={[4, 4, 0, 0]}
               maxBarSize={60}
             />

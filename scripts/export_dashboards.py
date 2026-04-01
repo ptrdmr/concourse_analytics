@@ -23,7 +23,6 @@ _ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 OUTPUT_DIR = os.path.join(_ROOT, 'public', 'data')
 DATA_DIR = os.path.join(_ROOT, 'data')
 CATEGORY_OVERRIDES = os.path.join(_ROOT, 'config', 'categories.json')
-BOWLING_FORECAST_CSV = os.path.join(_ROOT, 'output', 'bowling_sarima_forecast.csv')
 BOWLING_SEASONAL_FORECAST_CSV = os.path.join(_ROOT, 'output', 'bowling_forecast.csv')
 
 NAME_MERGE = {
@@ -39,38 +38,38 @@ NAME_MERGE = {
 CATEGORY_COLORS = {
     'Appetizers & Sides': '#f5a623',
     'Wings & Chicken':    '#ff5252',
-    'Pizza':              '#00e676',
+    'Pizza':              '#38bdf8',
     'Burgers & Sliders':  '#00b0ff',
     'Sandwiches':         '#bb86fc',
-    'Tacos & Mexican':    '#03dac6',
-    'Salads':             '#c6ff00',
+    'Tacos & Mexican':    '#0ea5e9',
+    'Salads':             '#93c5fd',
     'Kids Menu':          '#ff6eb4',
     'Beverages':          '#64b5f6',
     'Soups':              '#ffd700',
     'Party Platters':     '#ff9100',
     'Draft Beer':         '#f5a623',
     'Liquor':             '#ff5252',
-    'Bottle Beer':        '#00e676',
-    'Mocktails':          '#03dac6',
+    'Bottle Beer':        '#0ea5e9',
+    'Mocktails':          '#0ea5e9',
     'Drink tickets':      '#bb86fc',
     'Beer Buckets':       '#00b0ff',
     'Game Bowling':       '#f5a623',
     'Time Bowling':       '#00b0ff',
-    'Rental Shoes':       '#03dac6',
+    'Rental Shoes':       '#0ea5e9',
     'Online Lane Reservations': '#bb86fc',
     'VIP SUITES':         '#ff6eb4',
     'General Parties':    '#ff9100',
     'Parties':            '#ff9100',
     'League Fees':        '#ffd700',
-    'League Bowling':     '#c6ff00',
+    'League Bowling':     '#60a5fa',
     # Modifiers subdepartments
-    'Food Mods':           '#10b981',
-    'Food':                '#34d399',
-    'N/A Bev':             '#6ee7b7',
-    'Catering':            '#059669',
+    'Food Mods':           '#2563eb',
+    'Food':                '#60a5fa',
+    'N/A Bev':             '#7dd3fc',
+    'Catering':            '#1d4ed8',
 }
 
-YEAR_COLORS = ['#00b0ff', '#f5a623', '#ff5252', '#03dac6', '#ff9100', '#bb86fc']
+YEAR_COLORS = ['#00b0ff', '#f5a623', '#ff5252', '#0ea5e9', '#ff9100', '#bb86fc']
 
 
 def normalize_subdepartment(subdept):
@@ -800,7 +799,7 @@ def _load_bowling_weekly(csv_files):
 
 
 def export_bowling_forecast(csv_files):
-    """Export bowling forecast: seasonal model + current year actuals (replaces SARIMA)."""
+    """Export bowling forecast: seasonal model + current year actuals."""
     forecasts = {}
 
     # Seasonal forecast from CSV

@@ -44,14 +44,14 @@ ACCENT_LINE    = '#3a3a5c'
 
 # -- Accent palette --
 AMBER  = '#f5a623'
-GREEN  = '#00e676'
+GREEN  = '#2563eb'
 BLUE   = '#00b0ff'
 CORAL  = '#ff5252'
 PURPLE = '#bb86fc'
-TEAL   = '#03dac6'
+TEAL   = '#0ea5e9'
 PINK   = '#ff6eb4'
 GOLD   = '#ffd700'
-LIME   = '#c6ff00'
+LIME   = '#93c5fd'
 SKY    = '#64b5f6'
 ORANGE = '#ff9100'
 

@@ -43,7 +43,7 @@ function CustomTooltip({
       <p className="text-xs text-muted mb-2">{displayLabel}</p>
       {payload.map(p => (
         <p key={p.dataKey} className="text-sm">
-          <span className={p.dataKey === 'periodA' ? 'text-[#10b981]' : 'text-[#22d3ee]'}>
+          <span className={p.dataKey === 'periodA' ? 'text-[#2563eb]' : 'text-[#60a5fa]'}>
             {p.dataKey === 'periodA' ? 'Period A' : 'Period B'}:
           </span>{' '}
           <span className="font-mono text-white">{formatCurrency(p.value)}</span>
@@ -105,14 +105,14 @@ export function ComparisonBarChart({ dataA, dataB, granularity }: Props) {
             <Bar
               dataKey="periodA"
               name="Period A"
-              fill="#10b981"
+              fill="#2563eb"
               radius={[2, 2, 0, 0]}
               maxBarSize={24}
             />
             <Bar
               dataKey="periodB"
               name="Period B"
-              fill="#22d3ee"
+              fill="#60a5fa"
               radius={[2, 2, 0, 0]}
               maxBarSize={24}
             />

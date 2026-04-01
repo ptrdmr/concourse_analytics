@@ -13,7 +13,7 @@ interface Props {
   onClose: () => void;
 }
 
-const FALLBACK = '#10b981';
+const FALLBACK = '#2563eb';
 
 function formatDateLabel(dateStr: string): string {
   const d = new Date(dateStr + 'T00:00:00');

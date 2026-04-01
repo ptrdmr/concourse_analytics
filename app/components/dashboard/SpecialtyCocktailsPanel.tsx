@@ -25,7 +25,7 @@ interface Props {
   colors: Record<string, string>;
 }
 
-const FALLBACK = '#10b981';
+const FALLBACK = '#2563eb';
 
 function normalizeName(name: string): string {
   return name

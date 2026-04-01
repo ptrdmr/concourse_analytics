@@ -28,7 +28,7 @@ except ImportError:
 _ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 TRANSACTIONS_FILE = os.path.join(_ROOT, 'public', 'data', 'transactions.json')
 OUTPUT_FILE = os.path.join(_ROOT, 'public', 'data', 'holiday_analysis.json')
-YEAR_COLORS = ['#00b0ff', '#f5a623', '#ff5252', '#03dac6', '#ff9100', '#bb86fc']
+YEAR_COLORS = ['#00b0ff', '#f5a623', '#ff5252', '#0ea5e9', '#ff9100', '#bb86fc']
 
 
 def get_holiday_periods(years):

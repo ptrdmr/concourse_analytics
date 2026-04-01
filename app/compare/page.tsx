@@ -1,7 +1,7 @@
 'use client';
 
-import { useState, useMemo, Suspense } from 'react';
-import { useTransactions, useSummary, useFilteredData, useModifiers, useModifierTransactions } from '@/hooks/useTransactions';
+import { useState, useMemo, Suspense, type ReactNode } from 'react';
+import { useTransactions, useSummary, useFilteredData, useModifierTransactions } from '@/hooks/useTransactions';
 import type { Filters } from '@/types';
 import { aggregateByPeriod, type PeriodGranularity } from '@/lib/aggregate-by-period';
 import { Nav } from '@/components/Nav';
@@ -18,6 +18,29 @@ const GRANULARITIES: { id: PeriodGranularity; label: string }[] = [
   { id: 'year', label: 'Year' },
 ];
 
+/** Section instruction text (under each step heading). */
+function CompareInstruction({ children }: { children: ReactNode }) {
+  return <p className="mb-4 mt-3 text-sm text-muted">{children}</p>;
+}
+
+/** Step title: accent index + divider so sections scan faster than plain white headings. */
+function CompareSectionHeading({ step, title }: { step: number; title: string }) {
+  return (
+    <div className="mb-1 border-b border-white/[0.08] pb-3">
+      <h2 className="flex flex-wrap items-center gap-2.5 text-lg font-semibold tracking-tight text-white">
+        <span className="sr-only">{`Step ${step}: `}</span>
+        <span
+          className="inline-flex h-7 min-w-[1.75rem] shrink-0 items-center justify-center rounded-md bg-accent/15 px-2 font-mono text-sm font-bold text-accent tabular-nums ring-1 ring-accent/25"
+          aria-hidden
+        >
+          {step}
+        </span>
+        <span>{title}</span>
+      </h2>
+    </div>
+  );
+}
+
 function getDefaultPeriods(): { periodA: DateRange; periodB: DateRange } {
   const now = new Date();
   const y = now.getFullYear();
@@ -33,13 +56,11 @@ function getDefaultPeriods(): { periodA: DateRange; periodB: DateRange } {
 function CompareContent() {
   const { raw, loading: txnLoading } = useTransactions();
   const { summary, loading: sumLoading } = useSummary();
-  const { modifiers } = useModifiers();
   const { modifierTransactions, loading: modTxnLoading } = useModifierTransactions();
 
   const [periodA, setPeriodA] = useState<DateRange>(() => getDefaultPeriods().periodA);
   const [periodB, setPeriodB] = useState<DateRange>(() => getDefaultPeriods().periodB);
   const [department, setDepartment] = useState('All');
-  const [categories, setCategories] = useState<string[]>([]);
   const [granularity, setGranularity] = useState<PeriodGranularity>('week');
 
   const departments = useMemo(() => {
@@ -52,21 +73,6 @@ function CompareContent() {
     return ['All', ...sorted];
   }, [summary]);
 
-  const availableCategories = useMemo(() => {
-    if (!summary || department === 'All') {
-      const cats = new Set<string>();
-      if (summary) {
-        Object.values(summary.departments).forEach(d => d.categories.forEach(c => cats.add(c)));
-      }
-      return Array.from(cats).sort();
-    }
-    if (department === 'Modifiers') {
-      const cats = new Set(modifiers.map(m => m.subdepartment || 'Other').filter(Boolean));
-      return Array.from(cats).sort();
-    }
-    return summary.departments[department]?.categories || [];
-  }, [summary, department, modifiers]);
-
   const sourceData = useMemo(() => {
     const isModifiers = department === 'Modifiers';
     return isModifiers ? modifierTransactions : raw;
@@ -75,16 +81,16 @@ function CompareContent() {
   const filtersA: Filters = useMemo(() => ({
     department,
     dateRange: periodA,
-    categories,
+    categories: [],
     searchTerm: '',
-  }), [department, periodA, categories]);
+  }), [department, periodA]);
 
   const filtersB: Filters = useMemo(() => ({
     department,
     dateRange: periodB,
-    categories,
+    categories: [],
     searchTerm: '',
-  }), [department, periodB, categories]);
+  }), [department, periodB]);
 
   const filteredA = useFilteredData(sourceData, filtersA);
   const filteredB = useFilteredData(sourceData, filtersB);
@@ -120,16 +126,16 @@ function CompareContent() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 py-6 sm:py-8 space-y-6 sm:space-y-8">
         <div>
           <h1 className="text-2xl font-bold text-white mb-1">Period Comparison</h1>
-          <p className="text-sm text-muted">
-            Compare two time frames side by side. Follow the numbered sections below to walk through the page.
-          </p>
+          <CompareInstruction>
+            Compare two time frames side by side. Use the numbered sections below to set periods, department, and granularity.
+          </CompareInstruction>
         </div>
 
         <section>
-          <h2 className="text-lg font-semibold text-white mb-1">1. Period A & B</h2>
-          <p className="text-sm text-muted mb-4">
+          <CompareSectionHeading step={1} title="Period A & B" />
+          <CompareInstruction>
             Select start and end dates for each comparison period. Period A is your baseline; Period B is what you compare against.
-          </p>
+          </CompareInstruction>
           <ComparisonPeriodPicker
             periodA={periodA}
             periodB={periodB}
@@ -139,10 +145,10 @@ function CompareContent() {
         </section>
 
         <section>
-          <h2 className="text-lg font-semibold text-white mb-1">2. Department</h2>
-          <p className="text-sm text-muted mb-4">
+          <CompareSectionHeading step={2} title="Department" />
+          <CompareInstruction>
             Filter by department (All, Bowling, Bar, Food, etc.) to focus on a specific area of your business.
-          </p>
+          </CompareInstruction>
           <div className="flex flex-wrap gap-2">
             {departments.map(dept => (
               <button
@@ -161,10 +167,10 @@ function CompareContent() {
         </section>
 
         <section>
-          <h2 className="text-lg font-semibold text-white mb-1">3. Granularity</h2>
-          <p className="text-sm text-muted mb-4">
+          <CompareSectionHeading step={3} title="Granularity" />
+          <CompareInstruction>
             Choose how to break down the data within each period: Day, Week, Month, or Year. This affects the Sales by Period chart.
-          </p>
+          </CompareInstruction>
           <div className="flex flex-wrap gap-2 items-center">
             {GRANULARITIES.map(g => (
               <button
@@ -183,37 +189,10 @@ function CompareContent() {
         </section>
 
         <section>
-          <h2 className="text-lg font-semibold text-white mb-1">4. Category</h2>
-          <p className="text-sm text-muted mb-4">
-            Narrow further by selecting one or more categories within the chosen department.
-          </p>
-          <div className="flex flex-wrap gap-1.5">
-            {availableCategories.slice(0, 12).map(cat => {
-              const active = categories.includes(cat);
-              return (
-                <button
-                  key={cat}
-                  onClick={() => {
-                    setCategories(active ? categories.filter(c => c !== cat) : [...categories, cat]);
-                  }}
-                  className={`px-3 py-1 rounded-full text-xs font-medium transition-colors ${
-                    active
-                      ? 'bg-accent/20 text-accent border border-accent/40'
-                      : 'bg-white/5 text-muted hover:bg-secondary border border-transparent'
-                  }`}
-                >
-                  {cat}
-                </button>
-              );
-            })}
-          </div>
-        </section>
-
-        <section>
-          <h2 className="text-lg font-semibold text-white mb-1">5. KPI Cards</h2>
-          <p className="text-sm text-muted mb-4">
+          <CompareSectionHeading step={4} title="KPI Cards" />
+          <CompareInstruction>
             Compare Sales, Quantity, Transactions, and Unique Items between the two periods. The percentage shows change from Period A to Period B.
-          </p>
+          </CompareInstruction>
           <ComparisonKpiCards
             kpisA={filteredA.kpis}
             kpisB={filteredB.kpis}
@@ -224,10 +203,10 @@ function CompareContent() {
 
         <div className="grid grid-cols-1 xl:grid-cols-2 gap-6">
           <section>
-            <h2 className="text-lg font-semibold text-white mb-1">6. Sales by Period</h2>
-            <p className="text-sm text-muted mb-4">
+            <CompareSectionHeading step={5} title="Sales by Period" />
+            <CompareInstruction>
               Bar chart comparing Period A vs Period B at your chosen granularity (e.g., Week 1 vs Week 1, Month 1 vs Month 1).
-            </p>
+            </CompareInstruction>
             <ComparisonBarChart
               dataA={periodDataA}
               dataB={periodDataB}
@@ -235,10 +214,10 @@ function CompareContent() {
             />
           </section>
           <section>
-            <h2 className="text-lg font-semibold text-white mb-1">7. Sales by Department</h2>
-            <p className="text-sm text-muted mb-4">
+            <CompareSectionHeading step={6} title="Sales by Department" />
+            <CompareInstruction>
               Horizontal bar chart comparing department performance across both periods.
-            </p>
+            </CompareInstruction>
             <ComparisonCategoryChart
               dataA={filteredA.departmentBreakdown}
               dataB={filteredB.departmentBreakdown}
