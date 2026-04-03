@@ -17,7 +17,7 @@ import json
 import os
 import glob
 from datetime import datetime, timedelta
-from collections import defaultdict
+from collections import Counter, defaultdict
 
 _ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 OUTPUT_DIR = os.path.join(_ROOT, 'public', 'data')
@@ -852,6 +852,238 @@ def export_bowling_forecast(csv_files):
 
 
 # =============================================================================
+# TICKET LOOKUP: read all line types (no txn/item-type filter)
+# =============================================================================
+
+_TICKET_SKIP_FILES = frozenset({'food_purchases.csv'})
+
+
+def _parse_bool_cell(s):
+    if s is None:
+        return False
+    t = str(s).strip().lower()
+    return t in ('true', '1', 'yes')
+
+
+def _norm_hhmm(time_str):
+    """Normalize 'HH:MM:SS' or similar to 'HH:MM' for display."""
+    if not time_str or not str(time_str).strip():
+        return ''
+    parts = str(time_str).strip().split(':')
+    if len(parts) >= 2:
+        return f'{parts[0]}:{parts[1]}'
+    return str(time_str).strip()
+
+
+def read_ticket_rows_deduped(csv_files):
+    """
+    Read all POS rows: non-deleted, non-voided only.
+    No filter on Transaction Type or Item Type. Dedupe by (Transaction ID, Item ID).
+    Skips food_purchases.csv (different format).
+    Returns list of dicts with parsed fields.
+    """
+    columns = [
+        'Transaction ID', 'Item ID',
+        'Transaction Created Date', 'Transaction Created Time', 'Transaction Closed Time',
+        'Transaction Total', 'Transaction User', 'Transaction Terminal', 'Transaction Type',
+        'Name', 'Item Type', 'Department', 'Subdepartment',
+        'Quantity', 'Unit Amount', 'Total',
+        'Deleted', 'Voided',
+        'Tax Included', 'Sold in Package',
+    ]
+    row_map = {}
+    key_order = []
+
+    for csv_path in csv_files:
+        if os.path.basename(csv_path).lower() in _TICKET_SKIP_FILES:
+            continue
+        if not os.path.isfile(csv_path):
+            continue
+        with open(csv_path, 'r', encoding='utf-8') as f:
+            reader = csv.reader(f, delimiter=';')
+            header = next(reader)
+            idx = {c: header.index(c) for c in columns if c in header}
+            if 'Transaction ID' not in idx or 'Item ID' not in idx:
+                continue
+            max_idx = max(idx.values())
+
+            for row in reader:
+                if len(row) <= max_idx:
+                    continue
+                if row[idx['Deleted']] != 'False' or row[idx['Voided']] != 'False':
+                    continue
+
+                txn_id = row[idx['Transaction ID']].strip()
+                item_id = int(row[idx['Item ID']])
+                key = (txn_id, item_id)
+                if key in row_map:
+                    continue
+
+                name = row[idx['Name']].strip() if 'Name' in idx else ''
+                name = NAME_MERGE.get(name, name)
+                item_type = row[idx['Item Type']].strip() if 'Item Type' in idx else ''
+                dept = row[idx['Department']].strip() if 'Department' in idx and len(row) > idx['Department'] else ''
+                sub_raw = row[idx['Subdepartment']].strip() if 'Subdepartment' in idx and len(row) > idx['Subdepartment'] else ''
+                subdept = normalize_subdepartment(sub_raw) if sub_raw else ''
+                qty = float(row[idx['Quantity']] or 0) if 'Quantity' in idx else 0.0
+                unit_price = float(row[idx['Unit Amount']] or 0) if 'Unit Amount' in idx else 0.0
+                item_total = float(row[idx['Total']] or 0) if 'Total' in idx else 0.0
+
+                txn_date = row[idx['Transaction Created Date']].strip() if 'Transaction Created Date' in idx else ''
+                txn_time_raw = row[idx['Transaction Created Time']].strip() if 'Transaction Created Time' in idx else ''
+                txn_closed_raw = row[idx['Transaction Closed Time']].strip() if 'Transaction Closed Time' in idx else ''
+                txn_total = float(row[idx['Transaction Total']] or 0) if 'Transaction Total' in idx else 0.0
+                txn_user = row[idx['Transaction User']].strip() if 'Transaction User' in idx else ''
+                txn_terminal = row[idx['Transaction Terminal']].strip() if 'Transaction Terminal' in idx else ''
+                txn_type = row[idx['Transaction Type']].strip() if 'Transaction Type' in idx else ''
+
+                tax_in = _parse_bool_cell(row[idx['Tax Included']]) if 'Tax Included' in idx else False
+                sold_pkg = _parse_bool_cell(row[idx['Sold in Package']]) if 'Sold in Package' in idx else False
+
+                rec = {
+                    'txn_id': txn_id,
+                    'item_id': item_id,
+                    'name': name,
+                    'item_type': item_type,
+                    'department': dept,
+                    'subdepartment': subdept,
+                    'qty': qty,
+                    'unit_price': unit_price,
+                    'item_total': item_total,
+                    'txn_date': txn_date,
+                    'txn_time': _norm_hhmm(txn_time_raw),
+                    'txn_closed_time': _norm_hhmm(txn_closed_raw),
+                    'txn_total': txn_total,
+                    'txn_user': txn_user,
+                    'txn_terminal': txn_terminal,
+                    'txn_type': txn_type,
+                    'tax_included': tax_in,
+                    'sold_in_package': sold_pkg,
+                }
+                row_map[key] = rec
+                key_order.append(key)
+
+    return [row_map[k] for k in key_order]
+
+
+def _primary_transaction_type(types_list):
+    """Prefer Sales, then Refund, else most common."""
+    if not types_list:
+        return ''
+    uniq = set(types_list)
+    if 'Sales' in uniq:
+        return 'Sales'
+    if 'Refund' in uniq:
+        return 'Refund'
+    return Counter(types_list).most_common(1)[0][0]
+
+
+def _group_ticket_rows(rows):
+    by_txn = defaultdict(list)
+    for r in rows:
+        by_txn[r['txn_id']].append(r)
+    return by_txn
+
+
+_STANDALONE_ITEM_TYPES = frozenset({
+    'Tax', 'GratuityIn', 'Adjustment', 'PaymentCredit', 'PaymentCash', 'Account', 'Cancel',
+})
+
+
+def _build_ticket_line_items(rows_sorted_by_item_id):
+    """
+    Sort by Item ID, then assign parentItemId for Modifiers per spec.
+    """
+    rows = sorted(rows_sorted_by_item_id, key=lambda r: r['item_id'])
+    current_parent = None
+    out = []
+    for r in rows:
+        it = r['item_type']
+        iid = r['item_id']
+        entry = {
+            'itemId': iid,
+            'name': r['name'],
+            'itemType': it,
+            'dept': r['department'],
+            'subdept': r['subdepartment'] or '',
+            'qty': r['qty'],
+            'unitAmount': round(r['unit_price'], 2),
+            'total': round(r['item_total'], 2),
+            'taxIncluded': r['tax_included'],
+            'soldInPackage': r['sold_in_package'],
+        }
+        if it == 'Modifier':
+            if current_parent is not None:
+                entry['parentItemId'] = current_parent
+        elif it == 'Product':
+            current_parent = iid
+        elif it == 'Package':
+            current_parent = None
+        elif it in _STANDALONE_ITEM_TYPES:
+            current_parent = None
+        else:
+            current_parent = None
+
+        out.append(entry)
+    return out
+
+
+def export_ticket_detail(csv_files):
+    """Write public/data/tickets/YYYY-MM.json — full receipt lines per month."""
+    print('  Reading all line items for ticket detail...')
+    rows = read_ticket_rows_deduped(csv_files)
+    by_txn = _group_ticket_rows(rows)
+
+    tickets_dir = os.path.join(OUTPUT_DIR, 'tickets')
+    os.makedirs(tickets_dir, exist_ok=True)
+
+    by_month = defaultdict(list)
+
+    for txn_id, group in by_txn.items():
+        group_sorted = sorted(group, key=lambda r: r['item_id'])
+        first = group_sorted[0]
+        date_str = first['txn_date']
+        if not date_str or len(date_str) < 7:
+            ym = 'unknown'
+        else:
+            ym = date_str[:7]
+
+        types_list = [r['txn_type'] for r in group if r['txn_type']]
+        ticket = {
+            'txnId': txn_id,
+            'date': first['txn_date'],
+            'time': first['txn_time'],
+            'closedTime': first['txn_closed_time'],
+            'total': round(first['txn_total'], 2),
+            'user': first['txn_user'],
+            'terminal': first['txn_terminal'],
+            'type': _primary_transaction_type(types_list),
+            'items': _build_ticket_line_items(group),
+        }
+        by_month[ym].append(ticket)
+
+    total_bytes = 0
+    for ym in sorted(by_month.keys()):
+        month_list = by_month[ym]
+        month_list.sort(key=lambda t: (t['date'] or '', t['time'] or '', t['txnId']), reverse=True)
+        out_path = os.path.join(tickets_dir, f'{ym}.json')
+        with open(out_path, 'w', encoding='utf-8') as f:
+            json.dump(month_list, f, separators=(',', ':'))
+        sz = os.path.getsize(out_path)
+        total_bytes += sz
+        print(f'  -> {out_path}  ({len(month_list):,} tickets, {sz / 1024:.0f} KB)')
+
+    print(f'  Ticket detail: {len(by_month)} month file(s), {total_bytes / (1024 * 1024):.2f} MB total')
+
+    months_path = os.path.join(tickets_dir, 'months.json')
+    with open(months_path, 'w', encoding='utf-8') as f:
+        json.dump(sorted(by_month.keys()), f, separators=(',', ':'))
+    print(f'  -> {months_path}')
+
+    return by_month
+
+
+# =============================================================================
 # MAIN
 # =============================================================================
 
@@ -873,27 +1105,27 @@ def main():
     category_overrides = load_category_overrides()
     print(f'Category overrides: {len(category_overrides)} entries')
 
-    print('\n[1/6] Transactions...')
+    print('\n[1/7] Transactions...')
     rows = export_transactions(csv_files, category_overrides)
 
-    print('\n[2/6] Modifiers...')
+    print('\n[2/7] Modifiers...')
     export_modifiers(csv_files)
     print('  Modifier transactions (date-granular)...')
     export_modifier_transactions(csv_files)
 
-    print('\n[3/6] Summary...')
+    print('\n[3/7] Summary...')
     summary = export_summary(rows)
     for dept, info in summary['departments'].items():
         print(f'  {dept}: ${info["revenue"]:,.0f}  '
               f'({info["uniqueItems"]} items, {info["transactions"]:,} txns)')
 
-    print('\n[4/6] Bowling Seasonality...')
+    print('\n[4/7] Bowling Seasonality...')
     export_bowling_seasonality(csv_files)
 
-    print('\n[5/6] Bowling Forecast...')
+    print('\n[5/7] Bowling Forecast...')
     export_bowling_forecast(csv_files)
 
-    print('\n[6/6] Holiday Analysis...')
+    print('\n[6/7] Holiday Analysis...')
     try:
         import sys
         _scripts = os.path.join(_ROOT, 'scripts')
@@ -904,6 +1136,9 @@ def main():
             print(f'  -> {os.path.join(OUTPUT_DIR, "holiday_analysis.json")}')
     except ImportError as e:
         print(f'  SKIP: holiday_analysis not available ({e})')
+
+    print('\n[7/7] Ticket detail (by month)...')
+    export_ticket_detail(csv_files)
 
     print('\n' + '=' * 60)
     print(f'Done! {len(rows):,} transaction rows written to {OUTPUT_DIR}')

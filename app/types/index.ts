@@ -32,3 +32,29 @@ export interface Filters {
   categories: string[];
   searchTerm: string;
 }
+
+export interface TicketLineItem {
+  itemId: number;
+  name: string;
+  itemType: string;
+  dept: string;
+  subdept: string;
+  qty: number;
+  unitAmount: number;
+  total: number;
+  taxIncluded: boolean;
+  soldInPackage: boolean;
+  parentItemId?: number;
+}
+
+export interface Ticket {
+  txnId: string;
+  date: string;
+  time: string;
+  closedTime: string;
+  total: number;
+  user: string;
+  terminal: string;
+  type: string;
+  items: TicketLineItem[];
+}
