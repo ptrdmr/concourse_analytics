@@ -3,6 +3,22 @@ export interface ForecastMetricRow {
   predictedRevenue: number;
 }
 
+function parseLocalDate(isoDate: string): Date {
+  const [y, m, d] = isoDate.split('-').map(Number);
+  return new Date(y, m - 1, d);
+}
+
+/**
+ * True when the ISO week starting Monday `weekStart` (YYYY-MM-DD) has fully ended
+ * in the local calendar (i.e. today is that Monday or later).
+ */
+export function isCompletedFullWeek(weekStartIso: string, asOf: Date = new Date()): boolean {
+  const start = parseLocalDate(weekStartIso);
+  const nextMonday = new Date(start.getFullYear(), start.getMonth(), start.getDate() + 7);
+  const asDay = new Date(asOf.getFullYear(), asOf.getMonth(), asOf.getDate());
+  return asDay >= nextMonday;
+}
+
 export interface ForecastOverlapMetrics {
   n: number;
   mae: number;
@@ -20,13 +36,15 @@ function byWeekStart(rows: ForecastMetricRow[]): Map<string, number> {
 
 /**
  * MAE, RMSE, and R² comparing predicted to actual on weeks where both exist
- * (same weekStart keys). R² is omitted when n < 2.
+ * (same weekStart keys). Uses completed full weeks only for actuals. R² is omitted when n < 2.
  */
 export function computeForecastOverlapMetrics(
   actual: ForecastMetricRow[],
   seasonal: ForecastMetricRow[],
+  asOf: Date = new Date(),
 ): ForecastOverlapMetrics | null {
-  const actualByWeek = byWeekStart(actual);
+  const actualFullWeeks = actual.filter(row => isCompletedFullWeek(row.weekStart, asOf));
+  const actualByWeek = byWeekStart(actualFullWeeks);
   const seasonalByWeek = byWeekStart(seasonal);
 
   const pairs: { y: number; yhat: number }[] = [];

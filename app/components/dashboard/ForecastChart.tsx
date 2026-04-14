@@ -6,7 +6,7 @@ import {
   Tooltip, ResponsiveContainer,
 } from 'recharts';
 import { formatCompact, formatCurrency } from '@/lib/format';
-import { computeForecastOverlapMetrics } from '@/lib/forecast-metrics';
+import { computeForecastOverlapMetrics, isCompletedFullWeek } from '@/lib/forecast-metrics';
 
 interface ForecastItem {
   weekStart: string;
@@ -71,6 +71,7 @@ export function ForecastChart({ data }: Props) {
 
     for (const [model, items] of Object.entries(data.forecasts)) {
       for (const item of items) {
+        if (model === 'actual' && !isCompletedFullWeek(item.weekStart)) continue;
         const existing = allWeeks.get(item.weekStart);
         if (!existing) {
           allWeeks.set(item.weekStart, { [model]: item.predictedRevenue });
@@ -137,8 +138,8 @@ export function ForecastChart({ data }: Props) {
             )}
           </div>
           <p className="text-xs text-muted mt-2">
-            Compared on {overlapMetrics.n} week{overlapMetrics.n !== 1 ? 's' : ''} with both actual
-            and forecast (through latest actual week).
+            Completed full weeks only: {overlapMetrics.n} week{overlapMetrics.n !== 1 ? 's' : ''}{' '}
+            with both actual and forecast (in-progress week excluded).
           </p>
         </div>
       )}
