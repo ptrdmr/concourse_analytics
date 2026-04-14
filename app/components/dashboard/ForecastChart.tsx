@@ -6,6 +6,7 @@ import {
   Tooltip, ResponsiveContainer,
 } from 'recharts';
 import { formatCompact, formatCurrency } from '@/lib/format';
+import { computeForecastOverlapMetrics } from '@/lib/forecast-metrics';
 
 interface ForecastItem {
   weekStart: string;
@@ -84,6 +85,13 @@ export function ForecastChart({ data }: Props) {
       .sort((a, b) => a.weekStart.localeCompare(b.weekStart));
   }, [data]);
 
+  const overlapMetrics = useMemo(() => {
+    const actual = data.forecasts.actual;
+    const seasonal = data.forecasts.seasonal;
+    if (!actual?.length || !seasonal?.length) return null;
+    return computeForecastOverlapMetrics(actual, seasonal);
+  }, [data.forecasts]);
+
   const models = Object.keys(data.forecasts);
 
   return (
@@ -106,6 +114,34 @@ export function ForecastChart({ data }: Props) {
           </div>
         ))}
       </div>
+
+      {overlapMetrics && (
+        <div className="mb-6 rounded-lg border border-gray-800 bg-gray-950/50 px-4 py-3">
+          <div className="text-xs font-medium uppercase tracking-wide text-secondary mb-2">
+            Model fit
+          </div>
+          <div className="flex flex-wrap gap-x-6 gap-y-2 text-sm">
+            <div>
+              <span className="text-secondary">MAE </span>
+              <span className="font-mono text-white">{formatCurrency(overlapMetrics.mae)}</span>
+            </div>
+            <div>
+              <span className="text-secondary">RMSE </span>
+              <span className="font-mono text-white">{formatCurrency(overlapMetrics.rmse)}</span>
+            </div>
+            {overlapMetrics.rSquared != null && (
+              <div>
+                <span className="text-secondary">R² </span>
+                <span className="font-mono text-white">{overlapMetrics.rSquared.toFixed(3)}</span>
+              </div>
+            )}
+          </div>
+          <p className="text-xs text-muted mt-2">
+            Compared on {overlapMetrics.n} week{overlapMetrics.n !== 1 ? 's' : ''} with both actual
+            and forecast (through latest actual week).
+          </p>
+        </div>
+      )}
 
       <div className="h-[350px]">
         <ResponsiveContainer width="100%" height="100%">
