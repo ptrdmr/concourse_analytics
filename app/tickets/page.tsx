@@ -212,6 +212,9 @@ export default function TicketsPage() {
   const [txnSearch, setTxnSearch] = useState('');
   const [deptFilter, setDeptFilter] = useState('All');
   const [userFilter, setUserFilter] = useState('');
+  const [terminalFilter, setTerminalFilter] = useState('All');
+  const [dateFrom, setDateFrom] = useState('');
+  const [dateTo, setDateTo] = useState('');
   const [sortKey, setSortKey] = useState<SortKey>('date');
   const [sortDir, setSortDir] = useState<'asc' | 'desc'>('desc');
   const [visible, setVisible] = useState(PAGE_SIZE);
@@ -221,6 +224,9 @@ export default function TicketsPage() {
     setTxnSearch('');
     setDeptFilter('All');
     setUserFilter('');
+    setTerminalFilter('All');
+    setDateFrom('');
+    setDateTo('');
     setVisible(PAGE_SIZE);
     setSelected(null);
   }, [resolvedMonth]);
@@ -242,6 +248,26 @@ export default function TicketsPage() {
     return ['All', ...Array.from(s).sort((a, b) => a.localeCompare(b))];
   }, [enriched]);
 
+  const terminals = useMemo(() => {
+    const s = new Set<string>();
+    for (const { ticket } of enriched) {
+      const t = ticket.terminal?.trim();
+      if (t) s.add(t);
+    }
+    return ['All', ...Array.from(s).sort((a, b) => a.localeCompare(b))];
+  }, [enriched]);
+
+  const dateRange = useMemo(() => {
+    if (enriched.length === 0) return { min: '', max: '' };
+    let min = enriched[0].ticket.date;
+    let max = enriched[0].ticket.date;
+    for (const { ticket } of enriched) {
+      if (ticket.date < min) min = ticket.date;
+      if (ticket.date > max) max = ticket.date;
+    }
+    return { min, max };
+  }, [enriched]);
+
   const filtered = useMemo(() => {
     let rows = enriched;
     const q = txnSearch.trim().toLowerCase();
@@ -255,6 +281,15 @@ export default function TicketsPage() {
     if (uq) {
       rows = rows.filter((r) => r.ticket.user.toLowerCase().includes(uq));
     }
+    if (terminalFilter && terminalFilter !== 'All') {
+      rows = rows.filter((r) => r.ticket.terminal === terminalFilter);
+    }
+    if (dateFrom) {
+      rows = rows.filter((r) => r.ticket.date >= dateFrom);
+    }
+    if (dateTo) {
+      rows = rows.filter((r) => r.ticket.date <= dateTo);
+    }
     const sorted = [...rows].sort((a, b) => {
       let cmp = 0;
       if (sortKey === 'date') {
@@ -267,7 +302,7 @@ export default function TicketsPage() {
       return sortDir === 'asc' ? cmp : -cmp;
     });
     return sorted;
-  }, [enriched, txnSearch, deptFilter, userFilter, sortKey, sortDir]);
+  }, [enriched, txnSearch, deptFilter, userFilter, terminalFilter, dateFrom, dateTo, sortKey, sortDir]);
 
   const pageRows = useMemo(() => filtered.slice(0, visible), [filtered, visible]);
 
@@ -348,7 +383,54 @@ export default function TicketsPage() {
         {!detailLoading && resolvedMonth && (
           <>
             <div className="card p-4 sm:p-5 space-y-4">
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+                <label className="flex flex-col gap-1 text-xs text-muted">
+                  From Date
+                  <input
+                    type="date"
+                    value={dateFrom}
+                    min={dateRange.min}
+                    max={dateTo || dateRange.max}
+                    onChange={(e) => {
+                      setDateFrom(e.target.value);
+                      setVisible(PAGE_SIZE);
+                    }}
+                    className="rounded-lg bg-black/40 border border-border px-3 py-2 text-sm text-white focus:outline-none focus:ring-2 focus:ring-accent/40"
+                  />
+                </label>
+                <label className="flex flex-col gap-1 text-xs text-muted">
+                  To Date
+                  <input
+                    type="date"
+                    value={dateTo}
+                    min={dateFrom || dateRange.min}
+                    max={dateRange.max}
+                    onChange={(e) => {
+                      setDateTo(e.target.value);
+                      setVisible(PAGE_SIZE);
+                    }}
+                    className="rounded-lg bg-black/40 border border-border px-3 py-2 text-sm text-white focus:outline-none focus:ring-2 focus:ring-accent/40"
+                  />
+                </label>
+                <label className="flex flex-col gap-1 text-xs text-muted">
+                  Terminal
+                  <select
+                    value={terminalFilter}
+                    onChange={(e) => {
+                      setTerminalFilter(e.target.value);
+                      setVisible(PAGE_SIZE);
+                    }}
+                    className="rounded-lg bg-black/40 border border-border px-3 py-2 text-sm text-white focus:outline-none focus:ring-2 focus:ring-accent/40"
+                  >
+                    {terminals.map((t) => (
+                      <option key={t} value={t}>
+                        {t}
+                      </option>
+                    ))}
+                  </select>
+                </label>
+              </div>
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
                 <label className="flex flex-col gap-1 text-xs text-muted">
                   Transaction ID
                   <input
@@ -379,7 +461,7 @@ export default function TicketsPage() {
                     ))}
                   </select>
                 </label>
-                <label className="flex flex-col gap-1 text-xs text-muted sm:col-span-2">
+                <label className="flex flex-col gap-1 text-xs text-muted">
                   Server (partial)
                   <input
                     type="search"
@@ -441,6 +523,7 @@ export default function TicketsPage() {
                         </button>
                       </th>
                       <th className="px-4 py-3 font-medium">Department</th>
+                      <th className="px-4 py-3 font-medium">Terminal</th>
                       <th className="px-4 py-3 font-medium text-right">Items</th>
                       <th className="px-4 py-3 font-medium">Server</th>
                     </tr>
@@ -462,6 +545,7 @@ export default function TicketsPage() {
                         <td className="px-4 py-2.5 max-w-[140px] truncate" title={primaryDept}>
                           {primaryDept || '—'}
                         </td>
+                        <td className="px-4 py-2.5 text-secondary text-xs whitespace-nowrap">{row.terminal}</td>
                         <td className="px-4 py-2.5 text-right">{row.items.length}</td>
                         <td className="px-4 py-2.5 max-w-[120px] truncate" title={row.user}>
                           {row.user}
