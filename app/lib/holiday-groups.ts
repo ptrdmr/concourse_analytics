@@ -40,6 +40,8 @@ export const HOLIDAY_GROUPS: Record<string, string[]> = {
   ],
   'Single-Day Holidays': [
     'Valentine\'s Day',
+    'Mother\'s Day',
+    'Father\'s Day',
     'St. Patrick\'s Day',
     'Presidents\' Day',
     'Martin Luther King Jr. Day',

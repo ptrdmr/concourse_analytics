@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-04T13:16:18.003446",
+  "generatedAt": "2026-05-11T10:45:42.613706",
   "holidays": [
     {
       "name": "Black Friday",
@@ -421,6 +421,58 @@
             "General Income": 12.75,
             "Parties": 2845.52
           }
+        }
+      ]
+    },
+    {
+      "name": "Father's Day",
+      "years": [
+        {
+          "year": 2023,
+          "startDate": "2023-06-18",
+          "endDate": "2023-06-18",
+          "revenue": 15530.34,
+          "transactions": 1759,
+          "byDepartment": {
+            "Bar": 4571.0,
+            "Bowling": 6543.0,
+            "Food": 4416.34
+          }
+        },
+        {
+          "year": 2024,
+          "startDate": "2024-06-16",
+          "endDate": "2024-06-16",
+          "revenue": 18670.84,
+          "transactions": 1285,
+          "byDepartment": {
+            "Arcade": 113.0,
+            "Bar": 3305.0,
+            "Bowling": 6618.0,
+            "Food": 3400.38,
+            "Parties": 5234.46
+          }
+        },
+        {
+          "year": 2025,
+          "startDate": "2025-06-15",
+          "endDate": "2025-06-15",
+          "revenue": 21743.31,
+          "transactions": 1552,
+          "byDepartment": {
+            "Bar": 4489.0,
+            "Bowling": 6497.33,
+            "Food": 4289.610000000001,
+            "Parties": 6467.37
+          }
+        },
+        {
+          "year": 2026,
+          "startDate": "2026-06-21",
+          "endDate": "2026-06-21",
+          "revenue": 0.0,
+          "transactions": 0,
+          "byDepartment": {}
         }
       ]
     },
@@ -1001,6 +1053,63 @@
           "revenue": 0.0,
           "transactions": 0,
           "byDepartment": {}
+        }
+      ]
+    },
+    {
+      "name": "Mother's Day",
+      "years": [
+        {
+          "year": 2023,
+          "startDate": "2023-05-14",
+          "endDate": "2023-05-14",
+          "revenue": 4499.25,
+          "transactions": 382,
+          "byDepartment": {
+            "Bowling": 4499.25
+          }
+        },
+        {
+          "year": 2024,
+          "startDate": "2024-05-12",
+          "endDate": "2024-05-12",
+          "revenue": 11634.7,
+          "transactions": 866,
+          "byDepartment": {
+            "Arcade": 226.0,
+            "Bar": 2410.0,
+            "Bowling": 4776.0,
+            "Food": 1852.7400000000002,
+            "Parties": 2369.96
+          }
+        },
+        {
+          "year": 2025,
+          "startDate": "2025-05-11",
+          "endDate": "2025-05-11",
+          "revenue": 12364.77,
+          "transactions": 778,
+          "byDepartment": {
+            "Arcade": 428.0,
+            "Bar": 2440.0,
+            "Bowling": 4375.75,
+            "Food": 1606.51,
+            "Parties": 3514.51
+          }
+        },
+        {
+          "year": 2026,
+          "startDate": "2026-05-10",
+          "endDate": "2026-05-10",
+          "revenue": 15699.45,
+          "transactions": 978,
+          "byDepartment": {
+            "Bar": 2278.0,
+            "Bowling": 7045.75,
+            "Food": 2248.0499999999997,
+            "General Income": 257.97,
+            "Parties": 3869.68
+          }
         }
       ]
     },

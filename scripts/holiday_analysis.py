@@ -31,6 +31,17 @@ OUTPUT_FILE = os.path.join(_ROOT, 'public', 'data', 'holiday_analysis.json')
 YEAR_COLORS = ['#00b0ff', '#f5a623', '#ff5252', '#0ea5e9', '#ff9100', '#bb86fc']
 
 
+def nth_weekday_of_month(year, month, weekday, n):
+    """
+    Date of the n-th weekday in month (n is 1-based).
+    weekday: Monday=0 .. Sunday=6 (datetime.weekday convention).
+    """
+    first = datetime(year, month, 1).date()
+    shift = (weekday - first.weekday()) % 7
+    first_occurrence = first + timedelta(days=shift)
+    return first_occurrence + timedelta(weeks=n - 1)
+
+
 def get_holiday_periods(years):
     """
     Build list of (holiday_name, single_date, year) for each occurrence.
@@ -93,6 +104,11 @@ def get_holiday_periods(years):
         # --- Fixed-date holidays ---
         periods.append(("Valentine's Day", datetime(year, 2, 14).date(), year))
         periods.append(("St. Patrick's Day", datetime(year, 3, 17).date(), year))
+
+        # --- Not federal holidays; UnitedStates() omits them ---
+        # Mother's Day: 2nd Sunday in May; Father's Day: 3rd Sunday in June
+        periods.append(("Mother's Day", nth_weekday_of_month(year, 5, 6, 2), year))
+        periods.append(("Father's Day", nth_weekday_of_month(year, 6, 6, 3), year))
 
     # Dedupe by (name, date) – same holiday name can appear multiple times per year (e.g. New Year's Eve)
     # but we want unique (name, date) since we're doing single-day
