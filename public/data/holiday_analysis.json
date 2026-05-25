@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-18T14:57:03.080640",
+  "generatedAt": "2026-05-25T14:10:26.516505",
   "holidays": [
     {
       "name": "Black Friday",
@@ -947,9 +947,15 @@
           "year": 2026,
           "startDate": "2026-05-22",
           "endDate": "2026-05-22",
-          "revenue": 0.0,
-          "transactions": 0,
-          "byDepartment": {}
+          "revenue": 19775.34,
+          "transactions": 1587,
+          "byDepartment": {
+            "Bar": 6396.0,
+            "Bowling": 6043.83,
+            "Food": 4024.57,
+            "General Income": 30.29,
+            "Parties": 3280.65
+          }
         }
       ]
     },
@@ -1000,9 +1006,15 @@
           "year": 2026,
           "startDate": "2026-05-23",
           "endDate": "2026-05-23",
-          "revenue": 0.0,
-          "transactions": 0,
-          "byDepartment": {}
+          "revenue": 21797.37,
+          "transactions": 1369,
+          "byDepartment": {
+            "Bar": 4147.0,
+            "Bowling": 7242.5,
+            "Food": 4008.69,
+            "General Income": 80.47,
+            "Parties": 6318.71
+          }
         }
       ]
     },
@@ -1050,9 +1062,15 @@
           "year": 2026,
           "startDate": "2026-05-24",
           "endDate": "2026-05-24",
-          "revenue": 0.0,
-          "transactions": 0,
-          "byDepartment": {}
+          "revenue": 21255.45,
+          "transactions": 1659,
+          "byDepartment": {
+            "Bar": 4520.0,
+            "Bowling": 8729.16,
+            "Food": 4448.76,
+            "General Income": 32.25,
+            "Parties": 3525.28
+          }
         }
       ]
     },
