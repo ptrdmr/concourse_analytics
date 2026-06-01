@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-25T14:10:26.516505",
+  "generatedAt": "2026-06-01T12:38:11.738644",
   "holidays": [
     {
       "name": "Black Friday",
@@ -894,9 +894,15 @@
           "year": 2026,
           "startDate": "2026-05-25",
           "endDate": "2026-05-25",
-          "revenue": 0.0,
-          "transactions": 0,
-          "byDepartment": {}
+          "revenue": 8406.45,
+          "transactions": 568,
+          "byDepartment": {
+            "Arcade": 716.0,
+            "Bar": 1303.0,
+            "Bowling": 4360.25,
+            "Food": 1370.06,
+            "Parties": 657.14
+          }
         }
       ]
     },
