@@ -53,7 +53,7 @@ function receiptSections(ticket: Ticket) {
       taxLines.push(line);
     } else if (t === 'GratuityIn') {
       gratuity.push(line);
-    } else if (t === 'PaymentCredit' || t === 'PaymentCash' || t === 'Account') {
+    } else if (t === 'PaymentCredit' || t === 'PaymentCash' || t === 'PaymentStoredValue' || t === 'Account') {
       payments.push(line);
     } else if (t === 'Cancel') {
       cancels.push(line);

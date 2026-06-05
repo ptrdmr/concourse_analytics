@@ -47,6 +47,14 @@ export interface TicketLineItem {
   parentItemId?: number;
 }
 
+export interface PaymentRecord {
+  date: string;
+  paymentType: 'PaymentCash' | 'PaymentCredit' | 'PaymentStoredValue';
+  name: string;
+  amount: number;
+  transactions: number;
+}
+
 export interface Ticket {
   txnId: string;
   date: string;

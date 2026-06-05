@@ -72,6 +72,27 @@ CATEGORY_COLORS = {
 YEAR_COLORS = ['#00b0ff', '#f5a623', '#ff5252', '#0ea5e9', '#ff9100', '#bb86fc']
 
 
+BUSINESS_DAY_CUTOFF_HOUR = 4
+
+
+def business_day(date_str, time_str):
+    """Adjust date for business day: activity before 4 AM belongs to the previous day."""
+    if not time_str or not date_str or len(date_str) < 10:
+        return date_str
+    try:
+        hour = int(time_str.split(':')[0])
+    except (ValueError, IndexError):
+        return date_str
+    if hour < BUSINESS_DAY_CUTOFF_HOUR:
+        try:
+            dt = datetime.strptime(date_str, '%Y-%m-%d')
+            dt -= timedelta(days=1)
+            return dt.strftime('%Y-%m-%d')
+        except ValueError:
+            return date_str
+    return date_str
+
+
 def normalize_subdepartment(subdept):
     """Strip numbered prefixes from subdepartment names.
     POS naming changed over time: '10. Draft Beer' -> 'Draft Beer'."""
@@ -114,7 +135,7 @@ def read_deductions(csv_files):
     columns = [
         'Transaction ID', 'Item ID', 'Transaction Type', 'Item Type',
         'Department', 'Quantity', 'Unit Amount', 'Total',
-        'Item Created Date', 'Deleted', 'Voided',
+        'Item Created Date', 'Item Created Time', 'Deleted', 'Voided',
     ]
     for csv_path in csv_files:
         with open(csv_path, 'r', encoding='utf-8') as f:
@@ -131,7 +152,10 @@ def read_deductions(csv_files):
                     continue
                 txn_type = row[idx.get('Transaction Type', 0)].strip() if 'Transaction Type' in idx else 'Sales'
                 item_type = row[idx['Item Type']].strip()
-                date_str = row[idx['Item Created Date']].strip()
+                date_str = business_day(
+                    row[idx['Item Created Date']].strip(),
+                    row[idx['Item Created Time']].strip() if 'Item Created Time' in idx else '',
+                )
                 dept = row[idx.get('Department', 0)].strip() if 'Department' in idx else ''
                 total = float(row[idx.get('Total', 0)] or 0) if 'Total' in idx else 0
                 qty = float(row[idx.get('Quantity', 0)] or 0) if 'Quantity' in idx else 0
@@ -173,7 +197,7 @@ def read_all_csvs(csv_files):
         'Transaction ID', 'Item ID', 'Name', 'Item Type',
         'Department', 'Subdepartment', 'Quantity', 'Unit Amount',
         'Total', 'Transaction Type',
-        'Deleted', 'Voided', 'Item Created Date',
+        'Deleted', 'Voided', 'Item Created Date', 'Item Created Time',
     ]
 
     for csv_path in csv_files:
@@ -224,7 +248,10 @@ def read_all_csvs(csv_files):
                     'qty':          qty,
                     'unit_price':   unit_price,
                     'item_total':   item_total,
-                    'date':         row[idx['Item Created Date']].strip(),
+                    'date':         business_day(
+                                        row[idx['Item Created Date']].strip(),
+                                        row[idx['Item Created Time']].strip() if 'Item Created Time' in idx else '',
+                                    ),
                 }
 
     print(f'  Read {total_rows:,} rows, skipped {dupes:,} duplicates')
@@ -355,7 +382,8 @@ def aggregate_modifier_transactions(csv_files):
     columns = [
         'Transaction ID', 'Item ID', 'Name', 'Item Type',
         'Department', 'Subdepartment', 'Quantity', 'Unit Amount',
-        'Total', 'Transaction Type', 'Deleted', 'Voided', 'Item Created Date',
+        'Total', 'Transaction Type', 'Deleted', 'Voided',
+        'Item Created Date', 'Item Created Time',
     ]
 
     seen = set()
@@ -386,7 +414,10 @@ def aggregate_modifier_transactions(csv_files):
                 seen.add(key)
 
                 name = row[idx['Name']].strip()
-                date_str = row[idx['Item Created Date']].strip()
+                date_str = business_day(
+                    row[idx['Item Created Date']].strip(),
+                    row[idx['Item Created Time']].strip() if 'Item Created Time' in idx else '',
+                )
                 subdept = normalize_subdepartment(row[idx.get('Subdepartment', 0)].strip()) if 'Subdepartment' in idx else ''
                 qty = float(row[idx['Quantity']] or 0)
                 unit = float(row[idx['Unit Amount']] or 0)
@@ -638,8 +669,8 @@ def export_bowling_seasonality(csv_files):
 
     columns = [
         'Transaction ID', 'Item ID', 'Transaction Type', 'Item Type',
-        'Department', 'Item Created Date', 'Total', 'Quantity',
-        'Unit Amount', 'Deleted', 'Voided',
+        'Department', 'Item Created Date', 'Item Created Time', 'Total',
+        'Quantity', 'Unit Amount', 'Deleted', 'Voided',
     ]
 
     for csv_path in csv_files:
@@ -674,7 +705,10 @@ def export_bowling_seasonality(csv_files):
                     continue
                 seen.add(key)
 
-                date_str = row[idx['Item Created Date']].strip()
+                date_str = business_day(
+                    row[idx['Item Created Date']].strip(),
+                    row[idx['Item Created Time']].strip() if 'Item Created Time' in idx else '',
+                )
                 total_val = float(row[idx.get('Total', 0)] or 0) if 'Total' in idx else 0
                 qty = float(row[idx['Quantity']] or 0) if 'Quantity' in idx else 0
                 unit = float(row[idx['Unit Amount']] or 0) if 'Unit Amount' in idx else 0
@@ -741,8 +775,8 @@ def _load_bowling_weekly(csv_files):
     daily = defaultdict(float)
     columns = [
         'Transaction ID', 'Item ID', 'Transaction Type', 'Item Type',
-        'Department', 'Item Created Date', 'Total', 'Quantity',
-        'Unit Amount', 'Deleted', 'Voided',
+        'Department', 'Item Created Date', 'Item Created Time', 'Total',
+        'Quantity', 'Unit Amount', 'Deleted', 'Voided',
     ]
     seen = set()
 
@@ -777,7 +811,10 @@ def _load_bowling_weekly(csv_files):
                     continue
                 seen.add(key)
 
-                date_str = row[idx['Item Created Date']].strip()
+                date_str = business_day(
+                    row[idx['Item Created Date']].strip(),
+                    row[idx['Item Created Time']].strip() if 'Item Created Time' in idx else '',
+                )
                 total_val = float(row[idx.get('Total', 0)] or 0) if 'Total' in idx else 0
                 qty = float(row[idx['Quantity']] or 0) if 'Quantity' in idx else 0
                 unit = float(row[idx['Unit Amount']] or 0) if 'Unit Amount' in idx else 0
@@ -929,8 +966,9 @@ def read_ticket_rows_deduped(csv_files):
                 unit_price = float(row[idx['Unit Amount']] or 0) if 'Unit Amount' in idx else 0.0
                 item_total = float(row[idx['Total']] or 0) if 'Total' in idx else 0.0
 
-                txn_date = row[idx['Transaction Created Date']].strip() if 'Transaction Created Date' in idx else ''
+                txn_date_raw = row[idx['Transaction Created Date']].strip() if 'Transaction Created Date' in idx else ''
                 txn_time_raw = row[idx['Transaction Created Time']].strip() if 'Transaction Created Time' in idx else ''
+                txn_date = business_day(txn_date_raw, txn_time_raw)
                 txn_closed_raw = row[idx['Transaction Closed Time']].strip() if 'Transaction Closed Time' in idx else ''
                 txn_total = float(row[idx['Transaction Total']] or 0) if 'Transaction Total' in idx else 0.0
                 txn_user = row[idx['Transaction User']].strip() if 'Transaction User' in idx else ''
@@ -1028,6 +1066,92 @@ def _build_ticket_line_items(rows_sorted_by_item_id):
     return out
 
 
+# =============================================================================
+# EXPORT: payments.json (date-granular payment method breakdown)
+# =============================================================================
+
+PAYMENT_ITEM_TYPES = ('PaymentCash', 'PaymentCredit', 'PaymentStoredValue')
+
+def aggregate_payments(csv_files):
+    """
+    Read payment rows from CSVs, aggregate by (date, paymentType, name).
+    Uses unique transaction IDs per bucket for transaction counts.
+    """
+    agg = defaultdict(lambda: {'amount': 0.0, 'txn_ids': set()})
+
+    columns = [
+        'Transaction ID', 'Item ID', 'Name', 'Item Type',
+        'Quantity', 'Unit Amount', 'Total',
+        'Transaction Type', 'Deleted', 'Voided',
+        'Item Created Date', 'Item Created Time',
+    ]
+
+    seen = set()
+    for csv_path in csv_files:
+        with open(csv_path, 'r', encoding='utf-8') as f:
+            reader = csv.reader(f, delimiter=';')
+            header = next(reader)
+            idx = {c: header.index(c) for c in columns if c in header}
+            if 'Transaction ID' not in idx or 'Item ID' not in idx or 'Item Type' not in idx:
+                continue
+            max_idx = max(idx.values())
+
+            for row in reader:
+                if len(row) <= max_idx:
+                    continue
+                if row[idx['Deleted']] != 'False' or row[idx['Voided']] != 'False':
+                    continue
+                if 'Transaction Type' in idx and row[idx['Transaction Type']] != 'Sales':
+                    continue
+                item_type = row[idx['Item Type']]
+                if item_type not in PAYMENT_ITEM_TYPES:
+                    continue
+
+                key = (row[idx['Transaction ID']], row[idx['Item ID']])
+                if key in seen:
+                    continue
+                seen.add(key)
+
+                name = row[idx['Name']].strip() or item_type
+                date_str = business_day(
+                    row[idx['Item Created Date']].strip(),
+                    row[idx['Item Created Time']].strip() if 'Item Created Time' in idx else '',
+                )
+                qty = float(row[idx['Quantity']] or 0)
+                unit = float(row[idx['Unit Amount']] or 0)
+                total = float(row[idx['Total']] or 0) if 'Total' in idx else 0
+                amount = total if total != 0 else (unit * qty if qty else unit)
+
+                bucket_key = (date_str, item_type, name)
+                bucket = agg[bucket_key]
+                bucket['amount'] += amount
+                bucket['txn_ids'].add(row[idx['Transaction ID']])
+
+    rows = []
+    for (date_str, payment_type, name), data in agg.items():
+        rows.append({
+            'date': date_str,
+            'paymentType': payment_type,
+            'name': name,
+            'amount': round(data['amount'], 2),
+            'transactions': len(data['txn_ids']),
+        })
+
+    rows.sort(key=lambda r: (r['date'], r['paymentType'], r['name']))
+    return rows
+
+
+def export_payments(csv_files):
+    """Export payment rows with date granularity for the Payments dashboard."""
+    rows = aggregate_payments(csv_files)
+    out = os.path.join(OUTPUT_DIR, 'payments.json')
+    with open(out, 'w', encoding='utf-8') as f:
+        json.dump(rows, f, separators=(',', ':'))
+    size_kb = os.path.getsize(out) / 1024
+    print(f'  -> {out}  ({len(rows):,} rows, {size_kb:.0f} KB)')
+    return rows
+
+
 def export_ticket_detail(csv_files):
     """Write public/data/tickets/YYYY-MM.json — full receipt lines per month."""
     print('  Reading all line items for ticket detail...')
@@ -1105,27 +1229,27 @@ def main():
     category_overrides = load_category_overrides()
     print(f'Category overrides: {len(category_overrides)} entries')
 
-    print('\n[1/7] Transactions...')
+    print('\n[1/8] Transactions...')
     rows = export_transactions(csv_files, category_overrides)
 
-    print('\n[2/7] Modifiers...')
+    print('\n[2/8] Modifiers...')
     export_modifiers(csv_files)
     print('  Modifier transactions (date-granular)...')
     export_modifier_transactions(csv_files)
 
-    print('\n[3/7] Summary...')
+    print('\n[3/8] Summary...')
     summary = export_summary(rows)
     for dept, info in summary['departments'].items():
         print(f'  {dept}: ${info["revenue"]:,.0f}  '
               f'({info["uniqueItems"]} items, {info["transactions"]:,} txns)')
 
-    print('\n[4/7] Bowling Seasonality...')
+    print('\n[4/8] Bowling Seasonality...')
     export_bowling_seasonality(csv_files)
 
-    print('\n[5/7] Bowling Forecast...')
+    print('\n[5/8] Bowling Forecast...')
     export_bowling_forecast(csv_files)
 
-    print('\n[6/7] Holiday Analysis...')
+    print('\n[6/8] Holiday Analysis...')
     try:
         import sys
         _scripts = os.path.join(_ROOT, 'scripts')
@@ -1137,8 +1261,11 @@ def main():
     except ImportError as e:
         print(f'  SKIP: holiday_analysis not available ({e})')
 
-    print('\n[7/7] Ticket detail (by month)...')
+    print('\n[7/8] Ticket detail (by month)...')
     export_ticket_detail(csv_files)
+
+    print('\n[8/8] Payments...')
+    export_payments(csv_files)
 
     print('\n' + '=' * 60)
     print(f'Done! {len(rows):,} transaction rows written to {OUTPUT_DIR}')

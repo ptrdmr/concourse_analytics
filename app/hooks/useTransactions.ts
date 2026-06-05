@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect, useMemo } from 'react';
-import type { Transaction, Summary, Filters } from '@/types';
+import type { Transaction, Summary, Filters, PaymentRecord } from '@/types';
 
 const LOAD_TIMEOUT_MS = 60000; // 60 seconds for large transactions.json
 
@@ -80,6 +80,26 @@ export function useModifiers() {
   }, []);
 
   return { modifiers, loading };
+}
+
+export function usePayments() {
+  const [payments, setPayments] = useState<PaymentRecord[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    fetchWithTimeout('/data/payments.json', 30000)
+      .then((res) => {
+        if (!res.ok) throw new Error(`Failed to load (${res.status})`);
+        return res.json();
+      })
+      .then((rows: PaymentRecord[]) => {
+        setPayments(Array.isArray(rows) ? rows : []);
+        setLoading(false);
+      })
+      .catch(() => setLoading(false));
+  }, []);
+
+  return { payments, loading };
 }
 
 /** Date-granular modifier rows for Modifiers department view (calendar, trends, KPIs). */

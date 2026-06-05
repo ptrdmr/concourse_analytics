@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-05T11:04:07.906109",
+  "generatedAt": "2026-06-05T13:02:17.332952",
   "holidays": [
     {
       "name": "Black Friday",
@@ -22,7 +22,7 @@
           "startDate": "2024-11-29",
           "endDate": "2024-11-29",
           "revenue": 23273.63,
-          "transactions": 1656,
+          "transactions": 1657,
           "byDepartment": {
             "Arcade": 200.0,
             "Bar": 5115.0,
@@ -116,13 +116,13 @@
           "year": 2023,
           "startDate": "2023-12-26",
           "endDate": "2023-12-26",
-          "revenue": 19463.11,
+          "revenue": 19329.86,
           "transactions": 1967,
           "byDepartment": {
             "Arcade": 466.0,
-            "Bar": 4229.0,
+            "Bar": 4137.0,
             "Bowling": 8345.5,
-            "Food": 4000.11,
+            "Food": 3958.86,
             "Parties": 2422.5
           }
         },
@@ -143,12 +143,12 @@
           "year": 2025,
           "startDate": "2025-12-26",
           "endDate": "2025-12-26",
-          "revenue": 40923.22,
+          "revenue": 40377.36,
           "transactions": 2821,
           "byDepartment": {
-            "Bar": 11261.0,
+            "Bar": 10941.0,
             "Bowling": 10502.5,
-            "Food": 7223.05,
+            "Food": 6997.19,
             "Parties": 11936.67
           }
         },
@@ -355,9 +355,14 @@
           "year": 2026,
           "startDate": "2026-04-06",
           "endDate": "2026-04-06",
-          "revenue": 0.0,
-          "transactions": 0,
-          "byDepartment": {}
+          "revenue": 11103.39,
+          "transactions": 630,
+          "byDepartment": {
+            "Bar": 2566.0,
+            "Bowling": 898.0,
+            "Food": 1447.39,
+            "League Fees": 6192.0
+          }
         }
       ]
     },
@@ -407,9 +412,15 @@
           "year": 2026,
           "startDate": "2026-04-04",
           "endDate": "2026-04-04",
-          "revenue": 0.0,
-          "transactions": 0,
-          "byDepartment": {}
+          "revenue": 21941.75,
+          "transactions": 1601,
+          "byDepartment": {
+            "Bar": 5563.0,
+            "Bowling": 9596.95,
+            "Food": 3923.5299999999997,
+            "General Income": 12.75,
+            "Parties": 2845.52
+          }
         }
       ]
     },
@@ -446,10 +457,10 @@
           "year": 2025,
           "startDate": "2025-06-15",
           "endDate": "2025-06-15",
-          "revenue": 21743.31,
+          "revenue": 21763.31,
           "transactions": 1552,
           "byDepartment": {
-            "Bar": 4489.0,
+            "Bar": 4509.0,
             "Bowling": 6497.33,
             "Food": 4289.610000000001,
             "Parties": 6467.37
@@ -674,12 +685,12 @@
           "year": 2023,
           "startDate": "2023-09-02",
           "endDate": "2023-09-02",
-          "revenue": 25873.02,
+          "revenue": 25868.97,
           "transactions": 2075,
           "byDepartment": {
             "Bar": 7329.0,
             "Bowling": 10612.5,
-            "Food": 3766.86,
+            "Food": 3762.81,
             "Parties": 4164.66
           }
         },
@@ -730,12 +741,12 @@
           "year": 2023,
           "startDate": "2023-09-03",
           "endDate": "2023-09-03",
-          "revenue": 23063.03,
+          "revenue": 23067.08,
           "transactions": 1823,
           "byDepartment": {
             "Bar": 4948.77,
             "Bowling": 7894.0,
-            "Food": 4028.6099999999997,
+            "Food": 4032.66,
             "Parties": 6191.650000000001
           }
         },
@@ -825,13 +836,13 @@
           "year": 2026,
           "startDate": "2026-01-19",
           "endDate": "2026-01-19",
-          "revenue": 11489.25,
+          "revenue": 11227.32,
           "transactions": 889,
           "byDepartment": {
             "Arcade": 179.0,
             "Bar": 2655.0,
             "Bowling": 4357.5,
-            "Food": 1813.3799999999997,
+            "Food": 1551.4499999999998,
             "General Income": 10.8,
             "League Fees": 1991.0,
             "Parties": 482.57
@@ -856,10 +867,9 @@
           "year": 2024,
           "startDate": "2024-05-27",
           "endDate": "2024-05-27",
-          "revenue": 8608.52,
-          "transactions": 766,
+          "revenue": 8438.52,
+          "transactions": 765,
           "byDepartment": {
-            "Arcade": 170.0,
             "Bar": 1480.0,
             "Bowling": 4201.0,
             "Food": 1882.02,
@@ -883,9 +893,15 @@
           "year": 2026,
           "startDate": "2026-05-25",
           "endDate": "2026-05-25",
-          "revenue": 0.0,
-          "transactions": 0,
-          "byDepartment": {}
+          "revenue": 8406.45,
+          "transactions": 568,
+          "byDepartment": {
+            "Arcade": 716.0,
+            "Bar": 1303.0,
+            "Bowling": 4360.25,
+            "Food": 1370.06,
+            "Parties": 657.14
+          }
         }
       ]
     },
@@ -909,13 +925,13 @@
           "year": 2024,
           "startDate": "2024-05-24",
           "endDate": "2024-05-24",
-          "revenue": 22694.02,
-          "transactions": 1663,
+          "revenue": 22551.94,
+          "transactions": 1662,
           "byDepartment": {
-            "Arcade": 351.0,
+            "Arcade": 215.0,
             "Bar": 7017.0,
             "Bowling": 5128.0,
-            "Food": 4423.1,
+            "Food": 4417.02,
             "Parties": 5774.92
           }
         },
@@ -936,9 +952,15 @@
           "year": 2026,
           "startDate": "2026-05-22",
           "endDate": "2026-05-22",
-          "revenue": 0.0,
-          "transactions": 0,
-          "byDepartment": {}
+          "revenue": 19769.71,
+          "transactions": 1587,
+          "byDepartment": {
+            "Bar": 6396.0,
+            "Bowling": 6043.83,
+            "Food": 4018.9400000000005,
+            "General Income": 30.29,
+            "Parties": 3280.65
+          }
         }
       ]
     },
@@ -962,13 +984,13 @@
           "year": 2024,
           "startDate": "2024-05-25",
           "endDate": "2024-05-25",
-          "revenue": 22547.33,
+          "revenue": 22553.41,
           "transactions": 1557,
           "byDepartment": {
             "Arcade": 199.0,
             "Bar": 5296.0,
             "Bowling": 8066.5,
-            "Food": 3432.4900000000002,
+            "Food": 3438.57,
             "Parties": 5553.339999999999
           }
         },
@@ -989,9 +1011,15 @@
           "year": 2026,
           "startDate": "2026-05-23",
           "endDate": "2026-05-23",
-          "revenue": 0.0,
-          "transactions": 0,
-          "byDepartment": {}
+          "revenue": 21803.0,
+          "transactions": 1369,
+          "byDepartment": {
+            "Bar": 4147.0,
+            "Bowling": 7242.5,
+            "Food": 4014.32,
+            "General Income": 80.47,
+            "Parties": 6318.71
+          }
         }
       ]
     },
@@ -1012,9 +1040,10 @@
           "year": 2024,
           "startDate": "2024-05-26",
           "endDate": "2024-05-26",
-          "revenue": 18643.61,
-          "transactions": 1338,
+          "revenue": 18813.61,
+          "transactions": 1339,
           "byDepartment": {
+            "Arcade": 170.0,
             "Bar": 4063.0,
             "Bowling": 7479.0,
             "Food": 3273.67,
@@ -1039,9 +1068,15 @@
           "year": 2026,
           "startDate": "2026-05-24",
           "endDate": "2026-05-24",
-          "revenue": 0.0,
-          "transactions": 0,
-          "byDepartment": {}
+          "revenue": 21255.45,
+          "transactions": 1659,
+          "byDepartment": {
+            "Bar": 4520.0,
+            "Bowling": 8729.16,
+            "Food": 4448.76,
+            "General Income": 32.25,
+            "Parties": 3525.28
+          }
         }
       ]
     },
@@ -1090,9 +1125,15 @@
           "year": 2026,
           "startDate": "2026-05-10",
           "endDate": "2026-05-10",
-          "revenue": 0.0,
-          "transactions": 0,
-          "byDepartment": {}
+          "revenue": 15699.45,
+          "transactions": 978,
+          "byDepartment": {
+            "Bar": 2278.0,
+            "Bowling": 7045.75,
+            "Food": 2248.0499999999997,
+            "General Income": 257.97,
+            "Parties": 3869.68
+          }
         }
       ]
     },
@@ -1113,10 +1154,10 @@
           "year": 2024,
           "startDate": "2024-01-01",
           "endDate": "2024-01-01",
-          "revenue": 13347.89,
-          "transactions": 1206,
+          "revenue": 13094.89,
+          "transactions": 1205,
           "byDepartment": {
-            "Arcade": 470.0,
+            "Arcade": 217.0,
             "Bar": 1736.0,
             "Bowling": 7586.5,
             "Food": 2428.29,
@@ -1127,26 +1168,26 @@
           "year": 2025,
           "startDate": "2025-01-01",
           "endDate": "2025-01-01",
-          "revenue": 17217.5,
-          "transactions": 1325,
+          "revenue": 16270.56,
+          "transactions": 1322,
           "byDepartment": {
-            "Arcade": 569.0,
-            "Bar": 2532.0,
+            "Arcade": 376.0,
+            "Bar": 2545.0,
             "Bowling": 7600.5599999999995,
-            "Food": 3086.04,
-            "Parties": 3429.9
+            "Food": 3091.6,
+            "Parties": 2657.4
           }
         },
         {
           "year": 2026,
           "startDate": "2026-01-01",
           "endDate": "2026-01-01",
-          "revenue": 31440.5,
-          "transactions": 2022,
+          "revenue": 31582.56,
+          "transactions": 2018,
           "byDepartment": {
-            "Bar": 6085.6,
-            "Bowling": 9654.75,
-            "Food": 7853.41,
+            "Bar": 6081.4,
+            "Bowling": 9606.75,
+            "Food": 8047.67,
             "General Income": 81.9,
             "Parties": 7764.84
           }
@@ -1160,10 +1201,10 @@
           "year": 2023,
           "startDate": "2023-12-31",
           "endDate": "2023-12-31",
-          "revenue": 21768.61,
+          "revenue": 21661.61,
           "transactions": 1283,
           "byDepartment": {
-            "Arcade": 360.0,
+            "Arcade": 253.0,
             "Bar": 4195.0,
             "Bowling": 5960.5,
             "Food": 2578.01,
@@ -1174,26 +1215,27 @@
           "year": 2024,
           "startDate": "2024-12-31",
           "endDate": "2024-12-31",
-          "revenue": 18379.46,
-          "transactions": 1146,
+          "revenue": 19326.4,
+          "transactions": 1149,
           "byDepartment": {
-            "Bar": 2700.0,
+            "Arcade": 193.0,
+            "Bar": 2687.0,
             "Bowling": 4615.5,
-            "Food": 3004.2099999999996,
-            "Parties": 8059.75
+            "Food": 2998.6499999999996,
+            "Parties": 8832.25
           }
         },
         {
           "year": 2025,
           "startDate": "2025-12-31",
           "endDate": "2025-12-31",
-          "revenue": 29465.22,
-          "transactions": 1915,
+          "revenue": 29455.64,
+          "transactions": 1919,
           "byDepartment": {
             "Arcade": 80.0,
-            "Bar": 6261.0,
+            "Bar": 6299.0,
             "Bowling": 5762.0,
-            "Food": 5783.71,
+            "Food": 5736.13,
             "General Income": 276.88,
             "Parties": 11301.630000000001
           }
@@ -1226,10 +1268,10 @@
           "year": 2024,
           "startDate": "2024-02-19",
           "endDate": "2024-02-19",
-          "revenue": 22450.25,
-          "transactions": 2114,
+          "revenue": 22172.25,
+          "transactions": 2113,
           "byDepartment": {
-            "Arcade": 618.0,
+            "Arcade": 340.0,
             "Bar": 4061.0,
             "Bowling": 10165.0,
             "Food": 4097.450000000001,
@@ -1254,9 +1296,15 @@
           "year": 2026,
           "startDate": "2026-02-16",
           "endDate": "2026-02-16",
-          "revenue": 0.0,
-          "transactions": 0,
-          "byDepartment": {}
+          "revenue": 20386.45,
+          "transactions": 1432,
+          "byDepartment": {
+            "Arcade": 1063.0,
+            "Bar": 2575.0,
+            "Bowling": 9323.25,
+            "Food": 4628.36,
+            "Parties": 2796.84
+          }
         }
       ]
     },
@@ -1278,15 +1326,15 @@
           "year": 2024,
           "startDate": "2024-03-17",
           "endDate": "2024-03-17",
-          "revenue": 21854.12,
-          "transactions": 1417,
+          "revenue": 21719.45,
+          "transactions": 1416,
           "byDepartment": {
             "Arcade": 266.0,
             "Bar": 4694.0,
             "Bowling": 3935.2,
-            "Food": 3958.0599999999995,
+            "Food": 3962.1099999999997,
             "League Fees": 3150.0,
-            "Parties": 5850.860000000001
+            "Parties": 5712.139999999999
           }
         },
         {
@@ -1307,9 +1355,16 @@
           "year": 2026,
           "startDate": "2026-03-17",
           "endDate": "2026-03-17",
-          "revenue": 0.0,
-          "transactions": 0,
-          "byDepartment": {}
+          "revenue": 7348.46,
+          "transactions": 787,
+          "byDepartment": {
+            "Bar": 3354.0,
+            "Bowling": 1803.5,
+            "Food": 1689.9399999999998,
+            "General Income": 4.86,
+            "League Fees": 422.0,
+            "Parties": 74.16
+          }
         }
       ]
     },
@@ -1334,7 +1389,7 @@
           "startDate": "2024-11-30",
           "endDate": "2024-11-30",
           "revenue": 26364.35,
-          "transactions": 1790,
+          "transactions": 1789,
           "byDepartment": {
             "Bar": 6901.0,
             "Bowling": 9112.56,
@@ -1468,12 +1523,12 @@
           "year": 2026,
           "startDate": "2026-02-14",
           "endDate": "2026-02-14",
-          "revenue": 27915.01,
+          "revenue": 27735.81,
           "transactions": 1775,
           "byDepartment": {
             "Bar": 6442.0,
-            "Bowling": 9414.83,
-            "Food": 5015.56,
+            "Bowling": 9371.83,
+            "Food": 4879.360000000001,
             "General Income": 56.25,
             "Parties": 6986.37
           }
@@ -1487,12 +1542,12 @@
           "year": 2023,
           "startDate": "2023-11-11",
           "endDate": "2023-11-11",
-          "revenue": 26547.62,
+          "revenue": 26534.62,
           "transactions": 1755,
           "byDepartment": {
             "Bar": 6879.0,
             "Bowling": 7303.5,
-            "Food": 3860.8999999999996,
+            "Food": 3847.8999999999996,
             "Parties": 8504.220000000001
           }
         },

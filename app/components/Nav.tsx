@@ -11,6 +11,7 @@ const NAV_LINKS = [
   { href: '/', label: 'Overview' },
   { href: '/explorer', label: 'Data Explorer' },
   { href: '/tickets', label: 'Ticket Lookup' },
+  { href: '/payments', label: 'Payments' },
   { href: '/compare', label: 'Compare' },
   { href: '/bowling', label: 'Bowling Forecast' },
   { href: '/holidays', label: 'Holiday Analysis' },

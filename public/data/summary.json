@@ -1,29 +1,29 @@
 {
-  "generatedAt": "2026-06-05T11:02:28.067934",
+  "generatedAt": "2026-06-05T13:00:28.148338",
   "dateRange": [
     "2023-01-01",
-    "2026-02-15"
+    "2026-06-04"
   ],
-  "totalRevenue": 17815433.5,
+  "totalRevenue": 19634175.32,
   "departments": {
     "Arcade": {
-      "revenue": 120064.16,
-      "quantity": 2338,
-      "transactions": 2314,
+      "revenue": 135827.16,
+      "quantity": 2526,
+      "transactions": 2413,
       "uniqueItems": 5,
       "categories": [
         "Arcade"
       ],
       "dateRange": [
         "2023-12-07",
-        "2026-02-10"
+        "2026-06-04"
       ]
     },
     "Bar": {
-      "revenue": 4301845.65,
-      "quantity": 514409,
-      "transactions": 504011,
-      "uniqueItems": 479,
+      "revenue": 4753426.15,
+      "quantity": 568666,
+      "transactions": 557817,
+      "uniqueItems": 520,
       "categories": [
         "Bar",
         "Bottle Beer",
@@ -34,31 +34,33 @@
       ],
       "dateRange": [
         "2023-05-26",
-        "2026-02-15"
+        "2026-06-04"
       ]
     },
     "Bowling": {
-      "revenue": 4823977.58,
-      "quantity": 6829830,
-      "transactions": 371454,
-      "uniqueItems": 38,
+      "revenue": 5241699.82,
+      "quantity": 7363811,
+      "transactions": 404385,
+      "uniqueItems": 43,
       "categories": [
         "Bowling",
         "Game Bowling",
         "General Income",
+        "Online Lane Reservations",
         "Rental Shoes",
-        "Time Bowling"
+        "Time Bowling",
+        "VIP SUITES"
       ],
       "dateRange": [
         "2023-01-01",
-        "2026-02-15"
+        "2026-06-04"
       ]
     },
     "Food": {
-      "revenue": 2837710.14,
-      "quantity": 310906,
-      "transactions": 283884,
-      "uniqueItems": 188,
+      "revenue": 3171582.04,
+      "quantity": 342255,
+      "transactions": 313766,
+      "uniqueItems": 202,
       "categories": [
         "Appetizers & Sides",
         "Beverages",
@@ -77,48 +79,48 @@
       ],
       "dateRange": [
         "2023-05-26",
-        "2026-02-15"
+        "2026-06-04"
       ]
     },
     "General Income": {
-      "revenue": 27205.18,
-      "quantity": 604,
-      "transactions": 604,
+      "revenue": 31239.59,
+      "quantity": 831,
+      "transactions": 833,
       "uniqueItems": 1,
       "categories": [
         "Processing Fee"
       ],
       "dateRange": [
         "2024-07-12",
-        "2026-02-15"
+        "2026-06-04"
       ]
     },
     "League Fees": {
-      "revenue": 2513618.43,
-      "quantity": 143985,
-      "transactions": 41149,
-      "uniqueItems": 97,
+      "revenue": 2829525.53,
+      "quantity": 162175,
+      "transactions": 46115,
+      "uniqueItems": 104,
       "categories": [
         "League Bowling",
         "League Fees"
       ],
       "dateRange": [
         "2023-06-01",
-        "2026-02-13"
+        "2026-06-04"
       ]
     },
     "Parties": {
-      "revenue": 3187172.36,
-      "quantity": 1227881,
-      "transactions": 21096,
-      "uniqueItems": 49,
+      "revenue": 3467035.03,
+      "quantity": 1345454,
+      "transactions": 23036,
+      "uniqueItems": 50,
       "categories": [
         "Catering",
         "Parties"
       ],
       "dateRange": [
         "2023-05-26",
-        "2026-02-15"
+        "2026-06-04"
       ]
     },
     "Vending Machines": {
