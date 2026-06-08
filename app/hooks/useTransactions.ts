@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect, useMemo } from 'react';
-import type { Transaction, Summary, Filters, PaymentRecord } from '@/types';
+import type { Transaction, Summary, Filters, PaymentRecord, PackageRecord } from '@/types';
 
 const LOAD_TIMEOUT_MS = 60000; // 60 seconds for large transactions.json
 
@@ -80,6 +80,26 @@ export function useModifiers() {
   }, []);
 
   return { modifiers, loading };
+}
+
+export function usePackages() {
+  const [packages, setPackages] = useState<PackageRecord[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    fetchWithTimeout('/data/packages.json', 30000)
+      .then((res) => {
+        if (!res.ok) throw new Error(`Failed to load (${res.status})`);
+        return res.json();
+      })
+      .then((rows: PackageRecord[]) => {
+        setPackages(Array.isArray(rows) ? rows : []);
+        setLoading(false);
+      })
+      .catch(() => setLoading(false));
+  }, []);
+
+  return { packages, loading };
 }
 
 export function usePayments() {

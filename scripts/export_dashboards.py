@@ -62,6 +62,7 @@ CATEGORY_COLORS = {
     'Parties':            '#ff9100',
     'League Fees':        '#ffd700',
     'League Bowling':     '#60a5fa',
+    'Summer Specials':    '#22c55e',
     # Modifiers subdepartments
     'Food Mods':           '#2563eb',
     'Food':                '#60a5fa',
@@ -1152,6 +1153,166 @@ def export_payments(csv_files):
     return rows
 
 
+# =============================================================================
+# EXPORT: packages.json (summer specials / package sales)
+# =============================================================================
+
+PACKAGE_DEFS = [
+    {'displayName': 'Summer Triple Play', 'posName': 'Summer Triple PLay', 'kind': 'package'},
+    {'displayName': 'Monday Roll Call', 'posName': 'Monday Roll Call', 'kind': 'package'},
+    {'displayName': 'First Roll Friday', 'posName': 'Friday First Role', 'kind': 'package'},
+    {'displayName': 'All You Can Bowl', 'posName': 'All you can bowl - Charge', 'kind': 'charge'},
+    {'displayName': 'Family Fun Pack', 'posName': 'Family Fun Pack Charge', 'kind': 'charge'},
+    {'displayName': 'Summer Party Builder', 'posName': 'Summer Party Builder Charge', 'kind': 'charge'},
+    {'displayName': 'Group Party Pack', 'posName': 'Group Party Charge', 'kind': 'charge'},
+]
+
+PACKAGE_POS_NAMES = {d['posName'] for d in PACKAGE_DEFS if d['kind'] == 'package'}
+CHARGE_POS_NAMES = {d['posName'] for d in PACKAGE_DEFS if d['kind'] == 'charge'}
+POS_TO_DISPLAY = {d['posName']: d['displayName'] for d in PACKAGE_DEFS}
+PACKAGE_CATEGORY = 'Summer Specials'
+PACKAGE_DEPARTMENT = 'Bowling'
+
+
+def _package_child_revenue(txn_rows, package_item_id):
+    """Sum bundled product revenue for one Package line item in a transaction."""
+    pkg_id = int(package_item_id)
+    next_pkg_id = None
+    for r in txn_rows:
+        if r['item_type'] == 'Package' and int(r['item_id']) > pkg_id:
+            next_pkg_id = int(r['item_id'])
+            break
+    total = 0.0
+    for r in txn_rows:
+        if r['item_type'] != 'Product' or not r.get('sold_in_package'):
+            continue
+        iid = int(r['item_id'])
+        if iid <= pkg_id:
+            continue
+        if next_pkg_id is not None and iid >= next_pkg_id:
+            continue
+        amt = r['item_total'] if r['item_total'] != 0 else (r['unit_price'] * (r['qty'] or 1))
+        total += amt
+    return total
+
+
+def aggregate_packages(csv_files):
+    """
+    Export date-granular rows for tracked summer specials.
+    Package-type items get revenue from bundled children (Sold in Package).
+    Charge-type items use the charge product line directly.
+    """
+    agg = defaultdict(lambda: {'revenue': 0.0, 'quantity': 0, 'txn_ids': set()})
+
+    columns = [
+        'Transaction ID', 'Item ID', 'Name', 'Item Type',
+        'Department', 'Subdepartment', 'Quantity', 'Unit Amount', 'Total',
+        'Transaction Type', 'Deleted', 'Voided',
+        'Item Created Date', 'Item Created Time', 'Sold in Package',
+    ]
+
+    seen = set()
+    by_txn = defaultdict(list)
+
+    for csv_path in csv_files:
+        with open(csv_path, 'r', encoding='utf-8') as f:
+            reader = csv.reader(f, delimiter=';')
+            header = next(reader)
+            idx = {c: header.index(c) for c in columns if c in header}
+            if 'Transaction ID' not in idx or 'Item ID' not in idx:
+                continue
+            max_idx = max(idx.values())
+
+            for row in reader:
+                if len(row) <= max_idx:
+                    continue
+                if row[idx['Deleted']] != 'False' or row[idx['Voided']] != 'False':
+                    continue
+                if 'Transaction Type' in idx and row[idx['Transaction Type']] != 'Sales':
+                    continue
+
+                key = (row[idx['Transaction ID']], row[idx['Item ID']])
+                if key in seen:
+                    continue
+                seen.add(key)
+
+                name = row[idx['Name']].strip()
+                item_type = row[idx['Item Type']].strip()
+                if item_type not in ('Package', 'Product'):
+                    continue
+
+                qty = float(row[idx['Quantity']] or 0)
+                unit = float(row[idx['Unit Amount']] or 0)
+                item_total = float(row[idx['Total']] or 0) if 'Total' in idx else 0
+                sold_in = (
+                    row[idx['Sold in Package']].strip() == 'True'
+                    if 'Sold in Package' in idx else False
+                )
+
+                by_txn[row[idx['Transaction ID']]].append({
+                    'item_id': int(row[idx['Item ID']]),
+                    'name': name,
+                    'item_type': item_type,
+                    'qty': qty,
+                    'unit_price': unit,
+                    'item_total': item_total,
+                    'sold_in_package': sold_in,
+                    'date': business_day(
+                        row[idx['Item Created Date']].strip(),
+                        row[idx['Item Created Time']].strip() if 'Item Created Time' in idx else '',
+                    ),
+                    'department': row[idx['Department']].strip() if 'Department' in idx else '',
+                    'subdepartment': row[idx['Subdepartment']].strip() if 'Subdepartment' in idx else '',
+                })
+
+    for txn_id, rows in by_txn.items():
+        rows.sort(key=lambda r: r['item_id'])
+        for r in rows:
+            if r['item_type'] == 'Package' and r['name'] in PACKAGE_POS_NAMES:
+                display = POS_TO_DISPLAY[r['name']]
+                revenue = _package_child_revenue(rows, r['item_id'])
+                bucket = (r['date'], display)
+                agg[bucket]['revenue'] += revenue
+                agg[bucket]['quantity'] += 1
+                agg[bucket]['txn_ids'].add(txn_id)
+            elif r['item_type'] == 'Product' and r['name'] in CHARGE_POS_NAMES:
+                display = POS_TO_DISPLAY[r['name']]
+                revenue = r['item_total'] if r['item_total'] != 0 else (r['unit_price'] * (r['qty'] or 1))
+                bucket = (r['date'], display)
+                agg[bucket]['revenue'] += revenue
+                agg[bucket]['quantity'] += int(r['qty'] or 1)
+                agg[bucket]['txn_ids'].add(txn_id)
+
+    out_rows = []
+    for (date_str, display_name), data in agg.items():
+        if not date_str or len(date_str) < 10:
+            continue
+        out_rows.append({
+            'date': date_str,
+            'name': display_name,
+            'department': PACKAGE_DEPARTMENT,
+            'subdepartment': 'Packages',
+            'category': PACKAGE_CATEGORY,
+            'quantity': data['quantity'],
+            'revenue': round(data['revenue'], 2),
+            'transactions': len(data['txn_ids']),
+        })
+
+    out_rows.sort(key=lambda r: (r['date'], r['name']))
+    return out_rows
+
+
+def export_packages(csv_files):
+    """Export package / summer special rows for the Package Detail dashboard."""
+    rows = aggregate_packages(csv_files)
+    out = os.path.join(OUTPUT_DIR, 'packages.json')
+    with open(out, 'w', encoding='utf-8') as f:
+        json.dump(rows, f, separators=(',', ':'))
+    size_kb = os.path.getsize(out) / 1024
+    print(f'  -> {out}  ({len(rows):,} rows, {size_kb:.0f} KB)')
+    return rows
+
+
 def export_ticket_detail(csv_files):
     """Write public/data/tickets/YYYY-MM.json — full receipt lines per month."""
     print('  Reading all line items for ticket detail...')
@@ -1229,27 +1390,27 @@ def main():
     category_overrides = load_category_overrides()
     print(f'Category overrides: {len(category_overrides)} entries')
 
-    print('\n[1/8] Transactions...')
+    print('\n[1/9] Transactions...')
     rows = export_transactions(csv_files, category_overrides)
 
-    print('\n[2/8] Modifiers...')
+    print('\n[2/9] Modifiers...')
     export_modifiers(csv_files)
     print('  Modifier transactions (date-granular)...')
     export_modifier_transactions(csv_files)
 
-    print('\n[3/8] Summary...')
+    print('\n[3/9] Summary...')
     summary = export_summary(rows)
     for dept, info in summary['departments'].items():
         print(f'  {dept}: ${info["revenue"]:,.0f}  '
               f'({info["uniqueItems"]} items, {info["transactions"]:,} txns)')
 
-    print('\n[4/8] Bowling Seasonality...')
+    print('\n[4/9] Bowling Seasonality...')
     export_bowling_seasonality(csv_files)
 
-    print('\n[5/8] Bowling Forecast...')
+    print('\n[5/9] Bowling Forecast...')
     export_bowling_forecast(csv_files)
 
-    print('\n[6/8] Holiday Analysis...')
+    print('\n[6/9] Holiday Analysis...')
     try:
         import sys
         _scripts = os.path.join(_ROOT, 'scripts')
@@ -1261,11 +1422,14 @@ def main():
     except ImportError as e:
         print(f'  SKIP: holiday_analysis not available ({e})')
 
-    print('\n[7/8] Ticket detail (by month)...')
+    print('\n[7/9] Ticket detail (by month)...')
     export_ticket_detail(csv_files)
 
-    print('\n[8/8] Payments...')
+    print('\n[8/9] Payments...')
     export_payments(csv_files)
+
+    print('\n[9/9] Packages (summer specials)...')
+    export_packages(csv_files)
 
     print('\n' + '=' * 60)
     print(f'Done! {len(rows):,} transaction rows written to {OUTPUT_DIR}')

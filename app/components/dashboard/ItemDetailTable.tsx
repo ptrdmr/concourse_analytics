@@ -15,6 +15,10 @@ interface Props {
   items: ItemData[];
   colors: Record<string, string>;
   onItemClick?: (item: ItemData) => void;
+  title?: string;
+  clickHint?: string;
+  searchPlaceholder?: string;
+  emptyLabel?: string;
 }
 
 type SortKey = 'name' | 'category' | 'revenue' | 'quantity';
@@ -23,7 +27,15 @@ type SortDir = 'asc' | 'desc';
 const FALLBACK = '#2563eb';
 const PAGE_SIZE = 25;
 
-export function ItemDetailTable({ items, colors, onItemClick }: Props) {
+export function ItemDetailTable({
+  items,
+  colors,
+  onItemClick,
+  title = 'Item Detail',
+  clickHint = 'Click any item to see monthly sales',
+  searchPlaceholder = 'Search items...',
+  emptyLabel = 'items',
+}: Props) {
   const [sortKey, setSortKey] = useState<SortKey>('revenue');
   const [sortDir, setSortDir] = useState<SortDir>('desc');
   const [page, setPage] = useState(0);
@@ -76,10 +88,10 @@ export function ItemDetailTable({ items, colors, onItemClick }: Props) {
     <div className="card p-6">
       <div className="flex flex-wrap items-center justify-between gap-4 mb-4">
         <div className="flex items-center gap-3">
-          <h3 className="text-lg font-semibold text-white">Item Detail</h3>
+          <h3 className="text-lg font-semibold text-white">{title}</h3>
           {onItemClick && (
             <span className="text-sm text-accent font-medium px-2.5 py-0.5 rounded-md bg-accent/10 border border-accent/30 shrink-0">
-              Click any item to see monthly sales
+              {clickHint}
             </span>
           )}
         </div>
@@ -87,7 +99,7 @@ export function ItemDetailTable({ items, colors, onItemClick }: Props) {
           <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted" />
           <input
             type="text"
-            placeholder="Search items..."
+            placeholder={searchPlaceholder}
             value={searchTerm}
             onChange={e => {
               setSearchTerm(e.target.value);
@@ -110,7 +122,7 @@ export function ItemDetailTable({ items, colors, onItemClick }: Props) {
         </div>
       </div>
       <p className="text-sm text-muted mb-4">
-        {filtered.length} items{searchTerm ? ` matching "${searchTerm}"` : ''}
+        {filtered.length} {emptyLabel}{searchTerm ? ` matching "${searchTerm}"` : ''}
         {sorted.length > 0 && (
           <> — showing {page * PAGE_SIZE + 1}–{Math.min((page + 1) * PAGE_SIZE, sorted.length)}</>
         )}
@@ -118,7 +130,7 @@ export function ItemDetailTable({ items, colors, onItemClick }: Props) {
       <div className="overflow-x-auto">
         {pageItems.length === 0 ? (
           <p className="py-8 text-center text-muted">
-            {searchTerm ? `No items match "${searchTerm}"` : 'No items in this selection'}
+            {searchTerm ? `No ${emptyLabel} match "${searchTerm}"` : `No ${emptyLabel} in this selection`}
           </p>
         ) : (
         <table className="w-full text-sm">

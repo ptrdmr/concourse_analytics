@@ -55,6 +55,17 @@ export interface PaymentRecord {
   transactions: number;
 }
 
+export interface PackageRecord {
+  date: string;
+  name: string;
+  department: string;
+  subdepartment: string;
+  category: string;
+  quantity: number;
+  revenue: number;
+  transactions: number;
+}
+
 export interface Ticket {
   txnId: string;
   date: string;

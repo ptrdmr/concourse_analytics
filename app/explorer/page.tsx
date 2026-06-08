@@ -2,7 +2,8 @@
 
 import { useState, useEffect, useMemo, Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
-import { useTransactions, useSummary, useFilteredData, useModifiers, useModifierTransactions } from '@/hooks/useTransactions';
+import { useTransactions, useSummary, useFilteredData, useModifiers, useModifierTransactions, usePackages } from '@/hooks/useTransactions';
+import { aggregatePackageItems, filterPackages } from '@/lib/packages';
 import type { Filters } from '@/types';
 import { getYTD } from '@/lib/date-ranges';
 import { buildExplorerSummary } from '@/lib/build-data-summary';
@@ -15,6 +16,7 @@ import { TopItemsChart } from '@/components/dashboard/TopItemsChart';
 import { SpecialtyCocktailsPanel } from '@/components/dashboard/SpecialtyCocktailsPanel';
 import { ModifiersPanel } from '@/components/dashboard/ModifiersPanel';
 import { ItemDetailTable } from '@/components/dashboard/ItemDetailTable';
+import { PackageDetailTable } from '@/components/dashboard/PackageDetailTable';
 import { ItemHistoryPanel } from '@/components/dashboard/ItemHistoryPanel';
 import { RevenueCalendarCard } from '@/components/dashboard/RevenueCalendarCard';
 import { DayDetailModal } from '@/components/dashboard/DayDetailModal';
@@ -30,6 +32,7 @@ function ExplorerContent() {
   const { summary, loading: sumLoading } = useSummary();
   const { modifiers } = useModifiers();
   const { modifierTransactions, loading: modTxnLoading } = useModifierTransactions();
+  const { packages, loading: pkgLoading } = usePackages();
 
   const [filters, setFilters] = useState<Filters>({
     department: initialDept,
@@ -38,6 +41,7 @@ function ExplorerContent() {
     searchTerm: '',
   });
   const [selectedItem, setSelectedItem] = useState<ItemData | null>(null);
+  const [historySource, setHistorySource] = useState<'items' | 'packages'>('items');
   const [selectedDate, setSelectedDate] = useState<string | null>(null);
   const [selectedCard, setSelectedCard] = useState<'category' | 'trends' | 'calendar' | null>(null);
 
@@ -88,6 +92,16 @@ function ExplorerContent() {
   const displayDailyRevenueAllTime = isModifiersView ? modifierFiltered.dailyRevenueAllTime : dailyRevenueAllTime;
   const displayFiltered = isModifiersView ? modifierFiltered.filtered : filtered;
 
+  const packageFiltered = useMemo(
+    () => filterPackages(packages, filters),
+    [packages, filters],
+  );
+
+  const packageItems = useMemo(
+    () => aggregatePackageItems(packageFiltered),
+    [packageFiltered],
+  );
+
   const summaryText = useMemo(() => {
     if (txnLoading || sumLoading) return '';
     return buildExplorerSummary({
@@ -104,7 +118,7 @@ function ExplorerContent() {
     if (summaryText) setDataSummary(summaryText);
   }, [summaryText, setDataSummary]);
 
-  const loading = txnLoading || sumLoading || (isModifiersView && modTxnLoading);
+  const loading = txnLoading || sumLoading || pkgLoading || (isModifiersView && modTxnLoading);
 
   if (loading) {
     return (
@@ -200,17 +214,30 @@ function ExplorerContent() {
 
         <TopItemsChart items={displayTopItems.slice(0, 20)} colors={categoryColors} />
 
-        <ItemDetailTable
-          items={displayTopItems}
-          colors={categoryColors}
-          onItemClick={setSelectedItem}
-        />
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          <ItemDetailTable
+            items={displayTopItems}
+            colors={categoryColors}
+            onItemClick={(item) => {
+              setHistorySource('items');
+              setSelectedItem(item);
+            }}
+          />
+          <PackageDetailTable
+            items={packageItems}
+            colors={categoryColors}
+            onItemClick={(item) => {
+              setHistorySource('packages');
+              setSelectedItem(item);
+            }}
+          />
+        </div>
       </div>
 
       {selectedItem && (
         <ItemHistoryPanel
           item={selectedItem}
-          transactions={displayFiltered}
+          transactions={historySource === 'packages' ? packageFiltered : displayFiltered}
           colors={categoryColors}
           onClose={() => setSelectedItem(null)}
         />
