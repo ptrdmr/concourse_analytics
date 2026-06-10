@@ -1,12 +1,15 @@
 'use client';
 
-import { useState, useEffect, useMemo } from 'react';
+import { useState, useEffect, useMemo, Suspense } from 'react';
 import { Nav } from '@/components/Nav';
 import { HolidaySelector } from '@/components/dashboard/HolidaySelector';
 import { DepartmentFilter } from '@/components/dashboard/DepartmentFilter';
 import { HolidayRanking } from '@/components/dashboard/HolidayRanking';
 import { HolidayYoYTable } from '@/components/dashboard/HolidayYoYTable';
 import { HolidayComparisonChart } from '@/components/dashboard/HolidayComparisonChart';
+import { useUrlString } from '@/hooks/useUrlFilters';
+import { buildHolidaysSummary } from '@/lib/build-data-summary';
+import { useDataContext } from '@/context/DataContext';
 
 interface HolidayYearData {
   year: number;
@@ -29,10 +32,23 @@ interface HolidayAnalysisData {
 }
 
 export default function HolidaysPage() {
+  return (
+    <Suspense fallback={
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="text-secondary animate-pulse text-lg">Loading holiday data...</div>
+      </div>
+    }>
+      <HolidaysContent />
+    </Suspense>
+  );
+}
+
+function HolidaysContent() {
+  const { setDataSummary } = useDataContext();
   const [data, setData] = useState<HolidayAnalysisData | null>(null);
   const [loading, setLoading] = useState(true);
-  const [selectedHoliday, setSelectedHoliday] = useState<string>('');
-  const [department, setDepartment] = useState<string>('All');
+  const [selectedHoliday, setSelectedHoliday] = useUrlString('holiday', '');
+  const [department, setDepartment] = useUrlString('dept', 'All');
 
   useEffect(() => {
     fetch('/data/holiday_analysis.json')
@@ -85,6 +101,19 @@ export default function HolidaysPage() {
       transactions: y.transactions,
     }));
   }, [selectedData, department]);
+
+  const summaryText = useMemo(() => {
+    if (!selectedHoliday || rankingYears.length === 0) return '';
+    return buildHolidaysSummary({
+      holiday: selectedHoliday,
+      department,
+      years: rankingYears,
+    });
+  }, [selectedHoliday, department, rankingYears]);
+
+  useEffect(() => {
+    if (summaryText) setDataSummary(summaryText);
+  }, [summaryText, setDataSummary]);
 
   if (loading) {
     return (

@@ -5,6 +5,8 @@ import { Nav } from '@/components/Nav';
 import { useTicketMonths, useTicketDetail } from '@/hooks/useTickets';
 import type { Ticket, TicketLineItem } from '@/types';
 import { X, Receipt, ChevronDown, ChevronUp } from 'lucide-react';
+import { buildTicketsSummary } from '@/lib/build-data-summary';
+import { useDataContext } from '@/context/DataContext';
 
 const PAGE_SIZE = 50;
 
@@ -201,6 +203,7 @@ function TicketReceipt({ ticket, onClose }: { ticket: Ticket; onClose: () => voi
 type SortKey = 'date' | 'total';
 
 export default function TicketsPage() {
+  const { setDataSummary } = useDataContext();
   const { months, loading: monthsLoading } = useTicketMonths();
   const [selectedMonth, setSelectedMonth] = useState<string | null>(null);
 
@@ -316,6 +319,21 @@ export default function TicketsPage() {
       return key;
     });
   }, []);
+
+  const summaryText = useMemo(() => {
+    if (monthsLoading || detailLoading) return '';
+    return buildTicketsSummary({
+      month: resolvedMonth,
+      monthLabel: resolvedMonth ? formatMonthLabel(resolvedMonth) : '',
+      ticketCount: monthTickets.length,
+      filteredCount: filtered.length,
+      departments: departments.filter((d) => d !== 'All'),
+    });
+  }, [monthsLoading, detailLoading, resolvedMonth, monthTickets.length, filtered.length, departments]);
+
+  useEffect(() => {
+    if (summaryText) setDataSummary(summaryText);
+  }, [summaryText, setDataSummary]);
 
   if (monthsLoading) {
     return (

@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useMemo, Suspense, type ReactNode } from 'react';
+import { useState, useMemo, Suspense, type ReactNode, useEffect } from 'react';
 import { useTransactions, useSummary, useFilteredData, useModifierTransactions } from '@/hooks/useTransactions';
 import type { Filters } from '@/types';
 import { aggregateByPeriod, type PeriodGranularity } from '@/lib/aggregate-by-period';
@@ -10,6 +10,9 @@ import { ComparisonKpiCards } from '@/components/dashboard/ComparisonKpiCards';
 import { ComparisonBarChart } from '@/components/dashboard/ComparisonBarChart';
 import { ComparisonCategoryChart } from '@/components/dashboard/ComparisonCategoryChart';
 import type { DateRange } from '@/lib/date-ranges';
+import { useUrlCompareState } from '@/hooks/useUrlFilters';
+import { buildCompareSummary } from '@/lib/build-data-summary';
+import { useDataContext } from '@/context/DataContext';
 
 const GRANULARITIES: { id: PeriodGranularity; label: string }[] = [
   { id: 'day', label: 'Day' },
@@ -54,14 +57,29 @@ function getDefaultPeriods(): { periodA: DateRange; periodB: DateRange } {
 }
 
 function CompareContent() {
+  const { setDataSummary } = useDataContext();
   const { raw, loading: txnLoading } = useTransactions();
   const { summary, loading: sumLoading } = useSummary();
   const { modifierTransactions, loading: modTxnLoading } = useModifierTransactions();
 
-  const [periodA, setPeriodA] = useState<DateRange>(() => getDefaultPeriods().periodA);
-  const [periodB, setPeriodB] = useState<DateRange>(() => getDefaultPeriods().periodB);
-  const [department, setDepartment] = useState('All');
-  const [granularity, setGranularity] = useState<PeriodGranularity>('week');
+  const defaults = useMemo(() => getDefaultPeriods(), []);
+  const {
+    periodA,
+    periodB,
+    department,
+    granularity: granularityStr,
+    setPeriodA,
+    setPeriodB,
+    setDepartment,
+    setGranularity,
+  } = useUrlCompareState({
+    periodA: defaults.periodA,
+    periodB: defaults.periodB,
+    department: 'All',
+    granularity: 'week',
+  });
+
+  const granularity = granularityStr as PeriodGranularity;
 
   const departments = useMemo(() => {
     if (!summary) return [];
@@ -103,6 +121,22 @@ function CompareContent() {
     () => aggregateByPeriod(filteredB.filtered, granularity),
     [filteredB.filtered, granularity]
   );
+
+  const summaryText = useMemo(() => {
+    if (txnLoading || sumLoading) return '';
+    return buildCompareSummary({
+      periodA,
+      periodB,
+      department,
+      granularity,
+      kpisA: filteredA.kpis,
+      kpisB: filteredB.kpis,
+    });
+  }, [txnLoading, sumLoading, periodA, periodB, department, granularity, filteredA.kpis, filteredB.kpis]);
+
+  useEffect(() => {
+    if (summaryText) setDataSummary(summaryText);
+  }, [summaryText, setDataSummary]);
 
   const loading = txnLoading || sumLoading || (department === 'Modifiers' && modTxnLoading);
 

@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useMemo, useEffect } from 'react';
+import { useState, useMemo, useEffect, Suspense } from 'react';
 import { Nav } from '@/components/Nav';
 import { DateRangePicker } from '@/components/dashboard/DateRangePicker';
 import { DayShapeChart } from '@/components/dashboard/DayShapeChart';
@@ -16,6 +16,9 @@ import {
 } from '@/hooks/useIntraday';
 import { getYTD } from '@/lib/date-ranges';
 import type { DateRange } from '@/lib/date-ranges';
+import { useUrlDateRange, useUrlString } from '@/hooks/useUrlFilters';
+import { buildDaypartsSummary } from '@/lib/build-data-summary';
+import { useDataContext } from '@/context/DataContext';
 import {
   buildDayShapeSeries,
   buildHeatmap,
@@ -45,11 +48,27 @@ const RESOLUTION_OPTIONS: { value: TimeResolution; label: string }[] = [
 ];
 
 export default function DaypartsPage() {
+  return (
+    <Suspense fallback={
+      <main className="min-h-screen">
+        <Nav />
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 py-12 text-center text-muted animate-pulse">
+          Loading dayparts...
+        </div>
+      </main>
+    }>
+      <DaypartsContent />
+    </Suspense>
+  );
+}
+
+function DaypartsContent() {
+  const { setDataSummary } = useDataContext();
   const { index, loading: indexLoading, error: indexError } = useIntradayIndex();
   const departments = useIntradayDepartments(index);
 
-  const [department, setDepartment] = useState('All');
-  const [dateRange, setDateRange] = useState<DateRange | null>(getYTD());
+  const [department, setDepartment] = useUrlString('dept', 'All');
+  const [dateRange, setDateRange] = useUrlDateRange(getYTD());
   const [daysOfWeek, setDaysOfWeek] = useState<number[]>([]);
   const [resolution, setResolution] = useState<TimeResolution>(60);
   const [metric, setMetric] = useState<IntradayMetric>('quantity');
@@ -109,6 +128,33 @@ export default function DaypartsPage() {
     () => topItemsForSlot(filteredSales, selectedSlot, resolution, effectiveDayCount),
     [filteredSales, selectedSlot, resolution, effectiveDayCount],
   );
+
+  const summaryText = useMemo(() => {
+    if (!isReady) return '';
+    let peakSlot: string | undefined;
+    let peakValue: number | undefined;
+    for (const series of dayShapeSeries) {
+      for (const slot of series.slots) {
+        const val = metric === 'revenue' ? slot.avgRevenue : slot.avgQuantity;
+        if (peakValue == null || val > peakValue) {
+          peakValue = val;
+          peakSlot = slot.label;
+        }
+      }
+    }
+    return buildDaypartsSummary({
+      department,
+      dateRange,
+      metric,
+      dayCount,
+      peakSlot,
+      peakValue,
+    });
+  }, [isReady, dayShapeSeries, department, dateRange, metric, dayCount]);
+
+  useEffect(() => {
+    if (summaryText) setDataSummary(summaryText);
+  }, [summaryText, setDataSummary]);
 
   const allDaysSelected =
     daysOfWeek.length === ALL_DOW.length && ALL_DOW.every(d => daysOfWeek.includes(d));

@@ -1,6 +1,6 @@
 'use client';
 
-import { useMemo, useState } from 'react';
+import { useMemo, Suspense, useEffect } from 'react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { Nav } from '@/components/Nav';
 import { usePayments } from '@/hooks/useTransactions';
@@ -19,20 +19,47 @@ import {
   PAYMENT_TYPE_LABELS,
 } from '@/lib/payments';
 import { formatCurrency, formatNumber } from '@/lib/format';
-
-type DateMode = 'day' | 'range';
+import { useUrlPaymentsState } from '@/hooks/useUrlFilters';
+import { buildPaymentsSummary } from '@/lib/build-data-summary';
+import { useDataContext } from '@/context/DataContext';
 
 export default function PaymentsPage() {
+  return (
+    <Suspense fallback={
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="text-secondary animate-pulse text-lg">Loading payment data...</div>
+      </div>
+    }>
+      <PaymentsContent />
+    </Suspense>
+  );
+}
+
+function PaymentsContent() {
+  const { setDataSummary } = useDataContext();
   const { payments, loading } = usePayments();
-  const [mode, setMode] = useState<DateMode>('day');
-  const [dayDate, setDayDate] = useState(getYesterday);
-  const [rangeStart, setRangeStart] = useState(() => {
-    const end = getYesterday();
-    const start = new Date(end + 'T00:00:00');
+
+  const defaultRangeEnd = getYesterday();
+  const defaultRangeStart = (() => {
+    const start = new Date(defaultRangeEnd + 'T00:00:00');
     start.setDate(start.getDate() - 6);
     return start.toISOString().slice(0, 10);
+  })();
+
+  const {
+    mode,
+    dayDate,
+    rangeStart,
+    rangeEnd,
+    setMode,
+    setDayDate,
+    setRange,
+  } = useUrlPaymentsState({
+    mode: 'day',
+    dayDate: defaultRangeEnd,
+    rangeStart: defaultRangeStart,
+    rangeEnd: defaultRangeEnd,
   });
-  const [rangeEnd, setRangeEnd] = useState(getYesterday);
 
   const filtered = useMemo(
     () => filterPayments(payments, mode, dayDate, rangeStart, rangeEnd),
@@ -84,6 +111,23 @@ export default function PaymentsPage() {
     if (rangeStart === rangeEnd) return rangeStart;
     return `${rangeStart} to ${rangeEnd}`;
   }, [mode, dayDate, rangeStart, rangeEnd]);
+
+  const summaryText = useMemo(() => {
+    if (loading || !payments.length) return '';
+    return buildPaymentsSummary({
+      periodLabel,
+      cashAmount: cashKpi.amount,
+      cashTransactions: cashKpi.transactions,
+      creditAmount: creditKpi.amount,
+      creditTransactions: creditKpi.transactions,
+      totalAmount,
+      topPayments: byName.map((r) => ({ name: r.name, amount: r.amount, transactions: r.transactions })),
+    });
+  }, [loading, payments.length, periodLabel, cashKpi, creditKpi, totalAmount, byName]);
+
+  useEffect(() => {
+    if (summaryText) setDataSummary(summaryText);
+  }, [summaryText, setDataSummary]);
 
   if (loading) {
     return (
@@ -151,7 +195,7 @@ export default function PaymentsPage() {
               <div className="flex items-center gap-1">
                 <button
                   type="button"
-                  onClick={() => setDayDate((d) => shiftDate(d, -1))}
+                  onClick={() => setDayDate(shiftDate(dayDate, -1))}
                   disabled={!canGoPrevDay}
                   className="p-2 rounded-lg bg-white/5 text-secondary hover:bg-white/10 hover:text-white transition-colors disabled:opacity-30 disabled:pointer-events-none"
                   aria-label="Previous day"
@@ -169,7 +213,7 @@ export default function PaymentsPage() {
                 />
                 <button
                   type="button"
-                  onClick={() => setDayDate((d) => shiftDate(d, 1))}
+                  onClick={() => setDayDate(shiftDate(dayDate, 1))}
                   disabled={!canGoNextDay}
                   className="p-2 rounded-lg bg-white/5 text-secondary hover:bg-white/10 hover:text-white transition-colors disabled:opacity-30 disabled:pointer-events-none"
                   aria-label="Next day"
@@ -187,7 +231,7 @@ export default function PaymentsPage() {
                 id="payment-start"
                 type="date"
                 value={rangeStart}
-                onChange={(e) => setRangeStart(e.target.value)}
+                onChange={(e) => setRange(e.target.value, rangeEnd)}
                 className="bg-black/40 border border-border rounded-lg px-3 py-2 text-sm text-white"
               />
               <label className="text-sm text-secondary" htmlFor="payment-end">
@@ -197,7 +241,7 @@ export default function PaymentsPage() {
                 id="payment-end"
                 type="date"
                 value={rangeEnd}
-                onChange={(e) => setRangeEnd(e.target.value)}
+                onChange={(e) => setRange(rangeStart, e.target.value)}
                 className="bg-black/40 border border-border rounded-lg px-3 py-2 text-sm text-white"
               />
             </div>

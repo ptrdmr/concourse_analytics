@@ -1,10 +1,11 @@
 'use client';
 
-import { useState, useMemo, useEffect } from 'react';
+import { useState, useMemo, useEffect, Suspense } from 'react';
 import { useTransactions, useSummary, useFilteredData } from '@/hooks/useTransactions';
 import { formatCompact, formatNumber } from '@/lib/format';
 import { buildOverviewSummary } from '@/lib/build-data-summary';
 import { useDataContext } from '@/context/DataContext';
+import { useUrlDateRange } from '@/hooks/useUrlFilters';
 import { DollarSign, ShoppingCart, TrendingUp, Package } from 'lucide-react';
 import Link from 'next/link';
 import { Nav } from '@/components/Nav';
@@ -22,11 +23,24 @@ const DEPT_ICONS: Record<string, string> = {
 };
 
 export default function HomePage() {
+  return (
+    <Suspense fallback={
+      <main className="min-h-screen flex flex-col items-center justify-center gap-4">
+        <Nav />
+        <div className="text-secondary animate-pulse text-lg">Loading dashboard...</div>
+      </main>
+    }>
+      <HomeContent />
+    </Suspense>
+  );
+}
+
+function HomeContent() {
   const { raw, loading: txnLoading } = useTransactions();
   const { summary, loading: sumLoading } = useSummary();
   const { setDataSummary } = useDataContext();
 
-  const [dateRange, setDateRange] = useState<[string, string] | null>(getYTD());
+  const [dateRange, setDateRange] = useUrlDateRange(getYTD());
   const filters = useMemo<Filters>(() => ({
     department: 'All',
     dateRange,
@@ -161,10 +175,14 @@ export default function HomePage() {
 
         <h3 className="text-2xl font-bold mt-12 mb-6">Departments</h3>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-          {depts.map(({ name, revenue, uniqueItems, transactions, categories, dateRange }) => (
+          {depts.map(({ name, revenue, uniqueItems, transactions, categories, dateRange: deptRange }) => {
+            const explorerHref = dateRange
+              ? `/explorer?dept=${encodeURIComponent(name)}&from=${dateRange[0]}&to=${dateRange[1]}`
+              : `/explorer?dept=${encodeURIComponent(name)}`;
+            return (
             <Link
               key={name}
-              href={`/explorer?dept=${encodeURIComponent(name)}`}
+              href={explorerHref}
               className="card p-6 group cursor-pointer hover:-translate-y-0.5 transition-transform"
             >
               <div className="flex items-center gap-3 mb-4">
@@ -192,10 +210,11 @@ export default function HomePage() {
                 </div>
               </div>
               <div className="mt-4 text-xs text-muted">
-                {dateRange[0] && dateRange[1] ? `${dateRange[0]} — ${dateRange[1]}` : '—'}
+                {deptRange[0] && deptRange[1] ? `${deptRange[0]} — ${deptRange[1]}` : '—'}
               </div>
             </Link>
-          ))}
+            );
+          })}
         </div>
       </section>
     </main>
