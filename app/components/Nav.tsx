@@ -9,13 +9,14 @@ import { Menu, X } from 'lucide-react';
 
 const NAV_LINKS = [
   { href: '/', label: 'Overview', desc: 'Dashboard summary & key metrics' },
+  { href: '/payments', label: 'Payments', desc: 'Revenue breakdown & payment trends' },
   { href: '/explorer', label: 'Data Explorer', desc: 'Dive into raw data & custom queries' },
   { href: '/dayparts', label: 'Dayparts', desc: 'Item sales by time of day' },
-  { href: '/tickets', label: 'Ticket Lookup', desc: 'Search tickets by date or number' },
-  { href: '/payments', label: 'Payments', desc: 'Revenue breakdown & payment trends' },
   { href: '/compare', label: 'Compare', desc: 'Side-by-side period comparisons' },
-  { href: '/bowling', label: 'Bowling Forecast', desc: 'Projected bowling lane revenue' },
+  { href: '/specials', label: 'Specials', desc: 'Summer packages & specialty cocktails' },
   { href: '/holidays', label: 'Holiday Analysis', desc: 'Performance around holidays & events' },
+  { href: '/bowling', label: 'Bowling Forecast', desc: 'Projected bowling lane revenue' },
+  { href: '/tickets', label: 'Ticket Lookup', desc: 'Search tickets by date or number' },
 ];
 
 function NavLink({

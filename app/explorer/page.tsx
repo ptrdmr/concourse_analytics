@@ -1,22 +1,19 @@
 'use client';
 
-import { useState, useEffect, useMemo, Suspense } from 'react';
-import { useSearchParams } from 'next/navigation';
-import { useTransactions, useSummary, useFilteredData, useModifiers, useModifierTransactions, usePackages } from '@/hooks/useTransactions';
-import { aggregatePackageItems, filterPackages } from '@/lib/packages';
+import { useState, useEffect, useMemo, useCallback, Suspense } from 'react';
+import { useTransactions, useSummary, useFilteredData, useModifiers, useModifierTransactions } from '@/hooks/useTransactions';
 import type { Filters } from '@/types';
 import { getYTD } from '@/lib/date-ranges';
 import { buildExplorerSummary } from '@/lib/build-data-summary';
 import { useDataContext } from '@/context/DataContext';
+import { parseDateRangeFromUrl, useUrlParams } from '@/hooks/useUrlFilters';
 import { FilterBar } from '@/components/dashboard/FilterBar';
 import { KpiRow } from '@/components/dashboard/KpiRow';
 import { CategoryPieChart } from '@/components/dashboard/CategoryPieChart';
 import { WeeklyTrendsChart } from '@/components/dashboard/WeeklyTrendsChart';
 import { TopItemsChart } from '@/components/dashboard/TopItemsChart';
-import { SpecialtyCocktailsPanel } from '@/components/dashboard/SpecialtyCocktailsPanel';
 import { ModifiersPanel } from '@/components/dashboard/ModifiersPanel';
 import { ItemDetailTable } from '@/components/dashboard/ItemDetailTable';
-import { PackageDetailTable } from '@/components/dashboard/PackageDetailTable';
 import { ItemHistoryPanel } from '@/components/dashboard/ItemHistoryPanel';
 import { RevenueCalendarCard } from '@/components/dashboard/RevenueCalendarCard';
 import { DayDetailModal } from '@/components/dashboard/DayDetailModal';
@@ -24,31 +21,46 @@ import type { ItemData } from '@/components/dashboard/ItemDetailTable';
 import { Nav } from '@/components/Nav';
 
 function ExplorerContent() {
-  const searchParams = useSearchParams();
-  const initialDept = searchParams.get('dept') || 'All';
+  const { get, replaceParams, searchParams } = useUrlParams();
   const { setDataSummary } = useDataContext();
 
   const { raw, loading: txnLoading } = useTransactions();
   const { summary, loading: sumLoading } = useSummary();
   const { modifiers } = useModifiers();
   const { modifierTransactions, loading: modTxnLoading } = useModifierTransactions();
-  const { packages, loading: pkgLoading } = usePackages();
 
-  const [filters, setFilters] = useState<Filters>({
-    department: initialDept,
-    dateRange: getYTD(),
-    categories: [],
-    searchTerm: '',
-  });
+  const filters = useMemo<Filters>(() => {
+    const catsRaw = get('cats');
+    const categories = catsRaw
+      ? catsRaw.split(',').map((s) => decodeURIComponent(s)).filter(Boolean)
+      : [];
+    return {
+      department: get('dept') || 'All',
+      dateRange: parseDateRangeFromUrl(get('from'), get('to')) ?? getYTD(),
+      categories,
+      searchTerm: get('q') || '',
+    };
+  }, [searchParams, get]);
+
+  const setFilters = useCallback(
+    (next: Filters | ((prev: Filters) => Filters)) => {
+      const resolved = typeof next === 'function' ? next(filters) : next;
+      replaceParams({
+        dept: resolved.department === 'All' ? null : resolved.department,
+        from: resolved.dateRange?.[0] ?? null,
+        to: resolved.dateRange?.[1] ?? null,
+        cats: resolved.categories.length
+          ? resolved.categories.map((c) => encodeURIComponent(c)).join(',')
+          : null,
+        q: resolved.searchTerm || null,
+      });
+    },
+    [filters, replaceParams],
+  );
+
   const [selectedItem, setSelectedItem] = useState<ItemData | null>(null);
-  const [historySource, setHistorySource] = useState<'items' | 'packages'>('items');
   const [selectedDate, setSelectedDate] = useState<string | null>(null);
   const [selectedCard, setSelectedCard] = useState<'category' | 'trends' | 'calendar' | null>(null);
-
-  useEffect(() => {
-    const dept = searchParams.get('dept');
-    if (dept) setFilters(f => ({ ...f, department: dept }));
-  }, [searchParams]);
 
   const departments = useMemo(() => {
     if (!summary) return [];
@@ -92,16 +104,6 @@ function ExplorerContent() {
   const displayDailyRevenueAllTime = isModifiersView ? modifierFiltered.dailyRevenueAllTime : dailyRevenueAllTime;
   const displayFiltered = isModifiersView ? modifierFiltered.filtered : filtered;
 
-  const packageFiltered = useMemo(
-    () => filterPackages(packages, filters),
-    [packages, filters],
-  );
-
-  const packageItems = useMemo(
-    () => aggregatePackageItems(packageFiltered),
-    [packageFiltered],
-  );
-
   const summaryText = useMemo(() => {
     if (txnLoading || sumLoading) return '';
     return buildExplorerSummary({
@@ -118,7 +120,7 @@ function ExplorerContent() {
     if (summaryText) setDataSummary(summaryText);
   }, [summaryText, setDataSummary]);
 
-  const loading = txnLoading || sumLoading || pkgLoading || (isModifiersView && modTxnLoading);
+  const loading = txnLoading || sumLoading || (isModifiersView && modTxnLoading);
 
   if (loading) {
     return (
@@ -204,10 +206,6 @@ function ExplorerContent() {
           </div>
         </div>
 
-        {filters.department === 'Bar' && (
-          <SpecialtyCocktailsPanel items={topItems} colors={categoryColors} />
-        )}
-
         {(filters.department === 'Food' || filters.department === 'Modifiers') && (
           <ModifiersPanel modifiers={modifiers} />
         )}
@@ -218,18 +216,7 @@ function ExplorerContent() {
           <ItemDetailTable
             items={displayTopItems}
             colors={categoryColors}
-            onItemClick={(item) => {
-              setHistorySource('items');
-              setSelectedItem(item);
-            }}
-          />
-          <PackageDetailTable
-            items={packageItems}
-            colors={categoryColors}
-            onItemClick={(item) => {
-              setHistorySource('packages');
-              setSelectedItem(item);
-            }}
+            onItemClick={(item) => setSelectedItem(item)}
           />
         </div>
       </div>
@@ -237,7 +224,7 @@ function ExplorerContent() {
       {selectedItem && (
         <ItemHistoryPanel
           item={selectedItem}
-          transactions={historySource === 'packages' ? packageFiltered : displayFiltered}
+          transactions={displayFiltered}
           colors={categoryColors}
           onClose={() => setSelectedItem(null)}
         />
