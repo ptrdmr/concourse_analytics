@@ -8,6 +8,7 @@
     "start": "next start",
     "lint": "next lint",
     "etl": "python scripts/export_dashboards.py",
+    "refresh": "python scripts/refresh_dashboard.py",
     "specialty": "python scripts/generate_specialty_cocktails_json.py"
   },
   "dependencies": {
