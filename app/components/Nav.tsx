@@ -8,23 +8,26 @@ import { usePathname } from 'next/navigation';
 import { Menu, X } from 'lucide-react';
 
 const NAV_LINKS = [
-  { href: '/', label: 'Overview' },
-  { href: '/explorer', label: 'Data Explorer' },
-  { href: '/tickets', label: 'Ticket Lookup' },
-  { href: '/payments', label: 'Payments' },
-  { href: '/compare', label: 'Compare' },
-  { href: '/bowling', label: 'Bowling Forecast' },
-  { href: '/holidays', label: 'Holiday Analysis' },
+  { href: '/', label: 'Overview', desc: 'Dashboard summary & key metrics' },
+  { href: '/explorer', label: 'Data Explorer', desc: 'Dive into raw data & custom queries' },
+  { href: '/dayparts', label: 'Dayparts', desc: 'Item sales by time of day' },
+  { href: '/tickets', label: 'Ticket Lookup', desc: 'Search tickets by date or number' },
+  { href: '/payments', label: 'Payments', desc: 'Revenue breakdown & payment trends' },
+  { href: '/compare', label: 'Compare', desc: 'Side-by-side period comparisons' },
+  { href: '/bowling', label: 'Bowling Forecast', desc: 'Projected bowling lane revenue' },
+  { href: '/holidays', label: 'Holiday Analysis', desc: 'Performance around holidays & events' },
 ];
 
 function NavLink({
   href,
   label,
+  desc,
   active,
   onClick,
 }: {
   href: string;
   label: string;
+  desc: string;
   active: boolean;
   onClick?: () => void;
 }) {
@@ -32,13 +35,14 @@ function NavLink({
     <Link
       href={href}
       onClick={onClick}
-      className={`block text-sm px-4 py-3 rounded-lg transition-colors ${
+      className={`block px-4 py-3 rounded-lg transition-colors ${
         active
           ? 'bg-accent/15 text-accent'
           : 'text-secondary hover:bg-white/5 hover:text-white'
       }`}
     >
-      {label}
+      <span className="text-sm font-medium">{label}</span>
+      <span className="block text-[11px] text-secondary/60 mt-0.5">{desc}</span>
     </Link>
   );
 }
@@ -87,17 +91,21 @@ export function Nav() {
         {/* Desktop nav links */}
         <div className="hidden md:flex items-center gap-1">
           {NAV_LINKS.map(link => (
-            <Link
-              key={link.href}
-              href={link.href}
-              className={`text-sm px-4 py-2 rounded-full transition-colors ${
-                linkActive(link.href)
-                  ? 'bg-accent/15 text-accent'
-                  : 'text-secondary hover:bg-white/5 hover:text-white'
-              }`}
-            >
-              {link.label}
-            </Link>
+            <div key={link.href} className="relative group">
+              <Link
+                href={link.href}
+                className={`text-sm px-4 py-2 rounded-full transition-colors ${
+                  linkActive(link.href)
+                    ? 'bg-accent/15 text-accent'
+                    : 'text-secondary hover:bg-white/5 hover:text-white'
+                }`}
+              >
+                {link.label}
+              </Link>
+              <div className="pointer-events-none absolute left-1/2 -translate-x-1/2 top-full mt-2 px-3 py-1.5 rounded-lg bg-[#1a1a1a] border border-border text-xs text-secondary whitespace-nowrap opacity-0 translate-y-1 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-150 shadow-lg">
+                {link.desc}
+              </div>
+            </div>
           ))}
         </div>
 
@@ -140,6 +148,7 @@ export function Nav() {
                     key={link.href}
                     href={link.href}
                     label={link.label}
+                    desc={link.desc}
                     active={linkActive(link.href)}
                     onClick={() => setMenuOpen(false)}
                   />

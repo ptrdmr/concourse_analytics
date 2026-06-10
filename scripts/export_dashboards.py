@@ -74,6 +74,29 @@ YEAR_COLORS = ['#00b0ff', '#f5a623', '#ff5252', '#0ea5e9', '#ff9100', '#bb86fc']
 
 
 BUSINESS_DAY_CUTOFF_HOUR = 4
+SKIP_DEPARTMENTS = {'', 'TEST DEPARTMENT', 'Parties test'}
+INTRADAY_DIR = os.path.join(OUTPUT_DIR, 'intraday')
+
+
+def parse_time_fields(time_raw):
+    """Parse Item Created Time into hour, minute, and 30-min slot (0-47)."""
+    if not time_raw or ':' not in time_raw:
+        return None, None, None
+    parts = time_raw.split(':')
+    try:
+        hour = int(parts[0])
+        minute = int(parts[1])
+    except (ValueError, IndexError):
+        return None, None, None
+    slot = hour * 2 + (1 if minute >= 30 else 0)
+    return hour, minute, slot
+
+
+def resolve_item_category(name, dept, subdept, category_overrides):
+    """Shared category + department resolution for all aggregations."""
+    category = category_overrides.get(name) or subdept or dept
+    department = 'Parties' if category == 'Parties' else dept
+    return department, category
 
 
 def business_day(date_str, time_str):
@@ -239,6 +262,9 @@ def read_all_csvs(csv_files):
                 unit_price = float(row[idx['Unit Amount']] or 0)
                 item_total = float(row[idx['Total']] or 0) if 'Total' in idx else 0
 
+                time_raw = row[idx['Item Created Time']].strip() if 'Item Created Time' in idx else ''
+                hour, minute, slot = parse_time_fields(time_raw)
+
                 yield {
                     'txn_id':       row[idx['Transaction ID']],
                     'item_id':      int(row[idx['Item ID']]),
@@ -251,8 +277,11 @@ def read_all_csvs(csv_files):
                     'item_total':   item_total,
                     'date':         business_day(
                                         row[idx['Item Created Date']].strip(),
-                                        row[idx['Item Created Time']].strip() if 'Item Created Time' in idx else '',
+                                        time_raw,
                                     ),
+                    'hour':         hour,
+                    'minute':       minute,
+                    'slot':         slot,
                 }
 
     print(f'  Read {total_rows:,} rows, skipped {dupes:,} duplicates')
@@ -348,9 +377,7 @@ def aggregate_item_date(products, category_overrides):
     rows = []
     for (name, date_str, dept), data in agg.items():
         subdept = data['subdepartment']
-        category = category_overrides.get(name) or subdept or dept
-        # Reassign department when category override moves item to Parties
-        department = 'Parties' if category == 'Parties' else dept
+        department, category = resolve_item_category(name, dept, subdept, category_overrides)
 
         rows.append({
             'date': date_str,
@@ -363,9 +390,180 @@ def aggregate_item_date(products, category_overrides):
             'transactions': data['transactions'],
         })
 
-    SKIP_DEPARTMENTS = {'', 'TEST DEPARTMENT', 'Parties test'}
     rows = [r for r in rows if r['department'] not in SKIP_DEPARTMENTS]
     rows.sort(key=lambda r: (r['date'], r['department'], r['name']))
+    return rows
+
+
+def aggregate_intraday(products, category_overrides):
+    """
+    Aggregate resolved products into item x business_date x 30-min slot rows.
+    Uses the same category-override logic as aggregate_item_date().
+    """
+    agg = defaultdict(lambda: {
+        'quantity': 0.0,
+        'revenue': 0.0,
+        'transactions': 0,
+        'subdepartment': '',
+        'category': '',
+    })
+
+    for p in products:
+        slot = p.get('slot')
+        if slot is None:
+            continue
+
+        name = p['name']
+        date_str = p['date']
+        dept = p['department']
+        subdept = p.get('subdepartment', '')
+        department, category = resolve_item_category(name, dept, subdept, category_overrides)
+        if department in SKIP_DEPARTMENTS:
+            continue
+
+        qty = p['qty']
+        unit_price = p['unit_price']
+        item_total = p.get('item_total', 0)
+        revenue = item_total if item_total != 0 else (unit_price * qty if qty else unit_price)
+
+        key = (name, date_str, slot, department, subdept, category)
+        bucket = agg[key]
+        bucket['quantity'] += qty
+        bucket['revenue'] += revenue
+        bucket['transactions'] += 1
+        if subdept:
+            bucket['subdepartment'] = subdept
+        bucket['category'] = category
+
+    rows = []
+    for (name, date_str, slot, department, subdept, category), data in agg.items():
+        rows.append({
+            'date': date_str,
+            'slot': slot,
+            'name': name,
+            'department': department,
+            'subdepartment': subdept,
+            'category': category,
+            'quantity': round(data['quantity']),
+            'revenue': round(data['revenue'], 2),
+            'transactions': data['transactions'],
+        })
+
+    rows.sort(key=lambda r: (r['date'], r['slot'], r['department'], r['name']))
+    return rows
+
+
+def read_void_rows(csv_files):
+    """
+    Read voided/deleted POS rows (Sales, Product/Modifier/Package).
+    Yields one dict per unique (Transaction ID, Item ID).
+    """
+    seen = set()
+    total_rows = 0
+
+    columns = [
+        'Transaction ID', 'Item ID', 'Name', 'Item Type',
+        'Department', 'Subdepartment', 'Quantity', 'Unit Amount',
+        'Total', 'Transaction Type',
+        'Deleted', 'Voided', 'Item Created Date', 'Item Created Time',
+    ]
+
+    for csv_path in csv_files:
+        with open(csv_path, 'r', encoding='utf-8') as f:
+            reader = csv.reader(f, delimiter=';')
+            header = next(reader)
+
+            idx = {}
+            for c in columns:
+                if c in header:
+                    idx[c] = header.index(c)
+            if 'Transaction ID' not in idx or 'Item ID' not in idx:
+                continue
+            max_idx = max(idx.values())
+
+            for row in reader:
+                if len(row) <= max_idx:
+                    continue
+                if row[idx['Deleted']] == 'False' and row[idx['Voided']] == 'False':
+                    continue
+                if 'Transaction Type' in idx and row[idx['Transaction Type']] != 'Sales':
+                    continue
+                item_type = row[idx['Item Type']]
+                if item_type not in ('Product', 'Modifier', 'Package'):
+                    continue
+
+                key = (row[idx['Transaction ID']], row[idx['Item ID']])
+                if key in seen:
+                    continue
+                seen.add(key)
+                total_rows += 1
+
+                name = row[idx['Name']].strip()
+                name = NAME_MERGE.get(name, name)
+                time_raw = row[idx['Item Created Time']].strip() if 'Item Created Time' in idx else ''
+                _, _, slot = parse_time_fields(time_raw)
+                if slot is None:
+                    continue
+
+                qty = float(row[idx['Quantity']] or 0)
+                unit_price = float(row[idx['Unit Amount']] or 0)
+                item_total = float(row[idx['Total']] or 0) if 'Total' in idx else 0
+                value = abs(item_total if item_total != 0 else (unit_price * qty if qty else unit_price))
+
+                void_type = 'deleted' if row[idx['Deleted']] != 'False' else 'voided'
+
+                yield {
+                    'name': name,
+                    'department': row[idx.get('Department', 0)].strip() if 'Department' in idx else '',
+                    'subdepartment': normalize_subdepartment(row[idx.get('Subdepartment', 0)].strip()) if 'Subdepartment' in idx else '',
+                    'date': business_day(
+                        row[idx['Item Created Date']].strip(),
+                        time_raw,
+                    ),
+                    'slot': slot,
+                    'quantity': qty if qty else 1,
+                    'value': value,
+                    'type': void_type,
+                }
+
+    print(f'  Read {total_rows:,} void/deleted rows')
+
+
+def aggregate_voids(void_rows, category_overrides):
+    """Aggregate void/deleted rows by item x date x slot x department."""
+    agg = defaultdict(lambda: {
+        'quantity': 0.0,
+        'value': 0.0,
+        'type': 'voided',
+    })
+
+    for row in void_rows:
+        name = row['name']
+        dept = row['department']
+        subdept = row.get('subdepartment', '')
+        department, _category = resolve_item_category(name, dept, subdept, category_overrides)
+        if department in SKIP_DEPARTMENTS:
+            continue
+
+        key = (name, row['date'], row['slot'], department, row['type'])
+        bucket = agg[key]
+        bucket['quantity'] += row['quantity']
+        bucket['value'] += row['value']
+        bucket['type'] = row['type']
+
+    rows = []
+    for (name, date_str, slot, department, void_type), data in agg.items():
+        rows.append({
+            'date': date_str,
+            'slot': slot,
+            'name': name,
+            'department': department,
+            'quantity': round(data['quantity']),
+            'value': round(data['value'], 2),
+            'type': void_type,
+        })
+
+    rows.sort(key=lambda r: (r['date'], r['slot'], r['department'], r['name']))
     return rows
 
 
@@ -521,7 +719,84 @@ def export_transactions(csv_files, category_overrides):
 
     size_kb = os.path.getsize(out) / 1024
     print(f'  -> {out}  ({size_kb:.0f} KB)')
-    return rows
+    return rows, products
+
+
+def _write_intraday_shards(rows, subdir=''):
+    """Write intraday rows sharded by department/year under public/data/intraday/."""
+    base = os.path.join(INTRADAY_DIR, subdir) if subdir else INTRADAY_DIR
+    os.makedirs(base, exist_ok=True)
+
+    by_dept_year = defaultdict(list)
+    for r in rows:
+        year = r['date'][:4]
+        by_dept_year[(r['department'], year)].append(r)
+
+    departments = set()
+    years = set()
+    counts = {}
+
+    for (dept, year), dept_rows in sorted(by_dept_year.items()):
+        dept_dir = os.path.join(base, dept)
+        os.makedirs(dept_dir, exist_ok=True)
+        out = os.path.join(dept_dir, f'{year}.json')
+        with open(out, 'w', encoding='utf-8') as f:
+            json.dump(dept_rows, f, separators=(',', ':'))
+        size_kb = os.path.getsize(out) / 1024
+        departments.add(dept)
+        years.add(year)
+        key = f'{subdir}/{dept}/{year}' if subdir else f'{dept}/{year}'
+        counts[key] = len(dept_rows)
+        print(f'  -> {out}  ({len(dept_rows):,} rows, {size_kb:.0f} KB)')
+
+    return sorted(departments), sorted(years), counts
+
+
+def export_intraday(products, category_overrides):
+    """Export item x date x 30-min slot rows, sharded by department/year."""
+    print('  Aggregating intraday (item x date x slot)...')
+    rows = aggregate_intraday(products, category_overrides)
+    print(f'  {len(rows):,} intraday rows')
+
+    departments, years, counts = _write_intraday_shards(rows)
+    return {
+        'departments': departments,
+        'years': years,
+        'counts': counts,
+    }
+
+
+def export_voids(csv_files, category_overrides):
+    """Export voided/deleted item rows, sharded by department/year."""
+    print('  Reading void/deleted rows...')
+    void_rows = list(read_void_rows(csv_files))
+
+    print('  Aggregating voids (item x date x slot)...')
+    rows = aggregate_voids(void_rows, category_overrides)
+    print(f'  {len(rows):,} void rows')
+
+    departments, years, counts = _write_intraday_shards(rows, subdir='voids')
+    return sorted(years), counts
+
+
+def write_intraday_index(intraday_meta, void_years, void_counts=None):
+    """Write index.json for the intraday dashboard."""
+    counts = dict(intraday_meta.get('counts', {}))
+    if void_counts:
+        counts.update(void_counts)
+    index = {
+        'departments': intraday_meta['departments'],
+        'years': intraday_meta['years'],
+        'generated': datetime.now().isoformat(),
+        'voidYears': void_years,
+        'counts': counts,
+    }
+    os.makedirs(INTRADAY_DIR, exist_ok=True)
+    out = os.path.join(INTRADAY_DIR, 'index.json')
+    with open(out, 'w', encoding='utf-8') as f:
+        json.dump(index, f, indent=2)
+    print(f'  -> {out}')
+    return index
 
 
 # =============================================================================
@@ -1390,27 +1665,27 @@ def main():
     category_overrides = load_category_overrides()
     print(f'Category overrides: {len(category_overrides)} entries')
 
-    print('\n[1/9] Transactions...')
-    rows = export_transactions(csv_files, category_overrides)
+    print('\n[1/11] Transactions...')
+    rows, products = export_transactions(csv_files, category_overrides)
 
-    print('\n[2/9] Modifiers...')
+    print('\n[2/11] Modifiers...')
     export_modifiers(csv_files)
     print('  Modifier transactions (date-granular)...')
     export_modifier_transactions(csv_files)
 
-    print('\n[3/9] Summary...')
+    print('\n[3/11] Summary...')
     summary = export_summary(rows)
     for dept, info in summary['departments'].items():
         print(f'  {dept}: ${info["revenue"]:,.0f}  '
               f'({info["uniqueItems"]} items, {info["transactions"]:,} txns)')
 
-    print('\n[4/9] Bowling Seasonality...')
+    print('\n[4/11] Bowling Seasonality...')
     export_bowling_seasonality(csv_files)
 
-    print('\n[5/9] Bowling Forecast...')
+    print('\n[5/11] Bowling Forecast...')
     export_bowling_forecast(csv_files)
 
-    print('\n[6/9] Holiday Analysis...')
+    print('\n[6/11] Holiday Analysis...')
     try:
         import sys
         _scripts = os.path.join(_ROOT, 'scripts')
@@ -1422,14 +1697,21 @@ def main():
     except ImportError as e:
         print(f'  SKIP: holiday_analysis not available ({e})')
 
-    print('\n[7/9] Ticket detail (by month)...')
+    print('\n[7/11] Ticket detail (by month)...')
     export_ticket_detail(csv_files)
 
-    print('\n[8/9] Payments...')
+    print('\n[8/11] Payments...')
     export_payments(csv_files)
 
-    print('\n[9/9] Packages (summer specials)...')
+    print('\n[9/11] Packages (summer specials)...')
     export_packages(csv_files)
+
+    print('\n[10/11] Intraday sales (by department/year)...')
+    intraday_meta = export_intraday(products, category_overrides)
+
+    print('\n[11/11] Intraday voids (by department/year)...')
+    void_years, void_counts = export_voids(csv_files, category_overrides)
+    write_intraday_index(intraday_meta, void_years, void_counts)
 
     print('\n' + '=' * 60)
     print(f'Done! {len(rows):,} transaction rows written to {OUTPUT_DIR}')

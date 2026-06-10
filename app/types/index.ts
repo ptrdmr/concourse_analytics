@@ -77,3 +77,33 @@ export interface Ticket {
   type: string;
   items: TicketLineItem[];
 }
+
+export interface IntradayRecord {
+  date: string;
+  slot: number;
+  name: string;
+  department: string;
+  subdepartment: string;
+  category: string;
+  quantity: number;
+  revenue: number;
+  transactions: number;
+}
+
+export interface VoidRecord {
+  date: string;
+  slot: number;
+  name: string;
+  department: string;
+  quantity: number;
+  value: number;
+  type: 'voided' | 'deleted';
+}
+
+export interface IntradayIndex {
+  departments: string[];
+  years: string[];
+  generated: string;
+  voidYears: string[];
+  counts?: Record<string, number>;
+}
