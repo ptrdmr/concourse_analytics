@@ -3,13 +3,21 @@
 import { useState, useRef, useEffect, type KeyboardEvent } from 'react';
 import { MessageSquare, X, Send, Trash2, Search, Loader2 } from 'lucide-react';
 import { useChat } from '@/hooks/useChat';
+import { useDataContext } from '@/context/DataContext';
 
 export function ChatWidget() {
   const [open, setOpen] = useState(false);
   const [input, setInput] = useState('');
   const { messages, status, streaming, error, send, clear } = useChat();
+  const { loadTransactions, transactionsLoading, transactionsFetched } = useDataContext();
   const scrollRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLTextAreaElement>(null);
+
+  useEffect(() => {
+    if (open) {
+      loadTransactions();
+    }
+  }, [open, loadTransactions]);
 
   useEffect(() => {
     if (scrollRef.current) {
@@ -24,10 +32,12 @@ export function ChatWidget() {
   }, [open]);
 
   const handleSend = () => {
-    if (!input.trim() || streaming) return;
+    if (!input.trim() || streaming || !transactionsFetched) return;
     send(input);
     setInput('');
   };
+
+  const dataLoading = open && (!transactionsFetched || transactionsLoading);
 
   const handleKeyDown = (e: KeyboardEvent<HTMLTextAreaElement>) => {
     if (e.key === 'Enter' && !e.shiftKey) {
@@ -83,7 +93,16 @@ export function ChatWidget() {
 
       {/* Messages */}
       <div ref={scrollRef} className="flex-1 overflow-y-auto px-4 py-3 space-y-3 min-h-[200px] max-h-[440px]">
-        {messages.length === 0 && !streaming && (
+        {dataLoading && (
+          <div className="flex justify-center py-8">
+            <div className="flex items-center gap-2 text-secondary text-sm">
+              <Loader2 className="w-4 h-4 animate-spin text-accent" />
+              Loading transaction data...
+            </div>
+          </div>
+        )}
+
+        {!dataLoading && messages.length === 0 && !streaming && (
           <div className="text-center py-8 text-muted text-sm space-y-3">
             <p>Ask questions about your dashboard data.</p>
             <div className="space-y-1.5">
@@ -156,7 +175,7 @@ export function ChatWidget() {
           />
           <button
             onClick={handleSend}
-            disabled={!input.trim() || streaming}
+            disabled={!input.trim() || streaming || !transactionsFetched}
             className="p-2 rounded-lg bg-accent text-black hover:bg-accent/80
                        disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
             aria-label="Send message"

@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect, useMemo } from 'react';
+import { useDataContext } from '@/context/DataContext';
 import type { Transaction, Summary, Filters, PaymentRecord, PackageRecord } from '@/types';
 
 const LOAD_TIMEOUT_MS = 60000; // 60 seconds for large transactions.json
@@ -35,23 +36,14 @@ export function useSummary() {
 }
 
 export function useTransactions() {
-  const [raw, setRaw] = useState<Transaction[]>([]);
-  const [loading, setLoading] = useState(true);
+  const { transactions, transactionsLoading, transactionsFetched, loadTransactions } = useDataContext();
 
   useEffect(() => {
-    fetchWithTimeout('/data/transactions.json')
-      .then((res) => {
-        if (!res.ok) throw new Error(`Failed to load (${res.status})`);
-        return res.json();
-      })
-      .then((data: Transaction[]) => {
-        setRaw(data);
-        setLoading(false);
-      })
-      .catch(() => setLoading(false));
-  }, []);
+    loadTransactions();
+  }, [loadTransactions]);
 
-  return { raw, loading };
+  const loading = !transactionsFetched || transactionsLoading;
+  return { raw: transactions, loading };
 }
 
 export interface ModifierData {
@@ -124,23 +116,19 @@ export function usePayments() {
 
 /** Date-granular modifier rows for Modifiers department view (calendar, trends, KPIs). */
 export function useModifierTransactions() {
-  const [data, setData] = useState<Transaction[]>([]);
-  const [loading, setLoading] = useState(true);
+  const {
+    modifierTransactions,
+    modifierTransactionsLoading,
+    modifierTransactionsFetched,
+    loadModifierTransactions,
+  } = useDataContext();
 
   useEffect(() => {
-    fetchWithTimeout('/data/modifier_transactions.json', 60000)
-      .then((res) => {
-        if (!res.ok) throw new Error(`Failed to load (${res.status})`);
-        return res.json();
-      })
-      .then((rows: Transaction[]) => {
-        setData(Array.isArray(rows) ? rows : []);
-        setLoading(false);
-      })
-      .catch(() => setLoading(false));
-  }, []);
+    loadModifierTransactions();
+  }, [loadModifierTransactions]);
 
-  return { modifierTransactions: data, loading };
+  const loading = !modifierTransactionsFetched || modifierTransactionsLoading;
+  return { modifierTransactions, loading };
 }
 
 export function useFilteredData(raw: Transaction[], filters: Filters) {
