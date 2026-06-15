@@ -80,16 +80,25 @@ export function useIntradayData(
     [index],
   );
 
+  const dateFrom = filters.dateRange?.[0];
+  const dateTo = filters.dateRange?.[1];
+
   const yearsNeeded = useMemo(() => {
     if (!index) return [];
-    return yearsInRange(filters.dateRange, index.years);
-  }, [index, filters.dateRange]);
+    const range =
+      dateFrom && dateTo ? ([dateFrom, dateTo] as DateRange) : filters.dateRange;
+    return yearsInRange(range, index.years);
+  }, [index, dateFrom, dateTo, filters.dateRange]);
 
-  const loadKey = `${filters.department}:${yearsNeeded.join(',')}`;
+  const yearsKey = yearsNeeded.join(',');
+  const loadKey = `${filters.department}:${yearsKey}`;
 
   useEffect(() => {
     if (!index || !filters.department || yearsNeeded.length === 0) {
-      setSalesRecords([]);
+      if (loadedKey !== '') {
+        setSalesRecords([]);
+        setLoadedKey('');
+      }
       return;
     }
 
@@ -104,6 +113,7 @@ export function useIntradayData(
     }
 
     if (missingPairs.length === 0) {
+      if (loadedKey === loadKey) return;
       setSalesRecords(mergeSalesForSelection(
         salesCache.current,
         filters.department,
@@ -138,7 +148,7 @@ export function useIntradayData(
       })
       .catch(() => setSalesRecords([]))
       .finally(() => setLoading(false));
-  }, [index, filters.department, departments, yearsNeeded, loadKey]);
+  }, [index, filters.department, departments, yearsKey, yearsNeeded, loadKey, loadedKey]);
 
   const filteredSales = useMemo(
     () =>
@@ -148,7 +158,13 @@ export function useIntradayData(
         categories: filters.categories,
         selectedItems: filters.selectedItems,
       }),
-    [salesRecords, filters],
+    [
+      salesRecords,
+      filters.dateRange,
+      filters.daysOfWeek,
+      filters.categories,
+      filters.selectedItems,
+    ],
   );
 
   const dayCount = useMemo(

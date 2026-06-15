@@ -34,9 +34,11 @@ function ExplorerContent() {
     const categories = catsRaw
       ? catsRaw.split(',').map((s) => decodeURIComponent(s)).filter(Boolean)
       : [];
+    const parsed = parseDateRangeFromUrl(get('from'), get('to'));
+    const ytd = getYTD();
     return {
       department: get('dept') || 'All',
-      dateRange: parseDateRangeFromUrl(get('from'), get('to')) ?? getYTD(),
+      dateRange: parsed ?? [ytd[0], ytd[1]],
       categories,
       searchTerm: get('q') || '',
     };

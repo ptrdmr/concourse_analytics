@@ -42,11 +42,15 @@ export function useUrlDateRange(defaultRange: DateRange | null) {
   const { get, replaceParams } = useUrlParams();
   const from = get('from');
   const to = get('to');
+  const defaultFrom = defaultRange?.[0];
+  const defaultTo = defaultRange?.[1];
 
-  const value = useMemo(
-    () => parseDateRangeFromUrl(from, to) ?? defaultRange,
-    [from, to, defaultRange],
-  );
+  const value = useMemo((): DateRange | null => {
+    const parsed = parseDateRangeFromUrl(from, to);
+    if (parsed) return parsed;
+    if (defaultFrom && defaultTo) return [defaultFrom, defaultTo];
+    return null;
+  }, [from, to, defaultFrom, defaultTo]);
 
   const setValue = useCallback(
     (range: DateRange | null) => {
