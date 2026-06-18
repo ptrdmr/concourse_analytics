@@ -43,7 +43,7 @@ export function DateRangePicker({ value, onChange }: Props) {
           <button
             key={preset.id}
             onClick={() => selectPreset(preset.id, preset.range())}
-            className={`px-3 py-1.5 rounded-full text-xs font-medium transition-colors ${
+            className={`px-2.5 sm:px-3 py-1 sm:py-1.5 rounded-full text-[11px] sm:text-xs font-medium transition-colors ${
               activeId === preset.id
                 ? 'bg-accent/20 text-accent border border-accent/40'
                 : 'bg-white/5 text-secondary hover:bg-white/10 hover:text-white border border-transparent'
@@ -54,7 +54,7 @@ export function DateRangePicker({ value, onChange }: Props) {
         ))}
         <button
           onClick={() => setForceCustom(true)}
-          className={`px-3 py-1.5 rounded-full text-xs font-medium transition-colors ${
+          className={`px-2.5 sm:px-3 py-1 sm:py-1.5 rounded-full text-[11px] sm:text-xs font-medium transition-colors ${
             activeId === 'custom'
               ? 'bg-accent/20 text-accent border border-accent/40'
               : 'bg-white/5 text-secondary hover:bg-white/10 hover:text-white border border-transparent'

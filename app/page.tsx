@@ -175,7 +175,7 @@ function HomeContent() {
           <h2 className="text-2xl sm:text-4xl font-bold mb-2">Business Overview</h2>
           <DateRangePicker value={dateRange} onChange={setDateRange} />
           <p className="text-secondary mt-2">{displayDateRange}</p>
-          <p className="text-xs text-muted mt-1">
+          <p className="text-xs text-muted mt-1 break-words">
             Sales through {salesThrough ?? '—'}
             {laborAvailable && laborThrough ? ` · Labor through ${laborThrough}` : laborLoading ? '' : ' · Labor not loaded'}
           </p>
@@ -187,7 +187,7 @@ function HomeContent() {
           laborDelta={priorComparison?.laborDelta}
         />
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mt-8">
+        <div className="hidden lg:grid grid-cols-4 gap-4 mt-8">
           <OwnerKpiCard
             icon={<DollarSign className="w-5 h-5" />}
             label="Total Sales"
