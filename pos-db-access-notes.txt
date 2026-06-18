@@ -1,0 +1,276 @@
+==============================================================================
+POS DATABASE ACCESS - WORKING NOTES / HANDOFF
+Project: Concourse Analytics (Concourse Bowl-Bar-Grill)
+Last updated: 2026-06-15
+Purpose: Move from manual CSV pulls -> direct, controlled, READ-ONLY pulls
+         from the POS database, to get better data resolution/control.
+==============================================================================
+
+------------------------------------------------------------------------------
+GOAL
+------------------------------------------------------------------------------
+Replace the manual CSV export step with an automated, read-only pull directly
+from the POS database. First milestone: have the DB pull PRODUCE the same
+semicolon-delimited CSV the existing Python ETL already consumes, so nothing
+downstream changes. Prove it matches a manual export, THEN automate.
+
+------------------------------------------------------------------------------
+CURRENT STATE (how data flows today)
+------------------------------------------------------------------------------
+- POS back-office app ("Office") exports a "Journal Log" as a semicolon-
+  delimited CSV.
+- CSVs are dropped into Google Drive (used as a go-between from the server to
+  the desktop), then placed in this repo's data/ folder.
+- Python ETL (scripts/export_dashboards.py, `npm run etl`) reads ALL CSVs,
+  dedupes by (Transaction ID + Item ID), resolves modifiers, and writes JSON
+  to public/data/ for the Next.js dashboard.
+
+CSV fields the ETL relies on (semicolon-delimited):
+  Transaction ID, Item ID, Name, Quantity, Unit Amount, Total,
+  Item Created Date, Item Created Time, Department, Subdepartment,
+  Item Type, Transaction Type, Deleted, Voided
+Business-day rule: activity before 4:00 AM rolls to the previous day.
+Modifiers: modifier revenue is rolled into the parent product (no double-count).
+
+------------------------------------------------------------------------------
+POS SYSTEM
+------------------------------------------------------------------------------
+- Software: Brunswick "Sync" (POS + scoring system), latest version.
+- Back-office module: "Office" (this is what exports the Journal Log today).
+- Architecture: ONE server terminal ("SYNCSERVER") that connects over a flat,
+  lightly-regulated network to all other terminals and scoring peripherals in
+  the building. The server is the hub for the whole building.
+
+------------------------------------------------------------------------------
+DATABASE FACTS (confirmed via SSMS)
+------------------------------------------------------------------------------
+- Engine: Microsoft SQL Server 2022 (RTM) 16.0.1000.6, EXPRESS Edition (x64).
+  (NOTE: earlier guess of MySQL was WRONG - the .mdf/.ldf files prove SQL Server.)
+- OS: Windows Server 2022 Standard.
+- Instance: SYNCSERVER\SYNCDB
+- Databases present:
+    * Sync          (~5.6 GB)  - main DB: scoring + POS config/operational
+    * SyncJournal   (~1.1 GB)  - the journal/transaction DB  <-- PRIMARY TARGET
+      (lines up with the "Journal Log" that Office exports today)
+- DB files seen: Sync.mdf / Sync_Log.ldf, SyncJournal.mdf / SyncJournal_Log.ldf
+
+EXPRESS EDITION CONSTRAINTS (important):
+  * No SQL Server Agent -> cannot schedule jobs inside SQL.
+    => Automated pull will run via WINDOWS TASK SCHEDULER on the server.
+  * 10 GB max size PER database. (Sync ~5.6GB, SyncJournal ~1.1GB - both OK,
+    but if either nears 10GB the POS itself could start failing. Worth watching.)
+  * Capped RAM/CPU (small buffer pool, 1 socket). Another reason to pull
+    AFTER CLOSE so we don't compete with live scoring/POS.
+
+SQL SERVER SERVICES (from services.msc):
+  * SQL Server (SYNCDB)      : Running, Automatic (Delayed Start)  <-- auto-recovers on reboot
+  * SQL Server Agent (SYNCDB): Disabled (expected for Express)
+  * SQL Server Browser       : Running (lets us connect by instance name)
+  * SQL Server CEIP / VSS Writer: running (telemetry/backup helpers)
+
+------------------------------------------------------------------------------
+ACCESS / PERMISSIONS - THE KEY BOUNDARY
+------------------------------------------------------------------------------
+- Connected to SQL via WINDOWS AUTHENTICATION as account "...SERVER\owner"
+  (no password prompt). This account has HIGH privileges INSIDE SQL Server
+  (effectively sysadmin/owner: can read+write+drop). For now: SELECT ONLY.
+- Instance auth mode check:
+      SELECT SERVERPROPERTY('IsIntegratedSecurityOnly');  -> returned 1
+  => Currently WINDOWS-AUTH ONLY. SQL username/password logins won't work
+     until "Mixed Mode" is enabled.
+- WINDOWS-LEVEL admin: user does NOT have local admin on SYNCSERVER.
+  Evidence: SSMS "Restart" of the SQL service failed with "Access Denied"
+  (stopping a Windows service needs local admin, which is separate from SQL rights).
+- BUT: user reboots the whole server manually every Monday morning, and the POS
+  comes back fine each time. So: user CAN reboot, and the SQL service reliably
+  auto-starts (confirmed Automatic/Delayed Start). A reboot is the safe way to
+  apply the auth-mode change without needing service-restart rights.
+
+------------------------------------------------------------------------------
+DECISION / PLAN (Path A: SQL login via Mixed Mode, applied on reboot)
+------------------------------------------------------------------------------
+STEP 1 (no disruption - can do anytime):
+  In SSMS: right-click server (SYNCSERVER\SYNCDB) -> Properties -> Security ->
+  select "SQL Server and Windows Authentication mode" -> OK.
+  This only STAGES the change. NOTE: enabling Mixed Mode is ADDITIVE - it does
+  NOT lock out the POS; Windows auth keeps working exactly as before. The change
+  just needs a service restart (=> a reboot) to take effect.
+
+STEP 2 (apply): Reboot the server (the normal Monday reboot works).
+  After reboot, Mixed Mode is active. The SQL service auto-starts.
+
+STEP 3 (after reboot): create a dedicated READ-ONLY SQL login (least privilege):
+
+    -- run as current owner/sysadmin account
+    CREATE LOGIN concourse_readonly
+        WITH PASSWORD = 'PUT-A-STRONG-PASSWORD-HERE',
+             CHECK_POLICY = ON;
+
+    USE SyncJournal;
+    CREATE USER concourse_readonly FOR LOGIN concourse_readonly;
+    ALTER ROLE db_datareader ADD MEMBER concourse_readonly;
+
+    USE Sync;   -- for lookup tables (item/department names) if needed
+    CREATE USER concourse_readonly FOR LOGIN concourse_readonly;
+    ALTER ROLE db_datareader ADD MEMBER concourse_readonly;
+
+  db_datareader = SELECT on all tables/views, and NOTHING else (no insert/
+  update/delete/schema). That is exactly the read-only box we want.
+
+STEP 4 (verify the guardrail): reconnect as concourse_readonly (SQL auth) and:
+    SELECT TOP 10 * FROM SyncJournal.sys.tables;        -- should WORK
+    CREATE TABLE dbo.zzz_test (a int);                  -- should FAIL (denied)
+  If the write FAILS, the read-only guardrail is correct. If it SUCCEEDS, stop -
+  the grant was too broad.
+
+STEP 5 (store secret safely): put the password in a password manager. When the
+  Python pull is built, the password goes in an ENV VAR or a .gitignored .env -
+  NEVER hard-coded or committed.
+
+Alternative (Path B, not chosen): a dedicated Windows account (no Mixed Mode,
+no restart), but creating a Windows user also needs local admin, and workgroup
+pass-through auth makes desktop testing fiddly. Revisit only if Path A stalls.
+
+------------------------------------------------------------------------------
+NEXT STEPS AFTER THE READ-ONLY LOGIN EXISTS
+------------------------------------------------------------------------------
+1. SCHEMA DISCOVERY (read-only) - map SyncJournal tables to the CSV fields.
+   Run in SSMS (all read-only / NOLOCK; safe):
+
+     SELECT @@VERSION;
+
+     SELECT name, state_desc, recovery_model_desc FROM sys.databases ORDER BY name;
+
+     USE SyncJournal;
+     -- tables by approx row count (find the big "sales" tables)
+     SELECT s.name AS [schema], t.name AS table_name, SUM(p.rows) AS approx_rows
+     FROM sys.tables t
+     JOIN sys.schemas s    ON t.schema_id = s.schema_id
+     JOIN sys.partitions p ON t.object_id = p.object_id AND p.index_id IN (0,1)
+     GROUP BY s.name, t.name
+     ORDER BY approx_rows DESC;
+
+     -- all columns (match to: Transaction ID, Item ID, Name, Quantity,
+     --   Unit Amount, Total, Item Created Date/Time, Department, Subdepartment,
+     --   Item Type, Transaction Type, Deleted, Voided)
+     SELECT t.name AS table_name, c.name AS column_name, ty.name AS data_type,
+            c.max_length, c.is_nullable
+     FROM sys.columns c
+     JOIN sys.tables t ON c.object_id = t.object_id
+     JOIN sys.types ty ON c.user_type_id = ty.user_type_id
+     ORDER BY t.name, c.column_id;
+
+2. Build ONE query that reproduces a single day of the existing export.
+3. RECONCILE: diff DB-pull CSV vs a manual "Office" export for the same day.
+   They must match before trusting/automating.
+4. Build the Python pull (pyodbc) that emits the same semicolon CSV format.
+   - Use Microsoft ODBC Driver 18 for SQL Server.
+   - Connection string gotcha: Driver 18 encrypts by default; for this local
+     self-signed instance use:  Encrypt=yes;TrustServerCertificate=yes
+   - Connect to instance by name: Server=SYNCSERVER\SYNCDB  (Browser is running)
+5. Orchestrate: Windows Task Scheduler on the server runs the pull AFTER CLOSE
+   (after the 4 AM business-day cutoff), writes CSV to the existing Google
+   Drive folder. Existing ETL (`npm run etl`) then consumes it unchanged.
+
+------------------------------------------------------------------------------
+SAFETY GUARDRAILS (non-negotiable)
+------------------------------------------------------------------------------
+- READ-ONLY identity only (db_datareader). Never automate under owner/sysadmin.
+- SELECT-only while exploring; do NOT edit rows in SSMS grids.
+- Run pulls OFF-HOURS; use READ UNCOMMITTED / WITH (NOLOCK) so we never lock
+  live scoring/POS tables during service.
+- Reconcile DB output vs manual export before cutover.
+- Confirm SQL backups exist & work before relying on direct access
+  (recovery model seen via sys.databases; verify a real backup job runs).
+- Check with BRUNSWICK that direct read-only DB access is acceptable
+  (possible support/warranty consideration). Also a good time to ask who holds
+  local admin on SYNCSERVER.
+- Don't brute-force around OS security or reboot mid-service. The recurring
+  blocker is local admin on SYNCSERVER - get it properly or have the holder act.
+- Flat/unregulated network + SQL Server = security smell; tighten over time
+  (our pulls don't make it worse, but note it).
+
+------------------------------------------------------------------------------
+WHERE WE ARE RIGHT NOW (2026-06-15, ~4:36pm)
+------------------------------------------------------------------------------
+DONE:
+- Server rebooted; Mixed Mode active.
+- Login `concourse_readonly` created with db_datareader on SyncJournal + Sync.
+- VERIFIED READ-ONLY: connected via SQL auth; SELECT works; CREATE TABLE denied
+  (Msg 262, "CREATE TABLE permission denied in database 'SyncJournal'").
+- Connecting requires "Trust server certificate" (self-signed cert). Confirms
+  the Python pull needs Encrypt=yes;TrustServerCertificate=yes.
+- NOTE: password was initially weak ('bowl2695'); recommended strengthening.
+- Early hint: SELECT TOP 10 from SyncJournal.sys.tables returned only 3 rows,
+  so SyncJournal may have very few user tables (confirm in schema discovery).
+
+SCHEMA DISCOVERY RESULTS (SyncJournal):
+- Only 3 tables. Target = dbo.TRNJournalLogs (~3,715,556 rows).
+  (Other two: APPTimeClockAuditLog, APPTimeClockPunchLogs - both empty.)
+
+COLUMN MAPPING  (CSV field -> TRNJournalLogs column):
+  Transaction ID   -> TransactionID (int)
+  Item ID          -> ID (int)            [TO CONFIRM it's the per-item identity]
+  Name             -> Name (nvarchar)
+  Item Type        -> ItemType (INT code) [need code->label mapping]
+  Item Created Date-> ItemDateCreated (datetime, date part)
+  Item Created Time-> ItemDateCreated (datetime, time part)
+  Quantity         -> Quantity (float)
+  Unit Amount      -> UnitAmount (money)
+  Total            -> Total (money)
+  Department       -> Department (nvarchar)
+  Subdepartment    -> SubDepartment (nvarchar)
+  Transaction Type -> TransactionType (INT code) [need code->label, which=Sales]
+  Deleted          -> IsDeleted (bit)  (CSV "False" = 0)
+  Voided           -> IsVoided (bit)   (CSV "False" = 0)
+
+OPEN QUESTIONS before we can reproduce the CSV exactly:
+  1. Confirm ID == CSV "Item ID" (so Transaction ID + Item ID dedupe holds).
+  2. Decode ItemType and TransactionType integer codes to the text labels the
+     Office export prints (esp. which TransactionType = "Sales").
+
+BONUS COLUMNS (not in CSV - the "better resolution" upside):
+  TransactionDateCreated, TransactionDateClosed, TransactionFiscalDate,
+  TransactionTerminal, TransactionUser, ItemTerminal, ItemUser,
+  ShiftEndDate, ShiftEndNumber, IsTaxExempt, IsTaxIncluded, IsSoldInPackage,
+  AvailabilityMapName, AvailabilityLevelName, SoldByType, TransactionTotal,
+  EnterpriseControlIdenti..., VATIncludedAmount, VATTaxName, DepartmentGL,
+  SubDepartmentGL, SeatNumber, GuestCount, RevenueCenter (and possibly more
+  past column 40 - not yet fully listed).
+
+BIG FINDING: The Office "Journal Log" CSV export == essentially SELECT * FROM
+TRNJournalLogs, with only cosmetic transforms:
+  - each datetime split into separate Date + Time columns
+  - bit columns rendered as text True/False
+  - integer enum codes (TransactionType, ItemType, SoldBy) rendered as TEXT labels
+So a direct pull can reproduce the CSV exactly (and expose many extra columns).
+
+CSV column order (data/2026.csv header, ';'-delimited):
+  Transaction ID; Item ID; Transaction Created Date; Transaction Created Time;
+  Transaction Closed Date; Transaction Closed Time; Transaction Ended Date;
+  Transaction Ended Time; Transaction Fiscal; Transaction Terminal;
+  Transaction User; Transaction Shift Number; Transaction Total;
+  Transaction Type; Name; Item Type; Item Created Date; Item Created Time;
+  Item Terminal; Item User; Quantity; Unit Amount; Total; Deleted; Voided;
+  Item Ended Date; Item Ended Time; Item Shift Number; Department;
+  Subdepartment; Tax Included; Tax Exempt; Sold in Package; Sold By; Rate;
+
+ENUM CODES (DB int -> CSV text label):
+  TransactionType: 1 = "Sales"; (NoSale, Refund codes TBD)
+  ItemType: 7 = "Product"; 5 = "Tax"; 10 = "PaymentCash"; 11 = "PaymentCard"(?);
+            0 = "Account"/empty; (Modifier, Package, Adjustment codes TBD)
+  -> Derive the full enum definitively by matching DB rows to data/2026.csv on
+     (TransactionID, ID).
+
+ETL FILTERS TO REPRODUCE (scripts/export_dashboards.py):
+  keep rows where Deleted='False' AND Voided='False'
+  main products:  Transaction Type='Sales' AND Item Type in (Product,Modifier,Package)
+  deductions:     ('Sales' + 'Adjustment')  and  ('Refund' + Product/Modifier/Package)
+  dedupe key:     (Transaction ID, Item ID)  where Item ID == DB column ID
+
+IMMEDIATE NEXT ACTION:
+- Confirm the ItemType/TransactionType enum (DB int -> label).
+
+Repo context: Next.js 15 + React 19 dashboard; Python ETL in scripts/;
+generated JSON in public/data/; CSVs (gitignored) in data/.
+==============================================================================
