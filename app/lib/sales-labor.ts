@@ -1,5 +1,5 @@
 import type { DateRange } from '@/lib/date-ranges';
-import type { LaborDay, SalesLaborSummary, Transaction } from '@/types';
+import type { DailySalesLaborPoint, LaborDay, SalesLaborSummary, Transaction } from '@/types';
 
 function toISO(d: Date): string {
   return d.toISOString().slice(0, 10);
