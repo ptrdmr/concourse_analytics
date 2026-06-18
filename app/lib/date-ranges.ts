@@ -19,7 +19,29 @@ export function getYTD(): DateRange {
   return [`${now.getFullYear()}-01-01`, toISO(now)];
 }
 
+export function getLast7Days(): DateRange {
+  const end = today();
+  const start = new Date(end);
+  start.setDate(start.getDate() - 6);
+  return [toISO(start), toISO(end)];
+}
+
+export function getMTD(): DateRange {
+  const now = today();
+  return [`${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}-01`, toISO(now)];
+}
+
 export const DATE_PRESETS: DateRangePreset[] = [
+  {
+    id: '7d',
+    label: 'Last 7 Days',
+    range: () => getLast7Days(),
+  },
+  {
+    id: 'mtd',
+    label: 'MTD',
+    range: () => getMTD(),
+  },
   {
     id: 'ytd',
     label: 'YTD',

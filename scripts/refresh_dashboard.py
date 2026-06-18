@@ -130,8 +130,31 @@ def validate():
         fail(f'tickets/months.json is missing the newest month {max_date[:7]}')
     print(f'  ticket months through {months[-1]} (ok)')
 
+    validate_labor_optional()
+
     print('Validation passed.')
     return max_date
+
+
+def validate_labor_optional():
+    """Validate labor.json if present; skip silently if missing."""
+    labor_path = os.path.join(DATA_DIR, 'labor.json')
+    if not os.path.exists(labor_path):
+        print('  labor.json not present (optional — run npm run labor to generate)')
+        return
+
+    labor = load_json('labor.json')
+    days = labor.get('days') or {}
+    if not isinstance(days, dict):
+        fail('labor.json days field is malformed')
+
+    date_range = labor.get('dateRange') or []
+    if len(date_range) == 2:
+        print(f'  labor date range: {date_range[0]} -> {date_range[1]}')
+    print(f'  labor days: {len(days)}')
+    if days:
+        total_cost = sum((d.get('laborCost') or 0) for d in days.values())
+        print(f'  labor total cost in file: ${total_cost:,.0f}')
 
 
 def commit(max_date):

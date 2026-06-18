@@ -107,3 +107,42 @@ export interface IntradayIndex {
   voidYears: string[];
   counts?: Record<string, number>;
 }
+
+export interface LaborDay {
+  laborCost: number;
+  laborHours: number;
+  punchCount: number;
+  tips?: number;
+}
+
+export interface LaborData {
+  generatedAt: string;
+  timezone?: string;
+  companyId?: string;
+  dateRange: [string, string];
+  days: Record<string, LaborDay>;
+}
+
+export interface DailySalesLaborPoint {
+  date: string;
+  label: string;
+  sales: number;
+  laborCost: number;
+  laborHours: number;
+  laborPct: number | null;
+}
+
+export interface SalesLaborSummary {
+  totalSales: number;
+  totalLaborCost: number;
+  totalLaborHours: number;
+  laborPct: number | null;
+  salesPerLaborHour: number | null;
+  avgTicket: number | null;
+  totalTransactions: number;
+  daily: DailySalesLaborPoint[];
+  chartGranularity: 'day' | 'month';
+  chart: DailySalesLaborPoint[];
+  laborAvailable: boolean;
+  laborThrough: string | null;
+}

@@ -73,13 +73,25 @@ export function buildOverviewSummary(opts: {
   dateRange: [string, string] | null;
   kpis: KPIs;
   departments: Array<{ name: string; revenue: number; transactions: number; uniqueItems: number }>;
+  labor?: {
+    totalLaborCost: number;
+    laborPct: number | null;
+    salesPerLaborHour: number | null;
+    laborAvailable: boolean;
+  };
 }): string {
-  const { dateRange, kpis, departments } = opts;
+  const { dateRange, kpis, departments, labor } = opts;
   const lines: string[] = [];
 
   lines.push('Dashboard: Business Overview');
   lines.push(`Date Range: ${dateRange ? `${dateRange[0]} to ${dateRange[1]}` : 'All time'}`);
   lines.push(`KPIs: Sales ${formatCurrency(kpis.totalRevenue)} | Qty ${formatNumber(kpis.totalQuantity)} | Transactions ${formatNumber(kpis.totalTransactions)} | Unique Items ${kpis.uniqueItems}`);
+
+  if (labor?.laborAvailable) {
+    lines.push(
+      `Labor: ${formatCurrency(labor.totalLaborCost)} | Labor % ${labor.laborPct != null ? formatPercent(labor.laborPct) : 'n/a'} | Sales/Labor Hour ${labor.salesPerLaborHour != null ? formatCurrency(labor.salesPerLaborHour) : 'n/a'}`
+    );
+  }
   lines.push('');
 
   if (departments.length > 0) {
