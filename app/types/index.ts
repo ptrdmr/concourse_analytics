@@ -111,16 +111,60 @@ export interface IntradayIndex {
 export interface LaborDay {
   laborCost: number;
   laborHours: number;
-  punchCount: number;
+  punchCount?: number;
   tips?: number;
+  source?: string;
 }
 
 export interface LaborData {
   generatedAt: string;
   timezone?: string;
   companyId?: string;
+  source?: string;
   dateRange: [string, string];
   days: Record<string, LaborDay>;
+}
+
+export interface IntradayLaborSlot {
+  cost: number;
+  headcount: number;
+}
+
+export interface IntradayLaborDay {
+  factor: number;
+  slots: Record<string, IntradayLaborSlot>;
+}
+
+export interface IntradayLaborReconciliation {
+  mean: number | null;
+  min: number | null;
+  max: number | null;
+  stddev: number | null;
+  dayCount: number;
+  flaggedDays: Array<{
+    date: string;
+    reason: string;
+    factor?: number;
+    rawCost?: number;
+    targetCost?: number;
+  }>;
+}
+
+export interface IntradayLaborData {
+  generatedAt: string;
+  timezone?: string;
+  source?: string;
+  slotResolution: number;
+  dateRange: [string, string];
+  reconciliation: IntradayLaborReconciliation;
+  roles?: Record<string, string>;
+  days: Record<string, IntradayLaborDay>;
+}
+
+export interface LaborDayShapePoint {
+  slot: number;
+  avgCost: number;
+  avgHeadcount: number;
 }
 
 export interface DailySalesLaborPoint {

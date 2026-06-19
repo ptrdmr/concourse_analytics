@@ -67,6 +67,7 @@ npm run etl
 | `public/data/payments.json` | Payment type breakdown |
 | `public/data/bowling_forecast.json` | Bowling forecast vs actuals |
 | `public/data/holiday_analysis.json` | Holiday YoY analysis |
+| `public/data/labor.json` | Daily labor cost and hours from 7shifts |
 
 **Business day:** sales before 4:00 AM roll to the previous calendar day.
 
@@ -123,7 +124,31 @@ python scripts/reconcile_month.py        # Monthly department reconciliation
 | `npm run dev` | Start dev server |
 | `npm run build` | Production build |
 | `npm run etl` | Run full ETL pipeline |
+| `npm run labor` | Pull 7shifts labor into `public/data/labor.json` |
 | `npm run specialty` | Regenerate specialty cocktails JSON |
+
+## 7shifts labor
+
+The dashboard **Sales vs Labor** card reads `public/data/labor.json`. Regenerate it after syncing POS data:
+
+```bash
+npm run labor
+```
+
+Requires a `.env` file (gitignored):
+
+| Variable | Required | Description |
+|----------|----------|-------------|
+| `SEVENSHIFTS_TOKEN` | yes | API bearer token |
+| `SEVENSHIFTS_COMPANY_ID` | yes | Company numeric ID |
+| `SEVENSHIFTS_GUID` | no | Company UUID (`x-company-guid` header). Auto-fetched from `/companies` if omitted |
+| `SEVENSHIFTS_TIMEZONE` | no | Default `America/Los_Angeles` |
+| `SEVENSHIFTS_PULL_DAYS` | no | Days of history to pull (default `365`) |
+| `SEVENSHIFTS_LABOR_UPLIFT_PCT` | no | Fallback only: employer taxes/benefits % applied when the Daily Sales & Labor report is unavailable |
+
+**Primary source:** 7shifts Daily Sales & Labor report (`actual_labor_cost`) — matches the 7shifts website, including overtime, salaried staff, and employer uplift. Requires **The Works** plan or higher.
+
+**Fallback:** if the report endpoint is unavailable, labor is estimated from time punches with profile wage lookup and optional uplift %.
 
 ## Dayparts
 

@@ -1,4 +1,4 @@
-import type { IntradayRecord, VoidRecord } from '@/types';
+import type { IntradayRecord, VoidRecord, IntradayLaborDay, LaborDayShapePoint } from '@/types';
 
 export type TimeResolution = 30 | 60 | 120;
 export type IntradayMetric = 'quantity' | 'revenue';
@@ -247,6 +247,90 @@ export function buildDayShapeSeries(
       dayCountsByDow[dow] || 1,
     ),
   }];
+}
+
+function matchingLaborDates(
+  laborDays: Record<string, IntradayLaborDay>,
+  dateRange: [string, string] | null,
+  dayOfWeek: number | null,
+  singleDay: boolean,
+): string[] {
+  return Object.keys(laborDays)
+    .filter(date => {
+      if (dateRange) {
+        if (date < dateRange[0] || date > dateRange[1]) return false;
+      }
+      if (!singleDay && dayOfWeek !== null && getDayOfWeek(date) !== dayOfWeek) {
+        return false;
+      }
+      return true;
+    })
+    .sort();
+}
+
+function aggregateLaborDayByResolution(
+  day: IntradayLaborDay,
+  resolution: TimeResolution,
+): Map<number, { cost: number; headcount: number }> {
+  const displaySlots = getDisplaySlots(resolution);
+  const buckets = new Map<number, { cost: number; headcount: number }>();
+
+  for (const slot of displaySlots) {
+    buckets.set(slot, { cost: 0, headcount: 0 });
+  }
+
+  for (const [slotStr, data] of Object.entries(day.slots)) {
+    const slot = Number(slotStr);
+    const key = slotGroupKey(slot, resolution);
+    const bucket = buckets.get(key);
+    if (!bucket) continue;
+    bucket.cost += data.cost;
+    bucket.headcount = Math.max(bucket.headcount, data.headcount);
+  }
+
+  return buckets;
+}
+
+export function buildLaborDayShape(
+  laborDays: Record<string, IntradayLaborDay>,
+  opts: {
+    dateRange: [string, string] | null;
+    dayOfWeek: number | null;
+    resolution: TimeResolution;
+    dayCount: number;
+    singleDay: boolean;
+  },
+): LaborDayShapePoint[] {
+  const { dateRange, dayOfWeek, resolution, dayCount, singleDay } = opts;
+  const dates = matchingLaborDates(laborDays, dateRange, dayOfWeek, singleDay);
+  const displaySlots = getDisplaySlots(resolution);
+  const effectiveDayCount = Math.max(dayCount, dates.length, 1);
+
+  const totals = new Map<number, { cost: number; headcount: number }>();
+  for (const slot of displaySlots) {
+    totals.set(slot, { cost: 0, headcount: 0 });
+  }
+
+  for (const date of dates) {
+    const day = laborDays[date];
+    if (!day) continue;
+    const buckets = aggregateLaborDayByResolution(day, resolution);
+    for (const slot of displaySlots) {
+      const bucket = buckets.get(slot)!;
+      const total = totals.get(slot)!;
+      total.cost += bucket.cost;
+      total.headcount += bucket.headcount;
+    }
+  }
+
+  return displaySlots.map(slot => {
+    const t = totals.get(slot)!;
+    return {
+      slot,
+      avgCost: t.cost / effectiveDayCount,
+      avgHeadcount: t.headcount / effectiveDayCount,
+    };
+  });
 }
 
 export interface HeatmapCell {

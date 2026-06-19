@@ -22,11 +22,13 @@ import { useDataContext } from '@/context/DataContext';
 import {
   buildDayShapeSeries,
   buildHeatmap,
+  buildLaborDayShape,
   countDaysByDow,
   countDaysByDowFromData,
   topItemsForSlot,
   getDayLabel,
 } from '@/lib/intraday';
+import { useIntradayLabor } from '@/hooks/useIntradayLabor';
 import type { IntradayMetric, TimeResolution } from '@/lib/intraday';
 
 const ALL_DOW = [0, 1, 2, 3, 4, 5, 6];
@@ -75,6 +77,9 @@ function DaypartsContent() {
   const [categories, setCategories] = useState<string[]>([]);
   const [selectedItems, setSelectedItems] = useState<string[]>([]);
   const [selectedSlot, setSelectedSlot] = useState<number | null>(null);
+  const [showLabor, setShowLabor] = useState(true);
+
+  const { laborDays, available: laborAvailable } = useIntradayLabor();
 
   useEffect(() => {
     if (departments.length > 0 && !departments.includes(department)) {
@@ -119,6 +124,37 @@ function DaypartsContent() {
     ),
     [filteredSales, resolution, daysOfWeek, dayCountsByDow, singleDay],
   );
+
+  const singleSeriesView = dayShapeSeries.length === 1;
+
+  const laborDayCount = useMemo(() => {
+    if (singleDay) return 1;
+    if (daysOfWeek.length === 1) return dayCountsByDow[daysOfWeek[0]] || effectiveDayCount;
+    return effectiveDayCount;
+  }, [singleDay, daysOfWeek, dayCountsByDow, effectiveDayCount]);
+
+  const laborSeries = useMemo(() => {
+    if (!laborAvailable || !singleSeriesView || daysOfWeek.length === 0) return [];
+    const dayOfWeek = singleDay ? null : (daysOfWeek.length === 1 ? daysOfWeek[0] : null);
+    return buildLaborDayShape(laborDays, {
+      dateRange,
+      dayOfWeek,
+      resolution,
+      dayCount: laborDayCount,
+      singleDay,
+    });
+  }, [
+    laborAvailable,
+    singleSeriesView,
+    daysOfWeek,
+    laborDays,
+    dateRange,
+    resolution,
+    laborDayCount,
+    singleDay,
+  ]);
+
+  const canShowLaborToggle = laborAvailable && singleSeriesView && daysOfWeek.length > 0;
 
   const heatmapCells = useMemo(() => {
     return buildHeatmap(filteredSales, resolution, dayCountsByDow);
@@ -305,6 +341,19 @@ function DaypartsContent() {
               </button>
             ))}
           </div>
+          {canShowLaborToggle && (
+            <button
+              type="button"
+              onClick={() => setShowLabor(prev => !prev)}
+              className={`px-3 py-1 rounded-full text-xs font-medium transition-colors ${
+                showLabor
+                  ? 'bg-[#f97316]/20 text-[#f97316] border border-[#f97316]/40'
+                  : 'bg-white/5 text-muted hover:text-secondary border border-transparent'
+              }`}
+            >
+              {showLabor ? 'Labor overlay on' : 'Labor overlay off'}
+            </button>
+          )}
         </div>
 
         {/* Item + category filters */}
@@ -346,6 +395,8 @@ function DaypartsContent() {
               metric={metric}
               resolution={resolution}
               singleDay={singleDay}
+              laborSeries={laborSeries}
+              showLabor={showLabor && canShowLaborToggle}
               onSlotClick={setSelectedSlot}
             />
 

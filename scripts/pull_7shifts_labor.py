@@ -2,15 +2,24 @@
 """
 pull_7shifts_labor.py
 
-Pull time punch data from 7shifts and write public/data/labor.json for the dashboard.
+Pull labor data from 7shifts and write:
+  - public/data/labor.json (daily totals for Sales vs Labor card)
+  - public/data/labor_intraday.json (30-min slot shape for Day Shape overlay)
+
+Primary source: Daily Sales & Labor report (actual_labor_cost) — matches the
+7shifts website exactly, including overtime, salaried staff, and employer uplift.
+
+Fallback: time_punch aggregation with profile wage lookup + optional uplift %.
 
 Requires .env (gitignored):
   SEVENSHIFTS_TOKEN=...
   SEVENSHIFTS_COMPANY_ID=...
 
 Optional:
+  SEVENSHIFTS_GUID=...              # company UUID; auto-fetched from /companies if blank
   SEVENSHIFTS_TIMEZONE=America/Los_Angeles
   SEVENSHIFTS_PULL_DAYS=365
+  SEVENSHIFTS_LABOR_UPLIFT_PCT=12   # fallback only: employer taxes/benefits %
 
 Usage:
   python scripts/pull_7shifts_labor.py
@@ -25,7 +34,7 @@ import os
 import sys
 import time
 from collections import defaultdict
-from datetime import datetime, timedelta
+from datetime import date, datetime, timedelta
 from zoneinfo import ZoneInfo
 
 try:
@@ -41,11 +50,18 @@ except ImportError:
 
 _ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 OUTPUT_PATH = os.path.join(_ROOT, 'public', 'data', 'labor.json')
+INTRADAY_OUTPUT_PATH = os.path.join(_ROOT, 'public', 'data', 'labor_intraday.json')
 API_BASE = 'https://api.7shifts.com/v2'
 BUSINESS_DAY_CUTOFF_HOUR = 4
 DEFAULT_PULL_DAYS = 365
-PAGE_LIMIT = 100  # API max page size
-MIN_REQUEST_INTERVAL = 0.11  # ~9 req/s, under 10/s limit
+PAGE_LIMIT = 100
+REPORT_CHUNK_DAYS = 28
+MIN_REQUEST_INTERVAL = 0.11
+RECONCILE_DATE = '2026-06-17'
+RECONCILE_TARGET_CENTS = 282900  # $2,829 on 7shifts website
+FACTOR_MIN = 0.5
+FACTOR_MAX = 3.0
+SLOT_RESOLUTION_MINUTES = 30
 
 
 def load_env() -> None:
@@ -66,6 +82,10 @@ def parse_iso(dt_str: str) -> datetime:
     if dt_str.endswith('Z'):
         dt_str = dt_str[:-1] + '+00:00'
     return datetime.fromisoformat(dt_str)
+
+
+def parse_date(iso: str) -> date:
+    return date.fromisoformat(iso)
 
 
 def business_date_from_clocked_in(clocked_in_iso: str, tz: ZoneInfo) -> str:
@@ -97,14 +117,115 @@ def punch_worked_hours(punch: dict) -> float:
     return max(0.0, gross - unpaid_break_hours(punch.get('breaks')))
 
 
+def dt_to_slot(dt: datetime) -> int:
+    """30-min slot index (0-47), same convention as POS intraday export."""
+    return dt.hour * 2 + (1 if dt.minute >= 30 else 0)
+
+
+def slot_bounds(business_date_str: str, slot: int, tz: ZoneInfo) -> tuple[datetime, datetime]:
+    """Local start/end for a slot within a business day (4 AM start)."""
+    bd = parse_date(business_date_str)
+    hour = slot // 2
+    minute = 30 if slot % 2 == 1 else 0
+    day = bd if slot >= 8 else bd + timedelta(days=1)
+    start = datetime(day.year, day.month, day.day, hour, minute, tzinfo=tz)
+    return start, start + timedelta(minutes=SLOT_RESOLUTION_MINUTES)
+
+
+def subtract_interval(
+    intervals: list[tuple[datetime, datetime]],
+    cut_start: datetime,
+    cut_end: datetime,
+) -> list[tuple[datetime, datetime]]:
+    """Remove [cut_start, cut_end) from a list of half-open work intervals."""
+    result: list[tuple[datetime, datetime]] = []
+    for start, end in intervals:
+        if cut_end <= start or cut_start >= end:
+            result.append((start, end))
+            continue
+        if cut_start > start:
+            result.append((start, cut_start))
+        if cut_end < end:
+            result.append((cut_end, end))
+    return result
+
+
+def punch_work_intervals(punch: dict, tz: ZoneInfo) -> list[tuple[datetime, datetime]]:
+    clocked_in = punch.get('clocked_in')
+    clocked_out = punch.get('clocked_out')
+    if not clocked_in or not clocked_out:
+        return []
+    start = parse_iso(clocked_in).astimezone(tz)
+    end = parse_iso(clocked_out).astimezone(tz)
+    if end <= start:
+        return []
+    intervals = [(start, end)]
+    for br in punch.get('breaks') or []:
+        if br.get('paid'):
+            continue
+        b_in = br.get('in')
+        b_out = br.get('out')
+        if not b_in or not b_out:
+            continue
+        intervals = subtract_interval(
+            intervals,
+            parse_iso(b_in).astimezone(tz),
+            parse_iso(b_out).astimezone(tz),
+        )
+    return intervals
+
+
+def overlap_hours(
+    interval_start: datetime,
+    interval_end: datetime,
+    slot_start: datetime,
+    slot_end: datetime,
+) -> float:
+    overlap_start = max(interval_start, slot_start)
+    overlap_end = min(interval_end, slot_end)
+    if overlap_end <= overlap_start:
+        return 0.0
+    return (overlap_end - overlap_start).total_seconds() / 3600.0
+
+
+def chunk_date_range(start: str, end: str, max_days: int = REPORT_CHUNK_DAYS) -> list[tuple[str, str]]:
+    """Split [start, end] into inclusive windows of at most max_days."""
+    chunks: list[tuple[str, str]] = []
+    cur = parse_date(start)
+    end_d = parse_date(end)
+    while cur <= end_d:
+        chunk_end = min(cur + timedelta(days=max_days - 1), end_d)
+        chunks.append((cur.isoformat(), chunk_end.isoformat()))
+        cur = chunk_end + timedelta(days=1)
+    return chunks
+
+
+def round_day(entry: dict) -> dict:
+    out: dict = {
+        'laborCost': round(entry['laborCost'], 2),
+        'laborHours': round(entry['laborHours'], 2),
+    }
+    if 'punchCount' in entry:
+        out['punchCount'] = int(entry['punchCount'])
+    if entry.get('tips'):
+        out['tips'] = round(entry['tips'], 2)
+    if entry.get('source'):
+        out['source'] = entry['source']
+    return out
+
+
 class SevenShiftsClient:
-    def __init__(self, token: str, company_id: str) -> None:
+    def __init__(self, token: str, company_id: str, company_guid: str | None = None) -> None:
         self.company_id = company_id
+        self.company_guid = company_guid
         self.session = requests.Session()
-        self.session.headers.update({
+        headers = {
             'Authorization': f'Bearer {token}',
             'Accept': 'application/json',
-        })
+        }
+        if company_guid:
+            headers['x-company-guid'] = company_guid
+        self.session.headers.update(headers)
         self._last_request_at = 0.0
 
     def _throttle(self) -> None:
@@ -113,7 +234,7 @@ class SevenShiftsClient:
             time.sleep(MIN_REQUEST_INTERVAL - elapsed)
         self._last_request_at = time.monotonic()
 
-    def get(self, path: str, params: dict | None = None) -> dict:
+    def request(self, path: str, params: dict | None = None, *, fatal: bool = True) -> tuple[int, dict | None]:
         url = f'{API_BASE}{path}'
         for attempt in range(5):
             self._throttle()
@@ -126,15 +247,48 @@ class SevenShiftsClient:
             if resp.status_code == 401:
                 print('FAIL: 401 Unauthorized — check SEVENSHIFTS_TOKEN')
                 sys.exit(1)
+            if not fatal:
+                try:
+                    body = resp.json() if resp.content else None
+                except ValueError:
+                    body = None
+                return resp.status_code, body
             resp.raise_for_status()
-            return resp.json()
-        print('FAIL: exceeded retries due to rate limiting')
-        sys.exit(1)
+            return resp.status_code, resp.json()
+        if fatal:
+            print('FAIL: exceeded retries due to rate limiting')
+            sys.exit(1)
+        return 429, None
+
+    def get(self, path: str, params: dict | None = None) -> dict:
+        _, payload = self.request(path, params, fatal=True)
+        return payload or {}
 
     def verify(self) -> None:
         data = self.get('/whoami')
         identity = data.get('data') or data
         print(f'  authenticated as identity_id={identity.get("identity_id", "?")}')
+
+    def resolve_company_guid(self) -> str:
+        if self.company_guid:
+            return self.company_guid
+        payload = self.get('/companies')
+        companies = payload.get('data') or []
+        for company in companies:
+            if str(company.get('id')) == str(self.company_id):
+                guid = company.get('uuid') or company.get('guid')
+                if guid:
+                    self.company_guid = guid
+                    self.session.headers['x-company-guid'] = guid
+                    print(f'  resolved company GUID from /companies: {guid}')
+                    print('  tip: add SEVENSHIFTS_GUID to .env to skip this lookup')
+                    return guid
+        print('FAIL: could not resolve company GUID — set SEVENSHIFTS_GUID in .env')
+        sys.exit(1)
+
+    def list_locations(self) -> list[dict]:
+        payload = self.get(f'/company/{self.company_id}/locations')
+        return payload.get('data') or []
 
     def list_time_punches(self, business_start: str, business_end: str) -> list[dict]:
         punches: list[dict] = []
@@ -170,16 +324,337 @@ class SevenShiftsClient:
 
         return punches
 
+    def fetch_daily_sales_labor(
+        self,
+        location_id: int,
+        start_date: str,
+        end_date: str,
+    ) -> tuple[int, list[dict]]:
+        status, payload = self.request(
+            '/reports/daily_sales_and_labor',
+            params={
+                'start_date': start_date,
+                'end_date': end_date,
+                'location_id': location_id,
+            },
+            fatal=False,
+        )
+        if status != 200 or not payload:
+            return status, []
+        return status, payload.get('data') or []
 
-def aggregate_punches(punches: list[dict], tz: ZoneInfo) -> dict[str, dict]:
+
+class WageResolver:
+    """Look up profile wages when punch hourly_wage is zero."""
+
+    def __init__(self, client: SevenShiftsClient) -> None:
+        self.client = client
+        self._cache: dict[int, dict] = {}
+
+    def _load(self, user_id: int) -> dict:
+        if user_id not in self._cache:
+            payload = self.client.get(f'/company/{self.client.company_id}/users/{user_id}/wages')
+            self._cache[user_id] = payload.get('data') or payload
+        return self._cache[user_id]
+
+    def hourly_wage(self, user_id: int, role_id: int | None) -> tuple[float, str]:
+        data = self._load(user_id)
+        rows = data.get('current_wages') or []
+        hourly = [w for w in rows if w.get('wage_type') == 'hourly']
+        if role_id:
+            for w in hourly:
+                if w.get('role_id') == role_id:
+                    return w.get('wage_cents', 0) / 100.0, 'profile(role)'
+        if hourly:
+            best = max(w.get('wage_cents', 0) for w in hourly)
+            return best / 100.0, 'profile(any-hourly)'
+        if any(w.get('wage_type') == 'salaried' for w in rows):
+            return 0.0, 'salaried'
+        return 0.0, 'none'
+
+
+def resolve_punch_wage(punch: dict, wage_resolver: WageResolver) -> float:
+    wage = float(punch.get('hourly_wage') or 0) / 100.0
+    if wage == 0:
+        wage, _note = wage_resolver.hourly_wage(punch['user_id'], punch.get('role_id'))
+    return wage
+
+
+def fetch_roles(client: SevenShiftsClient) -> dict[str, str]:
+    payload = client.get(f'/company/{client.company_id}/roles')
+    roles: dict[str, str] = {}
+    for role in payload.get('data') or []:
+        role_id = role.get('id')
+        name = role.get('name')
+        if role_id is not None and name:
+            roles[str(role_id)] = name
+    return roles
+
+
+def aggregate_punches_intraday(
+    punches: list[dict],
+    tz: ZoneInfo,
+    client: SevenShiftsClient,
+) -> tuple[dict[str, dict], dict[str, str]]:
+    """
+    Bucket punches into 30-min slots per business date.
+    Returns days[date]['slots'][slot] = {cost, headcount_users: set} before reconciliation.
+    """
+    wage_resolver = WageResolver(client)
+    roles_seen: dict[str, str] = {}
+    days: dict[str, dict] = defaultdict(lambda: {
+        'slots': defaultdict(lambda: {'cost': 0.0, 'users': set()}),
+        'rawCost': 0.0,
+    })
+
+    skipped = 0
+    for punch in punches:
+        if punch.get('deleted'):
+            skipped += 1
+            continue
+        clocked_in = punch.get('clocked_in')
+        if not clocked_in:
+            skipped += 1
+            continue
+
+        user_id = punch.get('user_id')
+        if user_id is None:
+            skipped += 1
+            continue
+
+        role_id = punch.get('role_id')
+        if role_id is not None:
+            roles_seen[str(role_id)] = roles_seen.get(str(role_id), '')
+
+        wage = resolve_punch_wage(punch, wage_resolver)
+        business_date = business_date_from_clocked_in(clocked_in, tz)
+        day_entry = days[business_date]
+
+        intervals = punch_work_intervals(punch, tz)
+        if not intervals:
+            skipped += 1
+            continue
+
+        punch_cost = 0.0
+        for interval_start, interval_end in intervals:
+            for slot in range(48):
+                slot_start, slot_end = slot_bounds(business_date, slot, tz)
+                hours = overlap_hours(interval_start, interval_end, slot_start, slot_end)
+                if hours <= 0:
+                    continue
+                slot_entry = day_entry['slots'][slot]
+                slot_entry['cost'] += hours * wage
+                slot_entry['users'].add(user_id)
+                punch_cost += hours * wage
+
+        day_entry['rawCost'] += punch_cost
+
+    if skipped:
+        print(f'  intraday: skipped {skipped} punches (deleted, open, or zero hours)')
+
+    return dict(days), roles_seen
+
+
+def reconcile_intraday_days(
+    intraday_days: dict[str, dict],
+    daily_targets: dict[str, dict],
+) -> tuple[dict[str, dict], dict]:
+    """
+    Scale each day's slot costs so they sum to the authoritative daily labor cost.
+    Returns serialized days and reconciliation stats.
+    """
+    factors: list[float] = []
+    flagged: list[dict] = []
+    output_days: dict[str, dict] = {}
+
+    all_dates = sorted(set(intraday_days.keys()) | set(daily_targets.keys()))
+
+    for day in all_dates:
+        target_entry = daily_targets.get(day) or {}
+        target_cost = float(target_entry.get('laborCost') or 0)
+        raw = intraday_days.get(day)
+        raw_cost = float(raw['rawCost']) if raw else 0.0
+
+        if target_cost > 0 and raw_cost <= 0:
+            flagged.append({
+                'date': day,
+                'reason': 'report_cost_no_punches',
+                'targetCost': round(target_cost, 2),
+            })
+            continue
+
+        if raw is None or not raw['slots']:
+            continue
+
+        if target_cost <= 0 and raw_cost > 0:
+            factor = 1.0
+        elif raw_cost > 0:
+            factor = target_cost / raw_cost
+        else:
+            factor = 1.0
+
+        if raw_cost > 0 and target_cost > 0:
+            factors.append(factor)
+            if factor < FACTOR_MIN or factor > FACTOR_MAX:
+                flagged.append({
+                    'date': day,
+                    'reason': 'factor_out_of_range',
+                    'factor': round(factor, 4),
+                    'rawCost': round(raw_cost, 2),
+                    'targetCost': round(target_cost, 2),
+                })
+
+        slots_out: dict[str, dict] = {}
+        for slot, data in sorted(raw['slots'].items(), key=lambda x: int(x[0])):
+            cost = round(data['cost'] * factor, 2)
+            headcount = len(data['users'])
+            if cost <= 0 and headcount <= 0:
+                continue
+            slots_out[str(slot)] = {
+                'cost': cost,
+                'headcount': headcount,
+            }
+
+        if slots_out:
+            output_days[day] = {
+                'factor': round(factor, 4),
+                'slots': slots_out,
+            }
+
+    reconciliation: dict = {'flaggedDays': flagged}
+    if factors:
+        mean = sum(factors) / len(factors)
+        variance = sum((f - mean) ** 2 for f in factors) / len(factors)
+        reconciliation.update({
+            'mean': round(mean, 4),
+            'min': round(min(factors), 4),
+            'max': round(max(factors), 4),
+            'stddev': round(variance ** 0.5, 4),
+            'dayCount': len(factors),
+        })
+    else:
+        reconciliation.update({
+            'mean': None,
+            'min': None,
+            'max': None,
+            'stddev': None,
+            'dayCount': 0,
+        })
+
+    return output_days, reconciliation
+
+
+def build_intraday_output(
+    punches: list[dict],
+    daily_targets: dict[str, dict],
+    tz: ZoneInfo,
+    client: SevenShiftsClient,
+    business_start: str,
+    business_end: str,
+) -> dict:
+    print('Building intraday labor from time punches...')
+    intraday_raw, _roles_seen = aggregate_punches_intraday(punches, tz, client)
+    roles = fetch_roles(client)
+    print(f'  resolved {len(roles)} role(s)')
+
+    output_days, reconciliation = reconcile_intraday_days(intraday_raw, daily_targets)
+
+    if reconciliation.get('dayCount', 0) > 0:
+        print(
+            f'  reconciliation factors: mean={reconciliation["mean"]} '
+            f'min={reconciliation["min"]} max={reconciliation["max"]} '
+            f'stddev={reconciliation["stddev"]} ({reconciliation["dayCount"]} days)'
+        )
+    flagged = reconciliation.get('flaggedDays') or []
+    if flagged:
+        print(f'  flagged {len(flagged)} day(s) (see labor_intraday.json reconciliation.flaggedDays)')
+
+    return {
+        'generatedAt': datetime.now(tz).isoformat(),
+        'timezone': str(tz),
+        'source': 'punches+report' if daily_targets else 'punches_only',
+        'slotResolution': SLOT_RESOLUTION_MINUTES,
+        'dateRange': [business_start, business_end],
+        'reconciliation': reconciliation,
+        'roles': roles,
+        'days': output_days,
+    }
+
+
+def aggregate_report_rows(rows: list[dict]) -> dict[str, dict]:
+    days: dict[str, dict] = defaultdict(lambda: {
+        'laborCost': 0.0,
+        'laborHours': 0.0,
+        'source': 'report',
+    })
+    for row in rows:
+        day = row.get('date')
+        if not day:
+            continue
+        cost_cents = int(row.get('actual_labor_cost') or 0)
+        minutes = int(row.get('actual_labor_minutes') or 0)
+        entry = days[day]
+        entry['laborCost'] += cost_cents / 100.0
+        entry['laborHours'] += minutes / 60.0
+    return {day: round_day(entry) for day, entry in sorted(days.items())}
+
+
+def fetch_labor_from_report(
+    client: SevenShiftsClient,
+    business_start: str,
+    business_end: str,
+) -> dict[str, dict] | None:
+    client.resolve_company_guid()
+    locations = client.list_locations()
+    if not locations:
+        print('  no locations found')
+        return None
+
+    location_ids = [loc['id'] for loc in locations if loc.get('id')]
+    print(f'  locations: {", ".join(f"{loc.get("name")} ({loc.get("id")})" for loc in locations)}')
+
+    all_rows: list[dict] = []
+    chunks = chunk_date_range(business_start, business_end)
+    print(f'  fetching Daily Sales & Labor report ({len(chunks)} chunk(s))...')
+
+    for loc_id in location_ids:
+        for chunk_start, chunk_end in chunks:
+            status, rows = client.fetch_daily_sales_labor(loc_id, chunk_start, chunk_end)
+            if status in (403, 404):
+                print(f'  report unavailable (HTTP {status}) — plan may not include Daily Sales & Labor')
+                return None
+            if status != 200:
+                print(f'  report request failed (HTTP {status}) for location {loc_id} {chunk_start}->{chunk_end}')
+                return None
+            all_rows.extend(rows)
+            print(f'  location {loc_id} {chunk_start}->{chunk_end}: +{len(rows)} day(s)')
+
+    if not all_rows:
+        print('  report returned no rows')
+        return None
+
+    return aggregate_report_rows(all_rows)
+
+
+def aggregate_punches_estimated(
+    punches: list[dict],
+    tz: ZoneInfo,
+    client: SevenShiftsClient,
+    uplift_pct: float,
+) -> dict[str, dict]:
+    wage_resolver = WageResolver(client)
     days: dict[str, dict] = defaultdict(lambda: {
         'laborCost': 0.0,
         'laborHours': 0.0,
         'punchCount': 0,
         'tips': 0.0,
+        'source': 'punches_estimated',
     })
 
     skipped = 0
+    zero_wage_fixed = 0
+    multiplier = 1.0 + uplift_pct / 100.0
+
     for punch in punches:
         if punch.get('deleted'):
             skipped += 1
@@ -194,8 +669,13 @@ def aggregate_punches(punches: list[dict], tz: ZoneInfo) -> dict[str, dict]:
             skipped += 1
             continue
 
-        wage = float(punch.get('hourly_wage') or 0) / 100.0  # API returns cents
-        cost = hours * wage
+        wage = float(punch.get('hourly_wage') or 0) / 100.0
+        if wage == 0:
+            wage, _note = wage_resolver.hourly_wage(punch['user_id'], punch.get('role_id'))
+            if wage > 0:
+                zero_wage_fixed += 1
+
+        cost = hours * wage * multiplier
         tips = float(punch.get('tips') or 0)
         day = business_date_from_clocked_in(clocked_in, tz)
 
@@ -207,17 +687,28 @@ def aggregate_punches(punches: list[dict], tz: ZoneInfo) -> dict[str, dict]:
 
     if skipped:
         print(f'  skipped {skipped} punches (deleted, open, or zero hours)')
+    if zero_wage_fixed:
+        print(f'  applied profile wage fallback on {zero_wage_fixed} zero-wage punch(es)')
+    if uplift_pct > 0:
+        print(f'  applied {uplift_pct:.1f}% employer uplift (fallback estimate)')
 
-    return {day: round_values(entry) for day, entry in sorted(days.items())}
+    return {day: round_day(entry) for day, entry in sorted(days.items())}
 
 
-def round_values(entry: dict) -> dict:
-    return {
-        'laborCost': round(entry['laborCost'], 2),
-        'laborHours': round(entry['laborHours'], 2),
-        'punchCount': int(entry['punchCount']),
-        'tips': round(entry['tips'], 2),
-    }
+def print_reconciliation(days: dict[str, dict], source: str) -> None:
+    entry = days.get(RECONCILE_DATE)
+    if not entry:
+        print(f'  reconcile {RECONCILE_DATE}: no data in pull range')
+        return
+    cost = entry['laborCost']
+    cents = round(cost * 100)
+    target = RECONCILE_TARGET_CENTS / 100.0
+    delta = cost - target
+    ok = abs(cents - RECONCILE_TARGET_CENTS) <= 100  # within $1
+    status = 'OK' if ok else 'MISMATCH'
+    print(f'  reconcile {RECONCILE_DATE} [{source}]: ${cost:,.2f} (target ${target:,.0f}, delta ${delta:+,.2f}) - {status}')
+    if source == 'punches_estimated' and not ok:
+        print('  WARNING: fallback estimate does not match 7shifts website — check SEVENSHIFTS_LABOR_UPLIFT_PCT')
 
 
 def default_date_range(days: int) -> tuple[str, str]:
@@ -237,7 +728,9 @@ def main() -> None:
     load_env()
     token = require_env('SEVENSHIFTS_TOKEN')
     company_id = require_env('SEVENSHIFTS_COMPANY_ID')
+    company_guid = os.getenv('SEVENSHIFTS_GUID', '').strip() or None
     tz_name = os.getenv('SEVENSHIFTS_TIMEZONE', 'America/Los_Angeles')
+    uplift_pct = float(os.getenv('SEVENSHIFTS_LABOR_UPLIFT_PCT', '0') or '0')
     tz = ZoneInfo(tz_name)
 
     business_start, business_end = default_date_range(args.days)
@@ -247,22 +740,36 @@ def main() -> None:
     print(f'  timezone={tz_name}')
     print(f'  business dates: {business_start} -> {business_end}')
 
-    client = SevenShiftsClient(token, company_id)
+    client = SevenShiftsClient(token, company_id, company_guid)
     print('Verifying token...')
     client.verify()
 
-    print('Fetching time punches...')
+    days: dict[str, dict] | None = None
+    source = 'report'
+    punches: list[dict] = []
+
+    print('Fetching Daily Sales & Labor report (primary)...')
+    days = fetch_labor_from_report(client, business_start, business_end)
+
+    print('Fetching time punches (intraday shape)...')
     punches = client.list_time_punches(business_start, business_end)
     print(f'  received {len(punches)} punches')
 
-    days = aggregate_punches(punches, tz)
+    if days is None:
+        source = 'punches_estimated'
+        print('Falling back to time punch aggregation for daily labor.json...')
+        days = aggregate_punches_estimated(punches, tz, client, uplift_pct)
+
     if not days:
         print('WARNING: no labor days aggregated — check date range and punch data')
+
+    print_reconciliation(days, source)
 
     output = {
         'generatedAt': datetime.now(tz).isoformat(),
         'timezone': tz_name,
         'companyId': company_id,
+        'source': source,
         'dateRange': [business_start, business_end],
         'days': days,
     }
@@ -275,7 +782,21 @@ def main() -> None:
     total_cost = sum(d['laborCost'] for d in days.values())
     total_hours = sum(d['laborHours'] for d in days.values())
     print(f'Wrote {OUTPUT_PATH}')
-    print(f'  {len(days)} days | ${total_cost:,.2f} labor | {total_hours:,.1f} hours')
+    print(f'  source={source} | {len(days)} days | ${total_cost:,.2f} labor | {total_hours:,.1f} hours')
+
+    intraday_output = build_intraday_output(
+        punches,
+        days,
+        tz,
+        client,
+        business_start,
+        business_end,
+    )
+    with open(INTRADAY_OUTPUT_PATH, 'w', encoding='utf-8') as f:
+        json.dump(intraday_output, f, indent=2)
+        f.write('\n')
+    print(f'Wrote {INTRADAY_OUTPUT_PATH}')
+    print(f'  {len(intraday_output["days"])} intraday day(s)')
 
 
 if __name__ == '__main__':
