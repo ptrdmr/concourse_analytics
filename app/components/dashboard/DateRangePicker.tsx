@@ -46,7 +46,7 @@ export function DateRangePicker({ value, onChange }: Props) {
             className={`px-2.5 sm:px-3 py-1 sm:py-1.5 rounded-full text-[11px] sm:text-xs font-medium transition-colors ${
               activeId === preset.id
                 ? 'bg-accent/20 text-accent border border-accent/40'
-                : 'bg-white/5 text-secondary hover:bg-white/10 hover:text-white border border-transparent'
+                : 'bg-overlay/5 text-secondary hover:bg-overlay/10 hover:text-foreground border border-transparent'
             }`}
           >
             {preset.label}
@@ -57,7 +57,7 @@ export function DateRangePicker({ value, onChange }: Props) {
           className={`px-2.5 sm:px-3 py-1 sm:py-1.5 rounded-full text-[11px] sm:text-xs font-medium transition-colors ${
             activeId === 'custom'
               ? 'bg-accent/20 text-accent border border-accent/40'
-              : 'bg-white/5 text-secondary hover:bg-white/10 hover:text-white border border-transparent'
+              : 'bg-overlay/5 text-secondary hover:bg-overlay/10 hover:text-foreground border border-transparent'
           }`}
         >
           Custom
@@ -73,7 +73,7 @@ export function DateRangePicker({ value, onChange }: Props) {
               setCustomStart(e.target.value);
               applyCustom(e.target.value, customEnd);
             }}
-            className="px-3 py-1.5 rounded-lg bg-white/5 border border-border text-sm text-white focus:outline-none focus:border-accent/50 [color-scheme:dark]"
+            className="px-3 py-1.5 rounded-lg bg-overlay/5 border border-border text-sm text-foreground focus:outline-none focus:border-accent/50"
           />
           <span className="text-muted text-sm">to</span>
           <input
@@ -83,7 +83,7 @@ export function DateRangePicker({ value, onChange }: Props) {
               setCustomEnd(e.target.value);
               applyCustom(customStart, e.target.value);
             }}
-            className="px-3 py-1.5 rounded-lg bg-white/5 border border-border text-sm text-white focus:outline-none focus:border-accent/50 [color-scheme:dark]"
+            className="px-3 py-1.5 rounded-lg bg-overlay/5 border border-border text-sm text-foreground focus:outline-none focus:border-accent/50"
           />
         </div>
       )}

@@ -19,7 +19,7 @@ interface Props {
   subtitle?: string;
 }
 
-const FALLBACK_COLORS = ['#2563eb', '#60a5fa', '#f59e0b', '#ef4444', '#8b5cf6', '#f97316'];
+const FALLBACK_COLORS = ['#22c55e', '#4ade80', '#f59e0b', '#ef4444', '#8b5cf6', '#f97316'];
 
 function getColor(cat: string, i: number, colors: Record<string, string>) {
   return colors[cat] || FALLBACK_COLORS[i % FALLBACK_COLORS.length];
@@ -35,14 +35,14 @@ function CustomTooltip({
   if (!active || !payload?.length) return null;
   const cat = payload[0]?.payload?.category ?? '';
   return (
-    <div className="bg-gray-900 border border-gray-700 rounded-lg px-4 py-3 shadow-xl">
-      <p className="text-sm font-semibold text-white mb-2">{cat}</p>
+    <div className="bg-card border border-border-hover rounded-lg px-4 py-3 shadow-xl">
+      <p className="text-sm font-semibold text-foreground mb-2">{cat}</p>
       {payload.map(p => (
         <p key={p.dataKey} className="text-sm">
-          <span className={p.dataKey === 'periodA' ? 'text-[#2563eb]' : 'text-[#60a5fa]'}>
+          <span className={p.dataKey === 'periodA' ? 'text-[#22c55e]' : 'text-[#4ade80]'}>
             {p.dataKey === 'periodA' ? 'Period A' : 'Period B'}:
           </span>{' '}
-          <span className="font-mono text-white">{formatCurrency(p.value)}</span>
+          <span className="font-mono text-foreground">{formatCurrency(p.value)}</span>
         </p>
       ))}
     </div>
@@ -64,7 +64,7 @@ export function ComparisonCategoryChart({ dataA, dataB, colors, title = 'Sales b
 
   return (
     <div className="card p-6">
-      <h3 className="text-lg font-semibold text-white mb-1">{title}</h3>
+      <h3 className="text-lg font-semibold text-foreground mb-1">{title}</h3>
       <p className="text-sm text-muted mb-6">{subtitle}</p>
       <div className="h-[320px]">
         <ResponsiveContainer width="100%" height="100%">
@@ -93,8 +93,8 @@ export function ComparisonCategoryChart({ dataA, dataB, colors, title = 'Sales b
             />
             <Tooltip content={<CustomTooltip />} />
             <Legend />
-            <Bar dataKey="periodA" name="Period A" fill="#2563eb" radius={[0, 2, 2, 0]} maxBarSize={14} />
-            <Bar dataKey="periodB" name="Period B" fill="#60a5fa" radius={[0, 2, 2, 0]} maxBarSize={14} />
+            <Bar dataKey="periodA" name="Period A" fill="#22c55e" radius={[0, 2, 2, 0]} maxBarSize={14} />
+            <Bar dataKey="periodB" name="Period B" fill="#4ade80" radius={[0, 2, 2, 0]} maxBarSize={14} />
           </BarChart>
         </ResponsiveContainer>
       </div>

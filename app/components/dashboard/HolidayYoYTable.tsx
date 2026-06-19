@@ -47,7 +47,7 @@ export function HolidayYoYTable({ years, department }: Props) {
   return (
     <div className="card overflow-hidden">
       <div className="p-4 border-b border-border">
-        <h3 className="text-lg font-semibold text-white">Year-over-Year</h3>
+        <h3 className="text-lg font-semibold text-foreground">Year-over-Year</h3>
         <p className="text-sm text-muted">Sales and transactions by year with YoY change</p>
       </div>
       <div className="overflow-x-auto">
@@ -64,7 +64,7 @@ export function HolidayYoYTable({ years, department }: Props) {
           </thead>
           <tbody>
             {rows.map((r) => (
-              <tr key={r.year} className="border-b border-border/50 hover:bg-white/5">
+              <tr key={r.year} className="border-b border-border/50 hover:bg-overlay/5">
                 <td className="px-4 py-3 font-mono">{r.year}</td>
                 <td className="px-4 py-3 text-muted">{formatDateRange(r.startDate, r.endDate)}</td>
                 <td className="px-4 py-3 text-right font-mono">{formatCurrency(r.displayRevenue)}</td>

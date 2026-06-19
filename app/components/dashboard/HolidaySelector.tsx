@@ -47,10 +47,10 @@ export function HolidaySelector({ holidays, selected, onChange }: Props) {
             const value = e.target.value;
             if (value) handleGroupChange(value);
           }}
-          className="w-full sm:w-56 bg-white/5 border border-border rounded-lg px-4 py-3 text-sm font-medium text-white focus:outline-none focus:ring-2 focus:ring-accent/50"
+          className="w-full sm:w-56 bg-overlay/5 border border-border rounded-lg px-4 py-3 text-sm font-medium text-foreground focus:outline-none focus:ring-2 focus:ring-accent/50"
         >
           {grouped.map(([groupLabel]) => (
-            <option key={groupLabel} value={groupLabel} className="bg-gray-900">
+            <option key={groupLabel} value={groupLabel} className="bg-card">
               {groupLabel}
             </option>
           ))}
@@ -68,7 +68,7 @@ export function HolidaySelector({ holidays, selected, onChange }: Props) {
                 className={`px-4 py-2 rounded-full text-sm font-medium transition-all ${
                   isSelectedDay
                     ? 'bg-accent/20 text-accent border border-accent/50'
-                    : 'bg-white/5 text-secondary hover:bg-white/10 hover:text-white border border-transparent'
+                    : 'bg-overlay/5 text-secondary hover:bg-overlay/10 hover:text-foreground border border-transparent'
                 }`}
               >
                 {name}

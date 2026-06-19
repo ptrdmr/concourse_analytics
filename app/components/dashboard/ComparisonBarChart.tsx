@@ -39,14 +39,14 @@ function CustomTooltip({
   if (!active || !payload?.length) return null;
   const displayLabel = payload[0]?.payload?.label ?? label;
   return (
-    <div className="bg-gray-900 border border-gray-700 rounded-lg px-4 py-3 shadow-xl">
+    <div className="bg-card border border-border-hover rounded-lg px-4 py-3 shadow-xl">
       <p className="text-xs text-muted mb-2">{displayLabel}</p>
       {payload.map(p => (
         <p key={p.dataKey} className="text-sm">
-          <span className={p.dataKey === 'periodA' ? 'text-[#2563eb]' : 'text-[#60a5fa]'}>
+          <span className={p.dataKey === 'periodA' ? 'text-[#22c55e]' : 'text-[#4ade80]'}>
             {p.dataKey === 'periodA' ? 'Period A' : 'Period B'}:
           </span>{' '}
-          <span className="font-mono text-white">{formatCurrency(p.value)}</span>
+          <span className="font-mono text-foreground">{formatCurrency(p.value)}</span>
         </p>
       ))}
     </div>
@@ -71,7 +71,7 @@ export function ComparisonBarChart({ dataA, dataB, granularity }: Props) {
 
   return (
     <div className="card p-6">
-      <h3 className="text-lg font-semibold text-white mb-1">Sales by Period</h3>
+      <h3 className="text-lg font-semibold text-foreground mb-1">Sales by Period</h3>
       <p className="text-sm text-muted mb-6">
         Period A vs Period B — {granularity} granularity
       </p>
@@ -105,14 +105,14 @@ export function ComparisonBarChart({ dataA, dataB, granularity }: Props) {
             <Bar
               dataKey="periodA"
               name="Period A"
-              fill="#2563eb"
+              fill="#22c55e"
               radius={[2, 2, 0, 0]}
               maxBarSize={24}
             />
             <Bar
               dataKey="periodB"
               name="Period B"
-              fill="#60a5fa"
+              fill="#4ade80"
               radius={[2, 2, 0, 0]}
               maxBarSize={24}
             />

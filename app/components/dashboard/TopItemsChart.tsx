@@ -18,14 +18,14 @@ interface Props {
   colors: Record<string, string>;
 }
 
-const FALLBACK = '#2563eb';
+const FALLBACK = '#22c55e';
 
 function CustomTooltip({ active, payload }: { active?: boolean; payload?: Array<{ payload: ItemData }> }) {
   if (!active || !payload?.length) return null;
   const d = payload[0].payload;
   return (
-    <div className="bg-gray-900 border border-gray-700 rounded-lg px-4 py-3 shadow-xl">
-      <p className="text-sm font-semibold text-white">{d.name}</p>
+    <div className="bg-card border border-border-hover rounded-lg px-4 py-3 shadow-xl">
+      <p className="text-sm font-semibold text-foreground">{d.name}</p>
       <p className="text-xs text-muted">{d.category}</p>
       <p className="text-sm text-accent mt-1">{formatCurrency(d.revenue)}</p>
     </div>
@@ -35,7 +35,7 @@ function CustomTooltip({ active, payload }: { active?: boolean; payload?: Array<
 export function TopItemsChart({ items, colors }: Props) {
   return (
     <div className="card p-6">
-      <h3 className="text-lg font-semibold text-white mb-1">Top 20 Items by Sales</h3>
+      <h3 className="text-lg font-semibold text-foreground mb-1">Top 20 Items by Sales</h3>
       <p className="text-sm text-muted mb-6">Highest sales-generating items</p>
       <div className="h-[520px]">
         <ResponsiveContainer width="100%" height="100%">

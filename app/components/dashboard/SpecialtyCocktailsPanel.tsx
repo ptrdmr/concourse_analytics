@@ -25,7 +25,7 @@ interface Props {
   colors: Record<string, string>;
 }
 
-const FALLBACK = '#2563eb';
+const FALLBACK = '#22c55e';
 
 function normalizeName(name: string): string {
   return name
@@ -45,8 +45,8 @@ function CustomTooltip({
   if (!active || !payload?.length) return null;
   const d = payload[0].payload;
   return (
-    <div className="bg-gray-900 border border-gray-700 rounded-lg px-4 py-3 shadow-xl">
-      <p className="text-sm font-semibold text-white">{d.name}</p>
+    <div className="bg-card border border-border-hover rounded-lg px-4 py-3 shadow-xl">
+      <p className="text-sm font-semibold text-foreground">{d.name}</p>
       <p className="text-xs text-muted">{d.category}</p>
       <p className="text-sm text-accent mt-1">{formatCurrency(d.revenue)}</p>
       <p className="text-xs text-muted">{d.quantity} sold</p>
@@ -81,7 +81,7 @@ export function SpecialtyCocktailsPanel({ items, colors }: Props) {
   if (loading) {
     return (
       <div className="card p-6">
-        <h3 className="text-lg font-semibold text-white mb-1">Specialty Cocktails</h3>
+        <h3 className="text-lg font-semibold text-foreground mb-1">Specialty Cocktails</h3>
         <p className="text-sm text-muted">Loading...</p>
       </div>
     );
@@ -89,7 +89,7 @@ export function SpecialtyCocktailsPanel({ items, colors }: Props) {
 
   return (
     <div className="card p-6">
-      <h3 className="text-lg font-semibold text-white mb-1">Specialty Cocktails</h3>
+      <h3 className="text-lg font-semibold text-foreground mb-1">Specialty Cocktails</h3>
       <p className="text-sm text-muted mb-6">Current featured drinks</p>
 
       {specialtyItems.length === 0 ? (

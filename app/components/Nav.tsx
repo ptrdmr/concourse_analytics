@@ -6,6 +6,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import { Menu, X } from 'lucide-react';
+import { ThemeToggle } from './ThemeToggle';
 
 const NAV_LINKS = [
   { href: '/', label: 'Overview', desc: 'Dashboard summary & key metrics' },
@@ -39,7 +40,7 @@ function NavLink({
       className={`block px-4 py-3 rounded-lg transition-colors ${
         active
           ? 'bg-accent/15 text-accent'
-          : 'text-secondary hover:bg-white/5 hover:text-white'
+          : 'text-secondary hover:bg-overlay/5 hover:text-foreground'
       }`}
     >
       <span className="text-sm font-medium">{label}</span>
@@ -73,7 +74,7 @@ export function Nav() {
     pathname === href || (href !== '/' && pathname.startsWith(href));
 
   return (
-    <nav className="sticky top-0 z-50 bg-black/80 backdrop-blur-lg border-b border-border">
+    <nav className="sticky top-0 z-50 bg-background/80 backdrop-blur-lg border-b border-border">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 h-14 sm:h-16 flex items-center justify-between">
         <Link href="/" className="flex items-center gap-2 sm:gap-3 shrink-0 min-w-0">
           <Image
@@ -98,27 +99,31 @@ export function Nav() {
                 className={`text-sm px-4 py-2 rounded-full transition-colors ${
                   linkActive(link.href)
                     ? 'bg-accent/15 text-accent'
-                    : 'text-secondary hover:bg-white/5 hover:text-white'
+                    : 'text-secondary hover:bg-overlay/5 hover:text-foreground'
                 }`}
               >
                 {link.label}
               </Link>
-              <div className="pointer-events-none absolute left-1/2 -translate-x-1/2 top-full mt-2 px-3 py-1.5 rounded-lg bg-[#1a1a1a] border border-border text-xs text-secondary whitespace-nowrap opacity-0 translate-y-1 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-150 shadow-lg">
+              <div className="pointer-events-none absolute left-1/2 -translate-x-1/2 top-full mt-2 px-3 py-1.5 rounded-lg bg-card-hover border border-border text-xs text-secondary whitespace-nowrap opacity-0 translate-y-1 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-150 shadow-lg">
                 {link.desc}
               </div>
             </div>
           ))}
+          <ThemeToggle className="ml-1" />
         </div>
 
-        {/* Mobile hamburger button */}
-        <button
-          type="button"
-          onClick={() => setMenuOpen(true)}
-          className="md:hidden p-2 -mr-2 text-secondary hover:text-white hover:bg-white/5 rounded-lg transition-colors"
-          aria-label="Open menu"
-        >
-          <Menu className="w-6 h-6" />
-        </button>
+        {/* Mobile controls */}
+        <div className="flex items-center gap-1 md:hidden">
+          <ThemeToggle />
+          <button
+            type="button"
+            onClick={() => setMenuOpen(true)}
+            className="p-2 -mr-2 text-secondary hover:text-foreground hover:bg-overlay/5 rounded-lg transition-colors"
+            aria-label="Open menu"
+          >
+            <Menu className="w-6 h-6" />
+          </button>
+        </div>
       </div>
 
       {/* Mobile menu overlay - portaled to body so it always sits above page content */}
@@ -131,13 +136,13 @@ export function Nav() {
               onClick={() => setMenuOpen(false)}
               aria-hidden="true"
             />
-            <div className="fixed top-0 right-0 bottom-0 w-full max-w-[min(280px,100vw)] bg-[#0d0d0d] border-l border-border z-[101] md:hidden shadow-2xl animate-slide-in-right">
+            <div className="fixed top-0 right-0 bottom-0 w-full max-w-[min(280px,100vw)] bg-card border-l border-border z-[101] md:hidden shadow-2xl animate-slide-in-right">
               <div className="flex items-center justify-between px-4 h-14 border-b border-border shrink-0">
                 <span className="font-semibold text-sm">Menu</span>
                 <button
                   type="button"
                   onClick={() => setMenuOpen(false)}
-                  className="p-2 -mr-2 text-secondary hover:text-white hover:bg-white/5 rounded-lg transition-colors"
+                  className="p-2 -mr-2 text-secondary hover:text-foreground hover:bg-overlay/5 rounded-lg transition-colors"
                   aria-label="Close menu"
                 >
                   <X className="w-5 h-5" />

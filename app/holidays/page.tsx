@@ -128,7 +128,7 @@ function HolidaysContent() {
       <main className="min-h-screen">
         <Nav />
         <div className="max-w-7xl mx-auto px-4 sm:px-6 py-8 sm:py-12 text-center">
-          <h2 className="text-2xl font-bold text-white mb-2">Holiday Analysis</h2>
+          <h2 className="text-2xl font-bold text-foreground mb-2">Holiday Analysis</h2>
           <p className="text-secondary">
             No holiday data available. Run <code className="text-accent">python scripts/export_dashboards.py</code> to generate.
           </p>
@@ -143,7 +143,7 @@ function HolidaysContent() {
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 py-6 sm:py-8 space-y-6 sm:space-y-8">
         <div>
-          <h2 className="text-2xl sm:text-3xl font-bold text-white mb-2">Holiday Analysis</h2>
+          <h2 className="text-2xl sm:text-3xl font-bold text-foreground mb-2">Holiday Analysis</h2>
           <p className="text-secondary">
             Year-over-year performance for US holidays. Variable-date holidays (Easter, Thanksgiving, etc.) are computed per year.
           </p>

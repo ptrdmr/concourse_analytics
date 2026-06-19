@@ -35,7 +35,7 @@ export interface NameSlice {
 }
 
 const FALLBACK_COLORS = [
-  '#2563eb', '#60a5fa', '#f59e0b', '#ef4444', '#8b5cf6',
+  '#22c55e', '#4ade80', '#f59e0b', '#ef4444', '#8b5cf6',
   '#f97316', '#ec4899', '#84cc16', '#06b6d4', '#e879f9',
   '#a78bfa', '#14b8a6', '#f43f5e', '#eab308', '#6366f1',
 ];
@@ -57,8 +57,8 @@ function PieTooltip({ active, payload }: { active?: boolean; payload?: Array<{ p
   if (!active || !payload?.length) return null;
   const d = payload[0].payload;
   return (
-    <div className="bg-gray-900 border border-gray-700 rounded-lg px-4 py-3 shadow-xl">
-      <p className="text-sm font-semibold text-white">{d.label}</p>
+    <div className="bg-card border border-border-hover rounded-lg px-4 py-3 shadow-xl">
+      <p className="text-sm font-semibold text-foreground">{d.label}</p>
       <p className="text-sm text-accent">{formatCurrency(d.amount)}</p>
       <p className="text-xs text-muted mt-1">{d.transactions.toLocaleString()} payments</p>
     </div>
@@ -68,8 +68,8 @@ function PieTooltip({ active, payload }: { active?: boolean; payload?: Array<{ p
 function TrendTooltip({ active, payload, label }: { active?: boolean; payload?: Array<{ value: number; name: string; color: string }>; label?: string }) {
   if (!active || !payload?.length) return null;
   return (
-    <div className="bg-gray-900 border border-gray-700 rounded-lg px-4 py-3 shadow-xl">
-      <p className="text-sm font-semibold text-white mb-2">{label}</p>
+    <div className="bg-card border border-border-hover rounded-lg px-4 py-3 shadow-xl">
+      <p className="text-sm font-semibold text-foreground mb-2">{label}</p>
       {payload.map((entry) => (
         <p key={entry.name} className="text-sm" style={{ color: entry.color }}>
           {entry.name}: {formatCurrency(entry.value)}
@@ -83,8 +83,8 @@ function NamePieTooltip({ active, payload }: { active?: boolean; payload?: Array
   if (!active || !payload?.length) return null;
   const d = payload[0].payload;
   return (
-    <div className="bg-gray-900 border border-gray-700 rounded-lg px-4 py-3 shadow-xl">
-      <p className="text-sm font-semibold text-white">{d.name}</p>
+    <div className="bg-card border border-border-hover rounded-lg px-4 py-3 shadow-xl">
+      <p className="text-sm font-semibold text-foreground">{d.name}</p>
       <p className="text-sm text-accent">{formatCurrency(d.amount)}</p>
       <p className="text-xs text-muted mt-1">{d.transactions.toLocaleString()} payments</p>
     </div>
@@ -106,7 +106,7 @@ export function PaymentNamePieChart({
   if (!data.length) {
     return (
       <div className="card p-6 h-full">
-        <h3 className="text-lg font-semibold text-white mb-1">{title}</h3>
+        <h3 className="text-lg font-semibold text-foreground mb-1">{title}</h3>
         <p className="text-sm text-muted mb-2">{subtitle}</p>
         <p className="text-sm text-muted">No payment data for the selected period.</p>
       </div>
@@ -115,7 +115,7 @@ export function PaymentNamePieChart({
 
   return (
     <div className="card p-6 h-full">
-      <h3 className="text-lg font-semibold text-white mb-1">{title}</h3>
+      <h3 className="text-lg font-semibold text-foreground mb-1">{title}</h3>
       <p className="text-sm text-muted mb-6">{subtitle}</p>
       <div className="flex flex-col gap-6">
         {pieData.length > 0 && (
@@ -154,7 +154,7 @@ export function PaymentNamePieChart({
                 </span>
               </div>
               <div className="flex items-center gap-3 shrink-0">
-                <span className={`font-mono ${d.amount > 0 ? 'text-white' : 'text-muted'}`}>
+                <span className={`font-mono ${d.amount > 0 ? 'text-foreground' : 'text-muted'}`}>
                   {formatCompact(d.amount)}
                 </span>
                 <span className="text-muted text-xs w-12 text-right">
@@ -175,7 +175,7 @@ export function PaymentTypePieChart({ data }: { data: TypeSlice[] }) {
   if (!data.length || total === 0) {
     return (
       <div className="card p-6">
-        <h3 className="text-lg font-semibold text-white mb-2">Payment Mix</h3>
+        <h3 className="text-lg font-semibold text-foreground mb-2">Payment Mix</h3>
         <p className="text-sm text-muted">No payment data for the selected period.</p>
       </div>
     );
@@ -183,7 +183,7 @@ export function PaymentTypePieChart({ data }: { data: TypeSlice[] }) {
 
   return (
     <div className="card p-6">
-      <h3 className="text-lg font-semibold text-white mb-1">Payment Mix</h3>
+      <h3 className="text-lg font-semibold text-foreground mb-1">Payment Mix</h3>
       <p className="text-sm text-muted mb-6">Share of tender by payment type</p>
       <div className="flex flex-col lg:flex-row gap-6">
         <div className="h-[280px] flex-1">
@@ -218,7 +218,7 @@ export function PaymentTypePieChart({ data }: { data: TypeSlice[] }) {
                 <span className="text-secondary">{d.label}</span>
               </div>
               <div className="flex items-center gap-3 shrink-0">
-                <span className="font-mono text-white">{formatCompact(d.amount)}</span>
+                <span className="font-mono text-foreground">{formatCompact(d.amount)}</span>
                 <span className="text-muted text-xs w-12 text-right">
                   {formatPercent((d.amount / total) * 100)}
                 </span>
@@ -236,7 +236,7 @@ export function PaymentDailyTrendChart({ data }: { data: DailyPoint[] }) {
 
   return (
     <div className="card p-6">
-      <h3 className="text-lg font-semibold text-white mb-1">Daily Payment Trend</h3>
+      <h3 className="text-lg font-semibold text-foreground mb-1">Daily Payment Trend</h3>
       <p className="text-sm text-muted mb-6">Payment type mix over the selected range</p>
       <div className="h-[320px]">
         <ResponsiveContainer width="100%" height="100%">

@@ -29,8 +29,8 @@ function CompareInstruction({ children }: { children: ReactNode }) {
 /** Step title: accent index + divider so sections scan faster than plain white headings. */
 function CompareSectionHeading({ step, title }: { step: number; title: string }) {
   return (
-    <div className="mb-1 border-b border-white/[0.08] pb-3">
-      <h2 className="flex flex-wrap items-center gap-2.5 text-lg font-semibold tracking-tight text-white">
+    <div className="mb-1 border-b border-overlay/[0.08] pb-3">
+      <h2 className="flex flex-wrap items-center gap-2.5 text-lg font-semibold tracking-tight text-foreground">
         <span className="sr-only">{`Step ${step}: `}</span>
         <span
           className="inline-flex h-7 min-w-[1.75rem] shrink-0 items-center justify-center rounded-md bg-accent/15 px-2 font-mono text-sm font-bold text-accent tabular-nums ring-1 ring-accent/25"
@@ -159,7 +159,7 @@ function CompareContent() {
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 py-6 sm:py-8 space-y-6 sm:space-y-8">
         <div>
-          <h1 className="text-2xl font-bold text-white mb-1">Period Comparison</h1>
+          <h1 className="text-2xl font-bold text-foreground mb-1">Period Comparison</h1>
           <CompareInstruction>
             Compare two time frames side by side. Use the numbered sections below to set periods, department, and granularity.
           </CompareInstruction>
@@ -190,8 +190,8 @@ function CompareContent() {
                 onClick={() => setDepartment(dept)}
                 className={`px-4 py-2 rounded-full text-sm font-medium transition-colors ${
                   department === dept
-                    ? 'bg-accent text-black'
-                    : 'bg-white/5 text-secondary hover:bg-white/10 hover:text-white'
+                    ? 'bg-accent text-accent-foreground'
+                    : 'bg-overlay/5 text-secondary hover:bg-overlay/10 hover:text-foreground'
                 }`}
               >
                 {dept}
@@ -213,7 +213,7 @@ function CompareContent() {
                 className={`px-3 py-1.5 rounded-full text-xs font-medium transition-colors ${
                   granularity === g.id
                     ? 'bg-accent/20 text-accent border border-accent/40'
-                    : 'bg-white/5 text-secondary hover:bg-white/10 hover:text-white border border-transparent'
+                    : 'bg-overlay/5 text-secondary hover:bg-overlay/10 hover:text-foreground border border-transparent'
                 }`}
               >
                 {g.label}

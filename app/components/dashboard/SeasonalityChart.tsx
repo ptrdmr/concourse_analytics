@@ -20,7 +20,7 @@ interface Props {
 function CustomTooltip({ active, payload, label }: { active?: boolean; payload?: Array<{ dataKey: string; value: number; color: string }>; label?: string }) {
   if (!active || !payload?.length) return null;
   return (
-    <div className="bg-gray-900 border border-gray-700 rounded-lg px-4 py-3 shadow-xl">
+    <div className="bg-card border border-border-hover rounded-lg px-4 py-3 shadow-xl">
       <p className="text-xs text-muted mb-2">Week {label}</p>
       {payload
         .filter(p => p.value > 0)
@@ -29,7 +29,7 @@ function CustomTooltip({ active, payload, label }: { active?: boolean; payload?:
           <p key={p.dataKey} className="text-sm">
             <span className="inline-block w-3 h-3 rounded-full mr-2" style={{ background: p.color }} />
             <span className="text-secondary">{p.dataKey}: </span>
-            <span className="text-white font-mono">{formatCurrency(p.value)}</span>
+            <span className="text-foreground font-mono">{formatCurrency(p.value)}</span>
           </p>
         ))}
     </div>
@@ -69,7 +69,7 @@ export function SeasonalityChart({ data }: Props) {
 
   return (
     <div className="card p-6">
-      <h3 className="text-lg font-semibold text-white mb-1">Bowling Sales Seasonality</h3>
+      <h3 className="text-lg font-semibold text-foreground mb-1">Bowling Sales Seasonality</h3>
       <p className="text-sm text-muted mb-4">Weekly sales by year — 52-week overlay</p>
 
       <div className="flex flex-wrap gap-2 mb-6">
@@ -81,7 +81,7 @@ export function SeasonalityChart({ data }: Props) {
               key={year}
               onClick={() => toggleYear(year)}
               className={`flex items-center gap-2 px-3 py-1.5 rounded-full text-sm font-medium transition-all ${
-                active ? 'bg-white/10 text-white' : 'bg-white/5 text-muted'
+                active ? 'bg-overlay/10 text-foreground' : 'bg-overlay/5 text-muted'
               }`}
             >
               <span

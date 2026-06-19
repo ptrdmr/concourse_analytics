@@ -34,15 +34,15 @@ function CustomTooltip({
   if (!point) return null;
 
   return (
-    <div className="bg-gray-900 border border-gray-700 rounded-lg px-3 py-2 sm:px-4 sm:py-3 shadow-xl text-xs sm:text-sm">
+    <div className="bg-card border border-border-hover rounded-lg px-3 py-2 sm:px-4 sm:py-3 shadow-xl text-xs sm:text-sm">
       <p className="text-muted mb-1.5">{point.label}</p>
       <p className="text-xs sm:text-sm">
         <span className="text-accent">Sales:</span>{' '}
-        <span className="font-mono text-white">{formatCurrency(point.sales)}</span>
+        <span className="font-mono text-foreground">{formatCurrency(point.sales)}</span>
       </p>
       <p className="text-xs sm:text-sm">
         <span className="text-[#f97316]">Labor:</span>{' '}
-        <span className="font-mono text-white">{formatCurrency(point.laborCost)}</span>
+        <span className="font-mono text-foreground">{formatCurrency(point.laborCost)}</span>
       </p>
       {point.laborPct != null && (
         <p className="text-[10px] sm:text-sm text-secondary mt-1">
@@ -87,9 +87,9 @@ function HeroMetric({
   accent?: boolean;
 }) {
   return (
-    <div className="rounded-xl border border-white/10 bg-white/[0.03] p-3 sm:p-4">
+    <div className="rounded-xl border border-overlay/10 bg-overlay/[0.03] p-3 sm:p-4">
       <p className="text-[10px] sm:text-xs text-secondary mb-1">{label}</p>
-      <p className={`text-xl sm:text-2xl font-bold font-mono ${accent ? 'text-gradient' : 'text-white'}`}>
+      <p className={`text-xl sm:text-2xl font-bold font-mono ${accent ? 'text-gradient' : 'text-foreground'}`}>
         {value}
       </p>
       {sub && <div className="mt-1">{sub}</div>}
@@ -140,7 +140,7 @@ export function SalesVsLaborCard({ summary, salesDelta, laborDelta }: Props) {
       <div className="flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between mb-4 sm:mb-6">
         <div>
           <p className="text-xs uppercase tracking-wider text-accent mb-1">Owner snapshot</p>
-          <h3 className="text-xl sm:text-2xl font-bold text-white">Sales vs Labor</h3>
+          <h3 className="text-xl sm:text-2xl font-bold text-foreground">Sales vs Labor</h3>
           <p className="text-xs sm:text-sm text-secondary mt-1">
             {isMonthly
               ? 'Monthly sales compared to wage labor cost for the selected period.'
@@ -178,9 +178,9 @@ export function SalesVsLaborCard({ summary, salesDelta, laborDelta }: Props) {
       </div>
 
       {!laborAvailable ? (
-        <div className="rounded-xl border border-dashed border-white/15 bg-white/[0.02] px-6 py-10 text-center">
+        <div className="rounded-xl border border-dashed border-white/15 bg-overlay/[0.02] px-6 py-10 text-center">
           <Users className="w-8 h-8 text-muted mx-auto mb-3" />
-          <p className="text-white font-medium mb-1">Labor data not connected yet</p>
+          <p className="text-foreground font-medium mb-1">Labor data not connected yet</p>
           <p className="text-sm text-secondary max-w-lg mx-auto">
             Run <code className="text-accent">npm run labor</code> with your 7shifts token in{' '}
             <code className="text-accent">.env</code> to populate daily labor cost.
@@ -228,7 +228,7 @@ export function SalesVsLaborCard({ summary, salesDelta, laborDelta }: Props) {
                 yAxisId="left"
                 dataKey="sales"
                 name="sales"
-                fill="#2563eb"
+                fill="#22c55e"
                 radius={[2, 2, 0, 0]}
                 maxBarSize={isNarrow ? 20 : 32}
               />

@@ -53,7 +53,7 @@ function MultiTooltip({
 }) {
   if (!active || !payload?.length) return null;
   return (
-    <div className="bg-gray-900 border border-gray-700 rounded-lg px-4 py-3 shadow-xl">
+    <div className="bg-card border border-border-hover rounded-lg px-4 py-3 shadow-xl">
       <p className="text-xs text-muted mb-2">{label}</p>
       {payload.map(p => {
         const isLabor = p.dataKey === 'labor';
@@ -64,7 +64,7 @@ function MultiTooltip({
           <p key={p.name} className="text-sm flex items-center gap-2">
             <span className="w-2 h-2 rounded-full shrink-0" style={{ backgroundColor: p.color }} />
             <span className="text-secondary">{isLabor ? laborLabel : p.name}: </span>
-            <span className="text-white font-mono">
+            <span className="text-foreground font-mono">
               {formatted}
               {!singleDay && !isLabor && <span className="text-muted text-xs ml-1">avg/day</span>}
               {!singleDay && isLabor && <span className="text-muted text-xs ml-1">avg/day</span>}
@@ -157,7 +157,7 @@ export function DayShapeChart({
   return (
     <div className="card p-6">
       <div className="mb-1">
-        <h3 className="text-lg font-semibold text-white">Day Shape</h3>
+        <h3 className="text-lg font-semibold text-foreground">Day Shape</h3>
         <p className="text-sm text-muted">{subtitle}</p>
       </div>
       <div className="h-[320px] mt-4">
@@ -207,8 +207,8 @@ export function DayShapeChart({
             <ComposedChart data={chartData} onClick={handleChartClick}>
               <defs>
                 <linearGradient id="dayShapeGradient" x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="0%" stopColor={series[0]?.color ?? '#2563eb'} stopOpacity={0.4} />
-                  <stop offset="100%" stopColor={series[0]?.color ?? '#2563eb'} stopOpacity={0.05} />
+                  <stop offset="0%" stopColor={series[0]?.color ?? '#22c55e'} stopOpacity={0.4} />
+                  <stop offset="100%" stopColor={series[0]?.color ?? '#22c55e'} stopOpacity={0.05} />
                 </linearGradient>
               </defs>
               <CartesianGrid strokeDasharray="3 3" stroke="#1f1f1f" vertical={false} />
@@ -255,10 +255,10 @@ export function DayShapeChart({
                 type="monotone"
                 dataKey={series[0]?.dayLabel ?? 'value'}
                 name={series[0]?.dayLabel ?? 'Sales'}
-                stroke={series[0]?.color ?? '#2563eb'}
+                stroke={series[0]?.color ?? '#22c55e'}
                 strokeWidth={2}
                 fill="url(#dayShapeGradient)"
-                activeDot={{ r: 5, fill: series[0]?.color ?? '#2563eb', stroke: '#fff', strokeWidth: 2 }}
+                activeDot={{ r: 5, fill: series[0]?.color ?? '#22c55e', stroke: '#fff', strokeWidth: 2 }}
               />
               {laborVisible && (
                 <Line
@@ -290,7 +290,7 @@ export function DayShapeChart({
                 key={s.dayLabel}
                 type="button"
                 className={`flex items-center gap-2 px-2 py-1 rounded-md transition-all ${
-                  active ? 'bg-white/10' : 'hover:bg-white/5'
+                  active ? 'bg-overlay/10' : 'hover:bg-overlay/5'
                 } ${dimmed ? 'opacity-40' : 'opacity-100'}`}
                 onMouseEnter={() => setHoveredDay(s.dayLabel)}
                 onFocus={() => setHoveredDay(s.dayLabel)}
@@ -304,7 +304,7 @@ export function DayShapeChart({
                     width: active ? 20 : 12,
                   }}
                 />
-                <span className={`text-xs ${active ? 'text-white font-medium' : 'text-secondary'}`}>
+                <span className={`text-xs ${active ? 'text-foreground font-medium' : 'text-secondary'}`}>
                   {s.dayLabel}
                 </span>
               </button>
@@ -315,7 +315,7 @@ export function DayShapeChart({
       {laborVisible && (
         <div className="flex items-center justify-center gap-4 mt-3 text-xs text-secondary">
           <span className="inline-flex items-center gap-2">
-            <span className="w-3 h-0.5 rounded-full bg-[#2563eb]" />
+            <span className="w-3 h-0.5 rounded-full bg-[#22c55e]" />
             Sales
           </span>
           <span className="inline-flex items-center gap-2">

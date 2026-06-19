@@ -25,8 +25,8 @@ interface Props {
 }
 
 const MODEL_COLORS: Record<string, string> = {
-  actual: '#2563eb',
-  seasonal: '#60a5fa',
+  actual: '#22c55e',
+  seasonal: '#4ade80',
 };
 
 const MODEL_LABELS: Record<string, string> = {
@@ -43,19 +43,19 @@ function CustomTooltip({ active, payload, label }: { active?: boolean; payload?:
   const pctError = hasBoth ? ((actual - predicted) / predicted) * 100 : null;
 
   return (
-    <div className="bg-gray-900 border border-gray-700 rounded-lg px-4 py-3 shadow-xl">
+    <div className="bg-card border border-border-hover rounded-lg px-4 py-3 shadow-xl">
       <p className="text-xs text-muted mb-2">{label}</p>
       {payload.map(p => (
         <p key={p.dataKey} className="text-sm">
           <span className="inline-block w-3 h-3 rounded-full mr-2" style={{ background: p.color }} />
           <span className="text-secondary">{MODEL_LABELS[p.dataKey] || p.dataKey}: </span>
-          <span className="text-white font-mono">{formatCurrency(p.value)}</span>
+          <span className="text-foreground font-mono">{formatCurrency(p.value)}</span>
         </p>
       ))}
       {error != null && (
-        <p className="text-sm mt-2 pt-2 border-t border-gray-700">
+        <p className="text-sm mt-2 pt-2 border-t border-border-hover">
           <span className="text-secondary">Error: </span>
-          <span className={`font-mono ${error >= 0 ? 'text-blue-400' : 'text-rose-400'}`}>
+          <span className={`font-mono ${error >= 0 ? 'text-accent' : 'text-rose-400'}`}>
             {error >= 0 ? '+' : ''}{formatCurrency(error)}
             {pctError != null && ` (${pctError >= 0 ? '+' : ''}${pctError.toFixed(1)}%)`}
           </span>
@@ -97,7 +97,7 @@ export function ForecastChart({ data }: Props) {
 
   return (
     <div className="card p-6">
-      <h3 className="text-lg font-semibold text-white mb-1">Bowling Sales Forecast</h3>
+      <h3 className="text-lg font-semibold text-foreground mb-1">Bowling Sales Forecast</h3>
       <p className="text-sm text-muted mb-4">
         {models.includes('actual') && models.includes('seasonal')
           ? 'Actual vs predicted weekly sales'
@@ -117,23 +117,23 @@ export function ForecastChart({ data }: Props) {
       </div>
 
       {overlapMetrics && (
-        <div className="mb-6 rounded-lg border border-gray-800 bg-gray-950/50 px-4 py-3">
+        <div className="mb-6 rounded-lg border border-border bg-card px-4 py-3">
           <div className="text-xs font-medium uppercase tracking-wide text-secondary mb-2">
             Model fit
           </div>
           <div className="flex flex-wrap gap-x-6 gap-y-2 text-sm">
             <div>
               <span className="text-secondary">MAE </span>
-              <span className="font-mono text-white">{formatCurrency(overlapMetrics.mae)}</span>
+              <span className="font-mono text-foreground">{formatCurrency(overlapMetrics.mae)}</span>
             </div>
             <div>
               <span className="text-secondary">RMSE </span>
-              <span className="font-mono text-white">{formatCurrency(overlapMetrics.rmse)}</span>
+              <span className="font-mono text-foreground">{formatCurrency(overlapMetrics.rmse)}</span>
             </div>
             {overlapMetrics.rSquared != null && (
               <div>
                 <span className="text-secondary">R² </span>
-                <span className="font-mono text-white">{overlapMetrics.rSquared.toFixed(3)}</span>
+                <span className="font-mono text-foreground">{overlapMetrics.rSquared.toFixed(3)}</span>
               </div>
             )}
           </div>

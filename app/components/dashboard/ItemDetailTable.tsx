@@ -24,7 +24,7 @@ interface Props {
 type SortKey = 'name' | 'category' | 'revenue' | 'quantity';
 type SortDir = 'asc' | 'desc';
 
-const FALLBACK = '#2563eb';
+const FALLBACK = '#22c55e';
 const PAGE_SIZE = 25;
 
 export function ItemDetailTable({
@@ -88,7 +88,7 @@ export function ItemDetailTable({
     <div className="card p-6">
       <div className="flex flex-wrap items-center justify-between gap-4 mb-4">
         <div className="flex items-center gap-3">
-          <h3 className="text-lg font-semibold text-white">{title}</h3>
+          <h3 className="text-lg font-semibold text-foreground">{title}</h3>
           {onItemClick && (
             <span className="text-sm text-accent font-medium px-2.5 py-0.5 rounded-md bg-accent/10 border border-accent/30 shrink-0">
               {clickHint}
@@ -105,7 +105,7 @@ export function ItemDetailTable({
               setSearchTerm(e.target.value);
               setPage(0);
             }}
-            className="w-full pl-10 pr-8 py-2 rounded-lg bg-white/5 border border-border text-sm placeholder:text-muted focus:outline-none focus:border-accent/50"
+            className="w-full pl-10 pr-8 py-2 rounded-lg bg-overlay/5 border border-border text-sm placeholder:text-muted focus:outline-none focus:border-accent/50"
           />
           {searchTerm && (
             <button
@@ -113,7 +113,7 @@ export function ItemDetailTable({
                 setSearchTerm('');
                 setPage(0);
               }}
-              className="absolute right-2 top-1/2 -translate-y-1/2 text-muted hover:text-white"
+              className="absolute right-2 top-1/2 -translate-y-1/2 text-muted hover:text-foreground"
               aria-label="Clear search"
             >
               <X className="w-4 h-4" />
@@ -140,7 +140,7 @@ export function ItemDetailTable({
                 <th
                   key={key}
                   onClick={() => toggleSort(key)}
-                  className={`text-left py-3 px-3 text-secondary font-medium cursor-pointer hover:text-white transition-colors ${
+                  className={`text-left py-3 px-3 text-secondary font-medium cursor-pointer hover:text-foreground transition-colors ${
                     key === 'revenue' || key === 'quantity' ? 'text-right' : ''
                   }`}
                 >
@@ -154,7 +154,7 @@ export function ItemDetailTable({
               <tr
                 key={item.name}
                 onClick={() => onItemClick?.(item)}
-                className={`border-b border-border/50 hover:bg-white/[0.02] ${onItemClick ? 'cursor-pointer' : ''}`}
+                className={`border-b border-border/50 hover:bg-overlay/[0.02] ${onItemClick ? 'cursor-pointer' : ''}`}
               >
                 <td className="py-2.5 px-3 font-medium">{item.name}</td>
                 <td className="py-2.5 px-3">
@@ -183,7 +183,7 @@ export function ItemDetailTable({
           <button
             disabled={page === 0}
             onClick={() => setPage(p => p - 1)}
-            className="px-3 py-1.5 rounded-lg text-sm bg-white/5 text-secondary hover:text-white disabled:opacity-30 disabled:cursor-not-allowed"
+            className="px-3 py-1.5 rounded-lg text-sm bg-overlay/5 text-secondary hover:text-foreground disabled:opacity-30 disabled:cursor-not-allowed"
           >
             Previous
           </button>
@@ -193,7 +193,7 @@ export function ItemDetailTable({
           <button
             disabled={page >= totalPages - 1}
             onClick={() => setPage(p => p + 1)}
-            className="px-3 py-1.5 rounded-lg text-sm bg-white/5 text-secondary hover:text-white disabled:opacity-30 disabled:cursor-not-allowed"
+            className="px-3 py-1.5 rounded-lg text-sm bg-overlay/5 text-secondary hover:text-foreground disabled:opacity-30 disabled:cursor-not-allowed"
           >
             Next
           </button>

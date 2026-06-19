@@ -22,9 +22,9 @@ interface Props {
 function CustomTooltip({ active, payload, label }: { active?: boolean; payload?: Array<{ value: number }>; label?: string }) {
   if (!active || !payload?.length) return null;
   return (
-    <div className="bg-gray-900 border border-gray-700 rounded-lg px-4 py-3 shadow-xl">
+    <div className="bg-card border border-border-hover rounded-lg px-4 py-3 shadow-xl">
       <p className="text-xs text-muted mb-1">{label}</p>
-      <p className="text-sm font-mono text-white">{formatCurrency(payload[0]?.value ?? 0)}</p>
+      <p className="text-sm font-mono text-foreground">{formatCurrency(payload[0]?.value ?? 0)}</p>
     </div>
   );
 }
@@ -40,7 +40,7 @@ export function HolidayComparisonChart({ years, department, yearColors }: Props)
 
   return (
     <div className="card p-6">
-      <h3 className="text-lg font-semibold text-white mb-1">Sales by Year</h3>
+      <h3 className="text-lg font-semibold text-foreground mb-1">Sales by Year</h3>
       <p className="text-sm text-muted mb-6">
         {department === 'All' ? 'All departments' : department} — {years.length} years
       </p>
@@ -65,7 +65,7 @@ export function HolidayComparisonChart({ years, department, yearColors }: Props)
             <Tooltip content={<CustomTooltip />} />
             <Bar
               dataKey="revenue"
-              fill="#2563eb"
+              fill="#22c55e"
               radius={[4, 4, 0, 0]}
               maxBarSize={60}
             />

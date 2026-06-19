@@ -36,13 +36,13 @@ export function DaypartHeatmap({ cells, metric, resolution, onCellClick, selecte
     if (value <= 0) return 'rgba(255,255,255,0.03)';
     const intensity = Math.min(value / maxValue, 1);
     const alpha = 0.15 + intensity * 0.85;
-    return `rgba(37, 99, 235, ${alpha})`;
+    return `rgba(34, 197, 94, ${alpha})`;
   }
 
   return (
     <div className="card p-6 overflow-x-auto">
       <div className="mb-4 min-w-[600px]">
-        <h3 className="text-lg font-semibold text-white">Daypart Heatmap</h3>
+        <h3 className="text-lg font-semibold text-foreground">Daypart Heatmap</h3>
         <p className="text-sm text-muted">Avg {metric === 'quantity' ? 'units' : 'revenue'} by day of week and time (4 AM start)</p>
       </div>
       <div className="min-w-[600px]">

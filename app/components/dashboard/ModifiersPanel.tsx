@@ -65,7 +65,7 @@ export function ModifiersPanel({ modifiers }: Props) {
 
   return (
     <div className="card p-6">
-      <h3 className="text-lg font-semibold text-white mb-1">Modifiers</h3>
+      <h3 className="text-lg font-semibold text-foreground mb-1">Modifiers</h3>
       <p className="text-sm text-muted mb-4">
         Food department add-ons (toppings, extras) — {modifiers.length} unique modifiers
       </p>
@@ -83,7 +83,7 @@ export function ModifiersPanel({ modifiers }: Props) {
                 <th
                   key={key}
                   onClick={() => toggleSort(key)}
-                  className={`text-left py-3 px-3 text-secondary font-medium cursor-pointer hover:text-white transition-colors ${
+                  className={`text-left py-3 px-3 text-secondary font-medium cursor-pointer hover:text-foreground transition-colors ${
                     key === 'count' || key === 'unitPrice' || key === 'revenue' ? 'text-right' : ''
                   }`}
                 >
@@ -96,7 +96,7 @@ export function ModifiersPanel({ modifiers }: Props) {
             {pageItems.map(mod => (
               <tr
                 key={mod.name}
-                className="border-b border-border/50 hover:bg-white/[0.02]"
+                className="border-b border-border/50 hover:bg-overlay/[0.02]"
               >
                 <td className="py-2.5 px-3 font-medium">{mod.name}</td>
                 <td className="py-2.5 px-3 text-secondary">{mod.subdepartment || '—'}</td>
@@ -119,7 +119,7 @@ export function ModifiersPanel({ modifiers }: Props) {
           <button
             disabled={page === 0}
             onClick={() => setPage(p => p - 1)}
-            className="px-3 py-1.5 rounded-lg text-sm bg-white/5 text-secondary hover:text-white disabled:opacity-30 disabled:cursor-not-allowed"
+            className="px-3 py-1.5 rounded-lg text-sm bg-overlay/5 text-secondary hover:text-foreground disabled:opacity-30 disabled:cursor-not-allowed"
           >
             Previous
           </button>
@@ -129,7 +129,7 @@ export function ModifiersPanel({ modifiers }: Props) {
           <button
             disabled={page >= totalPages - 1}
             onClick={() => setPage(p => p + 1)}
-            className="px-3 py-1.5 rounded-lg text-sm bg-white/5 text-secondary hover:text-white disabled:opacity-30 disabled:cursor-not-allowed"
+            className="px-3 py-1.5 rounded-lg text-sm bg-overlay/5 text-secondary hover:text-foreground disabled:opacity-30 disabled:cursor-not-allowed"
           >
             Next
           </button>

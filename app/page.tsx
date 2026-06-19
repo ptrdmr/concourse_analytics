@@ -214,7 +214,7 @@ function HomeContent() {
           />
         </div>
 
-        <div className="mt-14 pt-8 border-t border-white/10">
+        <div className="mt-14 pt-8 border-t border-overlay/10">
           <div className="flex items-center justify-between mb-6">
             <div>
               <h3 className="text-lg font-semibold text-secondary">By Department</h3>

@@ -15,7 +15,7 @@ interface Props {
 }
 
 const FALLBACK_COLORS = [
-  '#2563eb', '#60a5fa', '#f59e0b', '#ef4444', '#8b5cf6',
+  '#22c55e', '#4ade80', '#f59e0b', '#ef4444', '#8b5cf6',
   '#f97316', '#ec4899', '#84cc16', '#06b6d4', '#e879f9',
   '#a78bfa', '#14b8a6', '#f43f5e', '#eab308', '#6366f1',
 ];
@@ -28,8 +28,8 @@ function CustomTooltip({ active, payload }: { active?: boolean; payload?: Array<
   if (!active || !payload?.length) return null;
   const d = payload[0].payload;
   return (
-    <div className="bg-gray-900 border border-gray-700 rounded-lg px-4 py-3 shadow-xl">
-      <p className="text-sm font-semibold text-white">{d.category}</p>
+    <div className="bg-card border border-border-hover rounded-lg px-4 py-3 shadow-xl">
+      <p className="text-sm font-semibold text-foreground">{d.category}</p>
       <p className="text-sm text-accent">{formatCurrency(d.revenue)}</p>
     </div>
   );
@@ -42,7 +42,7 @@ export function CategoryPieChart({ data, colors, onCategoryClick }: Props) {
   return (
     <div className="card p-6">
       <div className="flex items-center justify-between gap-4 mb-1">
-        <h3 className="text-lg font-semibold text-white">Sales by Category</h3>
+        <h3 className="text-lg font-semibold text-foreground">Sales by Category</h3>
         <span className="text-xs text-muted/80 shrink-0">Click to expand</span>
       </div>
       <p className="text-sm text-muted mb-6">Top categories by total sales</p>
@@ -84,7 +84,7 @@ export function CategoryPieChart({ data, colors, onCategoryClick }: Props) {
                 <span className="text-secondary truncate">{d.category}</span>
               </div>
               <div className="flex items-center gap-3 shrink-0">
-                <span className="font-mono text-white">{formatCompact(d.revenue)}</span>
+                <span className="font-mono text-foreground">{formatCompact(d.revenue)}</span>
                 <span className="text-muted text-xs w-12 text-right">
                   {formatPercent((d.revenue / total) * 100)}
                 </span>

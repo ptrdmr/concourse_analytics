@@ -68,13 +68,13 @@ export function DaypartItemFilter({ items, selected, onChange }: Props) {
             setOpen(true);
           }}
           onFocus={() => setOpen(true)}
-          className="w-full pl-10 pr-8 py-2 rounded-lg bg-white/5 border border-border text-sm placeholder:text-muted focus:outline-none focus:border-accent/50"
+          className="w-full pl-10 pr-8 py-2 rounded-lg bg-overlay/5 border border-border text-sm placeholder:text-muted focus:outline-none focus:border-accent/50"
         />
         {query && (
           <button
             type="button"
             onClick={() => { setQuery(''); setOpen(false); }}
-            className="absolute right-2 top-1/2 -translate-y-1/2 text-muted hover:text-white"
+            className="absolute right-2 top-1/2 -translate-y-1/2 text-muted hover:text-foreground"
             aria-label="Clear search"
           >
             <X className="w-4 h-4" />
@@ -82,7 +82,7 @@ export function DaypartItemFilter({ items, selected, onChange }: Props) {
         )}
 
         {open && query.trim() && (
-          <div className="absolute z-20 top-full left-0 right-0 mt-1 max-h-60 overflow-y-auto rounded-lg border border-border bg-[#141414] shadow-xl">
+          <div className="absolute z-20 top-full left-0 right-0 mt-1 max-h-60 overflow-y-auto rounded-lg border border-border bg-card-hover shadow-xl">
             {suggestions.length === 0 ? (
               <p className="px-3 py-2 text-sm text-muted">No matching items</p>
             ) : (
@@ -91,9 +91,9 @@ export function DaypartItemFilter({ items, selected, onChange }: Props) {
                   key={item.name}
                   type="button"
                   onClick={() => addItem(item.name)}
-                  className="w-full text-left px-3 py-2 hover:bg-white/5 transition-colors"
+                  className="w-full text-left px-3 py-2 hover:bg-overlay/5 transition-colors"
                 >
-                  <span className="text-sm text-white block truncate">{item.name}</span>
+                  <span className="text-sm text-foreground block truncate">{item.name}</span>
                   <span className="text-xs text-muted">{item.category}</span>
                 </button>
               ))

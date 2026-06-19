@@ -1,22 +1,61 @@
 @import "tailwindcss";
 
 @theme inline {
-  --color-background: #000000;
-  --color-foreground: #ffffff;
-  --color-card: #0d0d0d;
-  --color-card-hover: #141414;
-  --color-border: #1f1f1f;
-  --color-border-hover: #2f2f2f;
-  --color-muted: #71717a;
-  --color-secondary: #a1a1aa;
-  --color-accent: #2563eb;
-  --color-accent-2: #60a5fa;
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-hover: var(--card-hover);
+  --color-border: var(--border);
+  --color-border-hover: var(--border-hover);
+  --color-muted: var(--muted);
+  --color-secondary: var(--secondary);
+  --color-accent: var(--accent);
+  --color-accent-2: var(--accent-2);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-overlay: var(--overlay);
 }
 
 :root {
   --font-sans: system-ui, -apple-system, sans-serif;
   --font-mono: 'SF Mono', Monaco, 'Cascadia Code', monospace;
   --nav-height: 4rem;
+
+  /* Light theme (default) */
+  color-scheme: light;
+  --background: #f7f7f8;
+  --foreground: #18181b;
+  --card: #ffffff;
+  --card-hover: #f4f4f5;
+  --border: #e4e4e7;
+  --border-hover: #d4d4d8;
+  --muted: #71717a;
+  --secondary: #52525b;
+  --accent: #16a34a;
+  --accent-2: #22c55e;
+  --accent-foreground: #ffffff;
+  /* Tint used for subtle hover/surface fills */
+  --overlay: #18181b;
+  /* Chart axis + grid colors */
+  --chart-grid: #e4e4e7;
+  --chart-axis: #a1a1aa;
+}
+
+.dark {
+  color-scheme: dark;
+  --background: #000000;
+  --foreground: #ffffff;
+  --card: #0d0d0d;
+  --card-hover: #141414;
+  --border: #1f1f1f;
+  --border-hover: #2f2f2f;
+  --muted: #71717a;
+  --secondary: #a1a1aa;
+  --accent: #22c55e;
+  --accent-2: #4ade80;
+  --accent-foreground: #052e16;
+  --overlay: #ffffff;
+  --chart-grid: #1f1f1f;
+  --chart-axis: #525252;
 }
 
 body {
@@ -44,6 +83,22 @@ body {
 .card:hover {
   border-color: var(--color-border-hover);
   background: var(--color-card-hover);
+}
+
+/* Theme-aware Recharts axes/grid. The chart components hard-code colors as SVG
+   presentation attributes; CSS rules override those, and the custom properties
+   flip with the theme so both light and dark stay readable. */
+.recharts-cartesian-grid line {
+  stroke: var(--chart-grid);
+}
+
+.recharts-cartesian-axis-tick-value {
+  fill: var(--chart-axis);
+}
+
+.recharts-cartesian-axis-line,
+.recharts-cartesian-axis-tick-line {
+  stroke: var(--chart-axis);
 }
 
 @keyframes fade-in {

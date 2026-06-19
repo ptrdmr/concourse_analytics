@@ -22,8 +22,8 @@ export function FilterBar({ departments, categories, filters, onChange }: Props)
             onClick={() => onChange({ ...filters, department: dept, categories: [] })}
             className={`px-4 py-2 rounded-full text-sm font-medium transition-colors ${
               filters.department === dept
-                ? 'bg-accent text-black'
-                : 'bg-white/5 text-secondary hover:bg-white/10 hover:text-white'
+                ? 'bg-accent text-accent-foreground'
+                : 'bg-overlay/5 text-secondary hover:bg-overlay/10 hover:text-foreground'
             }`}
           >
             {dept}
@@ -44,12 +44,12 @@ export function FilterBar({ departments, categories, filters, onChange }: Props)
             placeholder="Search items..."
             value={filters.searchTerm}
             onChange={e => onChange({ ...filters, searchTerm: e.target.value })}
-            className="w-full pl-10 pr-8 py-2 rounded-lg bg-white/5 border border-border text-sm placeholder:text-muted focus:outline-none focus:border-accent/50"
+            className="w-full pl-10 pr-8 py-2 rounded-lg bg-overlay/5 border border-border text-sm placeholder:text-muted focus:outline-none focus:border-accent/50"
           />
           {filters.searchTerm && (
             <button
               onClick={() => onChange({ ...filters, searchTerm: '' })}
-              className="absolute right-2 top-1/2 -translate-y-1/2 text-muted hover:text-white"
+              className="absolute right-2 top-1/2 -translate-y-1/2 text-muted hover:text-foreground"
             >
               <X className="w-4 h-4" />
             </button>
@@ -71,7 +71,7 @@ export function FilterBar({ departments, categories, filters, onChange }: Props)
                 className={`px-3 py-1 rounded-full text-xs font-medium transition-colors ${
                   active
                     ? 'bg-accent/20 text-accent border border-accent/40'
-                    : 'bg-white/5 text-muted hover:text-secondary border border-transparent'
+                    : 'bg-overlay/5 text-muted hover:text-secondary border border-transparent'
                 }`}
               >
                 {cat}

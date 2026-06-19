@@ -13,7 +13,7 @@ interface Props {
   onClose: () => void;
 }
 
-const FALLBACK = '#2563eb';
+const FALLBACK = '#22c55e';
 
 function formatDateLabel(dateStr: string): string {
   const d = new Date(dateStr + 'T00:00:00');
@@ -59,13 +59,13 @@ export function DayDetailModal({ date, items, totalRevenue, colors, onClose }: P
       >
         <div className="flex items-start justify-between gap-4 p-6 border-b border-[var(--color-border)]">
           <div>
-            <h2 className="text-xl font-semibold text-white">{formatDateLabel(date)}</h2>
+            <h2 className="text-xl font-semibold text-foreground">{formatDateLabel(date)}</h2>
             <p className="mt-1 text-sm text-accent font-mono">{formatCurrency(totalRevenue)} total sales</p>
             <p className="mt-0.5 text-sm text-muted">{formatNumber(items.length)} item types · {formatNumber(items.reduce((s, r) => s + r.transactions, 0))} transactions</p>
           </div>
           <button
             onClick={onClose}
-            className="p-2 rounded-lg text-secondary hover:text-white hover:bg-white/5 transition-colors shrink-0"
+            className="p-2 rounded-lg text-secondary hover:text-foreground hover:bg-overlay/5 transition-colors shrink-0"
             aria-label="Close"
           >
             <X className="w-5 h-5" />
@@ -86,7 +86,7 @@ export function DayDetailModal({ date, items, totalRevenue, colors, onClose }: P
             <tbody>
               {sortedItems.map((row, i) => (
                 <tr key={`${row.name}-${row.category}-${i}`} className="border-b border-[var(--color-border)]/50">
-                  <td className="py-2.5 px-4 text-white truncate max-w-[200px]">{row.name}</td>
+                  <td className="py-2.5 px-4 text-foreground truncate max-w-[200px]">{row.name}</td>
                   <td className="py-2.5 px-4">
                     <span
                       className="inline-flex items-center gap-1.5 text-secondary"

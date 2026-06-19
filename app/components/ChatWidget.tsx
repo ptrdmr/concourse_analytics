@@ -51,7 +51,7 @@ export function ChatWidget() {
       <button
         onClick={() => setOpen(true)}
         className="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-50 w-14 h-14 rounded-full
-                   bg-accent text-black flex items-center justify-center
+                   bg-accent text-accent-foreground flex items-center justify-center
                    shadow-lg shadow-accent/25 hover:scale-105 transition-transform"
         aria-label="Open chat"
       >
@@ -62,7 +62,7 @@ export function ChatWidget() {
 
   return (
     <div className="fixed bottom-4 right-4 left-4 sm:left-auto sm:w-[380px] z-50 max-h-[85vh] sm:max-h-[600px] flex flex-col
-                    rounded-2xl border border-border bg-[#0a0a0a] shadow-2xl shadow-black/50
+                    rounded-2xl border border-border bg-card shadow-2xl shadow-black/50
                     animate-fade-in overflow-hidden">
       {/* Header */}
       <div className="flex items-center justify-between px-4 py-3 border-b border-border bg-card">
@@ -74,7 +74,7 @@ export function ChatWidget() {
           {messages.length > 0 && (
             <button
               onClick={clear}
-              className="p-1.5 rounded-lg text-muted hover:text-white hover:bg-white/5 transition-colors"
+              className="p-1.5 rounded-lg text-muted hover:text-foreground hover:bg-overlay/5 transition-colors"
               aria-label="Clear chat"
               title="Clear chat"
             >
@@ -83,7 +83,7 @@ export function ChatWidget() {
           )}
           <button
             onClick={() => setOpen(false)}
-            className="p-1.5 rounded-lg text-muted hover:text-white hover:bg-white/5 transition-colors"
+            className="p-1.5 rounded-lg text-muted hover:text-foreground hover:bg-overlay/5 transition-colors"
             aria-label="Close chat"
           >
             <X className="w-4 h-4" />
@@ -115,8 +115,8 @@ export function ChatWidget() {
                   key={q}
                   onClick={() => { setInput(q); inputRef.current?.focus(); }}
                   className="block w-full text-left text-xs px-3 py-2 rounded-lg
-                             bg-white/[0.03] border border-border hover:border-border-hover
-                             hover:bg-white/[0.06] transition-colors text-secondary"
+                             bg-overlay/[0.03] border border-border hover:border-border-hover
+                             hover:bg-overlay/[0.06] transition-colors text-secondary"
                 >
                   {q}
                 </button>
@@ -130,8 +130,8 @@ export function ChatWidget() {
             <div
               className={`max-w-[85%] px-3 py-2 rounded-2xl text-sm leading-relaxed whitespace-pre-wrap ${
                 msg.role === 'user'
-                  ? 'bg-accent/15 text-white rounded-br-md'
-                  : 'bg-white/[0.05] text-secondary rounded-bl-md'
+                  ? 'bg-accent/15 text-foreground rounded-br-md'
+                  : 'bg-overlay/[0.05] text-secondary rounded-bl-md'
               }`}
             >
               {msg.content}
@@ -141,7 +141,7 @@ export function ChatWidget() {
 
         {(status === 'thinking' || status === 'searching') && (
           <div className="flex justify-start">
-            <div className="flex items-center gap-2 px-3 py-2 rounded-2xl rounded-bl-md bg-white/[0.05] text-secondary text-sm">
+            <div className="flex items-center gap-2 px-3 py-2 rounded-2xl rounded-bl-md bg-overlay/[0.05] text-secondary text-sm">
               {status === 'searching' ? (
                 <Search className="w-3.5 h-3.5 animate-pulse text-accent" />
               ) : (
@@ -169,14 +169,14 @@ export function ChatWidget() {
             onKeyDown={handleKeyDown}
             placeholder="Ask about your data..."
             rows={1}
-            className="flex-1 resize-none bg-transparent text-sm text-white
+            className="flex-1 resize-none bg-transparent text-sm text-foreground
                        placeholder:text-muted outline-none py-2 px-1
                        max-h-[80px] overflow-y-auto"
           />
           <button
             onClick={handleSend}
             disabled={!input.trim() || streaming || !transactionsFetched}
-            className="p-2 rounded-lg bg-accent text-black hover:bg-accent/80
+            className="p-2 rounded-lg bg-accent text-accent-foreground hover:bg-accent/80
                        disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
             aria-label="Send message"
           >

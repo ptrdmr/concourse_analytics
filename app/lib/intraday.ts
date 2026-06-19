@@ -13,7 +13,7 @@ const DAY_LABELS = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 const DOW_ORDER = [1, 2, 3, 4, 5, 6, 0];
 
 export const DAY_SHAPE_COLORS: Record<number, string> = {
-  1: '#2563eb',
+  1: '#22c55e',
   2: '#f5a623',
   3: '#22c55e',
   4: '#ff5252',

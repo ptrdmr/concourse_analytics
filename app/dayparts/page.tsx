@@ -247,8 +247,8 @@ function DaypartsContent() {
               onClick={() => { setDepartment(dept); setCategories([]); setSelectedItems([]); setSelectedSlot(null); }}
               className={`px-4 py-2 rounded-full text-sm font-medium transition-colors ${
                 department === dept
-                  ? 'bg-accent text-black'
-                  : 'bg-white/5 text-secondary hover:bg-white/10 hover:text-white'
+                  ? 'bg-accent text-accent-foreground'
+                  : 'bg-overlay/5 text-secondary hover:bg-overlay/10 hover:text-foreground'
               }`}
             >
               {dept}
@@ -268,7 +268,7 @@ function DaypartsContent() {
               className={`px-3 py-1.5 rounded-full text-xs font-medium transition-colors ${
                 allDaysSelected
                   ? 'bg-accent/20 text-accent border border-accent/40'
-                  : 'bg-white/5 text-muted hover:text-secondary border border-transparent'
+                  : 'bg-overlay/5 text-muted hover:text-secondary border border-transparent'
               }`}
             >
               All
@@ -280,7 +280,7 @@ function DaypartsContent() {
                 className={`px-3 py-1.5 rounded-full text-xs font-medium transition-colors ${
                   daysOfWeek.includes(dow)
                     ? 'bg-accent/20 text-accent border border-accent/40'
-                    : 'bg-white/5 text-muted hover:text-secondary border border-transparent'
+                    : 'bg-overlay/5 text-muted hover:text-secondary border border-transparent'
                 }`}
               >
                 {label}
@@ -289,7 +289,7 @@ function DaypartsContent() {
             {daysOfWeek.length > 0 && (
               <button
                 onClick={() => setDaysOfWeek([])}
-                className="px-3 py-1.5 rounded-full text-xs text-muted hover:text-white"
+                className="px-3 py-1.5 rounded-full text-xs text-muted hover:text-foreground"
               >
                 Clear
               </button>
@@ -319,7 +319,7 @@ function DaypartsContent() {
                 className={`px-3 py-1 rounded-full text-xs font-medium transition-colors ${
                   resolution === opt.value
                     ? 'bg-accent/20 text-accent border border-accent/40'
-                    : 'bg-white/5 text-muted hover:text-secondary border border-transparent'
+                    : 'bg-overlay/5 text-muted hover:text-secondary border border-transparent'
                 }`}
               >
                 {opt.label}
@@ -334,7 +334,7 @@ function DaypartsContent() {
                 className={`px-3 py-1 rounded-full text-xs font-medium transition-colors capitalize ${
                   metric === m
                     ? 'bg-accent/20 text-accent border border-accent/40'
-                    : 'bg-white/5 text-muted hover:text-secondary border border-transparent'
+                    : 'bg-overlay/5 text-muted hover:text-secondary border border-transparent'
                 }`}
               >
                 {m}
@@ -348,7 +348,7 @@ function DaypartsContent() {
               className={`px-3 py-1 rounded-full text-xs font-medium transition-colors ${
                 showLabor
                   ? 'bg-[#f97316]/20 text-[#f97316] border border-[#f97316]/40'
-                  : 'bg-white/5 text-muted hover:text-secondary border border-transparent'
+                  : 'bg-overlay/5 text-muted hover:text-secondary border border-transparent'
               }`}
             >
               {showLabor ? 'Labor overlay on' : 'Labor overlay off'}

@@ -30,7 +30,7 @@ interface Props {
   onClose: () => void;
 }
 
-const FALLBACK = '#2563eb';
+const FALLBACK = '#22c55e';
 
 const GRANULARITY_OPTIONS: { value: HistoryGranularity; label: string }[] = [
   { value: 'month', label: 'Month' },
@@ -68,14 +68,14 @@ function PeriodTooltip({
   if (!active || !payload?.length || !label) return null;
   const displayLabel = formatPeriodLabel(label, granularity);
   return (
-    <div className="bg-gray-900 border border-gray-700 rounded-lg px-4 py-3 shadow-xl">
+    <div className="bg-card border border-border-hover rounded-lg px-4 py-3 shadow-xl">
       <p className="text-xs text-muted mb-1">{displayLabel}</p>
       {payload.map((p) => (
         <p key={p.dataKey} className="text-sm">
           <span className="text-secondary">
             {p.dataKey === 'revenue' ? 'Sales' : 'Transactions'}:{' '}
           </span>
-          <span className="text-white font-mono">
+          <span className="text-foreground font-mono">
             {p.dataKey === 'revenue' ? formatCurrency(p.value) : formatNumber(p.value)}
           </span>
         </p>
@@ -136,7 +136,7 @@ export function ItemHistoryPanel({ item, transactions, colors, onClose }: Props)
       >
         <div className="sticky top-0 z-10 flex items-start justify-between gap-4 p-6 pb-4 bg-[var(--color-card)] border-b border-[var(--color-border)]">
           <div className="min-w-0">
-            <h2 className="text-xl font-semibold text-white truncate">{item.name}</h2>
+            <h2 className="text-xl font-semibold text-foreground truncate">{item.name}</h2>
             <div className="flex items-center gap-2 mt-1">
               <span
                 className="w-2.5 h-2.5 rounded-full shrink-0"
@@ -151,14 +151,14 @@ export function ItemHistoryPanel({ item, transactions, colors, onClose }: Props)
           <div className="flex items-center gap-1 shrink-0">
             <button
               onClick={() => setIsFullscreen(!isFullscreen)}
-              className="p-2 rounded-lg text-secondary hover:text-white hover:bg-white/5 transition-colors"
+              className="p-2 rounded-lg text-secondary hover:text-foreground hover:bg-overlay/5 transition-colors"
               aria-label={isFullscreen ? 'Exit full screen' : 'Full screen'}
             >
               {isFullscreen ? <Minimize2 className="w-5 h-5" /> : <Maximize2 className="w-5 h-5" />}
             </button>
             <button
               onClick={onClose}
-              className="p-2 rounded-lg text-secondary hover:text-white hover:bg-white/5 transition-colors"
+              className="p-2 rounded-lg text-secondary hover:text-foreground hover:bg-overlay/5 transition-colors"
               aria-label="Close"
             >
               <X className="w-5 h-5" />
@@ -177,7 +177,7 @@ export function ItemHistoryPanel({ item, transactions, colors, onClose }: Props)
                     className={`px-3 py-1.5 rounded-lg text-sm font-medium transition-colors ${
                       granularity === opt.value
                         ? 'bg-accent/20 text-accent border border-accent/40'
-                        : 'bg-white/5 text-secondary hover:bg-white/10 hover:text-white border border-transparent'
+                        : 'bg-overlay/5 text-secondary hover:bg-overlay/10 hover:text-foreground border border-transparent'
                     }`}
                   >
                     {opt.label}
@@ -231,7 +231,7 @@ export function ItemHistoryPanel({ item, transactions, colors, onClose }: Props)
                       <Bar
                         yAxisId="txns"
                         dataKey="transactions"
-                        fill="#60a5fa"
+                        fill="#4ade80"
                         fillOpacity={0.2}
                         radius={[2, 2, 0, 0]}
                         maxBarSize={12}
@@ -240,12 +240,12 @@ export function ItemHistoryPanel({ item, transactions, colors, onClose }: Props)
                         yAxisId="revenue"
                         type="monotone"
                         dataKey="revenue"
-                        stroke="#2563eb"
+                        stroke="#22c55e"
                         strokeWidth={2}
                         dot={false}
                         activeDot={{
                           r: 4,
-                          fill: '#2563eb',
+                          fill: '#22c55e',
                           stroke: '#000',
                           strokeWidth: 2,
                         }}

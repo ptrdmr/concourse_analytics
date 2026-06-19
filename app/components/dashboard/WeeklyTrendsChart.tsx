@@ -19,12 +19,12 @@ interface Props {
 function CustomTooltip({ active, payload, label }: { active?: boolean; payload?: Array<{ value: number; dataKey: string }>; label?: string }) {
   if (!active || !payload?.length) return null;
   return (
-    <div className="bg-gray-900 border border-gray-700 rounded-lg px-4 py-3 shadow-xl">
+    <div className="bg-card border border-border-hover rounded-lg px-4 py-3 shadow-xl">
       <p className="text-xs text-muted mb-1">Week of {label}</p>
       {payload.map(p => (
         <p key={p.dataKey} className="text-sm">
           <span className="text-secondary">{p.dataKey === 'revenue' ? 'Sales' : 'Transactions'}: </span>
-          <span className="text-white font-mono">
+          <span className="text-foreground font-mono">
             {p.dataKey === 'revenue' ? formatCurrency(p.value) : formatNumber(p.value)}
           </span>
         </p>
@@ -39,7 +39,7 @@ export function WeeklyTrendsChart({ data }: Props) {
   return (
     <div className="card p-6">
       <div className="flex items-center justify-between gap-4 mb-1">
-        <h3 className="text-lg font-semibold text-white">Weekly Trends</h3>
+        <h3 className="text-lg font-semibold text-foreground">Weekly Trends</h3>
         <span className="text-xs text-muted/80 shrink-0">Click to expand</span>
       </div>
       <p className="text-sm text-muted mb-6">Sales and transaction volume over time</p>
@@ -77,7 +77,7 @@ export function WeeklyTrendsChart({ data }: Props) {
             <Bar
               yAxisId="txns"
               dataKey="transactions"
-              fill="#60a5fa"
+              fill="#4ade80"
               fillOpacity={0.2}
               radius={[2, 2, 0, 0]}
               maxBarSize={12}
@@ -86,10 +86,10 @@ export function WeeklyTrendsChart({ data }: Props) {
               yAxisId="revenue"
               type="monotone"
               dataKey="revenue"
-              stroke="#2563eb"
+              stroke="#22c55e"
               strokeWidth={2}
               dot={false}
-              activeDot={{ r: 4, fill: '#2563eb', stroke: '#000', strokeWidth: 2 }}
+              activeDot={{ r: 4, fill: '#22c55e', stroke: '#000', strokeWidth: 2 }}
             />
           </ComposedChart>
         </ResponsiveContainer>

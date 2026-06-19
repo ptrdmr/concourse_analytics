@@ -79,7 +79,7 @@ function TicketReceipt({ ticket, onClose }: { ticket: Ticket; onClose: () => voi
       <div
         className="relative w-full max-w-md max-h-[90vh] overflow-y-auto rounded-xl border border-border bg-card shadow-2xl animate-fade-in"
       >
-        <div className="sticky top-0 flex items-center justify-between gap-2 px-4 py-3 border-b border-border bg-[#0d0d0d]/95 backdrop-blur z-10">
+        <div className="sticky top-0 flex items-center justify-between gap-2 px-4 py-3 border-b border-border bg-card/95 backdrop-blur z-10">
           <div className="flex items-center gap-2 text-accent">
             <Receipt className="w-5 h-5 shrink-0" />
             <span id="receipt-title" className="font-semibold text-sm">
@@ -89,7 +89,7 @@ function TicketReceipt({ ticket, onClose }: { ticket: Ticket; onClose: () => voi
           <button
             type="button"
             onClick={onClose}
-            className="p-2 rounded-lg text-secondary hover:text-white hover:bg-white/5 transition-colors"
+            className="p-2 rounded-lg text-secondary hover:text-foreground hover:bg-overlay/5 transition-colors"
             aria-label="Close"
           >
             <X className="w-5 h-5" />
@@ -99,7 +99,7 @@ function TicketReceipt({ ticket, onClose }: { ticket: Ticket; onClose: () => voi
         <div className="p-6 space-y-6 text-sm">
           <div className="text-center space-y-1 border-b border-border pb-4">
             <p className="text-xs tracking-[0.2em] text-secondary uppercase">Concourse Bowl Bar Grill</p>
-            <p className="text-lg font-semibold text-white">Ticket #{ticket.txnId}</p>
+            <p className="text-lg font-semibold text-foreground">Ticket #{ticket.txnId}</p>
             <p className="text-secondary">
               {ticket.date} · {ticket.time}
               {ticket.closedTime ? ` · Closed ${ticket.closedTime}` : ''}
@@ -174,7 +174,7 @@ function TicketReceipt({ ticket, onClose }: { ticket: Ticket; onClose: () => voi
                 <span className="tabular-nums">{lineAmount(g).toFixed(2)}</span>
               </div>
             ))}
-            <div className="flex justify-between text-lg font-semibold text-white pt-2 border-t border-border">
+            <div className="flex justify-between text-lg font-semibold text-foreground pt-2 border-t border-border">
               <span>Total</span>
               <span className="tabular-nums">{ticket.total.toFixed(2)}</span>
             </div>
@@ -378,7 +378,7 @@ export default function TicketsPage() {
             <select
               value={resolvedMonth ?? ''}
               onChange={(e) => setSelectedMonth(e.target.value)}
-              className="rounded-lg bg-black/40 border border-border px-3 py-2.5 text-sm text-white focus:outline-none focus:ring-2 focus:ring-accent/40"
+              className="rounded-lg bg-background/40 border border-border px-3 py-2.5 text-sm text-foreground focus:outline-none focus:ring-2 focus:ring-accent/40"
             >
               {months.map((ym) => (
                 <option key={ym} value={ym}>
@@ -413,7 +413,7 @@ export default function TicketsPage() {
                       setDateFrom(e.target.value);
                       setVisible(PAGE_SIZE);
                     }}
-                    className="rounded-lg bg-black/40 border border-border px-3 py-2 text-sm text-white focus:outline-none focus:ring-2 focus:ring-accent/40"
+                    className="rounded-lg bg-background/40 border border-border px-3 py-2 text-sm text-foreground focus:outline-none focus:ring-2 focus:ring-accent/40"
                   />
                 </label>
                 <label className="flex flex-col gap-1 text-xs text-muted">
@@ -427,7 +427,7 @@ export default function TicketsPage() {
                       setDateTo(e.target.value);
                       setVisible(PAGE_SIZE);
                     }}
-                    className="rounded-lg bg-black/40 border border-border px-3 py-2 text-sm text-white focus:outline-none focus:ring-2 focus:ring-accent/40"
+                    className="rounded-lg bg-background/40 border border-border px-3 py-2 text-sm text-foreground focus:outline-none focus:ring-2 focus:ring-accent/40"
                   />
                 </label>
                 <label className="flex flex-col gap-1 text-xs text-muted">
@@ -438,7 +438,7 @@ export default function TicketsPage() {
                       setTerminalFilter(e.target.value);
                       setVisible(PAGE_SIZE);
                     }}
-                    className="rounded-lg bg-black/40 border border-border px-3 py-2 text-sm text-white focus:outline-none focus:ring-2 focus:ring-accent/40"
+                    className="rounded-lg bg-background/40 border border-border px-3 py-2 text-sm text-foreground focus:outline-none focus:ring-2 focus:ring-accent/40"
                   >
                     {terminals.map((t) => (
                       <option key={t} value={t}>
@@ -459,7 +459,7 @@ export default function TicketsPage() {
                       setVisible(PAGE_SIZE);
                     }}
                     placeholder="Partial match"
-                    className="rounded-lg bg-black/40 border border-border px-3 py-2 text-sm text-white placeholder:text-muted focus:outline-none focus:ring-2 focus:ring-accent/40"
+                    className="rounded-lg bg-background/40 border border-border px-3 py-2 text-sm text-foreground placeholder:text-muted focus:outline-none focus:ring-2 focus:ring-accent/40"
                   />
                 </label>
                 <label className="flex flex-col gap-1 text-xs text-muted">
@@ -470,7 +470,7 @@ export default function TicketsPage() {
                       setDeptFilter(e.target.value);
                       setVisible(PAGE_SIZE);
                     }}
-                    className="rounded-lg bg-black/40 border border-border px-3 py-2 text-sm text-white focus:outline-none focus:ring-2 focus:ring-accent/40"
+                    className="rounded-lg bg-background/40 border border-border px-3 py-2 text-sm text-foreground focus:outline-none focus:ring-2 focus:ring-accent/40"
                   >
                     {departments.map((d) => (
                       <option key={d} value={d}>
@@ -489,7 +489,7 @@ export default function TicketsPage() {
                       setVisible(PAGE_SIZE);
                     }}
                     placeholder="e.g. Mike"
-                    className="rounded-lg bg-black/40 border border-border px-3 py-2 text-sm text-white placeholder:text-muted focus:outline-none focus:ring-2 focus:ring-accent/40"
+                    className="rounded-lg bg-background/40 border border-border px-3 py-2 text-sm text-foreground placeholder:text-muted focus:outline-none focus:ring-2 focus:ring-accent/40"
                   />
                 </label>
               </div>
@@ -505,7 +505,7 @@ export default function TicketsPage() {
             <div className="card overflow-hidden">
               <div className="overflow-x-auto">
                 <table className="w-full text-sm text-left">
-                  <thead className="bg-white/[0.03] text-secondary border-b border-border">
+                  <thead className="bg-overlay/[0.03] text-secondary border-b border-border">
                     <tr>
                       <th className="px-4 py-3 font-medium">Transaction ID</th>
                       <th className="px-4 py-3 font-medium">
@@ -552,7 +552,7 @@ export default function TicketsPage() {
                         key={row.txnId}
                         onClick={() => setSelected(row)}
                         className={`border-b border-border/80 cursor-pointer transition-colors ${
-                          selected?.txnId === row.txnId ? 'bg-accent/10' : 'hover:bg-white/[0.04]'
+                          selected?.txnId === row.txnId ? 'bg-accent/10' : 'hover:bg-overlay/[0.04]'
                         }`}
                       >
                         <td className="px-4 py-2.5 font-mono text-xs sm:text-sm">{row.txnId}</td>

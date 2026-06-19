@@ -77,7 +77,7 @@ export function ComparisonPeriodPicker({
             max={dateConstraints.max}
             onChange={e => setLocalA([e.target.value, localA[1]])}
             onBlur={() => commitA(localA[0], localA[1])}
-            className="px-3 py-2 rounded-lg bg-white/5 border border-border text-sm text-white focus:outline-none focus:border-accent/50 [color-scheme:dark]"
+            className="px-3 py-2 rounded-lg bg-overlay/5 border border-border text-sm text-foreground focus:outline-none focus:border-accent/50"
           />
           <span className="text-muted self-center">to</span>
           <input
@@ -87,7 +87,7 @@ export function ComparisonPeriodPicker({
             max={dateConstraints.max}
             onChange={e => setLocalA([localA[0], e.target.value])}
             onBlur={() => commitA(localA[0], localA[1])}
-            className="px-3 py-2 rounded-lg bg-white/5 border border-border text-sm text-white focus:outline-none focus:border-accent/50 [color-scheme:dark]"
+            className="px-3 py-2 rounded-lg bg-overlay/5 border border-border text-sm text-foreground focus:outline-none focus:border-accent/50"
           />
         </div>
         {periodA && (
@@ -107,7 +107,7 @@ export function ComparisonPeriodPicker({
             max={dateConstraints.max}
             onChange={e => setLocalB([e.target.value, localB[1]])}
             onBlur={() => commitB(localB[0], localB[1])}
-            className="px-3 py-2 rounded-lg bg-white/5 border border-border text-sm text-white focus:outline-none focus:border-accent/50 [color-scheme:dark]"
+            className="px-3 py-2 rounded-lg bg-overlay/5 border border-border text-sm text-foreground focus:outline-none focus:border-accent/50"
           />
           <span className="text-muted self-center">to</span>
           <input
@@ -117,7 +117,7 @@ export function ComparisonPeriodPicker({
             max={dateConstraints.max}
             onChange={e => setLocalB([localB[0], e.target.value])}
             onBlur={() => commitB(localB[0], localB[1])}
-            className="px-3 py-2 rounded-lg bg-white/5 border border-border text-sm text-white focus:outline-none focus:border-accent/50 [color-scheme:dark]"
+            className="px-3 py-2 rounded-lg bg-overlay/5 border border-border text-sm text-foreground focus:outline-none focus:border-accent/50"
           />
         </div>
         {periodB && (

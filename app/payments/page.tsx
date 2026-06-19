@@ -142,7 +142,7 @@ function PaymentsContent() {
       <main className="min-h-screen">
         <Nav />
         <div className="max-w-7xl mx-auto px-4 sm:px-6 py-8 sm:py-12 text-center">
-          <h2 className="text-2xl font-bold text-white mb-2">Payments</h2>
+          <h2 className="text-2xl font-bold text-foreground mb-2">Payments</h2>
           <p className="text-secondary">
             No payment data available. Run <code className="text-accent">python scripts/export_dashboards.py</code> to generate.
           </p>
@@ -157,7 +157,7 @@ function PaymentsContent() {
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 py-6 sm:py-8 space-y-6 sm:space-y-8">
         <div>
-          <h2 className="text-2xl sm:text-3xl font-bold text-white mb-2">Payments</h2>
+          <h2 className="text-2xl sm:text-3xl font-bold text-foreground mb-2">Payments</h2>
           <p className="text-secondary">
             How customers paid for the selected period. Totals reflect tender rung in at the POS.
           </p>
@@ -171,7 +171,7 @@ function PaymentsContent() {
               className={`px-4 py-2 rounded-full text-sm transition-colors ${
                 mode === 'day'
                   ? 'bg-accent/15 text-accent'
-                  : 'text-secondary hover:bg-white/5 hover:text-white'
+                  : 'text-secondary hover:bg-overlay/5 hover:text-foreground'
               }`}
             >
               Day
@@ -182,7 +182,7 @@ function PaymentsContent() {
               className={`px-4 py-2 rounded-full text-sm transition-colors ${
                 mode === 'range'
                   ? 'bg-accent/15 text-accent'
-                  : 'text-secondary hover:bg-white/5 hover:text-white'
+                  : 'text-secondary hover:bg-overlay/5 hover:text-foreground'
               }`}
             >
               Custom Range
@@ -197,7 +197,7 @@ function PaymentsContent() {
                   type="button"
                   onClick={() => setDayDate(shiftDate(dayDate, -1))}
                   disabled={!canGoPrevDay}
-                  className="p-2 rounded-lg bg-white/5 text-secondary hover:bg-white/10 hover:text-white transition-colors disabled:opacity-30 disabled:pointer-events-none"
+                  className="p-2 rounded-lg bg-overlay/5 text-secondary hover:bg-overlay/10 hover:text-foreground transition-colors disabled:opacity-30 disabled:pointer-events-none"
                   aria-label="Previous day"
                 >
                   <ChevronLeft className="w-5 h-5" />
@@ -209,13 +209,13 @@ function PaymentsContent() {
                   min={dateBounds?.min}
                   max={dateBounds?.max}
                   onChange={(e) => setDayDate(e.target.value)}
-                  className="bg-black/40 border border-border rounded-lg px-3 py-2 text-sm text-white"
+                  className="bg-background/40 border border-border rounded-lg px-3 py-2 text-sm text-foreground"
                 />
                 <button
                   type="button"
                   onClick={() => setDayDate(shiftDate(dayDate, 1))}
                   disabled={!canGoNextDay}
-                  className="p-2 rounded-lg bg-white/5 text-secondary hover:bg-white/10 hover:text-white transition-colors disabled:opacity-30 disabled:pointer-events-none"
+                  className="p-2 rounded-lg bg-overlay/5 text-secondary hover:bg-overlay/10 hover:text-foreground transition-colors disabled:opacity-30 disabled:pointer-events-none"
                   aria-label="Next day"
                 >
                   <ChevronRight className="w-5 h-5" />
@@ -232,7 +232,7 @@ function PaymentsContent() {
                 type="date"
                 value={rangeStart}
                 onChange={(e) => setRange(e.target.value, rangeEnd)}
-                className="bg-black/40 border border-border rounded-lg px-3 py-2 text-sm text-white"
+                className="bg-background/40 border border-border rounded-lg px-3 py-2 text-sm text-foreground"
               />
               <label className="text-sm text-secondary" htmlFor="payment-end">
                 To
@@ -242,7 +242,7 @@ function PaymentsContent() {
                 type="date"
                 value={rangeEnd}
                 onChange={(e) => setRange(rangeStart, e.target.value)}
-                className="bg-black/40 border border-border rounded-lg px-3 py-2 text-sm text-white"
+                className="bg-background/40 border border-border rounded-lg px-3 py-2 text-sm text-foreground"
               />
             </div>
           )}
@@ -282,7 +282,7 @@ function PaymentsContent() {
         <div className="card p-5 flex flex-wrap items-center justify-between gap-3">
           <div>
             <p className="text-sm text-secondary">Total Tender</p>
-            <p className="text-xl font-bold text-white">{formatCurrency(totalAmount)}</p>
+            <p className="text-xl font-bold text-foreground">{formatCurrency(totalAmount)}</p>
           </div>
           <p className="text-sm text-muted">{periodLabel}</p>
         </div>
@@ -303,7 +303,7 @@ function PaymentsContent() {
         {mode === 'range' && <PaymentDailyTrendChart data={dailyTrend} />}
 
         <div className="card p-6">
-          <h3 className="text-lg font-semibold text-white mb-1">Payment Detail</h3>
+          <h3 className="text-lg font-semibold text-foreground mb-1">Payment Detail</h3>
           <p className="text-sm text-muted mb-6">Breakdown by card brand or tender name</p>
           {byName.length === 0 ? (
             <p className="text-secondary text-sm">No payments for the selected period.</p>
@@ -321,11 +321,11 @@ function PaymentsContent() {
                 <tbody>
                   {byName.map((row) => (
                     <tr key={row.name} className="border-b border-border/60">
-                      <td className="py-3 pr-4 text-white">{row.name}</td>
+                      <td className="py-3 pr-4 text-foreground">{row.name}</td>
                       <td className="py-3 pr-4 text-secondary">
                         {PAYMENT_TYPE_LABELS[row.paymentType]}
                       </td>
-                      <td className="py-3 pr-4 text-right font-mono text-white">
+                      <td className="py-3 pr-4 text-right font-mono text-foreground">
                         {formatCurrency(row.amount)}
                       </td>
                       <td className="py-3 text-right font-mono text-secondary">

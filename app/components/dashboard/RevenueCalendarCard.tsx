@@ -99,7 +99,7 @@ export function RevenueCalendarCard({ dailyRevenue, dateRange, department, onDay
   return (
     <div className="card p-6">
       <div className="flex items-center justify-between gap-4 mb-1">
-        <h3 className="text-lg font-semibold text-white">Sales by Day</h3>
+        <h3 className="text-lg font-semibold text-foreground">Sales by Day</h3>
         <span className="text-xs text-muted/80 shrink-0">Click to expand</span>
       </div>
       <p className="text-sm text-muted mb-4">{subtitle} — click a day for details</p>
@@ -111,12 +111,12 @@ export function RevenueCalendarCard({ dailyRevenue, dateRange, department, onDay
             e.stopPropagation();
             goPrev();
           }}
-          className="p-2 rounded-lg bg-white/5 text-secondary hover:bg-white/10 hover:text-white transition-colors"
+          className="p-2 rounded-lg bg-overlay/5 text-secondary hover:bg-overlay/10 hover:text-foreground transition-colors"
           aria-label="Previous month"
         >
           <ChevronLeft className="w-5 h-5" />
         </button>
-        <span className="text-base font-medium text-white">
+        <span className="text-base font-medium text-foreground">
           {MONTH_NAMES[currentMonth]} {currentYear}
         </span>
         <button
@@ -125,7 +125,7 @@ export function RevenueCalendarCard({ dailyRevenue, dateRange, department, onDay
             e.stopPropagation();
             goNext();
           }}
-          className="p-2 rounded-lg bg-white/5 text-secondary hover:bg-white/10 hover:text-white transition-colors"
+          className="p-2 rounded-lg bg-overlay/5 text-secondary hover:bg-overlay/10 hover:text-foreground transition-colors"
           aria-label="Next month"
         >
           <ChevronRight className="w-5 h-5" />
@@ -163,9 +163,9 @@ export function RevenueCalendarCard({ dailyRevenue, dateRange, department, onDay
                 aspect-square rounded-lg text-sm transition-colors flex flex-col items-center justify-center gap-0.5 min-w-0
                 ${!inRange ? 'text-muted/50' : ''}
                 ${hasRevenue
-                  ? 'bg-accent/15 border border-accent/40 text-white hover:bg-accent/25 focus:outline-none focus:ring-2 focus:ring-accent/50'
+                  ? 'bg-accent/15 border border-accent/40 text-foreground hover:bg-accent/25 focus:outline-none focus:ring-2 focus:ring-accent/50'
                   : inRange
-                    ? 'bg-white/5 text-muted hover:bg-white/10'
+                    ? 'bg-overlay/5 text-muted hover:bg-overlay/10'
                     : 'bg-transparent text-muted/50'}
               `}
             >

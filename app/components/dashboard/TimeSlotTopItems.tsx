@@ -22,7 +22,7 @@ export function TimeSlotTopItems({ items, selectedSlot, resolution, metric, sing
   if (selectedSlot === null) {
     return (
       <div className="card p-6">
-        <h3 className="text-lg font-semibold text-white mb-2">Top Items by Time Slot</h3>
+        <h3 className="text-lg font-semibold text-foreground mb-2">Top Items by Time Slot</h3>
         <p className="text-sm text-muted">Click a time slot on the chart or heatmap to see ranked items.</p>
       </div>
     );
@@ -50,7 +50,7 @@ export function TimeSlotTopItems({ items, selectedSlot, resolution, metric, sing
 
   const SortHeader = ({ label, col }: { label: string; col: SortKey }) => (
     <th
-      className="text-left text-xs text-muted font-medium py-2 px-3 cursor-pointer hover:text-white"
+      className="text-left text-xs text-muted font-medium py-2 px-3 cursor-pointer hover:text-foreground"
       onClick={() => toggleSort(col)}
     >
       {label}{sortKey === col ? (sortAsc ? ' ↑' : ' ↓') : ''}
@@ -59,7 +59,7 @@ export function TimeSlotTopItems({ items, selectedSlot, resolution, metric, sing
 
   return (
     <div className="card p-6">
-      <h3 className="text-lg font-semibold text-white mb-1">Top Items — {slotLabel}</h3>
+      <h3 className="text-lg font-semibold text-foreground mb-1">Top Items — {slotLabel}</h3>
       <p className="text-sm text-muted mb-4">{windowLabel} window · {items.length} items</p>
       {items.length === 0 ? (
         <p className="text-sm text-muted">No items sold in this time window for the selected filters.</p>
@@ -77,8 +77,8 @@ export function TimeSlotTopItems({ items, selectedSlot, resolution, metric, sing
             </thead>
             <tbody>
               {sorted.map(item => (
-                <tr key={item.name} className="border-b border-border/50 hover:bg-white/5">
-                  <td className="py-2 px-3 text-white">{item.name}</td>
+                <tr key={item.name} className="border-b border-border/50 hover:bg-overlay/5">
+                  <td className="py-2 px-3 text-foreground">{item.name}</td>
                   <td className="py-2 px-3 text-muted text-xs">{item.category}</td>
                   <td className="py-2 px-3 font-mono text-secondary">{formatNumber(item.quantity)}</td>
                   <td className="py-2 px-3 font-mono text-secondary">

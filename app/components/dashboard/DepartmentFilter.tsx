@@ -14,10 +14,10 @@ export function DepartmentFilter({ value, onChange, available }: Props) {
       <select
         value={value}
         onChange={(e) => onChange(e.target.value)}
-        className="bg-white/5 border border-border rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:ring-2 focus:ring-accent/50"
+        className="bg-overlay/5 border border-border rounded-lg px-3 py-2 text-sm text-foreground focus:outline-none focus:ring-2 focus:ring-accent/50"
       >
         {options.map((d) => (
-          <option key={d} value={d} className="bg-gray-900">
+          <option key={d} value={d} className="bg-card">
             {d}
           </option>
         ))}
