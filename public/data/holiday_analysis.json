@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-19T12:18:35.160144",
+  "generatedAt": "2026-06-22T15:07:37.546341",
   "holidays": [
     {
       "name": "Black Friday",
@@ -470,9 +470,16 @@
           "year": 2026,
           "startDate": "2026-06-21",
           "endDate": "2026-06-21",
-          "revenue": 0.0,
-          "transactions": 0,
-          "byDepartment": {}
+          "revenue": 21623.41,
+          "transactions": 1404,
+          "byDepartment": {
+            "Arcade": 806.0,
+            "Bar": 3322.0,
+            "Bowling": 8413.07,
+            "Food": 4047.76,
+            "General Income": 23.4,
+            "Parties": 5011.18
+          }
         }
       ]
     },
@@ -563,9 +570,16 @@
           "year": 2026,
           "startDate": "2026-06-19",
           "endDate": "2026-06-19",
-          "revenue": 0.0,
-          "transactions": 0,
-          "byDepartment": {}
+          "revenue": 22014.39,
+          "transactions": 1706,
+          "byDepartment": {
+            "Arcade": 150.0,
+            "Bar": 5301.4,
+            "Bowling": 8662.6,
+            "Food": 5709.48,
+            "General Income": 69.15,
+            "Parties": 2121.76
+          }
         }
       ]
     },
