@@ -26,7 +26,7 @@ import { useDataContext } from '@/context/DataContext';
 export default function PaymentsPage() {
   return (
     <Suspense fallback={
-      <div className="min-h-screen flex items-center justify-center">
+      <div className="min-h-screen pb-16 flex items-center justify-center">
         <div className="text-secondary animate-pulse text-lg">Loading payment data...</div>
       </div>
     }>
@@ -131,7 +131,7 @@ function PaymentsContent() {
 
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center">
+      <div className="min-h-screen pb-16 flex items-center justify-center">
         <div className="text-secondary animate-pulse text-lg">Loading payment data...</div>
       </div>
     );
@@ -139,7 +139,7 @@ function PaymentsContent() {
 
   if (!payments.length) {
     return (
-      <main className="min-h-screen">
+      <main className="min-h-screen pb-16">
         <Nav />
         <div className="max-w-7xl mx-auto px-4 sm:px-6 py-8 sm:py-12 text-center">
           <h2 className="text-2xl font-bold text-foreground mb-2">Payments</h2>
@@ -152,7 +152,7 @@ function PaymentsContent() {
   }
 
   return (
-    <main className="min-h-screen">
+    <main className="min-h-screen pb-16">
       <Nav />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 py-6 sm:py-8 space-y-6 sm:space-y-8">

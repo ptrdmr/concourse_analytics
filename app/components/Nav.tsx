@@ -91,13 +91,13 @@ export function Nav() {
           </span>
         </Link>
 
-        {/* Desktop nav links */}
-        <div className="hidden md:flex items-center gap-1">
+        {/* Desktop nav links — scrollable at lg, full inline at xl */}
+        <div className="hidden lg:flex items-center gap-0.5 xl:gap-1 min-w-0 flex-1 justify-end ml-4 overflow-x-auto scrollbar-hide">
           {NAV_LINKS.map(link => (
-            <div key={link.href} className="relative group">
+            <div key={link.href} className="relative group shrink-0">
               <Link
                 href={link.href}
-                className={`text-sm px-4 py-2 rounded-full transition-colors ${
+                className={`whitespace-nowrap text-xs xl:text-sm px-2.5 xl:px-4 py-1.5 xl:py-2 rounded-full transition-colors ${
                   linkActive(link.href)
                     ? 'bg-accent/15 text-accent'
                     : 'text-secondary hover:bg-overlay/5 hover:text-foreground'
@@ -110,11 +110,11 @@ export function Nav() {
               </div>
             </div>
           ))}
-          <ThemeToggle className="ml-1" />
+          <ThemeToggle className="ml-1 shrink-0" />
         </div>
 
         {/* Mobile controls */}
-        <div className="flex items-center gap-1 md:hidden">
+        <div className="flex items-center gap-1 lg:hidden">
           <ThemeToggle />
           <button
             type="button"
@@ -133,11 +133,11 @@ export function Nav() {
         createPortal(
           <>
             <div
-              className="fixed inset-0 bg-black/80 z-[100] md:hidden"
+              className="fixed inset-0 bg-black/80 z-[100] lg:hidden"
               onClick={() => setMenuOpen(false)}
               aria-hidden="true"
             />
-            <div className="fixed top-0 right-0 bottom-0 w-full max-w-[min(280px,100vw)] bg-card border-l border-border z-[101] md:hidden shadow-2xl animate-slide-in-right">
+            <div className="fixed top-0 right-0 bottom-0 w-full max-w-[min(280px,100vw)] bg-card border-l border-border z-[101] lg:hidden shadow-2xl animate-slide-in-right flex flex-col">
               <div className="flex items-center justify-between px-4 h-14 border-b border-border shrink-0">
                 <span className="font-semibold text-sm">Menu</span>
                 <button
@@ -149,7 +149,7 @@ export function Nav() {
                   <X className="w-5 h-5" />
                 </button>
               </div>
-              <div className="p-4 space-y-1 overflow-y-auto">
+              <div className="flex-1 min-h-0 p-4 space-y-1 overflow-y-auto">
                 {NAV_LINKS.map(link => (
                   <NavLink
                     key={link.href}

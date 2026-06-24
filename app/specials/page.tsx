@@ -72,14 +72,14 @@ function SpecialsContent() {
 
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center">
+      <div className="min-h-screen pb-16 flex items-center justify-center">
         <div className="text-secondary animate-pulse text-lg">Loading specials data...</div>
       </div>
     );
   }
 
   return (
-    <main className="min-h-screen">
+    <main className="min-h-screen pb-16">
       <Nav />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 py-6 sm:py-8 space-y-6 sm:space-y-8">
@@ -121,7 +121,7 @@ function SpecialsContent() {
 export default function SpecialsPage() {
   return (
     <Suspense fallback={
-      <div className="min-h-screen flex items-center justify-center">
+      <div className="min-h-screen pb-16 flex items-center justify-center">
         <div className="text-secondary animate-pulse text-lg">Loading...</div>
       </div>
     }>

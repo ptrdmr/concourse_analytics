@@ -33,7 +33,7 @@ const DEPT_ICONS: Record<string, string> = {
 export default function HomePage() {
   return (
     <Suspense fallback={
-      <main className="min-h-screen flex flex-col items-center justify-center gap-4">
+      <main className="min-h-screen pb-16 flex flex-col items-center justify-center gap-4">
         <Nav />
         <div className="text-secondary animate-pulse text-lg">Loading dashboard...</div>
       </main>
@@ -140,7 +140,7 @@ function HomeContent() {
 
   if (loading) {
     return (
-      <main className="min-h-screen flex flex-col items-center justify-center gap-4">
+      <main className="min-h-screen pb-16 flex flex-col items-center justify-center gap-4">
         <Nav />
         <div className="text-secondary animate-pulse text-lg">Loading dashboard...</div>
         <p className="text-sm text-muted">Loading 125K+ transactions — this may take a moment</p>
@@ -150,7 +150,7 @@ function HomeContent() {
 
   if (!summary) {
     return (
-      <main className="min-h-screen flex flex-col items-center justify-center gap-4">
+      <main className="min-h-screen pb-16 flex flex-col items-center justify-center gap-4">
         <Nav />
         <div className="text-red-400 text-center max-w-md">
           <p className="font-medium">Failed to load data.</p>
@@ -167,7 +167,7 @@ function HomeContent() {
     : 'All time';
 
   return (
-    <main className="min-h-screen">
+    <main className="min-h-screen pb-16">
       <Nav />
 
       <section className="max-w-7xl mx-auto px-4 sm:px-6 py-8 sm:py-12">
@@ -187,7 +187,7 @@ function HomeContent() {
           laborDelta={priorComparison?.laborDelta}
         />
 
-        <div className="hidden lg:grid grid-cols-4 gap-4 mt-8">
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mt-8">
           <OwnerKpiCard
             icon={<DollarSign className="w-5 h-5" />}
             label="Total Sales"

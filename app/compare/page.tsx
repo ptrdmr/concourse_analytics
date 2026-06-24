@@ -142,7 +142,7 @@ function CompareContent() {
 
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center">
+      <div className="min-h-screen pb-16 flex items-center justify-center">
         <div className="text-center">
           <div className="text-secondary animate-pulse text-lg mb-2">Loading data...</div>
           <p className="text-sm text-muted">Processing transaction data</p>
@@ -154,7 +154,7 @@ function CompareContent() {
   const categoryColors = summary?.categoryColors || {};
 
   return (
-    <main className="min-h-screen">
+    <main className="min-h-screen pb-16">
       <Nav />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 py-6 sm:py-8 space-y-6 sm:space-y-8">
@@ -270,7 +270,7 @@ export default function ComparePage() {
   return (
     <Suspense
       fallback={
-        <div className="min-h-screen flex items-center justify-center">
+        <div className="min-h-screen pb-16 flex items-center justify-center">
           <div className="text-secondary animate-pulse text-lg">Loading...</div>
         </div>
       }

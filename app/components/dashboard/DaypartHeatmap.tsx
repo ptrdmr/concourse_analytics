@@ -41,11 +41,11 @@ export function DaypartHeatmap({ cells, metric, resolution, onCellClick, selecte
 
   return (
     <div className="card p-6 overflow-x-auto">
-      <div className="mb-4 min-w-[600px]">
+      <div className="mb-4 min-w-[480px]">
         <h3 className="text-lg font-semibold text-foreground">Daypart Heatmap</h3>
         <p className="text-sm text-muted">Avg {metric === 'quantity' ? 'units' : 'revenue'} by day of week and time (4 AM start)</p>
       </div>
-      <div className="min-w-[600px]">
+      <div className="min-w-[480px]">
         <div
           className="grid gap-px"
           style={{

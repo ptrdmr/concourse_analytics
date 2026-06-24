@@ -5,6 +5,7 @@ import {
   Tooltip, ResponsiveContainer, Cell,
 } from 'recharts';
 import { formatCurrency } from '@/lib/format';
+import { useMediaQuery } from '@/hooks/useMediaQuery';
 
 interface ItemData {
   name: string;
@@ -20,6 +21,11 @@ interface Props {
 
 const FALLBACK = '#22c55e';
 
+function truncateLabel(name: string, maxLen: number): string {
+  if (name.length <= maxLen) return name;
+  return `${name.slice(0, maxLen - 1)}…`;
+}
+
 function CustomTooltip({ active, payload }: { active?: boolean; payload?: Array<{ payload: ItemData }> }) {
   if (!active || !payload?.length) return null;
   const d = payload[0].payload;
@@ -33,13 +39,18 @@ function CustomTooltip({ active, payload }: { active?: boolean; payload?: Array<
 }
 
 export function TopItemsChart({ items, colors }: Props) {
+  const isMobile = useMediaQuery('(max-width: 640px)');
+  const leftMargin = isMobile ? 80 : 120;
+  const yAxisWidth = isMobile ? 70 : 110;
+  const labelMaxLen = isMobile ? 12 : 24;
+
   return (
     <div className="card p-6">
       <h3 className="text-lg font-semibold text-foreground mb-1">Top 20 Items by Sales</h3>
       <p className="text-sm text-muted mb-6">Highest sales-generating items</p>
       <div className="h-[520px]">
         <ResponsiveContainer width="100%" height="100%">
-          <BarChart data={items} layout="vertical" margin={{ left: 120 }}>
+          <BarChart data={items} layout="vertical" margin={{ left: leftMargin, right: 10 }}>
             <CartesianGrid strokeDasharray="3 3" stroke="#1f1f1f" horizontal={false} />
             <XAxis
               type="number"
@@ -53,10 +64,11 @@ export function TopItemsChart({ items, colors }: Props) {
               type="category"
               dataKey="name"
               stroke="#525252"
-              fontSize={12}
+              fontSize={isMobile ? 10 : 12}
               axisLine={false}
               tickLine={false}
-              width={110}
+              width={yAxisWidth}
+              tickFormatter={(value: string) => truncateLabel(value, labelMaxLen)}
             />
             <Tooltip content={<CustomTooltip />} />
             <Bar dataKey="revenue" radius={[0, 6, 6, 0]} maxBarSize={24} fillOpacity={0.85}>

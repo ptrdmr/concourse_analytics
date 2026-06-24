@@ -12,6 +12,7 @@ import {
   Cell,
 } from 'recharts';
 import { formatCurrency } from '@/lib/format';
+import { useMediaQuery } from '@/hooks/useMediaQuery';
 
 interface ItemData {
   name: string;
@@ -26,6 +27,11 @@ interface Props {
 }
 
 const FALLBACK = '#22c55e';
+
+function truncateLabel(name: string, maxLen: number): string {
+  if (name.length <= maxLen) return name;
+  return `${name.slice(0, maxLen - 1)}…`;
+}
 
 function normalizeName(name: string): string {
   return name
@@ -55,6 +61,11 @@ function CustomTooltip({
 }
 
 export function SpecialtyCocktailsPanel({ items, colors }: Props) {
+  const isMobile = useMediaQuery('(max-width: 640px)');
+  const leftMargin = isMobile ? 80 : 140;
+  const yAxisWidth = isMobile ? 70 : 130;
+  const labelMaxLen = isMobile ? 12 : 20;
+
   const [specialtyNames, setSpecialtyNames] = useState<string[]>([]);
   const [loading, setLoading] = useState(true);
 
@@ -99,7 +110,7 @@ export function SpecialtyCocktailsPanel({ items, colors }: Props) {
       ) : (
         <div className="h-[320px]">
           <ResponsiveContainer width="100%" height="100%">
-            <BarChart data={specialtyItems} layout="vertical" margin={{ left: 140 }}>
+            <BarChart data={specialtyItems} layout="vertical" margin={{ left: leftMargin, right: 10 }}>
               <CartesianGrid strokeDasharray="3 3" stroke="#1f1f1f" horizontal={false} />
               <XAxis
                 type="number"
@@ -113,10 +124,11 @@ export function SpecialtyCocktailsPanel({ items, colors }: Props) {
                 type="category"
                 dataKey="name"
                 stroke="#525252"
-                fontSize={12}
+                fontSize={isMobile ? 10 : 12}
                 axisLine={false}
                 tickLine={false}
-                width={130}
+                width={yAxisWidth}
+                tickFormatter={(value: string) => truncateLabel(value, labelMaxLen)}
               />
               <Tooltip content={<CustomTooltip />} />
               <Bar dataKey="revenue" radius={[0, 6, 6, 0]} maxBarSize={24} fillOpacity={0.85}>

@@ -52,7 +52,7 @@ const RESOLUTION_OPTIONS: { value: TimeResolution; label: string }[] = [
 export default function DaypartsPage() {
   return (
     <Suspense fallback={
-      <main className="min-h-screen">
+      <main className="min-h-screen pb-16">
         <Nav />
         <div className="max-w-7xl mx-auto px-4 sm:px-6 py-12 text-center text-muted animate-pulse">
           Loading dayparts...
@@ -207,7 +207,7 @@ function DaypartsContent() {
 
   if (indexLoading) {
     return (
-      <main className="min-h-screen">
+      <main className="min-h-screen pb-16">
         <Nav />
         <div className="max-w-7xl mx-auto px-4 sm:px-6 py-12 text-center text-muted animate-pulse">
           Loading dayparts data...
@@ -218,7 +218,7 @@ function DaypartsContent() {
 
   if (indexError || !index) {
     return (
-      <main className="min-h-screen">
+      <main className="min-h-screen pb-16">
         <Nav />
         <div className="max-w-7xl mx-auto px-4 sm:px-6 py-12 text-center">
           <p className="text-red-400 mb-2">Failed to load intraday data.</p>
@@ -229,7 +229,7 @@ function DaypartsContent() {
   }
 
   return (
-    <main className="min-h-screen">
+    <main className="min-h-screen pb-16">
       <Nav />
       <div className="max-w-7xl mx-auto px-4 sm:px-6 py-6 sm:py-8 space-y-6">
         <div>

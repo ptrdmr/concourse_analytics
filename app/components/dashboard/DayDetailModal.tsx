@@ -72,7 +72,7 @@ export function DayDetailModal({ date, items, totalRevenue, colors, onClose }: P
           </button>
         </div>
 
-        <div className="overflow-y-auto max-h-[calc(85vh-140px)]">
+        <div className="overflow-auto max-h-[calc(85vh-140px)]">
           <table className="w-full text-sm">
             <thead className="sticky top-0 bg-[var(--color-card)] z-10">
               <tr className="border-b border-[var(--color-border)]">

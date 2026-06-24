@@ -64,14 +64,14 @@ export default function BowlingPage() {
 
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center">
+      <div className="min-h-screen pb-16 flex items-center justify-center">
         <div className="text-secondary animate-pulse text-lg">Loading bowling data...</div>
       </div>
     );
   }
 
   return (
-    <main className="min-h-screen">
+    <main className="min-h-screen pb-16">
       <Nav />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 py-6 sm:py-8 space-y-6 sm:space-y-8">
@@ -92,7 +92,7 @@ export default function BowlingPage() {
               </div>
               <div className="card p-5">
                 <div className="text-sm text-secondary mb-1">Date Range</div>
-                <div className="text-lg font-medium">
+                <div className="text-sm sm:text-base font-medium break-words">
                   {seasonality.dateRange.start} — {seasonality.dateRange.end}
                 </div>
               </div>
