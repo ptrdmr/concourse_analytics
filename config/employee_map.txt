@@ -1,0 +1,186 @@
+# Employee mapping — POS login(s) to 7shifts
+#
+# Edit this file, then run:  npm run employees
+#
+# Format (one person per line):
+#   POS login | 7shifts user ID OR full name | display name (optional)
+#
+# - POS login: exact Sync/POS username from tickets (case usually does not matter)
+# - Multiple POS logins for one person: separate with commas
+#     Tony S., tony s | 7627510 | Tony Saavedra
+# - 7shifts side: numeric user ID (best) OR first + last name as shown in 7shifts
+# - Leave 7shifts blank until you know the match
+# - Lines starting with # are ignored
+
+# ========== YOUR MAPPINGS (fill in 7shifts column) ==========
+# POS login | 7shifts ID or name | display name
+
+Jesus | 7627509 |
+adam | 7627511 |
+chris | 7627508 |
+Traver | 7627507 |
+austin | 7627514 |
+Dani | 7627538 |
+Christopher | 7627503 |
+Tony S. | 7627510 |
+Trinity D. | 7627541 |
+Peter D | 7627506 |
+Val | 7627542 |
+amanda | 7627522 |
+aliah | 7627536 |
+branda |7880618 |
+dean | 7627504 |
+nicole |  |
+Chris S | 7627503 |
+Sasha | 7708379 |
+Anthony | 7627513 |
+Darrien C. | 7627539 |
+Areille | 7627523 |
+Natasha | 7627527 |
+Jr | 7627516 |
+Tony Le | 7627540 |
+Jade M. | 7627526 |
+Allyssa | 9608246 |
+Rocco |7627520  |
+Devon | 7627524 |
+Ash | 7627537 |
+Diane | 7627525 |
+Joseph | 9068467 |
+Arianna | 7968267 |
+AlexM | 7627512 |
+alex | 8156678 |
+Ron H | 7601554 |
+Joe | 8588379 |
+Ciera | 10940479 |
+Gabbi | 10456399 |
+Nathan | 10733404 |
+Jesus N. | 7627509 |
+Brianna | 10574978 |
+ChrisC | 7627515 |
+Maddie |  |
+Sydney | 10894155 |
+Kash | 8683376 |
+Ian |  |
+jessica |  |
+Zoya |  |
+Stephen | 7627521 |
+MaddieA |  |
+System User |  |
+hailey | 11292891 |
+Christine |8089638  |
+Quyen | 8429623 |
+Aron | 7601529 |
+test |  |
+alexander |  |
+Mikey | 7627505 |
+Francisco | 7627544 |
+Sam | 9618383 |
+Cris | 9747879 |
+jv | 8521026 |
+Nick |  |
+Daniel | 7627543 |
+CODY | 7627528 |
+Connor | 7921769 |
+George | 7627529 |
+Jesus A. | 7627530 |
+Jose G. | 7627532 |
+Jose J. |7627531  |
+marissa |  |
+Omar |  |
+OnlineOrder |  |
+Queyen | 8429623 |
+Rocio | 7627534 |
+Sergio | 9096509 |
+
+# ========== 7SHIFTS ROSTER (reference — do not edit unless mapping) ==========
+# user ID | name | role(s)
+
+# 7627511 | Adam Horn | Front Desk, Scoretech, party
+# 8215536 | Adan Ramirez | 
+# 10752037 | Alex Chavez | Cook
+# 10866234 | Alex Lowry | Maintenace
+# 7627512 | Alex Martinez | 
+# 8156678 | Alex Mikus | 
+# 7627536 | Aliah De La Cruz | bartender, party, server 
+# 9608246 | Allyssa Boone | cafe, party
+# 7627522 | Amanda Siller | bartender, party, server 
+# 11586714 | Andre Parker | Scoretech
+# 7627513 | Anthony Agundez | 
+# 7627523 | Areille Tucker | 
+# 7968267 | Arianna Garcia | 
+# 7601529 | Aron Rainone | 
+# 7627537 | Ashley Aguilar | 
+# 7627514 | Austin Nugent | Front Desk, Scoretech
+# 7880618 | Branda Codispoti | bartender
+# 9747873 | Brian Del Rio | 
+# 10574978 | Brianna Romero | cafe, party
+# 9390963 | Cesar Arista | 
+# 7627508 | Chris Atkinson | 
+# 7627515 | Chris Cattani | 
+# 8089638 | Christine Solis | 
+# 7627503 | Christopher Saavedra | Manager
+# 9747879 | Christopher Zaragoza | 
+# 10940479 | Ciera Jackson | bartender, server 
+# 7627528 | Cody Hill | Cook
+# 7921769 | Connor Borra | 
+# 9613514 | Cristopher Bahena | Scoretech
+# 9747884 | Daniel Barseghian | 
+# 8436907 | Daniel Glass | 
+# 7627543 | Daniel Meza | Maintenace
+# 7627538 | Danielle David | bartender, server 
+# 7627539 | Darrien Cole | bartender
+# 9040630 | Dave Nugent | Maintenace
+# 7627504 | Dean Evola | 
+# 7627524 | Devon Peltzer | 
+# 7627525 | Diane Martinez | 
+# 8421912 | Ean Underhill | 
+# 7627544 | Francisco Garcia | Maintenace
+# 7627516 | Francisco Garcia Jr | Front Desk, Scoretech
+# 10456399 | Gabbi Gutierrez | cafe
+# 7627529 | George Webster | 
+# 9117205 | Gerardo Gutierrez | 
+# 9026594 | Giovani Sarjanovic | 
+# 10545722 | Gustavo Rojas-Garcia | 
+# 11292891 | Hailey Diaz | cafe
+# 10579840 | Jack O'Malley | 
+# 7627526 | Jade Mcintyre | 
+# 7627530 | Jesus Arteaga | Cook
+# 7627509 | Jesus Nuno | Front Desk, office, party
+# 8588379 | Joe Galindo | Cook, Front Desk, Scoretech
+# 7696740 | John Reyes | 
+# 10245192 | Johnathan Arredondo | 
+# 7627532 | Jose Garcia | Cook
+# 7627531 | Jose Jimenez | Cook
+# 9068467 | Joseph Dagher | Front Desk, Scoretech
+# 8521026 | Joshua Vasquez | 
+# 8683376 | Kashus Talauega | Front Desk, Scoretech
+# 7627517 | Kevin Appelt | 
+# 7627545 | Mario Avendano | 
+# 10904988 | Mathew Gomez | Scoretech
+# 7627505 | Mike Maemura | Role 0
+# 7627546 | Mike Turner | Maintenace
+# 7627527 | Natasha Emami | 
+# 11026505 | Nathan Castro | Scoretech
+# 10733404 | Nathan Penner | Front Desk, Scoretech
+# 7627518 | Nathan Rhode | 
+# 7627519 | Nicholas Chavarin | 
+# 8421887 | Nicole Reyes | bartender, party, server 
+# 7627533 | Omar Michel | Maintenace
+# 7627506 | Peter DeMore | Manager
+# 8429623 | Queyen Vo | 
+# 7627547 | Roberto Garcia | Maintenace
+# 7627520 | Rocco Villa | 
+# 7627534 | Rocio Perez | Cook
+# 7601554 | Ron Hughes | 
+# 9618383 | Samantha Villarreal | 
+# 7708379 | Sasha Salcedo | cafe, party
+# 7627535 | Sergio Armenta Jr | 
+# 9096509 | Sergio Escobedo | 
+# 7627521 | Stephen Salmassian | 
+# 10894155 | Sydney Valentine | cafe
+# 10487539 | Tate Nguyen | Scoretech
+# 7627540 | Tony Le | 
+# 7627510 | Tony Saavedra | bartender
+# 7627507 | Traver Clemmons | 
+# 7627541 | Trinity De La Cruz | bartender, cafe, server 
+# 7627542 | Valerie Guzman | bartender, party

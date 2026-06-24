@@ -23,6 +23,8 @@ _ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 OUTPUT_DIR = os.path.join(_ROOT, 'public', 'data')
 DATA_DIR = os.path.join(_ROOT, 'data')
 CATEGORY_OVERRIDES = os.path.join(_ROOT, 'config', 'categories.json')
+SERVICE_CHARGES_CONFIG = os.path.join(_ROOT, 'config', 'service_charges.json')
+EMPLOYEES_POS_OUTPUT = os.path.join(OUTPUT_DIR, '_employees_pos.json')
 BOWLING_SEASONAL_FORECAST_CSV = os.path.join(_ROOT, 'output', 'bowling_forecast.csv')
 
 NAME_MERGE = {
@@ -1644,6 +1646,175 @@ def export_ticket_detail(csv_files):
 
 
 # =============================================================================
+# EXPORT: _employees_pos.json (per-employee POS sales + tips)
+# =============================================================================
+
+def _load_service_charges_config():
+    defaults = {
+        'matchSuffix': 'Service Charge',
+        'excludeNames': ['Processing Fee'],
+        'vipName': 'VIP Service Charge',
+        'partyName': 'Party Service Charge',
+    }
+    if os.path.exists(SERVICE_CHARGES_CONFIG):
+        with open(SERVICE_CHARGES_CONFIG, encoding='utf-8') as f:
+            defaults.update(json.load(f))
+    return defaults
+
+
+def _normalize_employee_name(name):
+    if not name or not str(name).strip():
+        return None
+    return ' '.join(str(name).strip().lower().split())
+
+
+def _ticket_line_amount(line):
+    total = line.get('total') or 0
+    if total != 0:
+        return float(total)
+    qty = line.get('qty') or 0
+    unit = line.get('unitAmount') or 0
+    return float(unit * qty if qty else unit)
+
+
+def _is_service_charge(name, cfg):
+    if name in cfg.get('excludeNames', []):
+        return False
+    suffix = cfg.get('matchSuffix', 'Service Charge')
+    return bool(name) and name.endswith(suffix)
+
+
+def _service_charge_bucket(name, cfg):
+    if name == cfg.get('vipName'):
+        return 'vip'
+    if name == cfg.get('partyName'):
+        return 'party'
+    return 'other'
+
+
+def _empty_employee_day():
+    return {
+        'sales': 0.0,
+        'tickets': 0,
+        'gratuity': 0.0,
+        'serviceChargeVip': 0.0,
+        'serviceChargeParty': 0.0,
+        'serviceChargeOther': 0.0,
+    }
+
+
+def aggregate_employees_from_tickets(by_month):
+    """Aggregate POS sales, gratuity, and service charges per employee per day."""
+    cfg = _load_service_charges_config()
+    product_types = {'Product', 'Modifier', 'Package'}
+    employees = {}
+    date_min = None
+    date_max = None
+
+    def ensure_emp(norm, display):
+        if norm not in employees:
+            employees[norm] = {
+                'displayName': display,
+                'days': defaultdict(_empty_employee_day),
+                'deptMix': defaultdict(float),
+                'topItems': defaultdict(float),
+                'nameCounts': Counter(),
+            }
+        employees[norm]['nameCounts'][display] += 1
+
+    for _ym, tickets in by_month.items():
+        for ticket in tickets:
+            date = ticket.get('date') or ''
+            if date:
+                date_min = date if date_min is None else min(date_min, date)
+                date_max = date if date_max is None else max(date_max, date)
+
+            ticket_user = (ticket.get('user') or '').strip()
+            ticket_user_norm = _normalize_employee_name(ticket_user)
+
+            sc_vip = sc_party = sc_other = 0.0
+            for line in ticket.get('items') or []:
+                if line.get('itemType') != 'Adjustment':
+                    continue
+                name = (line.get('name') or '').strip()
+                if not _is_service_charge(name, cfg):
+                    continue
+                amt = _ticket_line_amount(line)
+                bucket = _service_charge_bucket(name, cfg)
+                if bucket == 'vip':
+                    sc_vip += amt
+                elif bucket == 'party':
+                    sc_party += amt
+                else:
+                    sc_other += amt
+
+            if ticket_user_norm and (sc_vip or sc_party or sc_other):
+                ensure_emp(ticket_user_norm, ticket_user)
+                day = employees[ticket_user_norm]['days'][date]
+                day['serviceChargeVip'] += sc_vip
+                day['serviceChargeParty'] += sc_party
+                day['serviceChargeOther'] += sc_other
+
+            if ticket_user_norm:
+                ensure_emp(ticket_user_norm, ticket_user)
+                employees[ticket_user_norm]['days'][date]['tickets'] += 1
+
+            for line in ticket.get('items') or []:
+                it = line.get('itemType')
+                if it == 'GratuityIn':
+                    recip = (line.get('name') or '').strip()
+                    norm = _normalize_employee_name(recip)
+                    if norm:
+                        ensure_emp(norm, recip)
+                        employees[norm]['days'][date]['gratuity'] += _ticket_line_amount(line)
+                elif it in product_types:
+                    amt = _ticket_line_amount(line)
+                    dept = (line.get('dept') or 'Unknown').strip() or 'Unknown'
+                    item_name = (line.get('name') or '').strip()
+                    if ticket_user_norm:
+                        employees[ticket_user_norm]['days'][date]['sales'] += amt
+                        employees[ticket_user_norm]['deptMix'][dept] += amt
+                        if item_name:
+                            employees[ticket_user_norm]['topItems'][item_name] += amt
+
+    out_employees = {}
+    for norm, data in employees.items():
+        display = data['nameCounts'].most_common(1)[0][0] if data['nameCounts'] else norm
+        days_out = {}
+        for day_key, vals in data['days'].items():
+            days_out[day_key] = {
+                k: round(v, 2) if isinstance(v, float) else v
+                for k, v in vals.items()
+            }
+        top_items = sorted(data['topItems'].items(), key=lambda x: -x[1])[:10]
+        dept_mix = dict(sorted(data['deptMix'].items(), key=lambda x: -x[1]))
+        out_employees[norm] = {
+            'displayName': display,
+            'days': days_out,
+            'deptMix': {k: round(v, 2) for k, v in dept_mix.items()},
+            'topItems': [{'name': n, 'revenue': round(r, 2)} for n, r in top_items],
+        }
+
+    return {
+        'generatedAt': datetime.now().isoformat(),
+        'dateRange': [date_min or '', date_max or ''],
+        'employees': out_employees,
+    }
+
+
+def export_employees_pos(by_month):
+    """Write public/data/_employees_pos.json from ticket month buckets."""
+    payload = aggregate_employees_from_tickets(by_month)
+    with open(EMPLOYEES_POS_OUTPUT, 'w', encoding='utf-8') as f:
+        json.dump(payload, f, indent=2)
+        f.write('\n')
+    count = len(payload['employees'])
+    size_kb = os.path.getsize(EMPLOYEES_POS_OUTPUT) / 1024
+    print(f'  -> {EMPLOYEES_POS_OUTPUT}  ({count:,} employees, {size_kb:.0f} KB)')
+    return payload
+
+
+# =============================================================================
 # MAIN
 # =============================================================================
 
@@ -1697,19 +1868,22 @@ def main():
     except ImportError as e:
         print(f'  SKIP: holiday_analysis not available ({e})')
 
-    print('\n[7/11] Ticket detail (by month)...')
-    export_ticket_detail(csv_files)
+    print('\n[7/12] Ticket detail (by month)...')
+    by_month = export_ticket_detail(csv_files)
 
-    print('\n[8/11] Payments...')
+    print('\n[8/12] Employee POS aggregation...')
+    export_employees_pos(by_month)
+
+    print('\n[9/12] Payments...')
     export_payments(csv_files)
 
-    print('\n[9/11] Packages (summer specials)...')
+    print('\n[10/12] Packages (summer specials)...')
     export_packages(csv_files)
 
-    print('\n[10/11] Intraday sales (by department/year)...')
+    print('\n[11/12] Intraday sales (by department/year)...')
     intraday_meta = export_intraday(products, category_overrides)
 
-    print('\n[11/11] Intraday voids (by department/year)...')
+    print('\n[12/12] Intraday voids (by department/year)...')
     void_years, void_counts = export_voids(csv_files, category_overrides)
     write_intraday_index(intraday_meta, void_years, void_counts)
 

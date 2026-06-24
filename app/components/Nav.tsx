@@ -18,6 +18,7 @@ const NAV_LINKS = [
   { href: '/holidays', label: 'Holiday Analysis', desc: 'Performance around holidays & events' },
   { href: '/bowling', label: 'Bowling Forecast', desc: 'Projected bowling lane revenue' },
   { href: '/tickets', label: 'Ticket Lookup', desc: 'Search tickets by date or number' },
+  { href: '/employees', label: 'Employees', desc: 'Per-employee sales, tips, hours & wage' },
 ];
 
 function NavLink({

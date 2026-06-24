@@ -131,6 +131,7 @@ def validate():
     print(f'  ticket months through {months[-1]} (ok)')
 
     validate_labor_optional()
+    validate_employees_optional()
 
     print('Validation passed.')
     return max_date
@@ -155,6 +156,23 @@ def validate_labor_optional():
     if days:
         total_cost = sum((d.get('laborCost') or 0) for d in days.values())
         print(f'  labor total cost in file: ${total_cost:,.0f}')
+
+
+def validate_employees_optional():
+    """Validate employees.json if present; skip silently if missing."""
+    path = os.path.join(DATA_DIR, 'employees.json')
+    if not os.path.exists(path):
+        print('  employees.json not present (optional — run npm run employees to generate)')
+        return
+
+    data = load_json('employees.json')
+    employees = data.get('employees') or []
+    if not isinstance(employees, list):
+        fail('employees.json employees field is malformed')
+    date_range = data.get('dateRange') or []
+    if len(date_range) == 2:
+        print(f'  employees date range: {date_range[0]} -> {date_range[1]}')
+    print(f'  employees: {len(employees)}')
 
 
 def commit(max_date):

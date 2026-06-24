@@ -51,6 +51,8 @@ except ImportError:
 _ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 OUTPUT_PATH = os.path.join(_ROOT, 'public', 'data', 'labor.json')
 INTRADAY_OUTPUT_PATH = os.path.join(_ROOT, 'public', 'data', 'labor_intraday.json')
+EMPLOYEES_LABOR_OUTPUT_PATH = os.path.join(_ROOT, 'public', 'data', '_employees_labor.json')
+EMPLOYEE_MAP_PATH = os.path.join(_ROOT, 'config', 'employee_map.json')
 API_BASE = 'https://api.7shifts.com/v2'
 BUSINESS_DAY_CUTOFF_HOUR = 4
 DEFAULT_PULL_DAYS = 365
@@ -389,6 +391,260 @@ def fetch_roles(client: SevenShiftsClient) -> dict[str, str]:
         if role_id is not None and name:
             roles[str(role_id)] = name
     return roles
+
+
+def list_users(client: SevenShiftsClient) -> list[dict]:
+    users: list[dict] = []
+    cursor: str | None = None
+    page = 0
+    while True:
+        params: dict = {'limit': PAGE_LIMIT}
+        if cursor:
+            params['cursor'] = cursor
+        payload = client.get(f'/company/{client.company_id}/users', params=params)
+        batch = payload.get('data') or []
+        users.extend(batch)
+        page += 1
+        print(f'  users page {page}: +{len(batch)} (total {len(users)})')
+        meta = payload.get('meta') or {}
+        cursor_meta = meta.get('cursor') or {}
+        next_cursor = cursor_meta.get('next')
+        if not next_cursor:
+            break
+        cursor = next_cursor
+    return users
+
+
+def list_shifts(client: SevenShiftsClient, business_start: str, business_end: str) -> list[dict]:
+    shifts: list[dict] = []
+    cursor: str | None = None
+    page = 0
+    while True:
+        params: dict = {
+            'start': business_start,
+            'end': business_end,
+            'limit': PAGE_LIMIT,
+            'include_deleted': 'false',
+        }
+        if cursor:
+            params['cursor'] = cursor
+        status, payload = client.request(
+            f'/company/{client.company_id}/shifts',
+            params=params,
+            fatal=False,
+        )
+        if status != 200 or not payload:
+            if page == 0:
+                print(f'  shifts unavailable (HTTP {status}) — punctuality metrics skipped')
+            break
+        batch = payload.get('data') or []
+        shifts.extend(batch)
+        page += 1
+        print(f'  shifts page {page}: +{len(batch)} (total {len(shifts)})')
+        meta = payload.get('meta') or {}
+        cursor_meta = meta.get('cursor') or {}
+        next_cursor = cursor_meta.get('next')
+        if not next_cursor:
+            break
+        cursor = next_cursor
+    return shifts
+
+
+def _normalize_name(name: str) -> str:
+    return ' '.join((name or '').strip().lower().split())
+
+
+def _empty_labor_day() -> dict:
+    return {
+        'hours': 0.0,
+        'laborCost': 0.0,
+        'punches': 0,
+        'scheduledShifts': 0,
+        'lateMinutes': 0,
+        'noShow': 0,
+    }
+
+
+def aggregate_employees_labor(
+    punches: list[dict],
+    users: list[dict],
+    shifts: list[dict],
+    roles: dict[str, str],
+    tz: ZoneInfo,
+    client: SevenShiftsClient,
+    uplift_pct: float = 0.0,
+) -> dict:
+    wage_resolver = WageResolver(client)
+    multiplier = 1.0 + uplift_pct / 100.0
+
+    user_profiles: dict[int, dict] = {}
+    for user in users:
+        uid = user.get('id')
+        if uid is None:
+            continue
+        first = (user.get('first_name') or '').strip()
+        last = (user.get('last_name') or '').strip()
+        full = f'{first} {last}'.strip() or str(user.get('preferred_name') or user.get('name') or uid)
+        user_profiles[int(uid)] = {
+            'name': full,
+            'hiredAt': user.get('hire_date') or user.get('created') or '',
+            'active': user.get('active', True),
+        }
+
+    # scheduled shifts per user per business date
+    scheduled: dict[tuple[int, str], list[datetime]] = defaultdict(list)
+    for shift in shifts:
+        if shift.get('deleted'):
+            continue
+        uid = shift.get('user_id')
+        start_iso = shift.get('start') or shift.get('start_time')
+        if uid is None or not start_iso:
+            continue
+        start_dt = parse_iso(start_iso).astimezone(tz)
+        bd = business_date_from_clocked_in(start_iso, tz)
+        scheduled[(int(uid), bd)].append(start_dt)
+
+    # first clock-in per user per business date
+    first_punch: dict[tuple[int, str], datetime] = {}
+    for punch in punches:
+        if punch.get('deleted'):
+            continue
+        uid = punch.get('user_id')
+        clocked_in = punch.get('clocked_in')
+        if uid is None or not clocked_in:
+            continue
+        uid = int(uid)
+        bd = business_date_from_clocked_in(clocked_in, tz)
+        dt = parse_iso(clocked_in).astimezone(tz)
+        key = (uid, bd)
+        if key not in first_punch or dt < first_punch[key]:
+            first_punch[key] = dt
+
+    employees: dict[str, dict] = {}
+    for uid, profile in user_profiles.items():
+        employees[str(uid)] = {
+            'name': profile['name'],
+            'hiredAt': profile['hiredAt'],
+            'active': bool(profile['active']),
+            'roles': set(),
+            'wage': 0.0,
+            'days': defaultdict(_empty_labor_day),
+        }
+
+    skipped = 0
+    for punch in punches:
+        if punch.get('deleted'):
+            skipped += 1
+            continue
+        clocked_in = punch.get('clocked_in')
+        uid = punch.get('user_id')
+        if not clocked_in or uid is None:
+            skipped += 1
+            continue
+        uid = int(uid)
+        hours = punch_worked_hours(punch)
+        if hours <= 0:
+            skipped += 1
+            continue
+
+        wage = resolve_punch_wage(punch, wage_resolver)
+        cost = hours * wage * multiplier
+        role_id = punch.get('role_id')
+        bd = business_date_from_clocked_in(clocked_in, tz)
+
+        if str(uid) not in employees:
+            employees[str(uid)] = {
+                'name': f'User {uid}',
+                'hiredAt': '',
+                'active': True,
+                'roles': set(),
+                'wage': 0.0,
+                'days': defaultdict(_empty_labor_day),
+            }
+
+        entry = employees[str(uid)]
+        if role_id is not None:
+            entry['roles'].add(roles.get(str(role_id), f'Role {role_id}'))
+        if wage > entry['wage']:
+            entry['wage'] = wage
+
+        day = entry['days'][bd]
+        day['hours'] += hours
+        day['laborCost'] += cost
+        day['punches'] += 1
+
+    # punctuality + no-shows from schedules
+    for (uid, bd), starts in scheduled.items():
+        key = str(uid)
+        if key not in employees:
+            employees[key] = {
+                'name': user_profiles.get(uid, {}).get('name', f'User {uid}'),
+                'hiredAt': user_profiles.get(uid, {}).get('hiredAt', ''),
+                'active': user_profiles.get(uid, {}).get('active', True),
+                'roles': set(),
+                'wage': 0.0,
+                'days': defaultdict(_empty_labor_day),
+            }
+        day = employees[key]['days'][bd]
+        day['scheduledShifts'] += len(starts)
+        punch_start = first_punch.get((uid, bd))
+        if punch_start is None:
+            day['noShow'] += len(starts)
+        else:
+            earliest_sched = min(starts)
+            late = (punch_start - earliest_sched).total_seconds() / 60.0
+            if late > 5:
+                day['lateMinutes'] += round(late)
+
+    users_out: dict[str, dict] = {}
+    for uid, entry in employees.items():
+        days_out = {}
+        for day_key, vals in entry['days'].items():
+            days_out[day_key] = {
+                'hours': round(vals['hours'], 2),
+                'laborCost': round(vals['laborCost'], 2),
+                'punches': int(vals['punches']),
+                'scheduledShifts': int(vals['scheduledShifts']),
+                'lateMinutes': round(vals['lateMinutes'], 1),
+                'noShow': int(vals['noShow']),
+            }
+        users_out[uid] = {
+            'name': entry['name'],
+            'roles': sorted(entry['roles']),
+            'wage': round(entry['wage'], 2),
+            'hiredAt': entry['hiredAt'],
+            'active': entry['active'],
+            'days': days_out,
+        }
+
+    if skipped:
+        print(f'  employee labor: skipped {skipped} punches')
+
+    return users_out
+
+
+def build_employees_labor_output(
+    punches: list[dict],
+    client: SevenShiftsClient,
+    tz: ZoneInfo,
+    business_start: str,
+    business_end: str,
+    uplift_pct: float = 0.0,
+) -> dict:
+    print('Building per-employee labor from punches + users...')
+    users = list_users(client)
+    roles = fetch_roles(client)
+    shifts = list_shifts(client, business_start, business_end)
+    users_data = aggregate_employees_labor(
+        punches, users, shifts, roles, tz, client, uplift_pct,
+    )
+    return {
+        'generatedAt': datetime.now(tz).isoformat(),
+        'timezone': str(tz),
+        'dateRange': [business_start, business_end],
+        'roles': roles,
+        'users': users_data,
+    }
 
 
 def aggregate_punches_intraday(
@@ -797,6 +1053,20 @@ def main() -> None:
         f.write('\n')
     print(f'Wrote {INTRADAY_OUTPUT_PATH}')
     print(f'  {len(intraday_output["days"])} intraday day(s)')
+
+    employees_labor = build_employees_labor_output(
+        punches,
+        client,
+        tz,
+        business_start,
+        business_end,
+        uplift_pct if source == 'punches_estimated' else 0.0,
+    )
+    with open(EMPLOYEES_LABOR_OUTPUT_PATH, 'w', encoding='utf-8') as f:
+        json.dump(employees_labor, f, indent=2)
+        f.write('\n')
+    print(f'Wrote {EMPLOYEES_LABOR_OUTPUT_PATH}')
+    print(f'  {len(employees_labor["users"])} employee(s)')
 
 
 if __name__ == '__main__':

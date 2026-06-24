@@ -9,6 +9,7 @@
     "lint": "next lint",
     "etl": "python scripts/export_dashboards.py",
     "labor": "python scripts/pull_7shifts_labor.py",
+    "employees": "python scripts/build_employees.py",
     "refresh": "python scripts/refresh_dashboard.py",
     "specialty": "python scripts/generate_specialty_cocktails_json.py"
   },

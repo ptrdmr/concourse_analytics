@@ -190,3 +190,99 @@ export interface SalesLaborSummary {
   laborAvailable: boolean;
   laborThrough: string | null;
 }
+
+export interface EmployeeDaily {
+  sales: number;
+  tickets: number;
+  gratuity: number;
+  serviceChargeVip: number;
+  serviceChargeParty: number;
+  serviceChargeOther: number;
+  hours: number;
+  laborCost: number;
+  scheduledShifts: number;
+  lateMinutes: number;
+  noShow: number;
+}
+
+export interface EmployeeTopItem {
+  name: string;
+  revenue: number;
+}
+
+export interface EmployeeProfile {
+  id: string;
+  displayName: string;
+  posNames: string[];
+  sevenShiftsUserId: number | null;
+  roles: string[];
+  wage: number;
+  hiredAt: string;
+  active: boolean;
+  days: Record<string, EmployeeDaily>;
+  deptMix: Record<string, number>;
+  topItems: EmployeeTopItem[];
+}
+
+export interface EmployeesData {
+  generatedAt: string;
+  dateRange: [string, string];
+  laborDateRange?: [string, string];
+  employees: EmployeeProfile[];
+}
+
+export type EmployeePeriod = 30 | 90 | 365 | 'all';
+
+export interface EmployeeRollup {
+  employeeId: string;
+  displayName: string;
+  roles: string[];
+  wage: number;
+  hiredAt: string;
+  active: boolean;
+  periodStart: string;
+  periodEnd: string;
+  laborPeriodStart: string;
+  laborPeriodEnd: string;
+  laborSales: number;
+  laborTips: number;
+  sales: number;
+  tickets: number;
+  gratuity: number;
+  serviceChargeVip: number;
+  serviceChargeParty: number;
+  serviceChargeOther: number;
+  totalTips: number;
+  hours: number;
+  laborCost: number;
+  shiftCount: number;
+  scheduledShifts: number;
+  lateMinutes: number;
+  noShows: number;
+  avgCheck: number | null;
+  salesPerHour: number | null;
+  tipsPerHour: number | null;
+  tipRate: number | null;
+  salesPerWageDollar: number | null;
+  personalLaborPct: number | null;
+  avgHoursPerWeek: number | null;
+  avgShiftLength: number | null;
+  dailyTrend: Array<{ date: string; sales: number; tips: number; hours: number }>;
+  deptMix: Record<string, number>;
+  topItems: EmployeeTopItem[];
+  bestDay: { date: string; sales: number } | null;
+  laborLinked: boolean;
+}
+
+export interface EmployeeRankings {
+  salesRank: number | null;
+  salesPercentile: number | null;
+  tipsPerHourRank: number | null;
+  tipsPerHourPercentile: number | null;
+  splhRank: number | null;
+  splhPercentile: number | null;
+  hoursRank: number | null;
+  hoursPercentile: number | null;
+  peerCount: number;
+  roleLabel: string | null;
+}
