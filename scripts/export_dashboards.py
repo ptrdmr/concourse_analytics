@@ -97,7 +97,12 @@ def parse_time_fields(time_raw):
 def resolve_item_category(name, dept, subdept, category_overrides):
     """Shared category + department resolution for all aggregations."""
     category = category_overrides.get(name) or subdept or dept
-    department = 'Parties' if category in ('Parties', 'Catering') else dept
+    if category in ('Parties', 'Catering'):
+        department = 'Parties'
+    elif category == 'Mocktails':
+        department = 'Bar'
+    else:
+        department = dept
     return department, category
 
 
