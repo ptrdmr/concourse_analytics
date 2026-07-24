@@ -168,6 +168,7 @@ def read_deductions(csv_files):
         'Department', 'Quantity', 'Unit Amount', 'Total',
         'Item Created Date', 'Item Created Time', 'Deleted', 'Voided',
     ]
+    seen = set()
     for csv_path in csv_files:
         with open(csv_path, 'r', encoding='utf-8') as f:
             reader = csv.reader(f, delimiter=';')
@@ -175,12 +176,20 @@ def read_deductions(csv_files):
             idx = {c: i for i, c in enumerate(header) if c in columns}
             if 'Item Created Date' not in idx or 'Item Type' not in idx:
                 continue
+            if 'Transaction ID' not in idx or 'Item ID' not in idx:
+                continue
             max_idx = max(idx.values())
             for row in reader:
                 if len(row) <= max_idx:
                     continue
                 if row[idx['Deleted']] != 'False' or row[idx['Voided']] != 'False':
                     continue
+                # Dedupe like every other reader: overlapping exports would
+                # otherwise count the same adjustment or refund once per file.
+                key = (row[idx['Transaction ID']], row[idx['Item ID']])
+                if key in seen:
+                    continue
+                seen.add(key)
                 txn_type = row[idx.get('Transaction Type', 0)].strip() if 'Transaction Type' in idx else 'Sales'
                 item_type = row[idx['Item Type']].strip()
                 date_str = business_day(
