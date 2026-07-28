@@ -17,6 +17,7 @@ import {
 import { getYTD } from '@/lib/date-ranges';
 import type { DateRange } from '@/lib/date-ranges';
 import { useUrlDateRange, useUrlString } from '@/hooks/useUrlFilters';
+import { useDataThrough } from '@/hooks/useTransactions';
 import { buildDaypartsSummary } from '@/lib/build-data-summary';
 import { useDataContext } from '@/context/DataContext';
 import {
@@ -70,7 +71,8 @@ function DaypartsContent() {
   const departments = useIntradayDepartments(index);
 
   const [department, setDepartment] = useUrlString('dept', 'All');
-  const [dateRange, setDateRange] = useUrlDateRange(getYTD());
+  const dataThrough = useDataThrough();
+  const [dateRange, setDateRange] = useUrlDateRange(getYTD(dataThrough));
   const [daysOfWeek, setDaysOfWeek] = useState<number[]>([]);
   const [resolution, setResolution] = useState<TimeResolution>(60);
   const [metric, setMetric] = useState<IntradayMetric>('quantity');
@@ -257,7 +259,7 @@ function DaypartsContent() {
         </div>
 
         {/* Date range */}
-        <DateRangePicker value={dateRange} onChange={setDateRange} />
+        <DateRangePicker value={dateRange} onChange={setDateRange} dataThrough={dataThrough} />
 
         {/* Day of week */}
         <div className="space-y-2">

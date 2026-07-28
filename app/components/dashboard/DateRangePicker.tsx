@@ -7,11 +7,13 @@ import { DATE_PRESETS, findPresetId, type DateRange } from '@/lib/date-ranges';
 interface Props {
   value: DateRange | null;
   onChange: (range: DateRange | null) => void;
+  /** Last date with sales data; presets end here instead of on today. */
+  dataThrough?: string | null;
 }
 
-export function DateRangePicker({ value, onChange }: Props) {
+export function DateRangePicker({ value, onChange, dataThrough }: Props) {
   const [forceCustom, setForceCustom] = useState(false);
-  const detectedId = findPresetId(value);
+  const detectedId = findPresetId(value, dataThrough);
   const activeId = forceCustom ? 'custom' : detectedId;
 
   const [customStart, setCustomStart] = useState(value?.[0] || '');
@@ -42,7 +44,7 @@ export function DateRangePicker({ value, onChange }: Props) {
         {DATE_PRESETS.map(preset => (
           <button
             key={preset.id}
-            onClick={() => selectPreset(preset.id, preset.range())}
+            onClick={() => selectPreset(preset.id, preset.range(dataThrough))}
             className={`px-2.5 sm:px-3 py-1 sm:py-1.5 rounded-full text-[11px] sm:text-xs font-medium transition-colors ${
               activeId === preset.id
                 ? 'bg-accent/20 text-accent border border-accent/40'

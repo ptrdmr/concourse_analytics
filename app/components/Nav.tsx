@@ -71,6 +71,23 @@ export function Nav() {
     };
   }, [menuOpen]);
 
+  // Widening past the desktop breakpoint hides the drawer via CSS alone, which
+  // would strand the body scroll lock above with no visible control to release
+  // it. Keep this query in sync with the xl:hidden classes below.
+  useEffect(() => {
+    if (!menuOpen) return;
+    const mq = window.matchMedia('(min-width: 1280px)');
+    if (mq.matches) {
+      setMenuOpen(false);
+      return;
+    }
+    const onChange = (e: MediaQueryListEvent) => {
+      if (e.matches) setMenuOpen(false);
+    };
+    mq.addEventListener('change', onChange);
+    return () => mq.removeEventListener('change', onChange);
+  }, [menuOpen]);
+
   const linkActive = (href: string) =>
     pathname === href || (href !== '/' && pathname.startsWith(href));
 
@@ -91,13 +108,17 @@ export function Nav() {
           </span>
         </Link>
 
-        {/* Desktop nav links — scrollable at lg, full inline at xl */}
-        <div className="hidden lg:flex items-center gap-0.5 xl:gap-1 min-w-0 flex-1 justify-end ml-4 overflow-x-auto scrollbar-hide">
+        {/* Desktop nav links — inline from xl up, hamburger below. Sizing stays
+            compact at every width because max-w-7xl caps the row at 1280px, so
+            there is never more room to grow into. No overflow container here:
+            it would clip the hover tooltips, and raising the xl breakpoint is
+            the right answer if these links ever stop fitting. */}
+        <div className="hidden xl:flex items-center gap-0.5 min-w-0 ml-4">
           {NAV_LINKS.map(link => (
             <div key={link.href} className="relative group shrink-0">
               <Link
                 href={link.href}
-                className={`whitespace-nowrap text-xs xl:text-sm px-2.5 xl:px-4 py-1.5 xl:py-2 rounded-full transition-colors ${
+                className={`whitespace-nowrap text-xs px-2.5 py-1.5 rounded-full transition-colors ${
                   linkActive(link.href)
                     ? 'bg-accent/15 text-accent'
                     : 'text-secondary hover:bg-overlay/5 hover:text-foreground'
@@ -114,7 +135,7 @@ export function Nav() {
         </div>
 
         {/* Mobile controls */}
-        <div className="flex items-center gap-1 lg:hidden">
+        <div className="flex items-center gap-1 xl:hidden">
           <ThemeToggle />
           <button
             type="button"
@@ -133,11 +154,11 @@ export function Nav() {
         createPortal(
           <>
             <div
-              className="fixed inset-0 bg-black/80 z-[100] lg:hidden"
+              className="fixed inset-0 bg-black/80 z-[100] xl:hidden"
               onClick={() => setMenuOpen(false)}
               aria-hidden="true"
             />
-            <div className="fixed top-0 right-0 bottom-0 w-full max-w-[min(280px,100vw)] bg-card border-l border-border z-[101] lg:hidden shadow-2xl animate-slide-in-right flex flex-col">
+            <div className="fixed top-0 right-0 bottom-0 w-full max-w-[min(280px,100vw)] bg-card border-l border-border z-[101] xl:hidden shadow-2xl animate-slide-in-right flex flex-col">
               <div className="flex items-center justify-between px-4 h-14 border-b border-border shrink-0">
                 <span className="font-semibold text-sm">Menu</span>
                 <button

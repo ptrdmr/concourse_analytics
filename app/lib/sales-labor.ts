@@ -113,10 +113,12 @@ export function buildSalesLaborSummary(opts: {
   dateRange: DateRange | null;
   laborAvailable: boolean;
   laborThrough: string | null;
+  /** Last date the sales export covers; days past it are dropped entirely. */
+  salesThrough?: string | null;
 }): SalesLaborSummary {
-  const { transactions, laborByDate, dateRange, laborAvailable, laborThrough } = opts;
+  const { transactions, laborByDate, dateRange, laborAvailable, laborThrough, salesThrough } = opts;
 
-  const dates = dateRange
+  const allDates = dateRange
     ? enumerateDates(dateRange[0], dateRange[1])
     : Array.from(
         new Set([
@@ -124,6 +126,11 @@ export function buildSalesLaborSummary(opts: {
           ...Object.keys(laborByDate),
         ])
       ).sort();
+
+  // Labor lands a day or two ahead of sales. Counting those days would inflate
+  // labor cost against sales that haven't been exported yet, throwing off both
+  // labor % and sales per labor hour.
+  const dates = salesThrough ? allDates.filter((d) => d <= salesThrough) : allDates;
 
   const salesMap = dailySalesByDate(transactions, dateRange);
 

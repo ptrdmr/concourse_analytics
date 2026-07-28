@@ -49,7 +49,8 @@ function HomeContent() {
   const { laborByDate, laborThrough, loading: laborLoading, available: laborAvailable } = useLabor();
   const { setDataSummary } = useDataContext();
 
-  const [dateRange, setDateRange] = useUrlDateRange(getLast7Days());
+  const salesThrough = summary?.dateRange?.[1] ?? null;
+  const [dateRange, setDateRange] = useUrlDateRange(getLast7Days(salesThrough));
   const filters = useMemo<Filters>(() => ({
     department: 'All',
     dateRange,
@@ -66,8 +67,9 @@ function HomeContent() {
       dateRange,
       laborAvailable,
       laborThrough,
+      salesThrough,
     }),
-    [raw, laborByDate, dateRange, laborAvailable, laborThrough],
+    [raw, laborByDate, dateRange, laborAvailable, laborThrough, salesThrough],
   );
 
   const priorComparison = useMemo(() => {
@@ -109,8 +111,6 @@ function HomeContent() {
       }))
       .sort((a, b) => b.revenue - a.revenue);
   }, [filtered]);
-
-  const salesThrough = summary?.dateRange?.[1] ?? null;
 
   const summaryText = useMemo(() => {
     if (txnLoading || sumLoading) return '';
@@ -173,7 +173,7 @@ function HomeContent() {
       <section className="max-w-7xl mx-auto px-4 sm:px-6 py-8 sm:py-12">
         <div className="mb-6">
           <h2 className="text-2xl sm:text-4xl font-bold mb-2">Business Overview</h2>
-          <DateRangePicker value={dateRange} onChange={setDateRange} />
+          <DateRangePicker value={dateRange} onChange={setDateRange} dataThrough={salesThrough} />
           <p className="text-secondary mt-2">{displayDateRange}</p>
           <p className="text-xs text-muted mt-1 break-words">
             Sales through {salesThrough ?? '—'}

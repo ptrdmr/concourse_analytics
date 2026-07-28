@@ -29,20 +29,22 @@ function ExplorerContent() {
   const { modifiers } = useModifiers();
   const { modifierTransactions, loading: modTxnLoading } = useModifierTransactions();
 
+  const dataThrough = summary?.dateRange?.[1] ?? null;
+
   const filters = useMemo<Filters>(() => {
     const catsRaw = get('cats');
     const categories = catsRaw
       ? catsRaw.split(',').map((s) => decodeURIComponent(s)).filter(Boolean)
       : [];
     const parsed = parseDateRangeFromUrl(get('from'), get('to'));
-    const ytd = getYTD();
+    const ytd = getYTD(dataThrough);
     return {
       department: get('dept') || 'All',
       dateRange: parsed ?? [ytd[0], ytd[1]],
       categories,
       searchTerm: get('q') || '',
     };
-  }, [searchParams, get]);
+  }, [searchParams, get, dataThrough]);
 
   const setFilters = useCallback(
     (next: Filters | ((prev: Filters) => Filters)) => {
@@ -147,6 +149,7 @@ function ExplorerContent() {
           categories={availableCategories}
           filters={filters}
           onChange={setFilters}
+          dataThrough={dataThrough}
         />
 
         <KpiRow kpis={displayKpis} />

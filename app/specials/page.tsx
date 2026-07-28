@@ -21,7 +21,8 @@ function SpecialsContent() {
   const { summary, loading: sumLoading } = useSummary();
   const { packages, loading: pkgLoading } = usePackages();
 
-  const [dateRange, setDateRange] = useUrlDateRange(getYTD());
+  const dataThrough = summary?.dateRange?.[1] ?? null;
+  const [dateRange, setDateRange] = useUrlDateRange(getYTD(dataThrough));
   const [selectedItem, setSelectedItem] = useState<ItemData | null>(null);
   const [historySource, setHistorySource] = useState<'cocktails' | 'packages'>('packages');
 
@@ -90,7 +91,7 @@ function SpecialsContent() {
           </p>
         </div>
 
-        <DateRangePicker value={dateRange} onChange={setDateRange} />
+        <DateRangePicker value={dateRange} onChange={setDateRange} dataThrough={dataThrough} />
 
         <SpecialtyCocktailsPanel items={barTopItems} colors={categoryColors} />
 

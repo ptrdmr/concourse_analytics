@@ -10,9 +10,10 @@ interface Props {
   categories: string[];
   filters: Filters;
   onChange: (filters: Filters) => void;
+  dataThrough?: string | null;
 }
 
-export function FilterBar({ departments, categories, filters, onChange }: Props) {
+export function FilterBar({ departments, categories, filters, onChange, dataThrough }: Props) {
   return (
     <div className="space-y-4">
       <div className="flex flex-wrap gap-2">
@@ -34,6 +35,7 @@ export function FilterBar({ departments, categories, filters, onChange }: Props)
       <DateRangePicker
         value={filters.dateRange}
         onChange={(range: DateRange | null) => onChange({ ...filters, dateRange: range })}
+        dataThrough={dataThrough}
       />
 
       <div className="flex flex-wrap items-center gap-3">

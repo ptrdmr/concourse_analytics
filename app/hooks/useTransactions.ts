@@ -35,6 +35,12 @@ export function useSummary() {
   return { summary, loading };
 }
 
+/** Last date covered by the export — the day every date preset counts back from. */
+export function useDataThrough(): string | null {
+  const { summary } = useSummary();
+  return summary?.dateRange?.[1] ?? null;
+}
+
 export function useTransactions() {
   const { transactions, transactionsLoading, transactionsFetched, loadTransactions } = useDataContext();
 
