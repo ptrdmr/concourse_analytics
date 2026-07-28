@@ -75,6 +75,15 @@ function compactChartLabel(date: string, isMonthly: boolean): string {
   return `${month}/${day}`;
 }
 
+// Trailing periods with no sales are reporting gaps (today, or a day the export
+// hasn't reached yet) rather than real zero-sales days, so they'd read as a
+// downturn on the chart. Interior zeros are kept — those are genuine closed days.
+function trimTrailingEmpty<T extends { sales: number }>(points: T[]): T[] {
+  let end = points.length;
+  while (end > 0 && points[end - 1].sales <= 0) end -= 1;
+  return end === 0 ? points : points.slice(0, end);
+}
+
 function HeroMetric({
   label,
   value,
@@ -111,7 +120,9 @@ export function SalesVsLaborCard({ summary, salesDelta, laborDelta }: Props) {
   const isMonthly = chartGranularity === 'month';
   const isNarrow = useMediaQuery('(max-width: 640px)');
 
-  const chartData = chart.map((d) => ({
+  const visibleChart = trimTrailingEmpty(chart);
+
+  const chartData = visibleChart.map((d) => ({
     ...d,
     shortLabel: isMonthly
       ? d.label.replace(/ \d{4}$/, '')
@@ -126,13 +137,13 @@ export function SalesVsLaborCard({ summary, salesDelta, laborDelta }: Props) {
   const xAxisHeight = isNarrow && chartData.length > 5 ? 48 : 24;
   const xAxisAngle = isNarrow && chartData.length > 5 ? -35 : 0;
 
-  const bestPeriod = chart.reduce(
+  const bestPeriod = visibleChart.reduce(
     (best, d) => (d.sales > best.sales ? d : best),
-    chart[0] ?? { label: '—', sales: 0, laborCost: 0 },
+    visibleChart[0] ?? { label: '—', sales: 0, laborCost: 0 },
   );
-  const worstPeriod = chart.reduce(
+  const worstPeriod = visibleChart.reduce(
     (worst, d) => (d.sales < worst.sales ? d : worst),
-    chart[0] ?? { label: '—', sales: 0, laborCost: 0 },
+    visibleChart[0] ?? { label: '—', sales: 0, laborCost: 0 },
   );
 
   return (
@@ -147,7 +158,7 @@ export function SalesVsLaborCard({ summary, salesDelta, laborDelta }: Props) {
               : 'Daily sales compared to wage labor cost for the selected period.'}
           </p>
         </div>
-        {chart.length > 0 && (
+        {visibleChart.length > 0 && (
           <p className="hidden sm:block text-xs text-muted max-w-md">
             Best {isMonthly ? 'month' : 'day'}: {bestPeriod.label} ({formatCompact(bestPeriod.sales)}).
             {' '}Slowest: {worstPeriod.label} ({formatCompact(worstPeriod.sales)}).
@@ -246,7 +257,7 @@ export function SalesVsLaborCard({ summary, salesDelta, laborDelta }: Props) {
         </div>
       )}
 
-      {laborAvailable && totalLaborCost === 0 && chart.some((d) => d.sales > 0) && (
+      {laborAvailable && totalLaborCost === 0 && visibleChart.some((d) => d.sales > 0) && (
         <p className="text-xs text-amber-400/90 mt-4 flex items-center gap-2">
           <DollarSign className="w-3.5 h-3.5" />
           Sales are present but labor cost is zero for this range — check your 7shifts pull dates.
