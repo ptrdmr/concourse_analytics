@@ -26,7 +26,7 @@ interface Props {
 
 const MODEL_COLORS: Record<string, string> = {
   actual: '#22c55e',
-  seasonal: '#4ade80',
+  seasonal: '#a78bfa',
 };
 
 const MODEL_LABELS: Record<string, string> = {
