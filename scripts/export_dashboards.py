@@ -1147,18 +1147,19 @@ def export_bowling_forecast(csv_files):
             forecasts['seasonal'] = rows
             print(f'  Loaded seasonal: {len(rows)} weeks')
 
-    # Current year actuals from POS data
+    # Current ISO-year actuals from POS data (ISO year so week 1 starting
+    # late December of the prior calendar year is included).
     weekly = _load_bowling_weekly(csv_files)
     if weekly:
-        max_year = max(ws.year for ws in weekly.keys())
+        max_year = max(ws.isocalendar()[0] for ws in weekly.keys())
         actual_rows = []
         for ws, rev in sorted(weekly.items()):
-            if ws.year == max_year:
-                iso = ws.isocalendar()
+            iso = ws.isocalendar()
+            if iso[0] == max_year:
                 actual_rows.append({
                     'weekStart': ws.strftime('%Y-%m-%d'),
                     'weekOfYear': min(iso[1], 52),
-                    'year': ws.year,
+                    'year': iso[0],
                     'predictedRevenue': round(rev, 2),
                 })
         if actual_rows:

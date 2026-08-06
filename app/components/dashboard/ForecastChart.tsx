@@ -31,7 +31,7 @@ const MODEL_COLORS: Record<string, string> = {
 
 const MODEL_LABELS: Record<string, string> = {
   actual: 'Current Year Actual',
-  seasonal: 'Seasonal Decomposition',
+  seasonal: 'Level + Seasonal Blend',
 };
 
 function CustomTooltip({ active, payload, label }: { active?: boolean; payload?: Array<{ dataKey: string; value: number; color: string }>; label?: string }) {

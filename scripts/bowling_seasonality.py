@@ -14,7 +14,11 @@ import statistics
 from collections import defaultdict
 from datetime import datetime, timedelta, date
 
-FORECAST_WEEKS_LOOKBACK = 4
+FORECAST_WEEKS_LOOKBACK = 4  # legacy CLI/signature; level uses LEVEL_LOOKBACK
+LEVEL_LOOKBACK = 52
+SHRINK_ALPHA = 0.5  # weight on seasonal deviation from trailing level
+# Weights for up to 3 prior years of same ISO week (oldest -> newest)
+SEASONAL_YEAR_WEIGHTS = (1, 2, 3)
 FORECAST_CSV_COLS = ['week_start', 'week_of_year', 'year', 'predicted_revenue', 'saved_at']
 
 import matplotlib
@@ -121,63 +125,84 @@ def load_bowling_data(data_paths, start_date=None, end_date=None):
     return dict(daily), dict(weekly), (min_d, max_d)
 
 
+def _as_date(d):
+    """Normalize datetime/date to date for week-start comparisons."""
+    return d.date() if isinstance(d, datetime) else d
+
+
+def _weighted_seasonal(week_num, forecast_year, by_year_week):
+    """
+    Weighted mean of the same ISO week from up to 3 prior years.
+    Most recent prior year heaviest (weights 1/2/3 among those present).
+    Returns None when no prior-year history exists for that week.
+    """
+    prior_years = sorted(
+        y for y, year_data in by_year_week.items()
+        if y < forecast_year and week_num in year_data and year_data[week_num] > 0
+    )
+    prior_years = prior_years[-len(SEASONAL_YEAR_WEIGHTS):]
+    if not prior_years:
+        return None
+    weights = SEASONAL_YEAR_WEIGHTS[-len(prior_years):]
+    num = sum(w * by_year_week[y][week_num] for y, w in zip(prior_years, weights))
+    den = sum(weights)
+    return num / den if den else None
+
+
 def compute_weekly_forecast(weekly, by_year_week, num_future_weeks=4,
                            lookback=FORECAST_WEEKS_LOOKBACK,
                            start_from_year=None):
     """
-    Forecast weekly revenue using 52-week seasonality when available.
-    For each week: use mean of that week-of-year across historical years.
-    Fall back to N-week moving average when no seasonal history exists.
+    Forecast weekly revenue: trailing 52-week level + shrink toward weighted
+    same-week seasonality.
 
-    If start_from_year is set, forecast a full 52 weeks from Jan 1 (week 1) of that year.
+        pred = level + SHRINK_ALPHA * (seasonal - level)
+
+    level     = mean of the LEVEL_LOOKBACK actual weeks immediately before the
+                target week (for weeks beyond available data: last LEVEL_LOOKBACK
+                actual weeks).
+    seasonal  = weighted mean of the same ISO week from up to 3 prior years
+                (weights 1/2/3, most recent heaviest). Excludes the forecast
+                year to avoid leakage.
+    Fallback  = level alone when no seasonal history exists.
+
+    If start_from_year is set, forecast a full 52 weeks from ISO week 1 of that year.
     Otherwise, forecast num_future_weeks starting from the week after last data.
     Returns list of (week_start, forecast_value).
 
-    IMPORTANT: When forecasting a year, we exclude that year from the seasonal mean
-    to avoid data leakage (using actuals to "predict" actuals).
+    `lookback` is kept for call-site compatibility; level uses LEVEL_LOOKBACK.
     """
+    del lookback  # signature compat; level uses LEVEL_LOOKBACK
     week_starts = sorted(weekly.keys())
     if not week_starts:
         return []
 
-    # Fallback: flat 4-week moving average. When forecasting a specific year,
-    # use only data from prior years to avoid leakage.
-    exclude_year = start_from_year
-    if exclude_year is not None:
-        historical_weeks = [w for w in week_starts if w.year < exclude_year]
-        fallback_revs = [weekly[w] for w in historical_weeks[-lookback:]] if historical_weeks else []
-    else:
-        fallback_revs = [weekly[w] for w in week_starts[-lookback:]] if len(week_starts) >= lookback else list(weekly.values())
-    fallback_avg = statistics.mean(fallback_revs) if fallback_revs else 0
+    # Sorted (date, revenue) actuals for walk-forward trailing level
+    sorted_actuals = [(_as_date(ws), rev) for ws, rev in sorted(weekly.items())]
 
     if start_from_year is not None:
-        # Full year from Jan 1: start at Monday of week 1
-        first_week = date.fromisocalendar(start_from_year, 1, 1)  # Monday of week 1
+        first_week = date.fromisocalendar(start_from_year, 1, 1)  # Monday of ISO week 1
         num_weeks = 52
     else:
-        last_week = week_starts[-1]
-        first_week = last_week + timedelta(days=7)
+        first_week = _as_date(week_starts[-1]) + timedelta(days=7)
         num_weeks = num_future_weeks
 
     forecast_weeks = []
     for i in range(num_weeks):
         next_week = first_week + timedelta(days=7 * i)
-        week_num = min(next_week.isocalendar()[1], 52)
-        forecast_year = next_week.year
+        iso = next_week.isocalendar()
+        week_num = min(iso[1], 52)
+        forecast_year = iso[0]  # ISO year (week of 2025-12-29 is 2026)
 
-        # Collect historical revenue for this week-of-year across PRIOR years only.
-        # Exclude the forecast year to prevent data leakage.
-        seasonal_values = []
-        for year, year_data in by_year_week.items():
-            if year >= forecast_year:
-                continue  # Don't use current/future year when predicting it
-            if week_num in year_data and year_data[week_num] > 0:
-                seasonal_values.append(year_data[week_num])
+        prior = [rev for d, rev in sorted_actuals if d < next_week]
+        level_vals = prior[-LEVEL_LOOKBACK:] if prior else []
+        level = statistics.mean(level_vals) if level_vals else 0.0
 
-        if seasonal_values:
-            pred = statistics.mean(seasonal_values)
+        seasonal = _weighted_seasonal(week_num, forecast_year, by_year_week)
+        if seasonal is not None:
+            pred = level + SHRINK_ALPHA * (seasonal - level)
         else:
-            pred = fallback_avg
+            pred = level
 
         forecast_weeks.append((next_week, pred))
 
@@ -191,11 +216,11 @@ def save_forecast(forecast_weeks, path):
         w.writerow(FORECAST_CSV_COLS)
         saved_at = datetime.now().isoformat()
         for week_start, rev in forecast_weeks:
-            w_num = min(week_start.isocalendar()[1], 52)
+            iso = week_start.isocalendar()
             w.writerow([
                 week_start.strftime('%Y-%m-%d'),
-                w_num,
-                week_start.year,
+                min(iso[1], 52),
+                iso[0],  # ISO year (week of 2025-12-29 is 2026)
                 f'{rev:.2f}',
                 saved_at,
             ])
@@ -525,12 +550,12 @@ def main():
             n_weeks = args.forecast_weeks
         if forecast_weeks:
             preds = [fv for _, fv in forecast_weeks]
-            if max(preds) - min(preds) > 100:  # Varying = seasonal
-                print(f'  Forecast: {n_weeks} weeks (52-week seasonal) '
+            if max(preds) - min(preds) > 100:
+                print(f'  Forecast: {n_weeks} weeks (level + {SHRINK_ALPHA:.0%} seasonal) '
                       f'range {fmt_currency(min(preds))}–{fmt_currency(max(preds))}/week')
             else:
                 print(f'  Forecast: {n_weeks} weeks @ ~{fmt_currency(preds[0])}/week '
-                      f'(fallback: 4-week avg)')
+                      f'(trailing {LEVEL_LOOKBACK}-week level only)')
             if args.save_forecast:
                 save_forecast(forecast_weeks, args.save_forecast)
     apply_theme()
