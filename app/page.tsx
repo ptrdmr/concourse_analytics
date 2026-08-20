@@ -1,9 +1,10 @@
 'use client';
 
-import { useState, useMemo, useEffect, Suspense } from 'react';
+import { useMemo, useEffect, Suspense } from 'react';
 import { useTransactions, useSummary, useFilteredData } from '@/hooks/useTransactions';
 import { useLabor } from '@/hooks/useLabor';
-import { formatCompact, formatNumber, formatPercent } from '@/lib/format';
+import { useVerdictForecast, useDaypartBaselines } from '@/hooks/useVerdictData';
+import { formatCompact, formatNumber } from '@/lib/format';
 import { buildOverviewSummary } from '@/lib/build-data-summary';
 import {
   buildSalesLaborSummary,
@@ -11,13 +12,17 @@ import {
   percentChange,
   priorPeriodRange,
 } from '@/lib/sales-labor';
+import { buildVerdict } from '@/lib/verdict';
+import { buildWeekStory } from '@/lib/week-story';
 import { useDataContext } from '@/context/DataContext';
 import { useUrlDateRange } from '@/hooks/useUrlFilters';
-import { DollarSign, Receipt, TrendingDown, TrendingUp, Users } from 'lucide-react';
 import Link from 'next/link';
 import { Nav } from '@/components/Nav';
 import { DateRangePicker } from '@/components/dashboard/DateRangePicker';
 import { SalesVsLaborCard } from '@/components/dashboard/SalesVsLaborCard';
+import { HeroSection } from '@/components/dashboard/HeroSection';
+import { BleedList } from '@/components/dashboard/BleedList';
+import { MenuWatch } from '@/components/dashboard/MenuWatch';
 import { getLast7Days } from '@/lib/date-ranges';
 import type { Filters } from '@/types';
 
@@ -30,11 +35,22 @@ const DEPT_ICONS: Record<string, string> = {
   Arcade: '🕹️',
 };
 
+function nextMondayISO(from: Date = new Date()): string {
+  const d = new Date(from.getFullYear(), from.getMonth(), from.getDate());
+  const day = d.getDay();
+  const add = day === 0 ? 1 : 8 - day;
+  d.setDate(d.getDate() + add);
+  const y = d.getFullYear();
+  const m = String(d.getMonth() + 1).padStart(2, '0');
+  const dayNum = String(d.getDate()).padStart(2, '0');
+  return `${y}-${m}-${dayNum}`;
+}
+
 export default function HomePage() {
   return (
     <Suspense fallback={
       <main className="min-h-screen pb-16 flex flex-col items-center justify-center gap-4">
-        <Nav />
+        <div className="print:hidden"><Nav /></div>
         <div className="text-secondary animate-pulse text-lg">Loading dashboard...</div>
       </main>
     }>
@@ -47,6 +63,8 @@ function HomeContent() {
   const { raw, loading: txnLoading } = useTransactions();
   const { summary, loading: sumLoading } = useSummary();
   const { laborByDate, laborThrough, loading: laborLoading, available: laborAvailable } = useLabor();
+  const { data: forecastData } = useVerdictForecast();
+  const { data: daypartBaselines, loading: daypartLoading } = useDaypartBaselines();
   const { setDataSummary } = useDataContext();
 
   const salesThrough = summary?.dateRange?.[1] ?? null;
@@ -88,6 +106,42 @@ function HomeContent() {
       laborDelta: laborAvailable ? percentChange(salesLabor.totalLaborCost, priorLaborTotal) : null,
     };
   }, [dateRange, raw, laborByDate, salesLabor, laborAvailable]);
+
+  const verdict = useMemo(
+    () => buildVerdict({
+      transactions: raw,
+      laborByDate,
+      laborAvailable,
+      dateRange: null, // hero always reports the last complete week
+      daypartBaselines,
+    }),
+    [raw, laborByDate, laborAvailable, daypartBaselines],
+  );
+
+  const nextWeekForecast = useMemo(() => {
+    if (!forecastData?.house?.forecast?.length) return null;
+    const target = nextMondayISO();
+    const row = forecastData.house.forecast.find((f) => f.weekStart === target);
+    return row?.predictedRevenue ?? null;
+  }, [forecastData]);
+
+  const story = useMemo(() => {
+    // Hero stays department-level: never lead with a product "Do this".
+    // Item findings still feed Menu Watch further down the page.
+    const top = verdict.findings[0];
+    const action =
+      top && top.kind !== 'item-drop' && top.kind !== 'specials'
+        ? (verdict.action?.sentence ?? null)
+        : null;
+
+    return buildWeekStory({
+      transactions: raw,
+      laborByDate,
+      laborAvailable,
+      action,
+      nextWeekForecast,
+    });
+  }, [raw, laborByDate, laborAvailable, verdict, nextWeekForecast]);
 
   const depts = useMemo(() => {
     const map = new Map<
@@ -141,7 +195,7 @@ function HomeContent() {
   if (loading) {
     return (
       <main className="min-h-screen pb-16 flex flex-col items-center justify-center gap-4">
-        <Nav />
+        <div className="print:hidden"><Nav /></div>
         <div className="text-secondary animate-pulse text-lg">Loading dashboard...</div>
         <p className="text-sm text-muted">Loading 125K+ transactions — this may take a moment</p>
       </main>
@@ -151,7 +205,7 @@ function HomeContent() {
   if (!summary) {
     return (
       <main className="min-h-screen pb-16 flex flex-col items-center justify-center gap-4">
-        <Nav />
+        <div className="print:hidden"><Nav /></div>
         <div className="text-red-400 text-center max-w-md">
           <p className="font-medium">Failed to load data.</p>
           <p className="text-sm text-muted mt-2">
@@ -162,59 +216,37 @@ function HomeContent() {
     );
   }
 
-  const displayDateRange = dateRange
-    ? `${dateRange[0]} to ${dateRange[1]}`
-    : 'All time';
-
   return (
     <main className="min-h-screen pb-16">
-      <Nav />
+      <div className="print:hidden">
+        <Nav />
+      </div>
 
       <section className="max-w-7xl mx-auto px-4 sm:px-6 py-8 sm:py-12">
-        <div className="mb-6">
-          <h2 className="text-2xl sm:text-4xl font-bold mb-2">Business Overview</h2>
-          <DateRangePicker value={dateRange} onChange={setDateRange} dataThrough={salesThrough} />
-          <p className="text-secondary mt-2">{displayDateRange}</p>
-          <p className="text-xs text-muted mt-1 break-words">
-            Sales through {salesThrough ?? '—'}
-            {laborAvailable && laborThrough ? ` · Labor through ${laborThrough}` : laborLoading ? '' : ' · Labor not loaded'}
-          </p>
-        </div>
+        <HeroSection story={story} />
 
-        <SalesVsLaborCard
-          summary={salesLabor}
-          salesDelta={priorComparison?.salesDelta}
-          laborDelta={priorComparison?.laborDelta}
-        />
+        <BleedList data={daypartBaselines} loading={daypartLoading} />
 
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mt-8">
-          <OwnerKpiCard
-            icon={<DollarSign className="w-5 h-5" />}
-            label="Total Sales"
-            value={formatCompact(kpis.totalRevenue)}
-            delta={priorComparison?.salesDelta}
-            accent
-          />
-          <OwnerKpiCard
-            icon={<Users className="w-5 h-5" />}
-            label="Labor Cost"
-            value={laborAvailable ? formatCompact(salesLabor.totalLaborCost) : '—'}
-            delta={priorComparison?.laborDelta}
-          />
-          <OwnerKpiCard
-            icon={<TrendingUp className="w-5 h-5" />}
-            label="Labor % of Sales"
-            value={salesLabor.laborPct != null ? formatPercent(salesLabor.laborPct) : '—'}
-          />
-          <OwnerKpiCard
-            icon={<Receipt className="w-5 h-5" />}
-            label="Avg Ticket"
-            value={salesLabor.avgTicket != null ? formatCompact(salesLabor.avgTicket) : '—'}
-            sub={`${formatNumber(kpis.totalTransactions)} transactions`}
+        <div className="mt-12 print:hidden">
+          <div className="flex flex-wrap items-end justify-between gap-3 mb-4">
+            <div>
+              <h2 className="text-lg font-semibold text-secondary">The details</h2>
+              <p className="text-xs text-muted mt-0.5">
+                Sales through {salesThrough ?? '—'}
+                {laborAvailable && laborThrough ? ` · Labor through ${laborThrough}` : laborLoading ? '' : ' · Labor not loaded'}
+              </p>
+            </div>
+            <DateRangePicker value={dateRange} onChange={setDateRange} dataThrough={salesThrough} />
+          </div>
+
+          <SalesVsLaborCard
+            summary={salesLabor}
+            salesDelta={priorComparison?.salesDelta}
+            laborDelta={priorComparison?.laborDelta}
           />
         </div>
 
-        <div className="mt-14 pt-8 border-t border-overlay/10">
+        <div className="mt-12 print:hidden">
           <div className="flex items-center justify-between mb-6">
             <div>
               <h3 className="text-lg font-semibold text-secondary">By Department</h3>
@@ -256,45 +288,11 @@ function HomeContent() {
             })}
           </div>
         </div>
+
+        <div className="print:hidden">
+          <MenuWatch items={verdict.itemFindings} />
+        </div>
       </section>
     </main>
-  );
-}
-
-function OwnerKpiCard({
-  icon,
-  label,
-  value,
-  delta,
-  sub,
-  accent,
-}: {
-  icon: React.ReactNode;
-  label: string;
-  value: string;
-  delta?: number | null;
-  sub?: string;
-  accent?: boolean;
-}) {
-  const positive = delta != null && delta >= 0;
-  const DeltaIcon = positive ? TrendingUp : TrendingDown;
-
-  return (
-    <div className="card p-6">
-      <div className="flex items-center gap-2 text-secondary mb-2">
-        {icon}
-        <span className="text-sm">{label}</span>
-      </div>
-      <div className={`text-2xl font-bold font-mono ${accent ? 'text-gradient' : ''}`}>
-        {value}
-      </div>
-      {delta != null && (
-        <p className={`text-xs mt-2 inline-flex items-center gap-1 ${positive ? 'text-emerald-400' : 'text-red-400'}`}>
-          <DeltaIcon className="w-3 h-3" />
-          {positive ? '+' : ''}{formatPercent(delta)} vs prior period
-        </p>
-      )}
-      {sub && <p className="text-xs text-muted mt-2">{sub}</p>}
-    </div>
   );
 }
