@@ -1,9 +1,9 @@
 {
-  "generatedAt": "2026-08-24T05:35:20.592887-07:00",
+  "generatedAt": "2026-08-25T05:35:22.462994-07:00",
   "timezone": "America/Los_Angeles",
   "dateRange": [
-    "2025-08-25",
-    "2026-08-24"
+    "2025-08-26",
+    "2026-08-25"
   ],
   "roles": {
     "1918008": "Manager",
@@ -72,14 +72,6 @@
       "hiredAt": "2024-01-22T21:40:11+00:00",
       "active": true,
       "days": {
-        "2025-08-25": {
-          "hours": 7.87,
-          "laborCost": 236.0,
-          "punches": 1,
-          "scheduledShifts": 0,
-          "lateMinutes": 0,
-          "noShow": 0
-        },
         "2025-08-26": {
           "hours": 8.3,
           "laborCost": 249.0,
@@ -2015,6 +2007,14 @@
           "scheduledShifts": 0,
           "lateMinutes": 0,
           "noShow": 0
+        },
+        "2026-08-24": {
+          "hours": 8.53,
+          "laborCost": 256.0,
+          "punches": 1,
+          "scheduledShifts": 0,
+          "lateMinutes": 0,
+          "noShow": 0
         }
       }
     },
@@ -3744,14 +3744,6 @@
       "hiredAt": "2024-01-22T21:40:13+00:00",
       "active": false,
       "days": {
-        "2025-08-25": {
-          "hours": 2.03,
-          "laborCost": 32.53,
-          "punches": 1,
-          "scheduledShifts": 0,
-          "lateMinutes": 0,
-          "noShow": 0
-        },
         "2025-08-26": {
           "hours": 6.28,
           "laborCost": 100.53,
@@ -3967,14 +3959,6 @@
       "hiredAt": "2024-01-22T21:40:13+00:00",
       "active": true,
       "days": {
-        "2025-08-25": {
-          "hours": 4.75,
-          "laborCost": 109.25,
-          "punches": 1,
-          "scheduledShifts": 0,
-          "lateMinutes": 0,
-          "noShow": 0
-        },
         "2025-08-27": {
           "hours": 5.02,
           "laborCost": 115.38,
@@ -5790,6 +5774,22 @@
           "scheduledShifts": 0,
           "lateMinutes": 0,
           "noShow": 0
+        },
+        "2026-08-24": {
+          "hours": 4.53,
+          "laborCost": 104.27,
+          "punches": 1,
+          "scheduledShifts": 0,
+          "lateMinutes": 0,
+          "noShow": 0
+        },
+        "2025-08-25": {
+          "hours": 0.0,
+          "laborCost": 0.0,
+          "punches": 0,
+          "scheduledShifts": 1,
+          "lateMinutes": 0,
+          "noShow": 1
         }
       }
     },
@@ -7398,6 +7398,14 @@
         "2026-08-22": {
           "hours": 6.68,
           "laborCost": 112.95,
+          "punches": 1,
+          "scheduledShifts": 0,
+          "lateMinutes": 0,
+          "noShow": 0
+        },
+        "2026-08-24": {
+          "hours": 8.05,
+          "laborCost": 136.04,
           "punches": 1,
           "scheduledShifts": 0,
           "lateMinutes": 0,
@@ -13216,14 +13224,6 @@
       "hiredAt": "2024-01-22T21:40:17+00:00",
       "active": true,
       "days": {
-        "2025-08-25": {
-          "hours": 6.32,
-          "laborCost": 106.75,
-          "punches": 1,
-          "scheduledShifts": 0,
-          "lateMinutes": 0,
-          "noShow": 0
-        },
         "2025-08-27": {
           "hours": 4.98,
           "laborCost": 84.72,
@@ -14675,14 +14675,6 @@
           "scheduledShifts": 0,
           "lateMinutes": 0,
           "noShow": 0
-        },
-        "2025-08-24": {
-          "hours": 0.0,
-          "laborCost": 0.0,
-          "punches": 0,
-          "scheduledShifts": 1,
-          "lateMinutes": 0,
-          "noShow": 1
         }
       }
     },
@@ -14729,14 +14721,6 @@
       "hiredAt": "2024-01-22T21:40:19+00:00",
       "active": true,
       "days": {
-        "2025-08-25": {
-          "hours": 6.57,
-          "laborCost": 144.47,
-          "punches": 1,
-          "scheduledShifts": 0,
-          "lateMinutes": 0,
-          "noShow": 0
-        },
         "2025-08-26": {
           "hours": 8.05,
           "laborCost": 177.1,
@@ -16792,6 +16776,14 @@
           "scheduledShifts": 0,
           "lateMinutes": 0,
           "noShow": 0
+        },
+        "2026-08-24": {
+          "hours": 7.65,
+          "laborCost": 183.6,
+          "punches": 1,
+          "scheduledShifts": 0,
+          "lateMinutes": 0,
+          "noShow": 0
         }
       }
     },
@@ -16813,14 +16805,6 @@
       "hiredAt": "2024-01-22T21:40:20+00:00",
       "active": true,
       "days": {
-        "2025-08-25": {
-          "hours": 5.22,
-          "laborCost": 114.77,
-          "punches": 1,
-          "scheduledShifts": 0,
-          "lateMinutes": 0,
-          "noShow": 0
-        },
         "2025-08-28": {
           "hours": 4.8,
           "laborCost": 105.6,
@@ -18722,14 +18706,6 @@
       "hiredAt": "2024-01-22T21:40:20+00:00",
       "active": true,
       "days": {
-        "2025-08-25": {
-          "hours": 4.98,
-          "laborCost": 109.63,
-          "punches": 1,
-          "scheduledShifts": 0,
-          "lateMinutes": 0,
-          "noShow": 0
-        },
         "2025-08-27": {
           "hours": 5.72,
           "laborCost": 125.77,
@@ -20745,6 +20721,14 @@
           "scheduledShifts": 0,
           "lateMinutes": 0,
           "noShow": 0
+        },
+        "2026-08-24": {
+          "hours": 5.08,
+          "laborCost": 122.0,
+          "punches": 1,
+          "scheduledShifts": 0,
+          "lateMinutes": 0,
+          "noShow": 0
         }
       }
     },
@@ -22562,14 +22546,6 @@
       "hiredAt": "2024-01-22T21:40:21+00:00",
       "active": true,
       "days": {
-        "2025-08-25": {
-          "hours": 5.62,
-          "laborCost": 123.57,
-          "punches": 1,
-          "scheduledShifts": 0,
-          "lateMinutes": 0,
-          "noShow": 0
-        },
         "2025-08-27": {
           "hours": 6.95,
           "laborCost": 152.9,
@@ -24137,6 +24113,22 @@
           "scheduledShifts": 0,
           "lateMinutes": 0,
           "noShow": 0
+        },
+        "2026-08-24": {
+          "hours": 6.8,
+          "laborCost": 149.6,
+          "punches": 1,
+          "scheduledShifts": 0,
+          "lateMinutes": 0,
+          "noShow": 0
+        },
+        "2025-08-25": {
+          "hours": 0.0,
+          "laborCost": 0.0,
+          "punches": 0,
+          "scheduledShifts": 1,
+          "lateMinutes": 0,
+          "noShow": 1
         }
       }
     },
@@ -29660,14 +29652,6 @@
       "hiredAt": "2024-01-22T21:40:23+00:00",
       "active": true,
       "days": {
-        "2025-08-25": {
-          "hours": 6.1,
-          "laborCost": 103.09,
-          "punches": 1,
-          "scheduledShifts": 0,
-          "lateMinutes": 0,
-          "noShow": 0
-        },
         "2025-08-26": {
           "hours": 5.72,
           "laborCost": 96.61,
@@ -31547,6 +31531,14 @@
           "scheduledShifts": 0,
           "lateMinutes": 0,
           "noShow": 0
+        },
+        "2026-08-24": {
+          "hours": 6.17,
+          "laborCost": 148.0,
+          "punches": 1,
+          "scheduledShifts": 0,
+          "lateMinutes": 0,
+          "noShow": 0
         }
       }
     },
@@ -31916,14 +31908,6 @@
       "hiredAt": "2024-01-22T21:40:24+00:00",
       "active": true,
       "days": {
-        "2025-08-25": {
-          "hours": 7.98,
-          "laborCost": 279.42,
-          "punches": 1,
-          "scheduledShifts": 0,
-          "lateMinutes": 0,
-          "noShow": 0
-        },
         "2025-08-26": {
           "hours": 8.07,
           "laborCost": 282.33,
@@ -33979,6 +33963,14 @@
           "scheduledShifts": 0,
           "lateMinutes": 0,
           "noShow": 0
+        },
+        "2026-08-24": {
+          "hours": 8.13,
+          "laborCost": 284.67,
+          "punches": 1,
+          "scheduledShifts": 0,
+          "lateMinutes": 0,
+          "noShow": 0
         }
       }
     },
@@ -34980,6 +34972,7 @@
     "7627546": {
       "name": "Mike Turner",
       "roles": [
+        "Janitorial",
         "Maintenace"
       ],
       "wage": 27.0,
@@ -37049,6 +37042,14 @@
           "scheduledShifts": 0,
           "lateMinutes": 0,
           "noShow": 0
+        },
+        "2026-08-24": {
+          "hours": 7.97,
+          "laborCost": 215.1,
+          "punches": 1,
+          "scheduledShifts": 0,
+          "lateMinutes": 0,
+          "noShow": 0
         }
       }
     },
@@ -37062,14 +37063,6 @@
       "hiredAt": "2024-01-22T21:40:25+00:00",
       "active": true,
       "days": {
-        "2025-08-25": {
-          "hours": 7.97,
-          "laborCost": 175.27,
-          "punches": 1,
-          "scheduledShifts": 0,
-          "lateMinutes": 0,
-          "noShow": 0
-        },
         "2025-08-29": {
           "hours": 8.33,
           "laborCost": 183.33,
@@ -40340,6 +40333,14 @@
           "scheduledShifts": 0,
           "lateMinutes": 0,
           "noShow": 0
+        },
+        "2026-08-24": {
+          "hours": 5.17,
+          "laborCost": 87.83,
+          "punches": 1,
+          "scheduledShifts": 0,
+          "lateMinutes": 0,
+          "noShow": 0
         }
       }
     },
@@ -40353,14 +40354,6 @@
       "hiredAt": "2024-03-15T00:18:21+00:00",
       "active": true,
       "days": {
-        "2025-08-25": {
-          "hours": 5.2,
-          "laborCost": 87.88,
-          "punches": 1,
-          "scheduledShifts": 0,
-          "lateMinutes": 0,
-          "noShow": 0
-        },
         "2025-08-29": {
           "hours": 3.58,
           "laborCost": 60.56,
@@ -41529,13 +41522,13 @@
           "lateMinutes": 0,
           "noShow": 0
         },
-        "2025-08-24": {
-          "hours": 0.0,
-          "laborCost": 0.0,
-          "punches": 0,
-          "scheduledShifts": 1,
+        "2026-08-24": {
+          "hours": 5.42,
+          "laborCost": 91.54,
+          "punches": 1,
+          "scheduledShifts": 0,
           "lateMinutes": 0,
-          "noShow": 1
+          "noShow": 0
         }
       }
     },
@@ -42195,14 +42188,6 @@
       "hiredAt": "2024-06-26T20:07:38+00:00",
       "active": true,
       "days": {
-        "2025-08-25": {
-          "hours": 5.13,
-          "laborCost": 84.7,
-          "punches": 1,
-          "scheduledShifts": 0,
-          "lateMinutes": 0,
-          "noShow": 0
-        },
         "2025-08-27": {
           "hours": 4.85,
           "laborCost": 80.02,
@@ -43426,6 +43411,14 @@
           "scheduledShifts": 0,
           "lateMinutes": 0,
           "noShow": 0
+        },
+        "2026-08-24": {
+          "hours": 7.02,
+          "laborCost": 118.58,
+          "punches": 1,
+          "scheduledShifts": 0,
+          "lateMinutes": 0,
+          "noShow": 0
         }
       }
     },
@@ -43472,14 +43465,6 @@
       "hiredAt": "2024-08-01T23:16:52+00:00",
       "active": false,
       "days": {
-        "2025-08-25": {
-          "hours": 5.53,
-          "laborCost": 105.13,
-          "punches": 1,
-          "scheduledShifts": 0,
-          "lateMinutes": 0,
-          "noShow": 0
-        },
         "2025-08-27": {
           "hours": 5.52,
           "laborCost": 91.03,
@@ -45127,6 +45112,14 @@
           "scheduledShifts": 0,
           "lateMinutes": 0,
           "noShow": 0
+        },
+        "2025-08-25": {
+          "hours": 0.0,
+          "laborCost": 0.0,
+          "punches": 0,
+          "scheduledShifts": 1,
+          "lateMinutes": 0,
+          "noShow": 1
         }
       }
     },
@@ -45141,14 +45134,6 @@
       "hiredAt": "2024-08-21T23:57:25+00:00",
       "active": false,
       "days": {
-        "2025-08-25": {
-          "hours": 5.43,
-          "laborCost": 89.65,
-          "punches": 1,
-          "scheduledShifts": 0,
-          "lateMinutes": 0,
-          "noShow": 0
-        },
         "2025-08-28": {
           "hours": 5.92,
           "laborCost": 97.62,
@@ -45668,6 +45653,14 @@
           "scheduledShifts": 0,
           "lateMinutes": 0,
           "noShow": 0
+        },
+        "2025-08-25": {
+          "hours": 0.0,
+          "laborCost": 0.0,
+          "punches": 0,
+          "scheduledShifts": 1,
+          "lateMinutes": 0,
+          "noShow": 1
         }
       }
     },
@@ -45689,14 +45682,6 @@
       "hiredAt": "2024-11-09T18:26:23+00:00",
       "active": true,
       "days": {
-        "2025-08-25": {
-          "hours": 6.07,
-          "laborCost": 121.33,
-          "punches": 1,
-          "scheduledShifts": 0,
-          "lateMinutes": 0,
-          "noShow": 0
-        },
         "2025-08-30": {
           "hours": 8.2,
           "laborCost": 164.0,
@@ -50404,6 +50389,14 @@
           "scheduledShifts": 0,
           "lateMinutes": 0,
           "noShow": 0
+        },
+        "2026-08-24": {
+          "hours": 5.47,
+          "laborCost": 98.4,
+          "punches": 2,
+          "scheduledShifts": 0,
+          "lateMinutes": 0,
+          "noShow": 0
         }
       }
     },
@@ -50424,14 +50417,6 @@
       "hiredAt": "2025-05-01T00:12:59+00:00",
       "active": false,
       "days": {
-        "2025-08-25": {
-          "hours": 7.17,
-          "laborCost": 118.25,
-          "punches": 1,
-          "scheduledShifts": 0,
-          "lateMinutes": 0,
-          "noShow": 0
-        },
         "2025-08-29": {
           "hours": 6.8,
           "laborCost": 112.2,
@@ -51325,14 +51310,6 @@
           "scheduledShifts": 0,
           "lateMinutes": 0,
           "noShow": 0
-        },
-        "2025-08-24": {
-          "hours": 0.0,
-          "laborCost": 0.0,
-          "punches": 0,
-          "scheduledShifts": 1,
-          "lateMinutes": 0,
-          "noShow": 1
         }
       }
     },
@@ -56274,6 +56251,14 @@
           "scheduledShifts": 0,
           "lateMinutes": 0,
           "noShow": 0
+        },
+        "2026-08-24": {
+          "hours": 8.37,
+          "laborCost": 167.33,
+          "punches": 1,
+          "scheduledShifts": 0,
+          "lateMinutes": 0,
+          "noShow": 0
         }
       }
     },
@@ -59886,6 +59871,14 @@
           "scheduledShifts": 0,
           "lateMinutes": 0,
           "noShow": 0
+        },
+        "2026-08-24": {
+          "hours": 6.9,
+          "laborCost": 116.61,
+          "punches": 1,
+          "scheduledShifts": 0,
+          "lateMinutes": 0,
+          "noShow": 0
         }
       }
     },
@@ -61846,6 +61839,14 @@
           "scheduledShifts": 0,
           "lateMinutes": 0,
           "noShow": 0
+        },
+        "2026-08-24": {
+          "hours": 4.55,
+          "laborCost": 76.89,
+          "punches": 1,
+          "scheduledShifts": 0,
+          "lateMinutes": 0,
+          "noShow": 0
         }
       }
     },
@@ -61990,6 +61991,14 @@
         "2026-08-23": {
           "hours": 5.08,
           "laborCost": 85.91,
+          "punches": 1,
+          "scheduledShifts": 0,
+          "lateMinutes": 0,
+          "noShow": 0
+        },
+        "2026-08-24": {
+          "hours": 3.6,
+          "laborCost": 60.84,
           "punches": 1,
           "scheduledShifts": 0,
           "lateMinutes": 0,
