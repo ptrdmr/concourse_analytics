@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-04T05:32:43.197232",
+  "generatedAt": "2026-09-05T05:32:43.056748",
   "holidays": [
     {
       "name": "Black Friday",
@@ -698,9 +698,16 @@
           "year": 2026,
           "startDate": "2026-09-04",
           "endDate": "2026-09-04",
-          "revenue": 0.0,
-          "transactions": 0,
-          "byDepartment": {}
+          "revenue": 20110.98,
+          "transactions": 1308,
+          "byDepartment": {
+            "Bar": 6116.5,
+            "Bowling": 5593.75,
+            "Food": 3202.05,
+            "General Income": 60.0,
+            "League Fees": 1639.0,
+            "Parties": 3499.6800000000003
+          }
         }
       ]
     },
