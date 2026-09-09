@@ -19,6 +19,7 @@ const NAV_LINKS = [
   { href: '/bowling', label: 'Bowling Forecast', desc: 'Projected bowling lane revenue' },
   { href: '/tickets', label: 'Ticket Lookup', desc: 'Search tickets by date or number' },
   { href: '/employees', label: 'Employees', desc: 'Per-employee sales, tips, hours & wage' },
+  { href: '/gratuity', label: 'Gratuity', desc: 'Tips by daypart and terminal house' },
 ];
 
 function NavLink({
