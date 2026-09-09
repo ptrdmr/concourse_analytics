@@ -17,6 +17,7 @@ import json
 import os
 import glob
 import statistics
+import sys
 from datetime import datetime, timedelta, date
 from collections import Counter, defaultdict
 
@@ -25,7 +26,9 @@ OUTPUT_DIR = os.path.join(_ROOT, 'public', 'data')
 DATA_DIR = os.path.join(_ROOT, 'data')
 CATEGORY_OVERRIDES = os.path.join(_ROOT, 'config', 'categories.json')
 SERVICE_CHARGES_CONFIG = os.path.join(_ROOT, 'config', 'service_charges.json')
+GRATUITY_CONFIG = os.path.join(_ROOT, 'config', 'gratuity.json')
 EMPLOYEES_POS_OUTPUT = os.path.join(OUTPUT_DIR, '_employees_pos.json')
+GRATUITY_OUTPUT = os.path.join(OUTPUT_DIR, 'gratuity.json')
 
 # Bowling forecast: trailing level + shrink toward weighted same-week seasonality
 LEVEL_LOOKBACK = 52
@@ -1923,11 +1926,181 @@ def export_employees_pos(by_month):
 
 
 # =============================================================================
+# EXPORT: gratuity.json (daypart x terminal-department x recipient)
+# =============================================================================
+
+GRATUITY_HOUSES = ('Bar', 'Cafe', 'Other')
+
+
+def load_gratuity_config():
+    defaults = {
+        'daypartHour': 17,
+        'terminals': {
+            'Bar': ['BAR1', 'BAR2', 'BAR3', 'MPOS2', 'MPOS6'],
+            'Cafe': ['CAFE1'],
+            'Other': ['SYNCSERVER'],
+        },
+    }
+    if os.path.isfile(GRATUITY_CONFIG):
+        with open(GRATUITY_CONFIG, encoding='utf-8') as f:
+            loaded = json.load(f)
+        if isinstance(loaded.get('daypartHour'), int):
+            defaults['daypartHour'] = loaded['daypartHour']
+        if isinstance(loaded.get('terminals'), dict):
+            defaults['terminals'] = loaded['terminals']
+    return defaults
+
+
+def _gratuity_terminal_map(cfg):
+    mapping = {}
+    for house in GRATUITY_HOUSES:
+        for term in cfg.get('terminals', {}).get(house, []) or []:
+            if term:
+                mapping[str(term).strip()] = house
+    return mapping
+
+
+def _gratuity_daypart(time_str, hour):
+    """Return 'pre17' / 'post17'. Unparseable times count as post (and caller tracks)."""
+    if not time_str:
+        return None
+    parts = str(time_str).strip().split(':')
+    try:
+        hh = int(parts[0])
+        mm = int(parts[1]) if len(parts) > 1 else 0
+    except (TypeError, ValueError):
+        return None
+    if hh < 0 or hh > 23 or mm < 0 or mm > 59:
+        return None
+    return 'pre17' if (hh, mm) < (hour, 0) else 'post17'
+
+
+def _empty_gratuity_houses():
+    return {house: {} for house in GRATUITY_HOUSES}
+
+
+def aggregate_gratuity_from_tickets(by_month, cfg=None):
+    """Group non-zero GratuityIn by business date, daypart, terminal house, recipient.
+
+    Does not change employees.json daily totals. $0.00 lines are counted in
+    meta only. GratuityOut is recorded in meta.tipOut and not subtracted.
+    """
+    cfg = cfg or load_gratuity_config()
+    hour = int(cfg.get('daypartHour') or 17)
+    term_map = _gratuity_terminal_map(cfg)
+
+    dates = {}
+
+    def day_entry(date_str):
+        if date_str not in dates:
+            dates[date_str] = {
+                'pre17': _empty_gratuity_houses(),
+                'post17': _empty_gratuity_houses(),
+                'meta': {
+                    'lines': 0,
+                    'zeroLines': 0,
+                    'tipOut': 0.0,
+                    'unknownTimes': 0,
+                    'unmappedTerminals': [],
+                },
+                '_unmapped': set(),
+            }
+        return dates[date_str]
+
+    for tickets in (by_month or {}).values():
+        for ticket in tickets or []:
+            date_str = (ticket.get('date') or '').strip()
+            if not date_str:
+                continue
+            time_str = ticket.get('time') or ''
+            terminal = (ticket.get('terminal') or '').strip()
+            house = term_map.get(terminal, 'Other')
+            daypart = _gratuity_daypart(time_str, hour)
+            entry = day_entry(date_str)
+            if terminal and terminal not in term_map:
+                entry['_unmapped'].add(terminal)
+
+            for line in ticket.get('items') or []:
+                item_type = line.get('itemType')
+                amount = _ticket_line_amount(line)
+                if item_type == 'GratuityOut':
+                    entry['meta']['tipOut'] += abs(float(amount or 0))
+                    continue
+                if item_type != 'GratuityIn':
+                    continue
+                entry['meta']['lines'] += 1
+                if not amount:
+                    entry['meta']['zeroLines'] += 1
+                    continue
+                name = (line.get('name') or '').strip()
+                if not name:
+                    name = '(unnamed)'
+                if daypart is None:
+                    entry['meta']['unknownTimes'] += 1
+                    bucket = 'post17'
+                else:
+                    bucket = daypart
+                houses = entry[bucket][house]
+                houses[name] = round(houses.get(name, 0.0) + float(amount), 2)
+
+    out = {}
+    for date_str, entry in dates.items():
+        unmapped = sorted(entry.pop('_unmapped'))
+        entry['meta']['unmappedTerminals'] = unmapped
+        entry['meta']['tipOut'] = round(entry['meta']['tipOut'], 2)
+        # Drop dates with no gratuity lines at all
+        if entry['meta']['lines'] == 0 and entry['meta']['tipOut'] == 0:
+            continue
+        out[date_str] = entry
+    return out
+
+
+def load_tickets_from_public():
+    """Read already-published ticket month files (no SQL / no CSV)."""
+    tickets_dir = os.path.join(OUTPUT_DIR, 'tickets')
+    by_month = {}
+    for path in glob.glob(os.path.join(tickets_dir, '*.json')):
+        name = os.path.basename(path)
+        if name == 'months.json':
+            continue
+        with open(path, encoding='utf-8') as f:
+            by_month[name[:-5]] = json.load(f)
+    return by_month
+
+
+def export_gratuity(by_month):
+    """Write public/data/gratuity.json from ticket month buckets."""
+    cfg = load_gratuity_config()
+    dates = aggregate_gratuity_from_tickets(by_month, cfg)
+    payload = {
+        'generatedAt': datetime.now().isoformat(),
+        'daypartHour': int(cfg.get('daypartHour') or 17),
+        'dates': dates,
+    }
+    _atomic_write_json(GRATUITY_OUTPUT, payload, indent=2, trailing_newline=True)
+    size_kb = os.path.getsize(GRATUITY_OUTPUT) / 1024
+    print(f'  -> {GRATUITY_OUTPUT}  ({len(dates):,} days, {size_kb:.0f} KB)')
+    return payload
+
+
+# =============================================================================
 # MAIN
 # =============================================================================
 
 def main():
     os.makedirs(OUTPUT_DIR, exist_ok=True)
+
+    if '--from-tickets' in sys.argv:
+        print('=' * 60)
+        print('EXPORT GRATUITY from published tickets')
+        print('=' * 60)
+        by_month = load_tickets_from_public()
+        if not by_month:
+            print('ERROR: No ticket month files in public/data/tickets/')
+            return 1
+        print(f'Ticket months: {", ".join(sorted(by_month))}')
+        export_gratuity(by_month)
+        return 0
 
     print('=' * 60)
     print('EXPORT DASHBOARDS v2 -> JSON')
@@ -1966,7 +2139,6 @@ def main():
 
     print('\n[6/11] Holiday Analysis...')
     try:
-        import sys
         _scripts = os.path.join(_ROOT, 'scripts')
         if _scripts not in sys.path:
             sys.path.insert(0, _scripts)
@@ -1979,10 +2151,13 @@ def main():
     print('\n[7/12] Ticket detail (by month)...')
     by_month = export_ticket_detail(csv_files)
 
-    print('\n[8/12] Employee POS aggregation...')
+    print('\n[8/13] Employee POS aggregation...')
     export_employees_pos(by_month)
 
-    print('\n[9/12] Payments...')
+    print('\n[8b/13] Gratuity (daypart x terminal)...')
+    export_gratuity(by_month)
+
+    print('\n[9/13] Payments...')
     export_payments(csv_files)
 
     print('\n[10/12] Packages (summer specials)...')

@@ -274,6 +274,29 @@ export interface EmployeeRollup {
   laborLinked: boolean;
 }
 
+export type GratuityHouse = 'Bar' | 'Cafe' | 'Other';
+export type GratuityDaypart = 'pre17' | 'post17';
+
+export interface GratuityDayMeta {
+  lines: number;
+  zeroLines: number;
+  tipOut: number;
+  unknownTimes?: number;
+  unmappedTerminals: string[];
+}
+
+export interface GratuityDay {
+  pre17: Record<GratuityHouse, Record<string, number>>;
+  post17: Record<GratuityHouse, Record<string, number>>;
+  meta: GratuityDayMeta;
+}
+
+export interface GratuityData {
+  generatedAt: string;
+  daypartHour: number;
+  dates: Record<string, GratuityDay>;
+}
+
 export interface EmployeeRankings {
   salesRank: number | null;
   salesPercentile: number | null;
