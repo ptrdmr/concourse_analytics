@@ -34,7 +34,17 @@ Thumbs.db
 
 # POS exports and forecast CSVs - keep local; run export_dashboards.py to refresh public/data
 *.csv
-/data/
+*.tmp
+*.locked
+/data/*
+!/data/.gitkeep
+
+# Nightly logs (keep the directory)
+/logs/*
+!/logs/.gitkeep
+
+# Last-good 7shifts JSON, restored if a pull produces nothing usable
+/.labor_snapshot/
 
 # Large generated index (rebuilt by ETL)
 public/data/ticket_index.json

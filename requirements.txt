@@ -1,4 +1,20 @@
-matplotlib
-holidays>=0.50
-requests>=2.31.0
+pyodbc>=5.0.0
 python-dotenv>=1.0.0
+
+# holiday_analysis.py (produces public/data/holiday_analysis.json)
+holidays>=0.50
+python-dateutil>=2.8.0
+
+# pull_7shifts_labor.py (7shifts REST API)
+requests>=2.31.0
+
+# zoneinfo is stdlib but Windows has no system tz database, so ZoneInfo('America/
+# Los_Angeles') raises ZoneInfoNotFoundError without this. Importing zoneinfo
+# succeeds either way, so only resolving a real zone key catches it.
+tzdata>=2024.1
+
+# Chart scripts only (bowling_seasonality.py, summer_specials_charts.py,
+# build_dashboard.py, build_bar_dashboard.py). The nightly never imports these.
+# Do not prune: a laptop rebuild of the PDFs/PNGs needs it, and a "cleanup" of
+# an unused production dependency would silently break those scripts.
+matplotlib

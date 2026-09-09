@@ -16,7 +16,8 @@ import csv
 import json
 import os
 import glob
-from datetime import datetime, timedelta
+import statistics
+from datetime import datetime, timedelta, date
 from collections import Counter, defaultdict
 
 _ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -25,7 +26,11 @@ DATA_DIR = os.path.join(_ROOT, 'data')
 CATEGORY_OVERRIDES = os.path.join(_ROOT, 'config', 'categories.json')
 SERVICE_CHARGES_CONFIG = os.path.join(_ROOT, 'config', 'service_charges.json')
 EMPLOYEES_POS_OUTPUT = os.path.join(OUTPUT_DIR, '_employees_pos.json')
-BOWLING_SEASONAL_FORECAST_CSV = os.path.join(_ROOT, 'output', 'bowling_forecast.csv')
+
+# Bowling forecast: trailing level + shrink toward weighted same-week seasonality
+LEVEL_LOOKBACK = 52
+SHRINK_ALPHA = 0.5
+SEASONAL_YEAR_WEIGHTS = (1, 2, 3)  # oldest -> newest among up to 3 prior years
 
 NAME_MERGE = {
     'Carne Asada Taco Plate (3)': 'Taco Plate',
@@ -122,6 +127,40 @@ def business_day(date_str, time_str):
         except ValueError:
             return date_str
     return date_str
+
+
+def _atomic_write_json(path, obj, *, indent=None, separators=None, trailing_newline=False):
+    """Write JSON via a temp file. In-place 'w' fails if Defender or an editor
+    has the destination open; renaming the locked file aside lets the nightly
+    finish and leaves a .locked sibling to delete later."""
+    folder = os.path.dirname(path)
+    if folder:
+        os.makedirs(folder, exist_ok=True)
+    tmp = path + '.tmp'
+    dump_kw = {}
+    if indent is not None:
+        dump_kw['indent'] = indent
+    if separators is not None:
+        dump_kw['separators'] = separators
+    with open(tmp, 'w', encoding='utf-8') as f:
+        json.dump(obj, f, **dump_kw)
+        if trailing_newline:
+            f.write('\n')
+    try:
+        os.replace(tmp, path)
+        return
+    except PermissionError:
+        pass
+    locked = path + '.locked'
+    n = 0
+    while os.path.exists(locked):
+        n += 1
+        locked = f'{path}.locked{n}'
+    try:
+        os.replace(path, locked)
+    except OSError:
+        pass
+    os.replace(tmp, path)
 
 
 def normalize_subdepartment(subdept):
@@ -677,8 +716,7 @@ def export_modifier_transactions(csv_files):
     """
     rows = aggregate_modifier_transactions(csv_files)
     out = os.path.join(OUTPUT_DIR, 'modifier_transactions.json')
-    with open(out, 'w', encoding='utf-8') as f:
-        json.dump(rows, f, separators=(',', ':'))
+    _atomic_write_json(out, rows, separators=(',', ':'))
     size_kb = os.path.getsize(out) / 1024
     print(f'  -> {out}  ({len(rows):,} rows, {size_kb:.0f} KB)')
     return rows
@@ -730,8 +768,7 @@ def export_transactions(csv_files, category_overrides):
     print(f'  Added {deduction_count:,} deduction rows')
 
     out = os.path.join(OUTPUT_DIR, 'transactions.json')
-    with open(out, 'w', encoding='utf-8') as f:
-        json.dump(rows, f, separators=(',', ':'))
+    _atomic_write_json(out, rows, separators=(',', ':'))
 
     size_kb = os.path.getsize(out) / 1024
     print(f'  -> {out}  ({size_kb:.0f} KB)')
@@ -756,8 +793,7 @@ def _write_intraday_shards(rows, subdir=''):
         dept_dir = os.path.join(base, dept)
         os.makedirs(dept_dir, exist_ok=True)
         out = os.path.join(dept_dir, f'{year}.json')
-        with open(out, 'w', encoding='utf-8') as f:
-            json.dump(dept_rows, f, separators=(',', ':'))
+        _atomic_write_json(out, dept_rows, separators=(',', ':'))
         size_kb = os.path.getsize(out) / 1024
         departments.add(dept)
         years.add(year)
@@ -809,8 +845,7 @@ def write_intraday_index(intraday_meta, void_years, void_counts=None):
     }
     os.makedirs(INTRADAY_DIR, exist_ok=True)
     out = os.path.join(INTRADAY_DIR, 'index.json')
-    with open(out, 'w', encoding='utf-8') as f:
-        json.dump(index, f, indent=2)
+    _atomic_write_json(out, index, indent=2)
     print(f'  -> {out}')
     return index
 
@@ -890,8 +925,7 @@ def export_modifiers(csv_files):
     }
 
     out = os.path.join(OUTPUT_DIR, 'modifiers.json')
-    with open(out, 'w', encoding='utf-8') as f:
-        json.dump(data, f, separators=(',', ':'))
+    _atomic_write_json(out, data, separators=(',', ':'))
     print(f'  -> {out}  ({len(rows)} modifiers)')
     return data
 
@@ -943,8 +977,7 @@ def export_summary(rows):
     }
 
     out = os.path.join(OUTPUT_DIR, 'summary.json')
-    with open(out, 'w', encoding='utf-8') as f:
-        json.dump(summary, f, indent=2)
+    _atomic_write_json(out, summary, indent=2)
     print(f'  -> {out}')
     return summary
 
@@ -1053,8 +1086,7 @@ def export_bowling_seasonality(csv_files):
     }
 
     out = os.path.join(OUTPUT_DIR, 'bowling_seasonality.json')
-    with open(out, 'w', encoding='utf-8') as f:
-        json.dump(data, f, indent=2)
+    _atomic_write_json(out, data, indent=2)
     print(f'  -> {out}  ({len(by_year_week)} years, ${total_rev:,.0f})')
 
 
@@ -1127,31 +1159,97 @@ def _load_bowling_weekly(csv_files):
     return weekly
 
 
+def _as_date(d):
+    """Normalize datetime/date to date for week-start comparisons."""
+    return d.date() if isinstance(d, datetime) else d
+
+
+def _build_52week_by_year(weekly):
+    """Group weekly revenue by ISO year and week-of-year (1–52)."""
+    by_year_week = defaultdict(lambda: defaultdict(float))
+    for week_start, rev in weekly.items():
+        iso = week_start.isocalendar()
+        year, week_num = iso[0], min(iso[1], 52)
+        by_year_week[year][week_num] += rev
+    return dict(by_year_week)
+
+
+def _weighted_seasonal(week_num, forecast_year, by_year_week):
+    """
+    Weighted mean of the same ISO week from up to 3 prior years.
+    Most recent prior year heaviest (weights 1/2/3 among those present).
+    """
+    prior_years = sorted(
+        y for y, year_data in by_year_week.items()
+        if y < forecast_year and week_num in year_data and year_data[week_num] > 0
+    )
+    prior_years = prior_years[-len(SEASONAL_YEAR_WEIGHTS):]
+    if not prior_years:
+        return None
+    weights = SEASONAL_YEAR_WEIGHTS[-len(prior_years):]
+    num = sum(w * by_year_week[y][week_num] for y, w in zip(prior_years, weights))
+    den = sum(weights)
+    return num / den if den else None
+
+
+def _compute_weekly_forecast(weekly, by_year_week, start_from_year):
+    """
+    Full-year forecast: trailing LEVEL_LOOKBACK-week level + SHRINK_ALPHA toward
+    weighted same-week seasonality. Returns list of (week_start date, pred).
+    """
+    if not weekly:
+        return []
+
+    sorted_actuals = [(_as_date(ws), rev) for ws, rev in sorted(weekly.items())]
+    first_week = date.fromisocalendar(start_from_year, 1, 1)
+    forecast_weeks = []
+
+    for i in range(52):
+        next_week = first_week + timedelta(days=7 * i)
+        iso = next_week.isocalendar()
+        week_num = min(iso[1], 52)
+        forecast_year = iso[0]
+
+        prior = [rev for d, rev in sorted_actuals if d < next_week]
+        level_vals = prior[-LEVEL_LOOKBACK:] if prior else []
+        level = statistics.mean(level_vals) if level_vals else 0.0
+
+        seasonal = _weighted_seasonal(week_num, forecast_year, by_year_week)
+        if seasonal is not None:
+            pred = level + SHRINK_ALPHA * (seasonal - level)
+        else:
+            pred = level
+
+        forecast_weeks.append((next_week, pred))
+
+    return forecast_weeks
+
+
 def export_bowling_forecast(csv_files):
-    """Export bowling forecast: seasonal model + current year actuals."""
+    """Export bowling forecast: in-process seasonal model + current ISO-year actuals."""
     forecasts = {}
-
-    # Seasonal forecast from CSV
-    if os.path.isfile(BOWLING_SEASONAL_FORECAST_CSV):
-        rows = []
-        with open(BOWLING_SEASONAL_FORECAST_CSV, 'r', encoding='utf-8') as f:
-            reader = csv.DictReader(f)
-            for row in reader:
-                rows.append({
-                    'weekStart': row['week_start'],
-                    'weekOfYear': int(row['week_of_year']),
-                    'year': int(row['year']),
-                    'predictedRevenue': round(float(row['predicted_revenue']), 2),
-                })
-        if rows:
-            forecasts['seasonal'] = rows
-            print(f'  Loaded seasonal: {len(rows)} weeks')
-
-    # Current ISO-year actuals from POS data (ISO year so week 1 starting
-    # late December of the prior calendar year is included).
     weekly = _load_bowling_weekly(csv_files)
+
     if weekly:
         max_year = max(ws.isocalendar()[0] for ws in weekly.keys())
+        by_year_week = _build_52week_by_year(weekly)
+        forecast_weeks = _compute_weekly_forecast(
+            weekly, by_year_week, start_from_year=max_year
+        )
+        if forecast_weeks:
+            forecasts['seasonal'] = [
+                {
+                    'weekStart': ws.strftime('%Y-%m-%d'),
+                    'weekOfYear': min(ws.isocalendar()[1], 52),
+                    'year': ws.isocalendar()[0],
+                    'predictedRevenue': round(rev, 2),
+                }
+                for ws, rev in forecast_weeks
+            ]
+            print(f'  Computed seasonal ({max_year}): {len(forecast_weeks)} weeks')
+        else:
+            print('  WARNING: Could not compute seasonal forecast')
+
         actual_rows = []
         for ws, rev in sorted(weekly.items()):
             iso = ws.isocalendar()
@@ -1165,6 +1263,8 @@ def export_bowling_forecast(csv_files):
         if actual_rows:
             forecasts['actual'] = actual_rows
             print(f'  Loaded actual ({max_year}): {len(actual_rows)} weeks')
+    else:
+        print('  WARNING: No bowling weekly data for forecast')
 
     if not forecasts:
         print('  WARNING: No forecast data found!')
@@ -1176,8 +1276,7 @@ def export_bowling_forecast(csv_files):
     }
 
     out = os.path.join(OUTPUT_DIR, 'bowling_forecast.json')
-    with open(out, 'w', encoding='utf-8') as f:
-        json.dump(data, f, indent=2)
+    _atomic_write_json(out, data, indent=2)
     print(f'  -> {out}')
 
 
@@ -1438,8 +1537,7 @@ def export_payments(csv_files):
     """Export payment rows with date granularity for the Payments dashboard."""
     rows = aggregate_payments(csv_files)
     out = os.path.join(OUTPUT_DIR, 'payments.json')
-    with open(out, 'w', encoding='utf-8') as f:
-        json.dump(rows, f, separators=(',', ':'))
+    _atomic_write_json(out, rows, separators=(',', ':'))
     size_kb = os.path.getsize(out) / 1024
     print(f'  -> {out}  ({len(rows):,} rows, {size_kb:.0f} KB)')
     return rows
@@ -1598,8 +1696,7 @@ def export_packages(csv_files):
     """Export package / summer special rows for the Package Detail dashboard."""
     rows = aggregate_packages(csv_files)
     out = os.path.join(OUTPUT_DIR, 'packages.json')
-    with open(out, 'w', encoding='utf-8') as f:
-        json.dump(rows, f, separators=(',', ':'))
+    _atomic_write_json(out, rows, separators=(',', ':'))
     size_kb = os.path.getsize(out) / 1024
     print(f'  -> {out}  ({len(rows):,} rows, {size_kb:.0f} KB)')
     return rows
@@ -1644,8 +1741,7 @@ def export_ticket_detail(csv_files):
         month_list = by_month[ym]
         month_list.sort(key=lambda t: (t['date'] or '', t['time'] or '', t['txnId']), reverse=True)
         out_path = os.path.join(tickets_dir, f'{ym}.json')
-        with open(out_path, 'w', encoding='utf-8') as f:
-            json.dump(month_list, f, separators=(',', ':'))
+        _atomic_write_json(out_path, month_list, separators=(',', ':'))
         sz = os.path.getsize(out_path)
         total_bytes += sz
         print(f'  -> {out_path}  ({len(month_list):,} tickets, {sz / 1024:.0f} KB)')
@@ -1653,8 +1749,7 @@ def export_ticket_detail(csv_files):
     print(f'  Ticket detail: {len(by_month)} month file(s), {total_bytes / (1024 * 1024):.2f} MB total')
 
     months_path = os.path.join(tickets_dir, 'months.json')
-    with open(months_path, 'w', encoding='utf-8') as f:
-        json.dump(sorted(by_month.keys()), f, separators=(',', ':'))
+    _atomic_write_json(months_path, sorted(by_month.keys()), separators=(',', ':'))
     print(f'  -> {months_path}')
 
     return by_month
@@ -1820,9 +1915,7 @@ def aggregate_employees_from_tickets(by_month):
 def export_employees_pos(by_month):
     """Write public/data/_employees_pos.json from ticket month buckets."""
     payload = aggregate_employees_from_tickets(by_month)
-    with open(EMPLOYEES_POS_OUTPUT, 'w', encoding='utf-8') as f:
-        json.dump(payload, f, indent=2)
-        f.write('\n')
+    _atomic_write_json(EMPLOYEES_POS_OUTPUT, payload, indent=2, trailing_newline=True)
     count = len(payload['employees'])
     size_kb = os.path.getsize(EMPLOYEES_POS_OUTPUT) / 1024
     print(f'  -> {EMPLOYEES_POS_OUTPUT}  ({count:,} employees, {size_kb:.0f} KB)')

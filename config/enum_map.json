@@ -1,0 +1,31 @@
+{
+  "item_type": {
+    "0": "",
+    "1": "Account",
+    "2": "BankDrop",
+    "3": "GratuityIn",
+    "4": "GratuityOut",
+    "5": "Tax",
+    "6": "Package",
+    "7": "Product",
+    "8": "Adjustment",
+    "9": "Modifier",
+    "10": "PaymentCash",
+    "11": "PaymentCredit",
+    "12": "PaymentStoredValue"
+  },
+  "transaction_type": {
+    "0": "NoSale",
+    "1": "Sales",
+    "2": "Refund",
+    "3": "Cancel",
+    "4": "ManualCancel"
+  },
+  "sold_by_type": {
+    "0": "",
+    "1": "Time",
+    "2": "Unit"
+  },
+  "verified": "2026-07-23",
+  "notes": "ItemType/TransactionType verified against comparison_data/2026.csv. SoldByType 1=Time; SoldByType 0 + Product renders as Unit in Office (see pull_journal.fmt_sold_by)."
+}
