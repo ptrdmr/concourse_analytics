@@ -2,9 +2,13 @@
 """
 Count realized party/reservation bookings per type, per day, from ticket JSON.
 
-One Sales tab that rings a paid package (or weekday/sunday lane tag) = one booking.
-POS also rings $0 time-bowling SKUs, $0.01 tests, food names like Kingpin Fries,
-and Cancel tickets — those are not bookings.
+One Sales tab that rings a party/suite/lane product = one booking of that type.
+Cancel/refund tickets, food names (Kingpin Fries), tests, deposit Payments, and
+$0 front-desk time-clocking tabs are not bookings.
+
+Suite packages are often named with "Time" (e.g. Kingpin - 8 Lane Suite - Time)
+and sometimes ring at $0 on the event check while catering/food holds the money.
+Those still count. A tab with only $0 VIP-lane SKUs and a $0 total does not.
 
 If a tab has General Lane Reservation (Lane Reservation Charge) AND any named
 program, General Lane is dropped — it only counts walk-in / standard-rate tabs.
@@ -38,6 +42,19 @@ RESERVATION_TYPES = [
     ('Summer Special', ('summer special',), True),
     ('Thursday Special', ('thursday special',), True),
     ('Pair & Spare', ('pair & spare',), True),
+    ('Party Builder', ('party builder',), True),
+    (
+        'Adult Party',
+        (
+            'adult party weekday',
+            'adult party weekend',
+            'adult weekday -',
+            'adult weekend -',
+            'adult weekday add',
+            'adult weekend add',
+        ),
+        True,
+    ),
     ('Supercharge', ('supercharge',), True),
     ('Strike Zone Suite', ('strike zone',), True),
     # 'kingpin -' / 'kingpin vip' — never bare 'kingpin' (matches Kingpin Fries)
@@ -46,18 +63,13 @@ RESERVATION_TYPES = [
     ('Jr. Strikers', ('jr. strikers', 'jr strikers'), True),
     ('Sports Party', ('sports party',), True),
     ('Half House', ('half house',), True),
-    ('Full Facility', ('full facility',), True),
+    ('Full Facility', ('full facility', 'full house'), True),
     ('NYE Reservation', ('nye reservation',), True),
-    ('Party Builder', ('party builder',), True),
     (GENERAL_LANE, ('lane reservation charge',), False),
 ]
 
 TYPE_NAMES = [t[0] for t in RESERVATION_TYPES]
 NAMED_PROGRAMS = {name for name, _, named in RESERVATION_TYPES if named}
-
-# Weekday/Sunday $0 time SKUs live on the paid lane tab and are how we tell
-# those programs apart from a generic Lane Reservation Charge.
-LANE_TYPE_TAGS = ('weekday lane', 'sunday lane')
 COUNTABLE_TXN_TYPES = {'Sales'}
 
 
@@ -79,7 +91,7 @@ def _item_amount(item) -> float:
 
 
 def _is_noise_item(name: str, item: dict, low: str) -> bool:
-    """Time clocking, tests, deposits, food, and add-ons are not a booking."""
+    """Food, tests, deposits, and add-ons are not a booking line."""
     if _is_catering_item(name):
         return True
     if 'test' in low:
@@ -94,14 +106,30 @@ def _is_noise_item(name: str, item: dict, low: str) -> bool:
         return True
     if 'fries' in low or low.endswith(' cup'):
         return True
-    if any(tag in low for tag in LANE_TYPE_TAGS):
-        return False
-    if 'time bowling' in sub:
-        return True
-    if ' time' in f' {low}' or low.endswith('time'):
-        return True
-    if _item_amount(item) < 1:
-        return True
+    return False
+
+
+def _tab_is_realized(ticket: dict, items) -> bool:
+    """True when the tab has money, or a reservation line with a real price.
+
+    Front-desk clocking (Kingpin VIP 8 Lane x8, Supercharge time) is $0/$0.
+    Event checks can have a $0 suite SKU with catering on the same tab.
+    Prepaid suites can have a $699+ line with tab total $0 after the deposit.
+    """
+    try:
+        if abs(float(ticket.get('total') or 0)) >= 1:
+            return True
+    except (TypeError, ValueError):
+        pass
+    for item in items or []:
+        name = (item.get('name') or '').strip()
+        if not name:
+            continue
+        low = name.lower()
+        if _is_noise_item(name, item, low):
+            continue
+        if _item_amount(item) >= 1:
+            return True
     return False
 
 
@@ -115,9 +143,15 @@ def classify_tab(items) -> set[str]:
         low = name.lower()
         if _is_noise_item(name, item, low):
             continue
+        amount = _item_amount(item)
         for type_name, needles, _named in RESERVATION_TYPES:
-            if any(n in low for n in needles):
-                found.add(type_name)
+            if not any(n in low for n in needles):
+                continue
+            # Extra-person Add is $33/$39; the adult party package is rung on
+            # the same SKU at $495/$780+. Do not count the per-person add-on.
+            if type_name == 'Adult Party' and 'add' in low and amount < 100:
+                continue
+            found.add(type_name)
     if GENERAL_LANE in found and (found & NAMED_PROGRAMS):
         found.discard(GENERAL_LANE)
     return found
@@ -164,7 +198,10 @@ def aggregate_reservation_counts(by_month: dict[str, list]):
             day = (ticket.get('date') or '')[:10]
             if len(day) < 10:
                 continue
-            types = classify_tab(ticket.get('items'))
+            items = ticket.get('items')
+            if not _tab_is_realized(ticket, items):
+                continue
+            types = classify_tab(items)
             if not types:
                 continue
             distinct_tabs += 1

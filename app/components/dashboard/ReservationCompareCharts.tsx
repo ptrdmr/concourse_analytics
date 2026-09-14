@@ -5,7 +5,7 @@ import {
   Tooltip, ResponsiveContainer, Legend,
 } from 'recharts';
 import { formatNumber } from '@/lib/format';
-import type { AlignedWeekPoint } from '@/lib/reservations';
+import { formatPeriodLabel, type AlignedWeekPoint, type ChartGrain } from '@/lib/reservations';
 
 const CURRENT = '#22c55e';
 const BASELINE = '#a1a1aa';
@@ -21,10 +21,21 @@ interface BarRow {
 interface Props {
   weekly: AlignedWeekPoint[];
   bars: BarRow[];
+  grain?: ChartGrain;
   currentLabel: string;
   baselineLabel: string;
   currentRange?: string;
   baselineRange?: string;
+}
+
+function seriesSide(
+  p: { dataKey?: string; name?: string },
+  currentLabel: string,
+): 'A' | 'B' {
+  if (p.dataKey === 'periodA' || p.dataKey === 'current') return 'A';
+  if (p.dataKey === 'periodB' || p.dataKey === 'baseline') return 'B';
+  if (String(p.name).trim() === String(currentLabel)) return 'A';
+  return 'B';
 }
 
 function WeeklyTooltip({
@@ -34,7 +45,7 @@ function WeeklyTooltip({
   baselineLabel,
 }: {
   active?: boolean;
-  payload?: Array<{ value: number; dataKey: string; payload?: AlignedWeekPoint }>;
+  payload?: Array<{ value: number; dataKey: string; name?: string; payload?: AlignedWeekPoint }>;
   currentLabel: string;
   baselineLabel: string;
 }) {
@@ -44,13 +55,14 @@ function WeeklyTooltip({
     <div className="bg-card border border-border-hover rounded-lg px-4 py-3 shadow-xl">
       <p className="text-xs text-muted mb-2">{row?.label}</p>
       {payload.map((p) => {
-        const week = p.dataKey === 'periodA' ? row?.weekA : row?.weekB;
-        const partial = p.dataKey === 'periodA' ? row?.partialA : row?.partialB;
-        const name = p.dataKey === 'periodA' ? currentLabel : baselineLabel;
+        const side = seriesSide(p, currentLabel);
+        const week = side === 'A' ? row?.weekA : row?.weekB;
+        const partial = side === 'A' ? row?.partialA : row?.partialB;
+        const name = side === 'A' ? currentLabel : baselineLabel;
         return (
-          <p key={p.dataKey} className="text-sm">
+          <p key={`${p.dataKey}-${p.name}`} className="text-sm">
             <span className="text-secondary">{name}</span>
-            {week ? <span className="text-muted"> ({week}{partial ? ', partial' : ''})</span> : null}
+            {week ? <span className="text-muted"> ({formatPeriodLabel(week)}{partial ? ', partial' : ''})</span> : null}
             <span className="text-foreground font-mono"> {formatNumber(p.value)}</span>
           </p>
         );
@@ -89,17 +101,21 @@ function BarTooltip({
 export function ReservationCompareCharts({
   weekly,
   bars,
+  grain = 'week',
   currentLabel,
   baselineLabel,
   currentRange,
   baselineRange,
 }: Props) {
+  const monthly = grain === 'month';
   return (
     <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
       <div className="card p-6">
-        <h3 className="text-lg font-semibold text-foreground mb-1">Weekly overlay</h3>
+        <h3 className="text-lg font-semibold text-foreground mb-1">
+          {monthly ? 'Monthly overlay' : 'Weekly overlay'}
+        </h3>
         <p className="text-sm text-muted mb-4">
-          Aligned by week number in each window
+          {monthly ? 'Same calendar month in each year' : 'Same calendar week in each year'}
           {currentRange && baselineRange ? ` — ${currentRange} vs ${baselineRange}` : ` — ${currentLabel} vs ${baselineLabel}`}
         </p>
         {weekly.length === 0 ? (
@@ -126,11 +142,14 @@ export function ReservationCompareCharts({
                   tickFormatter={(v) => formatNumber(v)}
                 />
                 <Tooltip content={<WeeklyTooltip currentLabel={currentLabel} baselineLabel={baselineLabel} />} />
-                <Legend wrapperStyle={{ fontSize: 12 }} />
+                <Legend
+                  wrapperStyle={{ fontSize: 12 }}
+                  formatter={(value) => String(value).trim()}
+                />
                 <Line
                   type="monotone"
                   dataKey="periodA"
-                  name={currentLabel}
+                  name={`${currentLabel} `}
                   stroke={CURRENT}
                   strokeWidth={2.5}
                   dot={{ r: 3, fill: CURRENT }}
@@ -138,7 +157,7 @@ export function ReservationCompareCharts({
                 <Line
                   type="monotone"
                   dataKey="periodB"
-                  name={baselineLabel}
+                  name={`${baselineLabel} `}
                   stroke={BASELINE}
                   strokeWidth={2}
                   strokeDasharray="6 4"

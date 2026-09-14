@@ -31,7 +31,13 @@ export const RESERVATION_GROUPS: ReservationGroup[] = [
     id: 'suites',
     label: 'VIP Suites',
     color: '#a78bfa',
-    types: ['Strike Zone Suite', 'Kingpin Suite', 'Powerhouse Suite'],
+    types: [
+      'Strike Zone Suite',
+      'Kingpin Suite',
+      'Powerhouse Suite',
+      'Half House',
+      'Full Facility',
+    ],
   },
   {
     id: 'kids',
@@ -43,7 +49,7 @@ export const RESERVATION_GROUPS: ReservationGroup[] = [
     id: 'pair',
     label: 'Pair & Spare',
     color: '#f59e0b',
-    types: ['Pair & Spare', 'Party Builder', 'Half House', 'Full Facility'],
+    types: ['Pair & Spare', 'Party Builder', 'Adult Party'],
   },
 ];
 
@@ -62,6 +68,7 @@ export const TYPE_COLORS: Record<string, string> = {
   'Jr. Strikers': '#0284c7',
   'Pair & Spare': '#f59e0b',
   'Party Builder': '#fbbf24',
+  'Adult Party': '#fb923c',
   'Half House': '#d97706',
   'Full Facility': '#fde68a',
 };
@@ -175,11 +182,47 @@ export function chartMode(selectedGroupIds: string[], search: string): ChartMode
   return 'groups';
 }
 
+export type ChartGrain = 'week' | 'month';
+
 export interface WeeklyPoint {
   week: string;
   partial: boolean;
   total: number;
   [key: string]: string | number | boolean;
+}
+
+const MONTH_NAMES = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+
+export function isPartialMonth(
+  ym: string,
+  range: DateRange | null,
+  dataThrough: string | null,
+): boolean {
+  const start = `${ym}-01`;
+  const [year, month] = ym.split('-').map(Number);
+  const lastDay = new Date(year, month, 0).getDate();
+  const end = `${ym}-${String(lastDay).padStart(2, '0')}`;
+  const cap = dataThrough && range?.[1]
+    ? (dataThrough < range[1] ? dataThrough : range[1])
+    : (dataThrough || range?.[1] || null);
+  if (range?.[0] && range[0] > start) return true;
+  if (cap && cap < end) return true;
+  return false;
+}
+
+function periodKey(iso: string, grain: ChartGrain): string {
+  return grain === 'month' ? iso.slice(0, 7) : mondayWeekStart(iso);
+}
+
+function isPartialPeriod(
+  key: string,
+  range: DateRange | null,
+  dataThrough: string | null,
+  grain: ChartGrain,
+): boolean {
+  return grain === 'month'
+    ? isPartialMonth(key, range, dataThrough)
+    : isPartialWeek(key, range, dataThrough);
 }
 
 export function aggregateWeekly(
@@ -188,16 +231,17 @@ export function aggregateWeekly(
   dataThrough: string | null,
   keys: string[],
   keyForType: (type: string) => string | null,
+  grain: ChartGrain = 'week',
 ): WeeklyPoint[] {
   const map = new Map<string, WeeklyPoint>();
   for (const row of rows) {
     if (!inRange(row.date, range)) continue;
     const key = keyForType(row.type);
     if (!key) continue;
-    const week = mondayWeekStart(row.date);
+    const week = periodKey(row.date, grain);
     let point = map.get(week);
     if (!point) {
-      point = { week, partial: isPartialWeek(week, range, dataThrough), total: 0 };
+      point = { week, partial: isPartialPeriod(week, range, dataThrough, grain), total: 0 };
       for (const k of keys) point[k] = 0;
       map.set(week, point);
     }
@@ -212,6 +256,7 @@ export function weeklyByGroups(
   range: DateRange | null,
   dataThrough: string | null,
   groupIds: string[],
+  grain: ChartGrain = 'week',
 ): WeeklyPoint[] {
   const idSet = new Set(groupIds);
   const groups = RESERVATION_GROUPS.filter((g) => idSet.has(g.id));
@@ -224,6 +269,7 @@ export function weeklyByGroups(
       const g = TYPE_TO_GROUP[type];
       return g && idSet.has(g.id) ? g.id : null;
     },
+    grain,
   );
 }
 
@@ -232,6 +278,7 @@ export function weeklyByTypes(
   range: DateRange | null,
   dataThrough: string | null,
   types: string[],
+  grain: ChartGrain = 'week',
 ): WeeklyPoint[] {
   const allowed = new Set(types);
   return aggregateWeekly(
@@ -240,6 +287,7 @@ export function weeklyByTypes(
     dataThrough,
     types,
     (type) => (allowed.has(type) ? type : null),
+    grain,
   );
 }
 
@@ -248,9 +296,78 @@ export function weeklyTotals(
   range: DateRange | null,
   dataThrough: string | null,
   types: string[],
+  grain: ChartGrain = 'week',
 ): WeeklyPoint[] {
-  const points = weeklyByTypes(rows, range, dataThrough, types);
+  const points = weeklyByTypes(rows, range, dataThrough, types, grain);
   return points.map((p) => ({ week: p.week, partial: p.partial, total: p.total }));
+}
+
+export function mondaysCoveringRange(range: DateRange): string[] {
+  const first = mondayWeekStart(range[0]);
+  const last = mondayWeekStart(range[1]);
+  const weeks: string[] = [];
+  let week = first;
+  while (week <= last) {
+    weeks.push(week);
+    week = addDays(week, 7);
+  }
+  return weeks;
+}
+
+export function monthsCoveringRange(range: DateRange): string[] {
+  const months: string[] = [];
+  let ym = range[0].slice(0, 7);
+  const last = range[1].slice(0, 7);
+  while (ym <= last) {
+    months.push(ym);
+    const year = Number(ym.slice(0, 4));
+    const month = Number(ym.slice(5, 7));
+    const next = month === 12 ? [year + 1, 1] : [year, month + 1];
+    ym = `${next[0]}-${String(next[1]).padStart(2, '0')}`;
+  }
+  return months;
+}
+
+/** Put a 0 on empty periods so compare lines share a calendar, not “nth busy week”. */
+export function fillWeeklySlots(
+  points: WeeklyPoint[],
+  range: DateRange | null,
+  dataThrough: string | null,
+  grain: ChartGrain = 'week',
+): WeeklyPoint[] {
+  if (!range) return points;
+  const byWeek = new Map(points.map((p) => [p.week, p]));
+  const keys = grain === 'month' ? monthsCoveringRange(range) : mondaysCoveringRange(range);
+  return keys.map((week) => {
+    const existing = byWeek.get(week);
+    if (existing) return existing;
+    return { week, partial: isPartialPeriod(week, range, dataThrough, grain), total: 0 };
+  });
+}
+
+export function formatWeekTick(week: string): string {
+  const month = Number(week.slice(5, 7));
+  const day = Number(week.slice(8, 10));
+  return `${MONTH_NAMES[month - 1] ?? week.slice(5, 7)} ${day}`;
+}
+
+export function formatPeriodTick(key: string): string {
+  if (/^\d{4}-\d{2}$/.test(key)) {
+    const month = Number(key.slice(5, 7));
+    return `${MONTH_NAMES[month - 1] ?? key.slice(5, 7)} ${key.slice(0, 4)}`;
+  }
+  return formatWeekTick(key);
+}
+
+export function formatPeriodLabel(key?: string): string {
+  if (!key) return '';
+  return formatPeriodTick(key);
+}
+
+function formatCompareTick(weekA?: string, weekB?: string, index = 0): string {
+  const key = weekA || weekB;
+  if (key) return formatPeriodTick(key);
+  return `Period ${index + 1}`;
 }
 
 export function weeklyTabCounts(
@@ -387,7 +504,7 @@ export function alignWeeklyCompare(
     const b = seriesB[i];
     points.push({
       slot: i,
-      label: `Week ${i + 1}`,
+      label: formatCompareTick(a?.week, b?.week, i),
       periodA: a?.total ?? 0,
       periodB: b?.total ?? 0,
       weekA: a?.week,

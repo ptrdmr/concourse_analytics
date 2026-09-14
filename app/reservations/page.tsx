@@ -18,6 +18,7 @@ import {
   defaultCompareYear,
   getLast90Days,
   shiftRangeToYear,
+  usesMonthlyGrain,
   type DateRange,
 } from '@/lib/date-ranges';
 import { formatNumber } from '@/lib/format';
@@ -28,6 +29,7 @@ import {
   alignWeeklyCompare,
   buildReservationSummary,
   chartMode,
+  fillWeeklySlots,
   formatPctChange,
   groupTotalsForBar,
   matchingTypes,
@@ -168,6 +170,7 @@ function ReservationsContent() {
     : null;
   const rangeA = resolveRange(periodA, fallbackRange);
   const rangeB = rangeA ? shiftRangeToYear(rangeA, vsYear) : null;
+  const grain = usesMonthlyGrain(rangeA) ? 'month' : 'week';
   const currentYearLabel = rangeA ? rangeA[1].slice(0, 4) : 'Current';
   const yearChips = useMemo(() => {
     const opts = compareYearOptions(dataStart, dataThrough);
@@ -219,15 +222,15 @@ function ReservationsContent() {
   }, [mode, selectedGroups, types]);
 
   const chartData = useMemo(() => {
-    if (mode === 'groups') return weeklyByGroups(rows, rangeA, dataThrough, selectedGroups);
-    return weeklyByTypes(rows, rangeA, dataThrough, types);
-  }, [mode, rows, rangeA, dataThrough, selectedGroups, types]);
+    if (mode === 'groups') return weeklyByGroups(rows, rangeA, dataThrough, selectedGroups, grain);
+    return weeklyByTypes(rows, rangeA, dataThrough, types, grain);
+  }, [mode, rows, rangeA, dataThrough, selectedGroups, types, grain]);
 
   const compareWeekly = useMemo(() => {
-    const a = weeklyTotals(rows, rangeA, dataThrough, types);
-    const b = weeklyTotals(rows, rangeB, dataThrough, types);
+    const a = fillWeeklySlots(weeklyTotals(rows, rangeA, dataThrough, types, grain), rangeA, dataThrough, grain);
+    const b = fillWeeklySlots(weeklyTotals(rows, rangeB, dataThrough, types, grain), rangeB, dataThrough, grain);
     return alignWeeklyCompare(a, b);
-  }, [rows, rangeA, rangeB, dataThrough, types]);
+  }, [rows, rangeA, rangeB, dataThrough, types, grain]);
 
   const compareBars = useMemo(() => {
     const a = groupTotalsForBar(totals, selectedGroups, mode, types);
@@ -285,14 +288,6 @@ function ReservationsContent() {
     });
   }
 
-  function handleAllTime(range: DateRange | null, setter: (r: DateRange | null) => void) {
-    if (range) {
-      setter(range);
-      return;
-    }
-    if (fallbackRange) setter(fallbackRange);
-  }
-
   if (loadingScreen) {
     return (
       <div className="min-h-screen pb-16 flex items-center justify-center">
@@ -314,7 +309,7 @@ function ReservationsContent() {
 
         <DateRangePicker
           value={rangeA}
-          onChange={(r) => handleAllTime(r, setPeriodA)}
+          onChange={(r) => r && setPeriodA(r)}
           dataThrough={dataThrough}
           trailing={
             <ReservationComparePicker
@@ -390,6 +385,7 @@ function ReservationsContent() {
           <ReservationCompareCharts
             weekly={compareWeekly}
             bars={compareBars}
+            grain={grain}
             currentLabel={currentYearLabel}
             baselineLabel={String(vsYear)}
             currentRange={rangeA ? `${rangeA[0]} → ${rangeA[1]}` : undefined}
@@ -399,6 +395,7 @@ function ReservationsContent() {
           <ReservationTrendsChart
             data={chartData}
             series={chartSeries}
+            grain={grain}
             subtitle={
               mode === 'groups'
                 ? 'One line per family. Select a single family to break out its types.'

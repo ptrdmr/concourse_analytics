@@ -86,6 +86,12 @@ export function daysInclusive(range: DateRange): number {
   return Math.round((end.getTime() - start.getTime()) / 86_400_000) + 1;
 }
 
+/** Last 12 Months is 365/366 days; longer custom windows roll up to months. */
+export function usesMonthlyGrain(range: DateRange | null): boolean {
+  if (!range) return false;
+  return daysInclusive(range) > 366;
+}
+
 /** Same-length window ending the day before `range` starts. */
 export function priorEqualLength(range: DateRange): DateRange {
   const days = daysInclusive(range);
@@ -162,23 +168,10 @@ export const DATE_PRESETS: DateRangePreset[] = [
     label: 'Last 12 Months',
     range: (anchor) => getLast12Months(anchor),
   },
-  {
-    id: 'prior-year',
-    label: 'Prior Year',
-    range: (anchor) => {
-      const year = Number(resolveAnchor(anchor).slice(0, 4)) - 1;
-      return [`${year}-01-01`, `${year}-12-31`];
-    },
-  },
-  {
-    id: 'all',
-    label: 'All Time',
-    range: () => null,
-  },
 ];
 
 export function findPresetId(dateRange: DateRange | null, anchor?: string | null): string {
-  if (!dateRange) return 'all';
+  if (!dateRange) return 'custom';
   for (const preset of DATE_PRESETS) {
     const r = preset.range(anchor);
     if (r && r[0] === dateRange[0] && r[1] === dateRange[1]) return preset.id;

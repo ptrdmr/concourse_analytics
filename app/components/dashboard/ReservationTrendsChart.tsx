@@ -5,7 +5,7 @@ import {
   Tooltip, ResponsiveContainer, Legend,
 } from 'recharts';
 import { formatNumber } from '@/lib/format';
-import type { WeeklyPoint } from '@/lib/reservations';
+import { formatPeriodTick, type ChartGrain, type WeeklyPoint } from '@/lib/reservations';
 
 interface Series {
   key: string;
@@ -16,6 +16,7 @@ interface Series {
 interface Props {
   data: WeeklyPoint[];
   series: Series[];
+  grain?: ChartGrain;
   title?: string;
   subtitle?: string;
 }
@@ -24,17 +25,22 @@ function CustomTooltip({
   active,
   payload,
   label,
+  grain,
 }: {
   active?: boolean;
   payload?: Array<{ value: number; color: string; dataKey: string; payload?: WeeklyPoint }>;
   label?: string;
+  grain: ChartGrain;
 }) {
   if (!active || !payload?.length) return null;
   const partial = payload[0]?.payload?.partial;
+  const heading = grain === 'month'
+    ? formatPeriodTick(label || '')
+    : `Week of ${label}`;
   return (
     <div className="bg-card border border-border-hover rounded-lg px-4 py-3 shadow-xl">
       <p className="text-xs text-muted mb-2">
-        Week of {label}{partial ? ' (partial)' : ''}
+        {heading}{partial ? ' (partial)' : ''}
       </p>
       {payload
         .filter((p) => (p.value || 0) > 0)
@@ -53,9 +59,16 @@ function CustomTooltip({
 export function ReservationTrendsChart({
   data,
   series,
-  title = 'Weekly bookings',
-  subtitle = 'Distinct tabs per reservation type, Monday weeks',
+  grain = 'week',
+  title,
+  subtitle,
 }: Props) {
+  const heading = title ?? (grain === 'month' ? 'Monthly bookings' : 'Weekly bookings');
+  const caption = subtitle ?? (
+    grain === 'month'
+      ? 'Calendar months in this window'
+      : 'Distinct tabs per reservation type, Monday weeks'
+  );
   const labeled = data.map((point) => {
     const next: Record<string, string | number | boolean> = { ...point };
     for (const s of series) {
@@ -66,8 +79,8 @@ export function ReservationTrendsChart({
 
   return (
     <div className="card p-6">
-      <h3 className="text-lg font-semibold text-foreground mb-1">{title}</h3>
-      <p className="text-sm text-muted mb-4">{subtitle}</p>
+      <h3 className="text-lg font-semibold text-foreground mb-1">{heading}</h3>
+      <p className="text-sm text-muted mb-4">{caption}</p>
       {data.length === 0 || series.length === 0 ? (
         <p className="text-sm text-muted py-12 text-center">No reservations in this window.</p>
       ) : (
@@ -81,7 +94,7 @@ export function ReservationTrendsChart({
                 fontSize={11}
                 axisLine={false}
                 tickLine={false}
-                tickFormatter={(v: string) => v.slice(5)}
+                tickFormatter={(v: string) => formatPeriodTick(v)}
                 interval={Math.max(Math.floor(data.length / 8), 0)}
               />
               <YAxis
@@ -92,7 +105,7 @@ export function ReservationTrendsChart({
                 allowDecimals={false}
                 tickFormatter={(v) => formatNumber(v)}
               />
-              <Tooltip content={<CustomTooltip />} />
+              <Tooltip content={<CustomTooltip grain={grain} />} />
               <Legend wrapperStyle={{ fontSize: 12 }} />
               {series.map((s) => (
                 <Line
@@ -126,7 +139,7 @@ export function ReservationTrendsChart({
       )}
       {data.some((d) => d.partial) && (
         <p className="text-xs text-muted mt-3">
-          Faded points are incomplete weeks (range start, or data through mid-week).
+          Faded points are incomplete {grain === 'month' ? 'months' : 'weeks'} (range start, or data through mid-period).
         </p>
       )}
     </div>

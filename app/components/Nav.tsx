@@ -5,34 +5,52 @@ import { createPortal } from 'react-dom';
 import Link from 'next/link';
 import Image from 'next/image';
 import { usePathname } from 'next/navigation';
-import { Menu, X } from 'lucide-react';
+import {
+  CalendarCheck,
+  Clock,
+  Columns2,
+  Compass,
+  CreditCard,
+  HandCoins,
+  LayoutDashboard,
+  Menu,
+  PartyPopper,
+  Receipt,
+  Sparkles,
+  TrendingUp,
+  Users,
+  X,
+  type LucideIcon,
+} from 'lucide-react';
 import { ThemeToggle } from './ThemeToggle';
 
-const NAV_LINKS = [
-  { href: '/', label: 'Overview', desc: 'Dashboard summary & key metrics' },
-  { href: '/payments', label: 'Payments', desc: 'Revenue breakdown & payment trends' },
-  { href: '/explorer', label: 'Data Explorer', desc: 'Dive into raw data & custom queries' },
-  { href: '/dayparts', label: 'Dayparts', desc: 'Item sales by time of day' },
-  { href: '/compare', label: 'Compare', desc: 'Side-by-side period comparisons' },
-  { href: '/specials', label: 'Specials', desc: 'Seasonal packages & specialty cocktails' },
-  { href: '/reservations', label: 'Reservations', desc: 'Weekly party and lane booking trends' },
-  { href: '/holidays', label: 'Holiday Analysis', desc: 'Performance around holidays & events' },
-  { href: '/bowling', label: 'Bowling Forecast', desc: 'Projected bowling lane revenue' },
-  { href: '/tickets', label: 'Ticket Lookup', desc: 'Search tickets by date or number' },
-  { href: '/employees', label: 'Employees', desc: 'Per-employee sales, tips, hours & wage' },
-  { href: '/gratuity', label: 'Gratuity', desc: 'Tips by daypart and terminal house' },
+const NAV_LINKS: { href: string; label: string; desc: string; icon: LucideIcon }[] = [
+  { href: '/', label: 'Overview', desc: 'Dashboard summary & key metrics', icon: LayoutDashboard },
+  { href: '/payments', label: 'Payments', desc: 'Revenue breakdown & payment trends', icon: CreditCard },
+  { href: '/explorer', label: 'Data Explorer', desc: 'Dive into raw data & custom queries', icon: Compass },
+  { href: '/dayparts', label: 'Dayparts', desc: 'Item sales by time of day', icon: Clock },
+  { href: '/compare', label: 'Compare', desc: 'Side-by-side period comparisons', icon: Columns2 },
+  { href: '/specials', label: 'Specials', desc: 'Seasonal packages & specialty cocktails', icon: Sparkles },
+  { href: '/reservations', label: 'Reservations', desc: 'Weekly party and lane booking trends', icon: CalendarCheck },
+  { href: '/holidays', label: 'Holiday Analysis', desc: 'Performance around holidays & events', icon: PartyPopper },
+  { href: '/bowling', label: 'Bowling Forecast', desc: 'Projected bowling lane revenue', icon: TrendingUp },
+  { href: '/tickets', label: 'Ticket Lookup', desc: 'Search tickets by date or number', icon: Receipt },
+  { href: '/employees', label: 'Employees', desc: 'Per-employee sales, tips, hours & wage', icon: Users },
+  { href: '/gratuity', label: 'Gratuity', desc: 'Tips by daypart and terminal house', icon: HandCoins },
 ];
 
 function NavLink({
   href,
   label,
   desc,
+  icon: Icon,
   active,
   onClick,
 }: {
   href: string;
   label: string;
   desc: string;
+  icon: LucideIcon;
   active: boolean;
   onClick?: () => void;
 }) {
@@ -46,8 +64,11 @@ function NavLink({
           : 'text-secondary hover:bg-overlay/5 hover:text-foreground'
       }`}
     >
-      <span className="text-sm font-medium">{label}</span>
-      <span className="block text-[11px] text-secondary/60 mt-0.5">{desc}</span>
+      <span className="flex items-center gap-2 text-sm font-medium">
+        <Icon className="w-4 h-4 shrink-0" aria-hidden="true" />
+        {label}
+      </span>
+      <span className="block text-[11px] text-secondary/60 mt-0.5 pl-6">{desc}</span>
     </Link>
   );
 }
@@ -110,44 +131,41 @@ export function Nav() {
           </span>
         </Link>
 
-        {/* Desktop nav links — inline from xl up, hamburger below. Sizing stays
-            compact at every width because max-w-7xl caps the row at 1280px, so
-            there is never more room to grow into. No overflow container here:
-            it would clip the hover tooltips, and raising the xl breakpoint is
-            the right answer if these links ever stop fitting. */}
-        <div className="hidden xl:flex items-center gap-0.5 min-w-0 ml-4">
+        <div className="flex items-center gap-1">
+          <ThemeToggle className="hidden xl:inline-flex" />
+          <div className="flex items-center gap-1 xl:hidden">
+            <ThemeToggle />
+            <button
+              type="button"
+              onClick={() => setMenuOpen(true)}
+              className="p-2 -mr-2 text-secondary hover:text-foreground hover:bg-overlay/5 rounded-lg transition-colors"
+              aria-label="Open menu"
+            >
+              <Menu className="w-6 h-6" />
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div className="hidden xl:flex max-w-7xl mx-auto px-4 sm:px-6 pb-2 items-center gap-0.5 flex-wrap">
           {NAV_LINKS.map(link => (
             <div key={link.href} className="relative group shrink-0">
               <Link
                 href={link.href}
-                className={`whitespace-nowrap text-xs px-2.5 py-1.5 rounded-full transition-colors ${
+                className={`inline-flex items-center gap-1.5 whitespace-nowrap text-xs px-2.5 py-1.5 rounded-full transition-colors ${
                   linkActive(link.href)
                     ? 'bg-accent/15 text-accent'
                     : 'text-secondary hover:bg-overlay/5 hover:text-foreground'
                 }`}
               >
+                <link.icon className="w-3.5 h-3.5 shrink-0" aria-hidden="true" />
                 {link.label}
               </Link>
-              <div className="pointer-events-none absolute left-1/2 -translate-x-1/2 top-full mt-2 px-3 py-1.5 rounded-lg bg-card-hover border border-border text-xs text-secondary whitespace-nowrap opacity-0 translate-y-1 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-150 shadow-lg">
+              <div className="pointer-events-none absolute left-1/2 -translate-x-1/2 top-full mt-2 px-3 py-1.5 rounded-lg bg-card-hover border border-border text-xs text-secondary whitespace-nowrap opacity-0 translate-y-1 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-150 shadow-lg z-10">
                 {link.desc}
               </div>
             </div>
           ))}
-          <ThemeToggle className="ml-1 shrink-0" />
-        </div>
-
-        {/* Mobile controls */}
-        <div className="flex items-center gap-1 xl:hidden">
-          <ThemeToggle />
-          <button
-            type="button"
-            onClick={() => setMenuOpen(true)}
-            className="p-2 -mr-2 text-secondary hover:text-foreground hover:bg-overlay/5 rounded-lg transition-colors"
-            aria-label="Open menu"
-          >
-            <Menu className="w-6 h-6" />
-          </button>
-        </div>
       </div>
 
       {/* Mobile menu overlay - portaled to body so it always sits above page content */}
@@ -179,6 +197,7 @@ export function Nav() {
                     href={link.href}
                     label={link.label}
                     desc={link.desc}
+                    icon={link.icon}
                     active={linkActive(link.href)}
                     onClick={() => setMenuOpen(false)}
                   />

@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-14T11:57:34",
+  "generatedAt": "2026-09-14T14:58:55",
   "dateRange": [
     "2023-05-26",
     "2026-09-13"
@@ -10,6 +10,8 @@
     "Summer Special",
     "Thursday Special",
     "Pair & Spare",
+    "Party Builder",
+    "Adult Party",
     "Supercharge",
     "Strike Zone Suite",
     "Kingpin Suite",
@@ -19,7 +21,6 @@
     "Half House",
     "Full Facility",
     "NYE Reservation",
-    "Party Builder",
     "General Lane Reservation"
   ],
   "rows": [
@@ -29,9 +30,34 @@
       "count": 3
     },
     {
+      "date": "2023-05-26",
+      "type": "Strike Zone Suite",
+      "count": 2
+    },
+    {
+      "date": "2023-05-26",
+      "type": "Powerhouse Suite",
+      "count": 2
+    },
+    {
       "date": "2023-05-27",
       "type": "Supercharge",
       "count": 2
+    },
+    {
+      "date": "2023-05-27",
+      "type": "Powerhouse Suite",
+      "count": 1
+    },
+    {
+      "date": "2023-06-01",
+      "type": "Adult Party",
+      "count": 1
+    },
+    {
+      "date": "2023-06-03",
+      "type": "Adult Party",
+      "count": 1
     },
     {
       "date": "2023-06-03",
@@ -44,13 +70,33 @@
       "count": 1
     },
     {
+      "date": "2023-06-06",
+      "type": "Strike Zone Suite",
+      "count": 1
+    },
+    {
       "date": "2023-06-10",
       "type": "Supercharge",
       "count": 1
     },
     {
+      "date": "2023-06-11",
+      "type": "Strike Zone Suite",
+      "count": 1
+    },
+    {
+      "date": "2023-06-16",
+      "type": "Kingpin Suite",
+      "count": 1
+    },
+    {
       "date": "2023-06-17",
       "type": "Supercharge",
+      "count": 1
+    },
+    {
+      "date": "2023-06-17",
+      "type": "Strike Zone Suite",
       "count": 1
     },
     {
@@ -69,24 +115,34 @@
       "count": 1
     },
     {
+      "date": "2023-06-24",
+      "type": "Kingpin Suite",
+      "count": 1
+    },
+    {
       "date": "2023-06-26",
       "type": "Weekday Lane",
-      "count": 5
+      "count": 1
     },
     {
       "date": "2023-06-27",
       "type": "Weekday Lane",
-      "count": 6
-    },
-    {
-      "date": "2023-06-28",
-      "type": "Weekday Lane",
-      "count": 4
+      "count": 2
     },
     {
       "date": "2023-06-29",
       "type": "Weekday Lane",
-      "count": 4
+      "count": 2
+    },
+    {
+      "date": "2023-06-29",
+      "type": "Adult Party",
+      "count": 1
+    },
+    {
+      "date": "2023-06-29",
+      "type": "Kingpin Suite",
+      "count": 1
     },
     {
       "date": "2023-06-30",
@@ -106,22 +162,22 @@
     {
       "date": "2023-07-02",
       "type": "Sunday Lane",
-      "count": 8
+      "count": 7
     },
     {
       "date": "2023-07-03",
       "type": "Weekday Lane",
-      "count": 11
+      "count": 4
     },
     {
       "date": "2023-07-05",
-      "type": "Weekday Lane",
+      "type": "Summer Special",
       "count": 1
     },
     {
       "date": "2023-07-06",
       "type": "Weekday Lane",
-      "count": 4
+      "count": 3
     },
     {
       "date": "2023-07-07",
@@ -136,7 +192,7 @@
     {
       "date": "2023-07-09",
       "type": "Sunday Lane",
-      "count": 6
+      "count": 5
     },
     {
       "date": "2023-07-09",
@@ -156,7 +212,17 @@
     {
       "date": "2023-07-13",
       "type": "Weekday Lane",
-      "count": 13
+      "count": 9
+    },
+    {
+      "date": "2023-07-13",
+      "type": "Adult Party",
+      "count": 1
+    },
+    {
+      "date": "2023-07-14",
+      "type": "Adult Party",
+      "count": 1
     },
     {
       "date": "2023-07-14",
@@ -191,12 +257,17 @@
     {
       "date": "2023-07-19",
       "type": "Weekday Lane",
-      "count": 3
+      "count": 2
     },
     {
       "date": "2023-07-20",
       "type": "Weekday Lane",
       "count": 5
+    },
+    {
+      "date": "2023-07-20",
+      "type": "Strike Zone Suite",
+      "count": 1
     },
     {
       "date": "2023-07-21",
@@ -216,7 +287,7 @@
     {
       "date": "2023-07-23",
       "type": "Sunday Lane",
-      "count": 14
+      "count": 11
     },
     {
       "date": "2023-07-24",
@@ -226,12 +297,12 @@
     {
       "date": "2023-07-25",
       "type": "Weekday Lane",
-      "count": 5
+      "count": 4
     },
     {
       "date": "2023-07-26",
       "type": "Weekday Lane",
-      "count": 7
+      "count": 6
     },
     {
       "date": "2023-07-26",
@@ -241,7 +312,7 @@
     {
       "date": "2023-07-27",
       "type": "Weekday Lane",
-      "count": 10
+      "count": 6
     },
     {
       "date": "2023-07-28",
@@ -261,12 +332,12 @@
     {
       "date": "2023-07-30",
       "type": "Sunday Lane",
-      "count": 13
+      "count": 10
     },
     {
       "date": "2023-08-01",
       "type": "Weekday Lane",
-      "count": 4
+      "count": 3
     },
     {
       "date": "2023-08-02",
@@ -277,6 +348,11 @@
       "date": "2023-08-03",
       "type": "Weekday Lane",
       "count": 5
+    },
+    {
+      "date": "2023-08-04",
+      "type": "Adult Party",
+      "count": 1
     },
     {
       "date": "2023-08-05",
@@ -296,7 +372,12 @@
     {
       "date": "2023-08-09",
       "type": "Weekday Lane",
-      "count": 2
+      "count": 1
+    },
+    {
+      "date": "2023-08-09",
+      "type": "Adult Party",
+      "count": 1
     },
     {
       "date": "2023-08-10",
@@ -307,6 +388,11 @@
       "date": "2023-08-11",
       "type": "Summer Special",
       "count": 2
+    },
+    {
+      "date": "2023-08-11",
+      "type": "Adult Party",
+      "count": 1
     },
     {
       "date": "2023-08-11",
@@ -321,7 +407,7 @@
     {
       "date": "2023-08-13",
       "type": "Sunday Lane",
-      "count": 10
+      "count": 9
     },
     {
       "date": "2023-08-13",
@@ -366,7 +452,7 @@
     {
       "date": "2023-08-20",
       "type": "Sunday Lane",
-      "count": 16
+      "count": 15
     },
     {
       "date": "2023-08-20",
@@ -381,7 +467,12 @@
     {
       "date": "2023-08-22",
       "type": "Weekday Lane",
-      "count": 4
+      "count": 3
+    },
+    {
+      "date": "2023-08-22",
+      "type": "Strike Zone Suite",
+      "count": 1
     },
     {
       "date": "2023-08-23",
@@ -391,7 +482,17 @@
     {
       "date": "2023-08-24",
       "type": "Weekday Lane",
-      "count": 8
+      "count": 6
+    },
+    {
+      "date": "2023-08-24",
+      "type": "Adult Party",
+      "count": 1
+    },
+    {
+      "date": "2023-08-25",
+      "type": "Adult Party",
+      "count": 1
     },
     {
       "date": "2023-08-25",
@@ -411,7 +512,12 @@
     {
       "date": "2023-08-27",
       "type": "Sunday Lane",
-      "count": 10
+      "count": 9
+    },
+    {
+      "date": "2023-08-27",
+      "type": "Adult Party",
+      "count": 1
     },
     {
       "date": "2023-08-29",
@@ -421,11 +527,16 @@
     {
       "date": "2023-08-30",
       "type": "Weekday Lane",
-      "count": 3
+      "count": 2
     },
     {
       "date": "2023-08-31",
       "type": "Weekday Lane",
+      "count": 1
+    },
+    {
+      "date": "2023-09-01",
+      "type": "Adult Party",
       "count": 1
     },
     {
@@ -441,7 +552,12 @@
     {
       "date": "2023-09-03",
       "type": "Sunday Lane",
-      "count": 22
+      "count": 19
+    },
+    {
+      "date": "2023-09-03",
+      "type": "Adult Party",
+      "count": 2
     },
     {
       "date": "2023-09-03",
@@ -451,7 +567,7 @@
     {
       "date": "2023-09-04",
       "type": "Weekday Lane",
-      "count": 6
+      "count": 5
     },
     {
       "date": "2023-09-04",
@@ -495,18 +611,18 @@
     },
     {
       "date": "2023-09-09",
+      "type": "Strike Zone Suite",
+      "count": 1
+    },
+    {
+      "date": "2023-09-09",
       "type": "General Lane Reservation",
       "count": 14
     },
     {
       "date": "2023-09-10",
       "type": "Sunday Lane",
-      "count": 9
-    },
-    {
-      "date": "2023-09-11",
-      "type": "Weekday Lane",
-      "count": 1
+      "count": 7
     },
     {
       "date": "2023-09-13",
@@ -515,7 +631,12 @@
     },
     {
       "date": "2023-09-14",
-      "type": "Weekday Lane",
+      "type": "Kingpin Suite",
+      "count": 1
+    },
+    {
+      "date": "2023-09-15",
+      "type": "Adult Party",
       "count": 1
     },
     {
@@ -549,11 +670,6 @@
       "count": 1
     },
     {
-      "date": "2023-09-20",
-      "type": "Weekday Lane",
-      "count": 1
-    },
-    {
       "date": "2023-09-21",
       "type": "Weekday Lane",
       "count": 3
@@ -581,11 +697,16 @@
     {
       "date": "2023-09-24",
       "type": "Sunday Lane",
-      "count": 17
+      "count": 13
     },
     {
       "date": "2023-09-24",
       "type": "Supercharge",
+      "count": 1
+    },
+    {
+      "date": "2023-09-26",
+      "type": "Strike Zone Suite",
       "count": 1
     },
     {
@@ -605,6 +726,11 @@
     },
     {
       "date": "2023-09-30",
+      "type": "Adult Party",
+      "count": 1
+    },
+    {
+      "date": "2023-09-30",
       "type": "Supercharge",
       "count": 5
     },
@@ -616,7 +742,12 @@
     {
       "date": "2023-10-01",
       "type": "Sunday Lane",
-      "count": 13
+      "count": 10
+    },
+    {
+      "date": "2023-10-01",
+      "type": "Adult Party",
+      "count": 1
     },
     {
       "date": "2023-10-01",
@@ -631,7 +762,7 @@
     {
       "date": "2023-10-04",
       "type": "Weekday Lane",
-      "count": 3
+      "count": 2
     },
     {
       "date": "2023-10-05",
@@ -651,7 +782,7 @@
     {
       "date": "2023-10-08",
       "type": "Sunday Lane",
-      "count": 12
+      "count": 9
     },
     {
       "date": "2023-10-08",
@@ -671,7 +802,7 @@
     {
       "date": "2023-10-11",
       "type": "Weekday Lane",
-      "count": 5
+      "count": 3
     },
     {
       "date": "2023-10-11",
@@ -709,19 +840,19 @@
       "count": 8
     },
     {
-      "date": "2023-10-16",
+      "date": "2023-10-17",
       "type": "Weekday Lane",
       "count": 1
     },
     {
       "date": "2023-10-17",
-      "type": "Weekday Lane",
-      "count": 2
+      "type": "Adult Party",
+      "count": 1
     },
     {
       "date": "2023-10-18",
       "type": "Weekday Lane",
-      "count": 3
+      "count": 2
     },
     {
       "date": "2023-10-18",
@@ -732,6 +863,16 @@
       "date": "2023-10-19",
       "type": "Weekday Lane",
       "count": 4
+    },
+    {
+      "date": "2023-10-19",
+      "type": "Adult Party",
+      "count": 1
+    },
+    {
+      "date": "2023-10-20",
+      "type": "Strike Zone Suite",
+      "count": 1
     },
     {
       "date": "2023-10-20",
@@ -751,7 +892,12 @@
     {
       "date": "2023-10-22",
       "type": "Sunday Lane",
-      "count": 12
+      "count": 9
+    },
+    {
+      "date": "2023-10-22",
+      "type": "Adult Party",
+      "count": 1
     },
     {
       "date": "2023-10-22",
@@ -761,12 +907,12 @@
     {
       "date": "2023-10-23",
       "type": "Weekday Lane",
-      "count": 2
+      "count": 1
     },
     {
       "date": "2023-10-24",
       "type": "Weekday Lane",
-      "count": 4
+      "count": 3
     },
     {
       "date": "2023-10-24",
@@ -776,17 +922,22 @@
     {
       "date": "2023-10-26",
       "type": "Weekday Lane",
-      "count": 4
+      "count": 3
+    },
+    {
+      "date": "2023-10-26",
+      "type": "Strike Zone Suite",
+      "count": 1
+    },
+    {
+      "date": "2023-10-27",
+      "type": "Adult Party",
+      "count": 1
     },
     {
       "date": "2023-10-27",
       "type": "General Lane Reservation",
       "count": 10
-    },
-    {
-      "date": "2023-10-28",
-      "type": "Weekday Lane",
-      "count": 1
     },
     {
       "date": "2023-10-28",
@@ -806,7 +957,7 @@
     {
       "date": "2023-10-29",
       "type": "Sunday Lane",
-      "count": 15
+      "count": 11
     },
     {
       "date": "2023-10-29",
@@ -826,7 +977,12 @@
     {
       "date": "2023-11-02",
       "type": "Weekday Lane",
-      "count": 5
+      "count": 2
+    },
+    {
+      "date": "2023-11-02",
+      "type": "Strike Zone Suite",
+      "count": 1
     },
     {
       "date": "2023-11-02",
@@ -851,7 +1007,7 @@
     {
       "date": "2023-11-05",
       "type": "Sunday Lane",
-      "count": 8
+      "count": 6
     },
     {
       "date": "2023-11-06",
@@ -866,12 +1022,12 @@
     {
       "date": "2023-11-08",
       "type": "Weekday Lane",
-      "count": 7
+      "count": 1
     },
     {
       "date": "2023-11-09",
       "type": "Weekday Lane",
-      "count": 7
+      "count": 6
     },
     {
       "date": "2023-11-10",
@@ -891,7 +1047,7 @@
     {
       "date": "2023-11-12",
       "type": "Sunday Lane",
-      "count": 14
+      "count": 13
     },
     {
       "date": "2023-11-12",
@@ -910,11 +1066,6 @@
     },
     {
       "date": "2023-11-15",
-      "type": "Weekday Lane",
-      "count": 1
-    },
-    {
-      "date": "2023-11-15",
       "type": "General Lane Reservation",
       "count": 24
     },
@@ -925,7 +1076,22 @@
     },
     {
       "date": "2023-11-17",
+      "type": "Adult Party",
+      "count": 1
+    },
+    {
+      "date": "2023-11-17",
       "type": "Supercharge",
+      "count": 1
+    },
+    {
+      "date": "2023-11-17",
+      "type": "Strike Zone Suite",
+      "count": 1
+    },
+    {
+      "date": "2023-11-17",
+      "type": "Kingpin Suite",
       "count": 1
     },
     {
@@ -951,7 +1117,7 @@
     {
       "date": "2023-11-19",
       "type": "Sunday Lane",
-      "count": 13
+      "count": 11
     },
     {
       "date": "2023-11-20",
@@ -966,12 +1132,17 @@
     {
       "date": "2023-11-22",
       "type": "Weekday Lane",
-      "count": 16
+      "count": 14
     },
     {
       "date": "2023-11-24",
       "type": "General Lane Reservation",
       "count": 19
+    },
+    {
+      "date": "2023-11-25",
+      "type": "Adult Party",
+      "count": 1
     },
     {
       "date": "2023-11-25",
@@ -986,7 +1157,7 @@
     {
       "date": "2023-11-26",
       "type": "Sunday Lane",
-      "count": 9
+      "count": 7
     },
     {
       "date": "2023-11-26",
@@ -1006,7 +1177,12 @@
     {
       "date": "2023-11-28",
       "type": "Weekday Lane",
-      "count": 7
+      "count": 6
+    },
+    {
+      "date": "2023-11-28",
+      "type": "Strike Zone Suite",
+      "count": 1
     },
     {
       "date": "2023-11-30",
@@ -1025,13 +1201,33 @@
     },
     {
       "date": "2023-12-01",
+      "type": "Strike Zone Suite",
+      "count": 2
+    },
+    {
+      "date": "2023-12-01",
+      "type": "Kingpin Suite",
+      "count": 1
+    },
+    {
+      "date": "2023-12-01",
       "type": "General Lane Reservation",
       "count": 13
     },
     {
       "date": "2023-12-02",
+      "type": "Adult Party",
+      "count": 1
+    },
+    {
+      "date": "2023-12-02",
       "type": "Supercharge",
       "count": 1
+    },
+    {
+      "date": "2023-12-02",
+      "type": "Strike Zone Suite",
+      "count": 3
     },
     {
       "date": "2023-12-02",
@@ -1056,12 +1252,37 @@
     {
       "date": "2023-12-06",
       "type": "Weekday Lane",
-      "count": 6
+      "count": 5
+    },
+    {
+      "date": "2023-12-06",
+      "type": "Strike Zone Suite",
+      "count": 1
     },
     {
       "date": "2023-12-07",
       "type": "Weekday Lane",
       "count": 8
+    },
+    {
+      "date": "2023-12-08",
+      "type": "Adult Party",
+      "count": 1
+    },
+    {
+      "date": "2023-12-08",
+      "type": "Strike Zone Suite",
+      "count": 2
+    },
+    {
+      "date": "2023-12-08",
+      "type": "Kingpin Suite",
+      "count": 1
+    },
+    {
+      "date": "2023-12-08",
+      "type": "Powerhouse Suite",
+      "count": 1
     },
     {
       "date": "2023-12-08",
@@ -1075,7 +1296,22 @@
     },
     {
       "date": "2023-12-09",
+      "type": "Adult Party",
+      "count": 1
+    },
+    {
+      "date": "2023-12-09",
       "type": "Supercharge",
+      "count": 1
+    },
+    {
+      "date": "2023-12-09",
+      "type": "Kingpin Suite",
+      "count": 1
+    },
+    {
+      "date": "2023-12-09",
+      "type": "Powerhouse Suite",
       "count": 1
     },
     {
@@ -1086,7 +1322,7 @@
     {
       "date": "2023-12-10",
       "type": "Sunday Lane",
-      "count": 12
+      "count": 10
     },
     {
       "date": "2023-12-10",
@@ -1096,7 +1332,7 @@
     {
       "date": "2023-12-11",
       "type": "Weekday Lane",
-      "count": 3
+      "count": 1
     },
     {
       "date": "2023-12-12",
@@ -1104,14 +1340,54 @@
       "count": 2
     },
     {
+      "date": "2023-12-12",
+      "type": "Adult Party",
+      "count": 1
+    },
+    {
       "date": "2023-12-13",
       "type": "Weekday Lane",
-      "count": 8
+      "count": 5
+    },
+    {
+      "date": "2023-12-13",
+      "type": "Adult Party",
+      "count": 2
+    },
+    {
+      "date": "2023-12-13",
+      "type": "Strike Zone Suite",
+      "count": 1
     },
     {
       "date": "2023-12-14",
       "type": "Weekday Lane",
-      "count": 9
+      "count": 5
+    },
+    {
+      "date": "2023-12-14",
+      "type": "Adult Party",
+      "count": 2
+    },
+    {
+      "date": "2023-12-14",
+      "type": "Strike Zone Suite",
+      "count": 4
+    },
+    {
+      "date": "2023-12-15",
+      "type": "Strike Zone Suite",
+      "count": 2
+    },
+    {
+      "date": "2023-12-15",
+      "type": "Kingpin Suite",
+      "count": 2
+    },
+    {
+      "date": "2023-12-15",
+      "type": "Powerhouse Suite",
+      "count": 1
     },
     {
       "date": "2023-12-15",
@@ -1130,13 +1406,28 @@
     },
     {
       "date": "2023-12-16",
+      "type": "Strike Zone Suite",
+      "count": 2
+    },
+    {
+      "date": "2023-12-16",
+      "type": "Kingpin Suite",
+      "count": 2
+    },
+    {
+      "date": "2023-12-16",
+      "type": "Powerhouse Suite",
+      "count": 1
+    },
+    {
+      "date": "2023-12-16",
       "type": "General Lane Reservation",
       "count": 21
     },
     {
       "date": "2023-12-17",
       "type": "Sunday Lane",
-      "count": 31
+      "count": 30
     },
     {
       "date": "2023-12-17",
@@ -1146,7 +1437,17 @@
     {
       "date": "2023-12-18",
       "type": "Weekday Lane",
-      "count": 5
+      "count": 3
+    },
+    {
+      "date": "2023-12-18",
+      "type": "Adult Party",
+      "count": 1
+    },
+    {
+      "date": "2023-12-18",
+      "type": "Kingpin Suite",
+      "count": 1
     },
     {
       "date": "2023-12-19",
@@ -1154,24 +1455,69 @@
       "count": 10
     },
     {
+      "date": "2023-12-19",
+      "type": "Strike Zone Suite",
+      "count": 1
+    },
+    {
+      "date": "2023-12-19",
+      "type": "Kingpin Suite",
+      "count": 1
+    },
+    {
       "date": "2023-12-20",
       "type": "Weekday Lane",
-      "count": 18
+      "count": 17
+    },
+    {
+      "date": "2023-12-20",
+      "type": "Adult Party",
+      "count": 1
+    },
+    {
+      "date": "2023-12-20",
+      "type": "Kingpin Suite",
+      "count": 1
     },
     {
       "date": "2023-12-21",
       "type": "Weekday Lane",
-      "count": 25
+      "count": 22
+    },
+    {
+      "date": "2023-12-21",
+      "type": "Adult Party",
+      "count": 1
     },
     {
       "date": "2023-12-21",
       "type": "Supercharge",
+      "count": 1
+    },
+    {
+      "date": "2023-12-21",
+      "type": "Strike Zone Suite",
+      "count": 2
+    },
+    {
+      "date": "2023-12-21",
+      "type": "Kingpin Suite",
       "count": 1
     },
     {
       "date": "2023-12-22",
       "type": "Supercharge",
       "count": 1
+    },
+    {
+      "date": "2023-12-22",
+      "type": "Strike Zone Suite",
+      "count": 4
+    },
+    {
+      "date": "2023-12-22",
+      "type": "Kingpin Suite",
+      "count": 2
     },
     {
       "date": "2023-12-22",
@@ -1190,13 +1536,18 @@
     },
     {
       "date": "2023-12-23",
+      "type": "Strike Zone Suite",
+      "count": 1
+    },
+    {
+      "date": "2023-12-23",
       "type": "General Lane Reservation",
       "count": 28
     },
     {
       "date": "2023-12-26",
       "type": "Weekday Lane",
-      "count": 15
+      "count": 14
     },
     {
       "date": "2023-12-27",
@@ -1204,9 +1555,14 @@
       "count": 18
     },
     {
+      "date": "2023-12-27",
+      "type": "Strike Zone Suite",
+      "count": 1
+    },
+    {
       "date": "2023-12-28",
       "type": "Weekday Lane",
-      "count": 12
+      "count": 11
     },
     {
       "date": "2023-12-29",
@@ -1236,7 +1592,7 @@
     {
       "date": "2023-12-31",
       "type": "Sunday Lane",
-      "count": 25
+      "count": 23
     },
     {
       "date": "2024-01-01",
@@ -1256,7 +1612,7 @@
     {
       "date": "2024-01-03",
       "type": "Weekday Lane",
-      "count": 12
+      "count": 11
     },
     {
       "date": "2024-01-03",
@@ -1311,7 +1667,7 @@
     {
       "date": "2024-01-10",
       "type": "Weekday Lane",
-      "count": 2
+      "count": 1
     },
     {
       "date": "2024-01-11",
@@ -1341,7 +1697,7 @@
     {
       "date": "2024-01-15",
       "type": "Weekday Lane",
-      "count": 7
+      "count": 6
     },
     {
       "date": "2024-01-16",
@@ -1399,6 +1755,11 @@
       "count": 1
     },
     {
+      "date": "2024-01-23",
+      "type": "Strike Zone Suite",
+      "count": 1
+    },
+    {
       "date": "2024-01-24",
       "type": "General Lane Reservation",
       "count": 1
@@ -1406,12 +1767,17 @@
     {
       "date": "2024-01-25",
       "type": "Weekday Lane",
-      "count": 2
+      "count": 1
     },
     {
       "date": "2024-01-26",
       "type": "General Lane Reservation",
       "count": 21
+    },
+    {
+      "date": "2024-01-27",
+      "type": "Adult Party",
+      "count": 1
     },
     {
       "date": "2024-01-27",
@@ -1444,14 +1810,14 @@
       "count": 5
     },
     {
-      "date": "2024-01-31",
-      "type": "Weekday Lane",
-      "count": 1
-    },
-    {
       "date": "2024-02-01",
       "type": "Weekday Lane",
       "count": 5
+    },
+    {
+      "date": "2024-02-02",
+      "type": "Kingpin Suite",
+      "count": 1
     },
     {
       "date": "2024-02-02",
@@ -1466,7 +1832,7 @@
     {
       "date": "2024-02-04",
       "type": "Sunday Lane",
-      "count": 19
+      "count": 16
     },
     {
       "date": "2024-02-04",
@@ -1481,7 +1847,7 @@
     {
       "date": "2024-02-08",
       "type": "Weekday Lane",
-      "count": 5
+      "count": 4
     },
     {
       "date": "2024-02-09",
@@ -1496,7 +1862,7 @@
     {
       "date": "2024-02-13",
       "type": "Weekday Lane",
-      "count": 2
+      "count": 1
     },
     {
       "date": "2024-02-14",
@@ -1507,6 +1873,11 @@
       "date": "2024-02-15",
       "type": "Weekday Lane",
       "count": 2
+    },
+    {
+      "date": "2024-02-16",
+      "type": "Adult Party",
+      "count": 1
     },
     {
       "date": "2024-02-16",
@@ -1521,12 +1892,12 @@
     {
       "date": "2024-02-18",
       "type": "Sunday Lane",
-      "count": 36
+      "count": 28
     },
     {
       "date": "2024-02-19",
       "type": "Weekday Lane",
-      "count": 16
+      "count": 15
     },
     {
       "date": "2024-02-19",
@@ -1539,8 +1910,8 @@
       "count": 7
     },
     {
-      "date": "2024-02-21",
-      "type": "Weekday Lane",
+      "date": "2024-02-20",
+      "type": "Kingpin Suite",
       "count": 1
     },
     {
@@ -1551,6 +1922,11 @@
     {
       "date": "2024-02-22",
       "type": "Supercharge",
+      "count": 1
+    },
+    {
+      "date": "2024-02-22",
+      "type": "Kingpin Suite",
       "count": 1
     },
     {
@@ -1596,7 +1972,17 @@
     {
       "date": "2024-02-29",
       "type": "Weekday Lane",
-      "count": 4
+      "count": 3
+    },
+    {
+      "date": "2024-02-29",
+      "type": "Strike Zone Suite",
+      "count": 1
+    },
+    {
+      "date": "2024-03-01",
+      "type": "Strike Zone Suite",
+      "count": 1
     },
     {
       "date": "2024-03-01",
@@ -1611,7 +1997,7 @@
     {
       "date": "2024-03-03",
       "type": "Sunday Lane",
-      "count": 17
+      "count": 16
     },
     {
       "date": "2024-03-03",
@@ -1635,13 +2021,18 @@
     },
     {
       "date": "2024-03-08",
-      "type": "Weekday Lane",
+      "type": "General Lane Reservation",
+      "count": 22
+    },
+    {
+      "date": "2024-03-09",
+      "type": "Adult Party",
       "count": 1
     },
     {
-      "date": "2024-03-08",
-      "type": "General Lane Reservation",
-      "count": 22
+      "date": "2024-03-09",
+      "type": "Strike Zone Suite",
+      "count": 1
     },
     {
       "date": "2024-03-09",
@@ -1667,11 +2058,6 @@
       "date": "2024-03-12",
       "type": "Weekday Lane",
       "count": 5
-    },
-    {
-      "date": "2024-03-13",
-      "type": "Weekday Lane",
-      "count": 1
     },
     {
       "date": "2024-03-13",
@@ -1701,7 +2087,7 @@
     {
       "date": "2024-03-17",
       "type": "Sunday Lane",
-      "count": 23
+      "count": 17
     },
     {
       "date": "2024-03-17",
@@ -1711,7 +2097,7 @@
     {
       "date": "2024-03-18",
       "type": "Weekday Lane",
-      "count": 2
+      "count": 1
     },
     {
       "date": "2024-03-18",
@@ -1731,6 +2117,11 @@
     {
       "date": "2024-03-22",
       "type": "Supercharge",
+      "count": 1
+    },
+    {
+      "date": "2024-03-22",
+      "type": "Kingpin Suite",
       "count": 1
     },
     {
@@ -1766,7 +2157,7 @@
     {
       "date": "2024-03-26",
       "type": "Weekday Lane",
-      "count": 3
+      "count": 2
     },
     {
       "date": "2024-03-27",
@@ -1780,8 +2171,18 @@
     },
     {
       "date": "2024-03-29",
+      "type": "Strike Zone Suite",
+      "count": 1
+    },
+    {
+      "date": "2024-03-29",
       "type": "General Lane Reservation",
       "count": 25
+    },
+    {
+      "date": "2024-03-30",
+      "type": "Adult Party",
+      "count": 1
     },
     {
       "date": "2024-03-30",
@@ -1826,7 +2227,7 @@
     {
       "date": "2024-04-07",
       "type": "Sunday Lane",
-      "count": 5
+      "count": 4
     },
     {
       "date": "2024-04-07",
@@ -1857,6 +2258,11 @@
       "date": "2024-04-11",
       "type": "Weekday Lane",
       "count": 3
+    },
+    {
+      "date": "2024-04-12",
+      "type": "Adult Party",
+      "count": 1
     },
     {
       "date": "2024-04-12",
@@ -1910,6 +2316,11 @@
     },
     {
       "date": "2024-04-20",
+      "type": "Adult Party",
+      "count": 1
+    },
+    {
+      "date": "2024-04-20",
       "type": "Supercharge",
       "count": 1
     },
@@ -1929,6 +2340,11 @@
       "count": 15
     },
     {
+      "date": "2024-04-21",
+      "type": "Strike Zone Suite",
+      "count": 1
+    },
+    {
       "date": "2024-04-22",
       "type": "Weekday Lane",
       "count": 1
@@ -1946,6 +2362,11 @@
     {
       "date": "2024-04-24",
       "type": "Weekday Lane",
+      "count": 1
+    },
+    {
+      "date": "2024-04-24",
+      "type": "Strike Zone Suite",
       "count": 1
     },
     {
@@ -1975,6 +2396,11 @@
     },
     {
       "date": "2024-04-30",
+      "type": "Kingpin Suite",
+      "count": 1
+    },
+    {
+      "date": "2024-04-30",
       "type": "General Lane Reservation",
       "count": 1
     },
@@ -2000,18 +2426,23 @@
     },
     {
       "date": "2024-05-04",
+      "type": "Pair & Spare",
+      "count": 1
+    },
+    {
+      "date": "2024-05-04",
       "type": "Strike Zone Suite",
       "count": 1
     },
     {
       "date": "2024-05-04",
       "type": "General Lane Reservation",
-      "count": 30
+      "count": 29
     },
     {
       "date": "2024-05-05",
       "type": "Sunday Lane",
-      "count": 8
+      "count": 7
     },
     {
       "date": "2024-05-06",
@@ -2035,12 +2466,22 @@
     },
     {
       "date": "2024-05-07",
+      "type": "Adult Party",
+      "count": 1
+    },
+    {
+      "date": "2024-05-07",
       "type": "General Lane Reservation",
       "count": 1
     },
     {
       "date": "2024-05-08",
       "type": "Weekday Lane",
+      "count": 1
+    },
+    {
+      "date": "2024-05-08",
+      "type": "Adult Party",
       "count": 1
     },
     {
@@ -2075,6 +2516,11 @@
     },
     {
       "date": "2024-05-11",
+      "type": "Adult Party",
+      "count": 1
+    },
+    {
+      "date": "2024-05-11",
       "type": "Supercharge",
       "count": 2
     },
@@ -2096,7 +2542,12 @@
     {
       "date": "2024-05-13",
       "type": "Weekday Lane",
-      "count": 2
+      "count": 1
+    },
+    {
+      "date": "2024-05-13",
+      "type": "Adult Party",
+      "count": 1
     },
     {
       "date": "2024-05-14",
@@ -2141,17 +2592,22 @@
     {
       "date": "2024-05-18",
       "type": "Supercharge",
-      "count": 2
+      "count": 4
+    },
+    {
+      "date": "2024-05-18",
+      "type": "Sports Party",
+      "count": 1
     },
     {
       "date": "2024-05-18",
       "type": "General Lane Reservation",
-      "count": 28
+      "count": 25
     },
     {
       "date": "2024-05-19",
       "type": "Sunday Lane",
-      "count": 12
+      "count": 10
     },
     {
       "date": "2024-05-19",
@@ -2171,7 +2627,12 @@
     {
       "date": "2024-05-23",
       "type": "Weekday Lane",
-      "count": 3
+      "count": 1
+    },
+    {
+      "date": "2024-05-23",
+      "type": "Powerhouse Suite",
+      "count": 1
     },
     {
       "date": "2024-05-23",
@@ -2185,28 +2646,33 @@
     },
     {
       "date": "2024-05-25",
-      "type": "Supercharge",
+      "type": "Pair & Spare",
       "count": 1
     },
     {
       "date": "2024-05-25",
+      "type": "Supercharge",
+      "count": 2
+    },
+    {
+      "date": "2024-05-25",
       "type": "General Lane Reservation",
-      "count": 21
+      "count": 19
     },
     {
       "date": "2024-05-26",
       "type": "Sunday Lane",
-      "count": 12
+      "count": 11
     },
     {
       "date": "2024-05-26",
       "type": "Supercharge",
-      "count": 1
+      "count": 2
     },
     {
       "date": "2024-05-26",
       "type": "General Lane Reservation",
-      "count": 5
+      "count": 4
     },
     {
       "date": "2024-05-27",
@@ -2221,7 +2687,7 @@
     {
       "date": "2024-05-28",
       "type": "Weekday Lane",
-      "count": 3
+      "count": 1
     },
     {
       "date": "2024-05-28",
@@ -2236,7 +2702,7 @@
     {
       "date": "2024-05-29",
       "type": "Weekday Lane",
-      "count": 3
+      "count": 2
     },
     {
       "date": "2024-05-30",
@@ -2286,7 +2752,7 @@
     {
       "date": "2024-06-02",
       "type": "Sunday Lane",
-      "count": 7
+      "count": 6
     },
     {
       "date": "2024-06-02",
@@ -2321,7 +2787,7 @@
     {
       "date": "2024-06-05",
       "type": "Weekday Lane",
-      "count": 4
+      "count": 3
     },
     {
       "date": "2024-06-05",
@@ -2341,12 +2807,22 @@
     {
       "date": "2024-06-07",
       "type": "Pair & Spare",
+      "count": 2
+    },
+    {
+      "date": "2024-06-07",
+      "type": "Kingpin Suite",
+      "count": 1
+    },
+    {
+      "date": "2024-06-07",
+      "type": "Powerhouse Suite",
       "count": 1
     },
     {
       "date": "2024-06-07",
       "type": "General Lane Reservation",
-      "count": 12
+      "count": 11
     },
     {
       "date": "2024-06-08",
@@ -2415,6 +2891,11 @@
     },
     {
       "date": "2024-06-13",
+      "type": "Adult Party",
+      "count": 1
+    },
+    {
+      "date": "2024-06-13",
       "type": "Strike Zone Suite",
       "count": 1
     },
@@ -2430,13 +2911,23 @@
     },
     {
       "date": "2024-06-14",
+      "type": "Pair & Spare",
+      "count": 1
+    },
+    {
+      "date": "2024-06-14",
       "type": "Strike Zone Suite",
       "count": 1
     },
     {
       "date": "2024-06-14",
       "type": "General Lane Reservation",
-      "count": 14
+      "count": 13
+    },
+    {
+      "date": "2024-06-15",
+      "type": "Pair & Spare",
+      "count": 1
     },
     {
       "date": "2024-06-15",
@@ -2446,7 +2937,7 @@
     {
       "date": "2024-06-15",
       "type": "General Lane Reservation",
-      "count": 24
+      "count": 23
     },
     {
       "date": "2024-06-16",
@@ -2490,6 +2981,11 @@
     },
     {
       "date": "2024-06-22",
+      "type": "Kingpin Suite",
+      "count": 1
+    },
+    {
+      "date": "2024-06-22",
       "type": "General Lane Reservation",
       "count": 16
     },
@@ -2510,7 +3006,7 @@
     },
     {
       "date": "2024-06-24",
-      "type": "General Lane Reservation",
+      "type": "Pair & Spare",
       "count": 1
     },
     {
@@ -2550,6 +3046,11 @@
     },
     {
       "date": "2024-06-27",
+      "type": "Kingpin Suite",
+      "count": 1
+    },
+    {
+      "date": "2024-06-27",
       "type": "General Lane Reservation",
       "count": 4
     },
@@ -2567,6 +3068,11 @@
       "date": "2024-06-29",
       "type": "Pair & Spare",
       "count": 2
+    },
+    {
+      "date": "2024-06-29",
+      "type": "Adult Party",
+      "count": 1
     },
     {
       "date": "2024-06-29",
@@ -2590,8 +3096,13 @@
     },
     {
       "date": "2024-06-30",
+      "type": "Pair & Spare",
+      "count": 2
+    },
+    {
+      "date": "2024-06-30",
       "type": "General Lane Reservation",
-      "count": 3
+      "count": 1
     },
     {
       "date": "2024-07-01",
@@ -2606,7 +3117,7 @@
     {
       "date": "2024-07-02",
       "type": "Weekday Lane",
-      "count": 5
+      "count": 4
     },
     {
       "date": "2024-07-02",
@@ -2625,7 +3136,7 @@
     },
     {
       "date": "2024-07-03",
-      "type": "General Lane Reservation",
+      "type": "Summer Special",
       "count": 1
     },
     {
@@ -2646,7 +3157,7 @@
     {
       "date": "2024-07-07",
       "type": "Sunday Lane",
-      "count": 9
+      "count": 8
     },
     {
       "date": "2024-07-07",
@@ -2661,7 +3172,7 @@
     {
       "date": "2024-07-08",
       "type": "Weekday Lane",
-      "count": 3
+      "count": 2
     },
     {
       "date": "2024-07-08",
@@ -2681,7 +3192,7 @@
     {
       "date": "2024-07-11",
       "type": "Weekday Lane",
-      "count": 4
+      "count": 3
     },
     {
       "date": "2024-07-12",
@@ -2720,7 +3231,7 @@
     },
     {
       "date": "2024-07-14",
-      "type": "General Lane Reservation",
+      "type": "Pair & Spare",
       "count": 1
     },
     {
@@ -2786,7 +3297,7 @@
     {
       "date": "2024-07-23",
       "type": "Weekday Lane",
-      "count": 8
+      "count": 7
     },
     {
       "date": "2024-07-23",
@@ -2812,6 +3323,11 @@
       "date": "2024-07-25",
       "type": "Summer Special",
       "count": 3
+    },
+    {
+      "date": "2024-07-26",
+      "type": "Powerhouse Suite",
+      "count": 1
     },
     {
       "date": "2024-07-26",
@@ -2841,7 +3357,7 @@
     {
       "date": "2024-07-30",
       "type": "Weekday Lane",
-      "count": 6
+      "count": 5
     },
     {
       "date": "2024-07-30",
@@ -2969,6 +3485,11 @@
       "count": 2
     },
     {
+      "date": "2024-08-11",
+      "type": "Powerhouse Suite",
+      "count": 1
+    },
+    {
       "date": "2024-08-12",
       "type": "Weekday Lane",
       "count": 3
@@ -2981,7 +3502,7 @@
     {
       "date": "2024-08-13",
       "type": "Weekday Lane",
-      "count": 5
+      "count": 4
     },
     {
       "date": "2024-08-13",
@@ -2995,12 +3516,12 @@
     },
     {
       "date": "2024-08-15",
-      "type": "Weekday Lane",
+      "type": "Pair & Spare",
       "count": 1
     },
     {
       "date": "2024-08-15",
-      "type": "Pair & Spare",
+      "type": "Kingpin Suite",
       "count": 1
     },
     {
@@ -3010,7 +3531,7 @@
     },
     {
       "date": "2024-08-16",
-      "type": "Sunday Lane",
+      "type": "Pair & Spare",
       "count": 1
     },
     {
@@ -3031,7 +3552,7 @@
     {
       "date": "2024-08-17",
       "type": "Pair & Spare",
-      "count": 3
+      "count": 4
     },
     {
       "date": "2024-08-17",
@@ -3041,12 +3562,12 @@
     {
       "date": "2024-08-17",
       "type": "General Lane Reservation",
-      "count": 31
+      "count": 30
     },
     {
       "date": "2024-08-18",
       "type": "Sunday Lane",
-      "count": 10
+      "count": 9
     },
     {
       "date": "2024-08-18",
@@ -3076,11 +3597,16 @@
     {
       "date": "2024-08-22",
       "type": "Weekday Lane",
-      "count": 5
+      "count": 3
     },
     {
       "date": "2024-08-22",
       "type": "Strike Zone Suite",
+      "count": 1
+    },
+    {
+      "date": "2024-08-22",
+      "type": "Kingpin Suite",
       "count": 1
     },
     {
@@ -3090,8 +3616,18 @@
     },
     {
       "date": "2024-08-23",
+      "type": "Powerhouse Suite",
+      "count": 1
+    },
+    {
+      "date": "2024-08-23",
       "type": "General Lane Reservation",
       "count": 11
+    },
+    {
+      "date": "2024-08-24",
+      "type": "Pair & Spare",
+      "count": 1
     },
     {
       "date": "2024-08-24",
@@ -3101,7 +3637,7 @@
     {
       "date": "2024-08-24",
       "type": "General Lane Reservation",
-      "count": 22
+      "count": 21
     },
     {
       "date": "2024-08-25",
@@ -3191,12 +3727,12 @@
     {
       "date": "2024-09-07",
       "type": "Pair & Spare",
-      "count": 2
+      "count": 3
     },
     {
       "date": "2024-09-07",
       "type": "General Lane Reservation",
-      "count": 22
+      "count": 21
     },
     {
       "date": "2024-09-08",
@@ -3211,7 +3747,7 @@
     {
       "date": "2024-09-09",
       "type": "Weekday Lane",
-      "count": 2
+      "count": 1
     },
     {
       "date": "2024-09-09",
@@ -3236,12 +3772,7 @@
     {
       "date": "2024-09-12",
       "type": "Pair & Spare",
-      "count": 1
-    },
-    {
-      "date": "2024-09-12",
-      "type": "General Lane Reservation",
-      "count": 1
+      "count": 2
     },
     {
       "date": "2024-09-13",
@@ -3271,7 +3802,7 @@
     {
       "date": "2024-09-15",
       "type": "Sunday Lane",
-      "count": 6
+      "count": 5
     },
     {
       "date": "2024-09-15",
@@ -3287,6 +3818,11 @@
       "date": "2024-09-19",
       "type": "Weekday Lane",
       "count": 3
+    },
+    {
+      "date": "2024-09-20",
+      "type": "Adult Party",
+      "count": 1
     },
     {
       "date": "2024-09-20",
@@ -3306,7 +3842,7 @@
     {
       "date": "2024-09-22",
       "type": "Sunday Lane",
-      "count": 8
+      "count": 7
     },
     {
       "date": "2024-09-22",
@@ -3366,12 +3902,7 @@
     {
       "date": "2024-09-29",
       "type": "Pair & Spare",
-      "count": 1
-    },
-    {
-      "date": "2024-09-29",
-      "type": "General Lane Reservation",
-      "count": 1
+      "count": 2
     },
     {
       "date": "2024-10-01",
@@ -3486,12 +4017,12 @@
     {
       "date": "2024-10-18",
       "type": "Pair & Spare",
-      "count": 1
+      "count": 2
     },
     {
       "date": "2024-10-18",
       "type": "General Lane Reservation",
-      "count": 13
+      "count": 12
     },
     {
       "date": "2024-10-19",
@@ -3550,6 +4081,16 @@
     },
     {
       "date": "2024-10-25",
+      "type": "Adult Party",
+      "count": 1
+    },
+    {
+      "date": "2024-10-25",
+      "type": "Kingpin Suite",
+      "count": 1
+    },
+    {
+      "date": "2024-10-25",
       "type": "General Lane Reservation",
       "count": 9
     },
@@ -3576,12 +4117,12 @@
     {
       "date": "2024-10-27",
       "type": "Sunday Lane",
-      "count": 11
+      "count": 10
     },
     {
       "date": "2024-10-27",
       "type": "Pair & Spare",
-      "count": 1
+      "count": 2
     },
     {
       "date": "2024-10-27",
@@ -3604,11 +4145,6 @@
       "count": 1
     },
     {
-      "date": "2024-10-30",
-      "type": "Weekday Lane",
-      "count": 1
-    },
-    {
       "date": "2024-10-31",
       "type": "Weekday Lane",
       "count": 20
@@ -3616,6 +4152,11 @@
     {
       "date": "2024-10-31",
       "type": "General Lane Reservation",
+      "count": 1
+    },
+    {
+      "date": "2024-11-01",
+      "type": "Kingpin Suite",
       "count": 1
     },
     {
@@ -3636,7 +4177,7 @@
     {
       "date": "2024-11-03",
       "type": "Sunday Lane",
-      "count": 8
+      "count": 7
     },
     {
       "date": "2024-11-03",
@@ -3681,7 +4222,7 @@
     {
       "date": "2024-11-09",
       "type": "Pair & Spare",
-      "count": 2
+      "count": 3
     },
     {
       "date": "2024-11-09",
@@ -3701,7 +4242,7 @@
     {
       "date": "2024-11-10",
       "type": "Sunday Lane",
-      "count": 15
+      "count": 14
     },
     {
       "date": "2024-11-10",
@@ -3721,12 +4262,12 @@
     {
       "date": "2024-11-12",
       "type": "Weekday Lane",
-      "count": 3
+      "count": 1
     },
     {
       "date": "2024-11-13",
       "type": "Weekday Lane",
-      "count": 6
+      "count": 5
     },
     {
       "date": "2024-11-14",
@@ -3750,13 +4291,18 @@
     },
     {
       "date": "2024-11-15",
+      "type": "Adult Party",
+      "count": 1
+    },
+    {
+      "date": "2024-11-15",
       "type": "Supercharge",
       "count": 1
     },
     {
       "date": "2024-11-15",
       "type": "General Lane Reservation",
-      "count": 17
+      "count": 16
     },
     {
       "date": "2024-11-16",
@@ -3791,12 +4337,7 @@
     {
       "date": "2024-11-17",
       "type": "Sports Party",
-      "count": 1
-    },
-    {
-      "date": "2024-11-17",
-      "type": "General Lane Reservation",
-      "count": 1
+      "count": 2
     },
     {
       "date": "2024-11-18",
@@ -3826,7 +4367,7 @@
     {
       "date": "2024-11-21",
       "type": "Weekday Lane",
-      "count": 4
+      "count": 3
     },
     {
       "date": "2024-11-22",
@@ -3929,6 +4470,11 @@
       "count": 2
     },
     {
+      "date": "2024-12-03",
+      "type": "Kingpin Suite",
+      "count": 1
+    },
+    {
       "date": "2024-12-04",
       "type": "Weekday Lane",
       "count": 2
@@ -3941,7 +4487,17 @@
     {
       "date": "2024-12-05",
       "type": "Weekday Lane",
-      "count": 3
+      "count": 2
+    },
+    {
+      "date": "2024-12-05",
+      "type": "Kingpin Suite",
+      "count": 1
+    },
+    {
+      "date": "2024-12-05",
+      "type": "Powerhouse Suite",
+      "count": 1
     },
     {
       "date": "2024-12-05",
@@ -3956,7 +4512,12 @@
     {
       "date": "2024-12-06",
       "type": "Strike Zone Suite",
-      "count": 1
+      "count": 2
+    },
+    {
+      "date": "2024-12-06",
+      "type": "Kingpin Suite",
+      "count": 2
     },
     {
       "date": "2024-12-06",
@@ -3980,13 +4541,18 @@
     },
     {
       "date": "2024-12-07",
+      "type": "Kingpin Suite",
+      "count": 2
+    },
+    {
+      "date": "2024-12-07",
       "type": "General Lane Reservation",
       "count": 18
     },
     {
       "date": "2024-12-08",
       "type": "Sunday Lane",
-      "count": 12
+      "count": 11
     },
     {
       "date": "2024-12-08",
@@ -4006,11 +4572,6 @@
     {
       "date": "2024-12-08",
       "type": "General Lane Reservation",
-      "count": 1
-    },
-    {
-      "date": "2024-12-09",
-      "type": "Weekday Lane",
       "count": 1
     },
     {
@@ -4039,6 +4600,11 @@
       "count": 1
     },
     {
+      "date": "2024-12-11",
+      "type": "Adult Party",
+      "count": 1
+    },
+    {
       "date": "2024-12-12",
       "type": "Weekday Lane",
       "count": 2
@@ -4055,8 +4621,18 @@
     },
     {
       "date": "2024-12-13",
+      "type": "Adult Party",
+      "count": 1
+    },
+    {
+      "date": "2024-12-13",
       "type": "Strike Zone Suite",
       "count": 1
+    },
+    {
+      "date": "2024-12-13",
+      "type": "Kingpin Suite",
+      "count": 2
     },
     {
       "date": "2024-12-13",
@@ -4071,12 +4647,17 @@
     {
       "date": "2024-12-14",
       "type": "Strike Zone Suite",
+      "count": 3
+    },
+    {
+      "date": "2024-12-14",
+      "type": "Kingpin Suite",
       "count": 2
     },
     {
       "date": "2024-12-14",
       "type": "General Lane Reservation",
-      "count": 20
+      "count": 19
     },
     {
       "date": "2024-12-15",
@@ -4086,7 +4667,7 @@
     {
       "date": "2024-12-15",
       "type": "Pair & Spare",
-      "count": 4
+      "count": 5
     },
     {
       "date": "2024-12-15",
@@ -4096,7 +4677,7 @@
     {
       "date": "2024-12-15",
       "type": "General Lane Reservation",
-      "count": 2
+      "count": 1
     },
     {
       "date": "2024-12-16",
@@ -4136,6 +4717,11 @@
     {
       "date": "2024-12-18",
       "type": "Pair & Spare",
+      "count": 1
+    },
+    {
+      "date": "2024-12-18",
+      "type": "Kingpin Suite",
       "count": 1
     },
     {
@@ -4147,6 +4733,11 @@
       "date": "2024-12-19",
       "type": "Pair & Spare",
       "count": 2
+    },
+    {
+      "date": "2024-12-19",
+      "type": "Supercharge",
+      "count": 1
     },
     {
       "date": "2024-12-19",
@@ -4180,6 +4771,11 @@
     },
     {
       "date": "2024-12-21",
+      "type": "Adult Party",
+      "count": 1
+    },
+    {
+      "date": "2024-12-21",
       "type": "Supercharge",
       "count": 1
     },
@@ -4191,7 +4787,7 @@
     {
       "date": "2024-12-22",
       "type": "Sunday Lane",
-      "count": 13
+      "count": 11
     },
     {
       "date": "2024-12-22",
@@ -4246,7 +4842,7 @@
     {
       "date": "2024-12-31",
       "type": "Weekday Lane",
-      "count": 25
+      "count": 24
     },
     {
       "date": "2024-12-31",
@@ -4261,7 +4857,7 @@
     {
       "date": "2025-01-02",
       "type": "Weekday Lane",
-      "count": 8
+      "count": 7
     },
     {
       "date": "2025-01-02",
@@ -4421,7 +5017,7 @@
     {
       "date": "2025-01-19",
       "type": "Sunday Lane",
-      "count": 16
+      "count": 14
     },
     {
       "date": "2025-01-19",
@@ -4446,6 +5042,11 @@
     {
       "date": "2025-01-22",
       "type": "Weekday Lane",
+      "count": 1
+    },
+    {
+      "date": "2025-01-22",
+      "type": "Pair & Spare",
       "count": 1
     },
     {
@@ -4481,22 +5082,17 @@
     {
       "date": "2025-01-26",
       "type": "Sunday Lane",
-      "count": 16
+      "count": 15
     },
     {
       "date": "2025-01-26",
       "type": "Pair & Spare",
-      "count": 1
+      "count": 2
     },
     {
       "date": "2025-01-26",
       "type": "Supercharge",
       "count": 2
-    },
-    {
-      "date": "2025-01-26",
-      "type": "General Lane Reservation",
-      "count": 1
     },
     {
       "date": "2025-01-27",
@@ -4530,6 +5126,11 @@
     },
     {
       "date": "2025-01-31",
+      "type": "Kingpin Suite",
+      "count": 1
+    },
+    {
+      "date": "2025-01-31",
       "type": "General Lane Reservation",
       "count": 22
     },
@@ -4550,13 +5151,18 @@
     },
     {
       "date": "2025-02-01",
+      "type": "Sports Party",
+      "count": 1
+    },
+    {
+      "date": "2025-02-01",
       "type": "General Lane Reservation",
-      "count": 35
+      "count": 34
     },
     {
       "date": "2025-02-02",
       "type": "Sunday Lane",
-      "count": 14
+      "count": 12
     },
     {
       "date": "2025-02-02",
@@ -4571,7 +5177,7 @@
     {
       "date": "2025-02-05",
       "type": "Weekday Lane",
-      "count": 2
+      "count": 1
     },
     {
       "date": "2025-02-06",
@@ -4606,6 +5212,11 @@
     {
       "date": "2025-02-10",
       "type": "Weekday Lane",
+      "count": 1
+    },
+    {
+      "date": "2025-02-10",
+      "type": "Kingpin Suite",
       "count": 1
     },
     {
@@ -4656,7 +5267,7 @@
     {
       "date": "2025-02-17",
       "type": "Weekday Lane",
-      "count": 12
+      "count": 11
     },
     {
       "date": "2025-02-18",
@@ -4676,12 +5287,17 @@
     {
       "date": "2025-02-20",
       "type": "Weekday Lane",
-      "count": 3
+      "count": 2
     },
     {
       "date": "2025-02-21",
       "type": "General Lane Reservation",
       "count": 21
+    },
+    {
+      "date": "2025-02-22",
+      "type": "Pair & Spare",
+      "count": 1
     },
     {
       "date": "2025-02-22",
@@ -4691,12 +5307,12 @@
     {
       "date": "2025-02-22",
       "type": "General Lane Reservation",
-      "count": 27
+      "count": 26
     },
     {
       "date": "2025-02-23",
       "type": "Sunday Lane",
-      "count": 11
+      "count": 9
     },
     {
       "date": "2025-02-23",
@@ -4756,7 +5372,7 @@
     {
       "date": "2025-03-02",
       "type": "Pair & Spare",
-      "count": 5
+      "count": 6
     },
     {
       "date": "2025-03-02",
@@ -4769,14 +5385,14 @@
       "count": 1
     },
     {
-      "date": "2025-03-02",
-      "type": "General Lane Reservation",
-      "count": 1
-    },
-    {
       "date": "2025-03-03",
       "type": "Weekday Lane",
       "count": 2
+    },
+    {
+      "date": "2025-03-04",
+      "type": "Kingpin Suite",
+      "count": 1
     },
     {
       "date": "2025-03-05",
@@ -4796,6 +5412,11 @@
     {
       "date": "2025-03-07",
       "type": "Supercharge",
+      "count": 1
+    },
+    {
+      "date": "2025-03-07",
+      "type": "Kingpin Suite",
       "count": 1
     },
     {
@@ -4849,14 +5470,9 @@
       "count": 3
     },
     {
-      "date": "2025-03-12",
-      "type": "Weekday Lane",
-      "count": 1
-    },
-    {
       "date": "2025-03-13",
       "type": "Weekday Lane",
-      "count": 7
+      "count": 6
     },
     {
       "date": "2025-03-14",
@@ -4891,12 +5507,7 @@
     {
       "date": "2025-03-16",
       "type": "Pair & Spare",
-      "count": 1
-    },
-    {
-      "date": "2025-03-16",
-      "type": "General Lane Reservation",
-      "count": 1
+      "count": 2
     },
     {
       "date": "2025-03-17",
@@ -4996,7 +5607,7 @@
     {
       "date": "2025-03-30",
       "type": "Sunday Lane",
-      "count": 8
+      "count": 7
     },
     {
       "date": "2025-03-30",
@@ -5026,7 +5637,7 @@
     {
       "date": "2025-04-03",
       "type": "Weekday Lane",
-      "count": 3
+      "count": 2
     },
     {
       "date": "2025-04-03",
@@ -5097,6 +5708,11 @@
       "date": "2025-04-10",
       "type": "Thursday Special",
       "count": 3
+    },
+    {
+      "date": "2025-04-10",
+      "type": "Kingpin Suite",
+      "count": 1
     },
     {
       "date": "2025-04-11",
@@ -5176,7 +5792,7 @@
     {
       "date": "2025-04-21",
       "type": "Weekday Lane",
-      "count": 2
+      "count": 1
     },
     {
       "date": "2025-04-22",
@@ -5191,7 +5807,12 @@
     {
       "date": "2025-04-24",
       "type": "Weekday Lane",
-      "count": 8
+      "count": 7
+    },
+    {
+      "date": "2025-04-24",
+      "type": "Kingpin Suite",
+      "count": 1
     },
     {
       "date": "2025-04-25",
@@ -5216,7 +5837,7 @@
     {
       "date": "2025-04-27",
       "type": "Sunday Lane",
-      "count": 8
+      "count": 7
     },
     {
       "date": "2025-04-27",
@@ -5286,7 +5907,7 @@
     {
       "date": "2025-05-07",
       "type": "Weekday Lane",
-      "count": 3
+      "count": 2
     },
     {
       "date": "2025-05-08",
@@ -5296,12 +5917,12 @@
     {
       "date": "2025-05-08",
       "type": "Thursday Special",
-      "count": 3
+      "count": 4
     },
     {
       "date": "2025-05-08",
       "type": "General Lane Reservation",
-      "count": 2
+      "count": 1
     },
     {
       "date": "2025-05-09",
@@ -5361,7 +5982,7 @@
     {
       "date": "2025-05-15",
       "type": "Weekday Lane",
-      "count": 5
+      "count": 4
     },
     {
       "date": "2025-05-15",
@@ -5375,13 +5996,18 @@
     },
     {
       "date": "2025-05-16",
+      "type": "Kingpin Suite",
+      "count": 1
+    },
+    {
+      "date": "2025-05-16",
       "type": "General Lane Reservation",
       "count": 16
     },
     {
       "date": "2025-05-17",
       "type": "Pair & Spare",
-      "count": 2
+      "count": 4
     },
     {
       "date": "2025-05-17",
@@ -5465,8 +6091,13 @@
     },
     {
       "date": "2025-05-22",
+      "type": "Sports Party",
+      "count": 1
+    },
+    {
+      "date": "2025-05-22",
       "type": "General Lane Reservation",
-      "count": 4
+      "count": 3
     },
     {
       "date": "2025-05-23",
@@ -5481,7 +6112,7 @@
     {
       "date": "2025-05-25",
       "type": "Sunday Lane",
-      "count": 15
+      "count": 13
     },
     {
       "date": "2025-05-25",
@@ -5526,7 +6157,7 @@
     {
       "date": "2025-05-30",
       "type": "Summer Special",
-      "count": 1
+      "count": 2
     },
     {
       "date": "2025-05-30",
@@ -5540,8 +6171,18 @@
     },
     {
       "date": "2025-05-31",
+      "type": "Kingpin Suite",
+      "count": 1
+    },
+    {
+      "date": "2025-05-31",
+      "type": "Sports Party",
+      "count": 3
+    },
+    {
+      "date": "2025-05-31",
       "type": "General Lane Reservation",
-      "count": 22
+      "count": 19
     },
     {
       "date": "2025-06-01",
@@ -5561,12 +6202,7 @@
     {
       "date": "2025-06-01",
       "type": "Sports Party",
-      "count": 1
-    },
-    {
-      "date": "2025-06-01",
-      "type": "General Lane Reservation",
-      "count": 3
+      "count": 4
     },
     {
       "date": "2025-06-03",
@@ -5641,7 +6277,7 @@
     {
       "date": "2025-06-10",
       "type": "Weekday Lane",
-      "count": 2
+      "count": 1
     },
     {
       "date": "2025-06-10",
@@ -5756,7 +6392,12 @@
     {
       "date": "2025-06-22",
       "type": "Sunday Lane",
-      "count": 10
+      "count": 6
+    },
+    {
+      "date": "2025-06-22",
+      "type": "Kingpin Suite",
+      "count": 1
     },
     {
       "date": "2025-06-23",
@@ -5771,7 +6412,7 @@
     {
       "date": "2025-06-24",
       "type": "Weekday Lane",
-      "count": 3
+      "count": 2
     },
     {
       "date": "2025-06-24",
@@ -5786,7 +6427,7 @@
     {
       "date": "2025-06-25",
       "type": "Weekday Lane",
-      "count": 3
+      "count": 2
     },
     {
       "date": "2025-06-25",
@@ -5801,7 +6442,7 @@
     {
       "date": "2025-06-26",
       "type": "Weekday Lane",
-      "count": 3
+      "count": 2
     },
     {
       "date": "2025-06-26",
@@ -5856,7 +6497,7 @@
     {
       "date": "2025-07-01",
       "type": "Weekday Lane",
-      "count": 6
+      "count": 5
     },
     {
       "date": "2025-07-02",
@@ -5906,7 +6547,7 @@
     {
       "date": "2025-07-06",
       "type": "Sunday Lane",
-      "count": 6
+      "count": 5
     },
     {
       "date": "2025-07-06",
@@ -5931,7 +6572,7 @@
     {
       "date": "2025-07-09",
       "type": "Weekday Lane",
-      "count": 4
+      "count": 3
     },
     {
       "date": "2025-07-10",
@@ -5946,6 +6587,11 @@
     {
       "date": "2025-07-10",
       "type": "General Lane Reservation",
+      "count": 1
+    },
+    {
+      "date": "2025-07-11",
+      "type": "Kingpin Suite",
       "count": 1
     },
     {
@@ -6001,7 +6647,7 @@
     {
       "date": "2025-07-17",
       "type": "Weekday Lane",
-      "count": 5
+      "count": 3
     },
     {
       "date": "2025-07-17",
@@ -6031,7 +6677,7 @@
     {
       "date": "2025-07-19",
       "type": "Pair & Spare",
-      "count": 1
+      "count": 2
     },
     {
       "date": "2025-07-19",
@@ -6041,12 +6687,12 @@
     {
       "date": "2025-07-19",
       "type": "General Lane Reservation",
-      "count": 17
+      "count": 16
     },
     {
       "date": "2025-07-20",
       "type": "Sunday Lane",
-      "count": 9
+      "count": 8
     },
     {
       "date": "2025-07-20",
@@ -6056,7 +6702,7 @@
     {
       "date": "2025-07-22",
       "type": "Weekday Lane",
-      "count": 3
+      "count": 2
     },
     {
       "date": "2025-07-23",
@@ -6066,7 +6712,7 @@
     {
       "date": "2025-07-24",
       "type": "Weekday Lane",
-      "count": 5
+      "count": 4
     },
     {
       "date": "2025-07-24",
@@ -6106,7 +6752,7 @@
     {
       "date": "2025-07-27",
       "type": "Sunday Lane",
-      "count": 7
+      "count": 6
     },
     {
       "date": "2025-07-27",
@@ -6196,7 +6842,7 @@
     {
       "date": "2025-08-03",
       "type": "Sunday Lane",
-      "count": 7
+      "count": 6
     },
     {
       "date": "2025-08-03",
@@ -6211,7 +6857,7 @@
     {
       "date": "2025-08-05",
       "type": "Weekday Lane",
-      "count": 6
+      "count": 5
     },
     {
       "date": "2025-08-06",
@@ -6301,7 +6947,7 @@
     {
       "date": "2025-08-14",
       "type": "Weekday Lane",
-      "count": 4
+      "count": 3
     },
     {
       "date": "2025-08-14",
@@ -6366,12 +7012,17 @@
     {
       "date": "2025-08-19",
       "type": "Weekday Lane",
-      "count": 3
+      "count": 2
     },
     {
       "date": "2025-08-19",
       "type": "Pair & Spare",
       "count": 2
+    },
+    {
+      "date": "2025-08-19",
+      "type": "Kingpin Suite",
+      "count": 1
     },
     {
       "date": "2025-08-20",
@@ -6471,12 +7122,12 @@
     {
       "date": "2025-08-31",
       "type": "Sunday Lane",
-      "count": 11
+      "count": 10
     },
     {
       "date": "2025-09-01",
       "type": "Weekday Lane",
-      "count": 8
+      "count": 5
     },
     {
       "date": "2025-09-02",
@@ -6511,7 +7162,7 @@
     {
       "date": "2025-09-07",
       "type": "Sunday Lane",
-      "count": 4
+      "count": 3
     },
     {
       "date": "2025-09-07",
@@ -6546,6 +7197,11 @@
     {
       "date": "2025-09-12",
       "type": "Pair & Spare",
+      "count": 1
+    },
+    {
+      "date": "2025-09-12",
+      "type": "Kingpin Suite",
       "count": 1
     },
     {
@@ -6601,7 +7257,7 @@
     {
       "date": "2025-09-17",
       "type": "Weekday Lane",
-      "count": 2
+      "count": 1
     },
     {
       "date": "2025-09-17",
@@ -6641,7 +7297,7 @@
     {
       "date": "2025-09-21",
       "type": "Sunday Lane",
-      "count": 7
+      "count": 6
     },
     {
       "date": "2025-09-21",
@@ -6656,6 +7312,11 @@
     {
       "date": "2025-09-24",
       "type": "Weekday Lane",
+      "count": 1
+    },
+    {
+      "date": "2025-09-24",
+      "type": "Supercharge",
       "count": 1
     },
     {
@@ -6746,7 +7407,7 @@
     {
       "date": "2025-10-05",
       "type": "Sunday Lane",
-      "count": 6
+      "count": 5
     },
     {
       "date": "2025-10-05",
@@ -6777,11 +7438,6 @@
       "date": "2025-10-07",
       "type": "Strike Zone Suite",
       "count": 1
-    },
-    {
-      "date": "2025-10-09",
-      "type": "Weekday Lane",
-      "count": 7
     },
     {
       "date": "2025-10-09",
@@ -6886,7 +7542,7 @@
     {
       "date": "2025-10-21",
       "type": "Weekday Lane",
-      "count": 3
+      "count": 2
     },
     {
       "date": "2025-10-21",
@@ -6931,7 +7587,7 @@
     {
       "date": "2025-10-26",
       "type": "Sunday Lane",
-      "count": 7
+      "count": 6
     },
     {
       "date": "2025-10-26",
@@ -6951,7 +7607,7 @@
     {
       "date": "2025-10-28",
       "type": "Weekday Lane",
-      "count": 3
+      "count": 2
     },
     {
       "date": "2025-10-29",
@@ -7011,7 +7667,7 @@
     {
       "date": "2025-11-06",
       "type": "Weekday Lane",
-      "count": 10
+      "count": 1
     },
     {
       "date": "2025-11-06",
@@ -7066,7 +7722,7 @@
     {
       "date": "2025-11-10",
       "type": "Weekday Lane",
-      "count": 4
+      "count": 3
     },
     {
       "date": "2025-11-10",
@@ -7081,6 +7737,11 @@
     {
       "date": "2025-11-11",
       "type": "Pair & Spare",
+      "count": 1
+    },
+    {
+      "date": "2025-11-11",
+      "type": "Kingpin Suite",
       "count": 1
     },
     {
@@ -7151,7 +7812,7 @@
     {
       "date": "2025-11-16",
       "type": "Sunday Lane",
-      "count": 35
+      "count": 32
     },
     {
       "date": "2025-11-16",
@@ -7166,12 +7827,12 @@
     {
       "date": "2025-11-16",
       "type": "Sports Party",
-      "count": 2
+      "count": 4
     },
     {
       "date": "2025-11-16",
       "type": "General Lane Reservation",
-      "count": 4
+      "count": 3
     },
     {
       "date": "2025-11-17",
@@ -7211,6 +7872,11 @@
     {
       "date": "2025-11-20",
       "type": "Sports Party",
+      "count": 1
+    },
+    {
+      "date": "2025-11-21",
+      "type": "Kingpin Suite",
       "count": 1
     },
     {
@@ -7266,7 +7932,7 @@
     {
       "date": "2025-11-25",
       "type": "Weekday Lane",
-      "count": 10
+      "count": 9
     },
     {
       "date": "2025-11-25",
@@ -7335,6 +8001,11 @@
     },
     {
       "date": "2025-12-05",
+      "type": "Kingpin Suite",
+      "count": 1
+    },
+    {
+      "date": "2025-12-05",
       "type": "General Lane Reservation",
       "count": 10
     },
@@ -7361,7 +8032,7 @@
     {
       "date": "2025-12-07",
       "type": "Sunday Lane",
-      "count": 4
+      "count": 3
     },
     {
       "date": "2025-12-07",
@@ -7382,6 +8053,11 @@
       "date": "2025-12-09",
       "type": "Weekday Lane",
       "count": 3
+    },
+    {
+      "date": "2025-12-09",
+      "type": "Kingpin Suite",
+      "count": 1
     },
     {
       "date": "2025-12-10",
@@ -7420,8 +8096,18 @@
     },
     {
       "date": "2025-12-12",
+      "type": "Adult Party",
+      "count": 1
+    },
+    {
+      "date": "2025-12-12",
       "type": "Strike Zone Suite",
       "count": 2
+    },
+    {
+      "date": "2025-12-12",
+      "type": "Kingpin Suite",
+      "count": 1
     },
     {
       "date": "2025-12-12",
@@ -7451,7 +8137,7 @@
     {
       "date": "2025-12-14",
       "type": "Sunday Lane",
-      "count": 14
+      "count": 12
     },
     {
       "date": "2025-12-14",
@@ -7467,6 +8153,11 @@
       "date": "2025-12-16",
       "type": "Weekday Lane",
       "count": 5
+    },
+    {
+      "date": "2025-12-16",
+      "type": "Kingpin Suite",
+      "count": 1
     },
     {
       "date": "2025-12-17",
@@ -7496,7 +8187,7 @@
     {
       "date": "2025-12-18",
       "type": "Pair & Spare",
-      "count": 1
+      "count": 2
     },
     {
       "date": "2025-12-18",
@@ -7505,13 +8196,13 @@
     },
     {
       "date": "2025-12-18",
-      "type": "General Lane Reservation",
+      "type": "Kingpin Suite",
       "count": 1
     },
     {
       "date": "2025-12-19",
       "type": "Pair & Spare",
-      "count": 4
+      "count": 5
     },
     {
       "date": "2025-12-19",
@@ -7531,7 +8222,7 @@
     {
       "date": "2025-12-19",
       "type": "General Lane Reservation",
-      "count": 15
+      "count": 14
     },
     {
       "date": "2025-12-20",
@@ -7541,6 +8232,11 @@
     {
       "date": "2025-12-20",
       "type": "Strike Zone Suite",
+      "count": 1
+    },
+    {
+      "date": "2025-12-20",
+      "type": "Kingpin Suite",
       "count": 1
     },
     {
@@ -7551,11 +8247,16 @@
     {
       "date": "2025-12-21",
       "type": "Sunday Lane",
-      "count": 20
+      "count": 19
     },
     {
       "date": "2025-12-21",
       "type": "Pair & Spare",
+      "count": 1
+    },
+    {
+      "date": "2025-12-21",
+      "type": "Adult Party",
       "count": 1
     },
     {
@@ -7569,14 +8270,9 @@
       "count": 1
     },
     {
-      "date": "2025-12-21",
-      "type": "General Lane Reservation",
-      "count": 1
-    },
-    {
       "date": "2025-12-22",
       "type": "Weekday Lane",
-      "count": 10
+      "count": 9
     },
     {
       "date": "2025-12-22",
@@ -7586,7 +8282,7 @@
     {
       "date": "2025-12-23",
       "type": "Weekday Lane",
-      "count": 19
+      "count": 16
     },
     {
       "date": "2025-12-23",
@@ -7601,12 +8297,12 @@
     {
       "date": "2025-12-26",
       "type": "Pair & Spare",
-      "count": 1
+      "count": 2
     },
     {
       "date": "2025-12-26",
       "type": "General Lane Reservation",
-      "count": 53
+      "count": 52
     },
     {
       "date": "2025-12-27",
@@ -7616,7 +8312,7 @@
     {
       "date": "2025-12-28",
       "type": "Sunday Lane",
-      "count": 20
+      "count": 19
     },
     {
       "date": "2025-12-28",
@@ -7626,7 +8322,7 @@
     {
       "date": "2025-12-29",
       "type": "Weekday Lane",
-      "count": 6
+      "count": 5
     },
     {
       "date": "2025-12-29",
@@ -7641,7 +8337,7 @@
     {
       "date": "2025-12-30",
       "type": "Weekday Lane",
-      "count": 21
+      "count": 20
     },
     {
       "date": "2025-12-30",
@@ -7651,7 +8347,7 @@
     {
       "date": "2025-12-31",
       "type": "Weekday Lane",
-      "count": 16
+      "count": 14
     },
     {
       "date": "2025-12-31",
@@ -7666,7 +8362,7 @@
     {
       "date": "2026-01-01",
       "type": "Weekday Lane",
-      "count": 42
+      "count": 41
     },
     {
       "date": "2026-01-01",
@@ -7784,6 +8480,11 @@
       "count": 2
     },
     {
+      "date": "2026-01-15",
+      "type": "Kingpin Suite",
+      "count": 1
+    },
+    {
       "date": "2026-01-16",
       "type": "Powerhouse Suite",
       "count": 1
@@ -7811,7 +8512,7 @@
     {
       "date": "2026-01-18",
       "type": "Sunday Lane",
-      "count": 15
+      "count": 14
     },
     {
       "date": "2026-01-18",
@@ -7866,7 +8567,7 @@
     {
       "date": "2026-01-25",
       "type": "Sunday Lane",
-      "count": 12
+      "count": 10
     },
     {
       "date": "2026-01-25",
@@ -7925,13 +8626,18 @@
     },
     {
       "date": "2026-01-31",
+      "type": "Supercharge",
+      "count": 1
+    },
+    {
+      "date": "2026-01-31",
       "type": "General Lane Reservation",
       "count": 26
     },
     {
       "date": "2026-02-01",
       "type": "Sunday Lane",
-      "count": 8
+      "count": 7
     },
     {
       "date": "2026-02-01",
@@ -8016,7 +8722,7 @@
     {
       "date": "2026-02-10",
       "type": "Weekday Lane",
-      "count": 8
+      "count": 7
     },
     {
       "date": "2026-02-10",
@@ -8086,7 +8792,7 @@
     {
       "date": "2026-02-17",
       "type": "Weekday Lane",
-      "count": 3
+      "count": 2
     },
     {
       "date": "2026-02-17",
@@ -8101,7 +8807,7 @@
     {
       "date": "2026-02-19",
       "type": "Weekday Lane",
-      "count": 6
+      "count": 5
     },
     {
       "date": "2026-02-19",
@@ -8210,6 +8916,11 @@
     },
     {
       "date": "2026-02-28",
+      "type": "Kingpin Suite",
+      "count": 1
+    },
+    {
+      "date": "2026-02-28",
       "type": "General Lane Reservation",
       "count": 23
     },
@@ -8276,7 +8987,7 @@
     {
       "date": "2026-03-08",
       "type": "Sunday Lane",
-      "count": 15
+      "count": 14
     },
     {
       "date": "2026-03-10",
@@ -8309,6 +9020,11 @@
       "count": 4
     },
     {
+      "date": "2026-03-12",
+      "type": "Kingpin Suite",
+      "count": 1
+    },
+    {
       "date": "2026-03-13",
       "type": "Summer Special",
       "count": 1
@@ -8331,7 +9047,7 @@
     {
       "date": "2026-03-15",
       "type": "Sunday Lane",
-      "count": 9
+      "count": 8
     },
     {
       "date": "2026-03-15",
@@ -8531,7 +9247,7 @@
     {
       "date": "2026-04-12",
       "type": "Sunday Lane",
-      "count": 10
+      "count": 9
     },
     {
       "date": "2026-04-12",
@@ -8550,7 +9266,7 @@
     },
     {
       "date": "2026-04-14",
-      "type": "General Lane Reservation",
+      "type": "Thursday Special",
       "count": 1
     },
     {
@@ -8565,7 +9281,7 @@
     },
     {
       "date": "2026-04-16",
-      "type": "Weekday Lane",
+      "type": "Kingpin Suite",
       "count": 1
     },
     {
@@ -8606,7 +9322,7 @@
     {
       "date": "2026-04-19",
       "type": "Sunday Lane",
-      "count": 10
+      "count": 8
     },
     {
       "date": "2026-04-19",
@@ -8636,7 +9352,7 @@
     {
       "date": "2026-04-23",
       "type": "Weekday Lane",
-      "count": 6
+      "count": 5
     },
     {
       "date": "2026-04-23",
@@ -8646,7 +9362,7 @@
     {
       "date": "2026-04-24",
       "type": "Pair & Spare",
-      "count": 1
+      "count": 2
     },
     {
       "date": "2026-04-24",
@@ -8656,12 +9372,12 @@
     {
       "date": "2026-04-24",
       "type": "General Lane Reservation",
-      "count": 10
+      "count": 9
     },
     {
       "date": "2026-04-25",
       "type": "Pair & Spare",
-      "count": 1
+      "count": 5
     },
     {
       "date": "2026-04-25",
@@ -8671,7 +9387,7 @@
     {
       "date": "2026-04-25",
       "type": "General Lane Reservation",
-      "count": 23
+      "count": 19
     },
     {
       "date": "2026-04-26",
@@ -8691,7 +9407,7 @@
     {
       "date": "2026-04-28",
       "type": "Weekday Lane",
-      "count": 5
+      "count": 4
     },
     {
       "date": "2026-04-29",
@@ -8766,7 +9482,7 @@
     {
       "date": "2026-05-05",
       "type": "General Lane Reservation",
-      "count": 3
+      "count": 4
     },
     {
       "date": "2026-05-06",
@@ -8816,17 +9532,22 @@
     {
       "date": "2026-05-09",
       "type": "Sports Party",
-      "count": 5
+      "count": 6
     },
     {
       "date": "2026-05-09",
       "type": "General Lane Reservation",
-      "count": 15
+      "count": 14
     },
     {
       "date": "2026-05-10",
       "type": "Sunday Lane",
-      "count": 31
+      "count": 29
+    },
+    {
+      "date": "2026-05-10",
+      "type": "Sports Party",
+      "count": 1
     },
     {
       "date": "2026-05-11",
@@ -8841,6 +9562,11 @@
     {
       "date": "2026-05-13",
       "type": "Sports Party",
+      "count": 1
+    },
+    {
+      "date": "2026-05-14",
+      "type": "Kingpin Suite",
       "count": 1
     },
     {
@@ -8981,7 +9707,7 @@
     {
       "date": "2026-05-26",
       "type": "Weekday Lane",
-      "count": 5
+      "count": 2
     },
     {
       "date": "2026-05-26",
@@ -9006,7 +9732,7 @@
     {
       "date": "2026-05-28",
       "type": "Weekday Lane",
-      "count": 4
+      "count": 2
     },
     {
       "date": "2026-05-28",
@@ -9026,6 +9752,11 @@
     {
       "date": "2026-05-29",
       "type": "Summer Special",
+      "count": 1
+    },
+    {
+      "date": "2026-05-29",
+      "type": "Kingpin Suite",
       "count": 1
     },
     {
@@ -9061,7 +9792,7 @@
     {
       "date": "2026-05-31",
       "type": "Sunday Lane",
-      "count": 5
+      "count": 4
     },
     {
       "date": "2026-05-31",
@@ -9085,7 +9816,7 @@
     },
     {
       "date": "2026-06-01",
-      "type": "General Lane Reservation",
+      "type": "Sports Party",
       "count": 1
     },
     {
@@ -9099,9 +9830,14 @@
       "count": 2
     },
     {
+      "date": "2026-06-02",
+      "type": "Thursday Special",
+      "count": 1
+    },
+    {
       "date": "2026-06-03",
       "type": "Weekday Lane",
-      "count": 3
+      "count": 2
     },
     {
       "date": "2026-06-03",
@@ -9125,12 +9861,12 @@
     },
     {
       "date": "2026-06-05",
-      "type": "Supercharge",
+      "type": "Party Builder",
       "count": 1
     },
     {
       "date": "2026-06-05",
-      "type": "Party Builder",
+      "type": "Supercharge",
       "count": 1
     },
     {
@@ -9156,7 +9892,7 @@
     {
       "date": "2026-06-07",
       "type": "Sunday Lane",
-      "count": 6
+      "count": 5
     },
     {
       "date": "2026-06-07",
@@ -9200,13 +9936,23 @@
     },
     {
       "date": "2026-06-10",
+      "type": "Party Builder",
+      "count": 1
+    },
+    {
+      "date": "2026-06-10",
       "type": "General Lane Reservation",
       "count": 1
     },
     {
       "date": "2026-06-11",
       "type": "Weekday Lane",
-      "count": 4
+      "count": 3
+    },
+    {
+      "date": "2026-06-11",
+      "type": "Thursday Special",
+      "count": 2
     },
     {
       "date": "2026-06-11",
@@ -9221,7 +9967,7 @@
     {
       "date": "2026-06-12",
       "type": "Party Builder",
-      "count": 1
+      "count": 2
     },
     {
       "date": "2026-06-12",
@@ -9256,12 +10002,7 @@
     {
       "date": "2026-06-14",
       "type": "Sunday Lane",
-      "count": 9
-    },
-    {
-      "date": "2026-06-14",
-      "type": "Supercharge",
-      "count": 1
+      "count": 7
     },
     {
       "date": "2026-06-14",
@@ -9269,8 +10010,8 @@
       "count": 1
     },
     {
-      "date": "2026-06-15",
-      "type": "Weekday Lane",
+      "date": "2026-06-14",
+      "type": "Supercharge",
       "count": 1
     },
     {
@@ -9296,7 +10037,7 @@
     {
       "date": "2026-06-17",
       "type": "Weekday Lane",
-      "count": 4
+      "count": 3
     },
     {
       "date": "2026-06-17",
@@ -9325,12 +10066,12 @@
     },
     {
       "date": "2026-06-20",
-      "type": "Strike Zone Suite",
+      "type": "Party Builder",
       "count": 1
     },
     {
       "date": "2026-06-20",
-      "type": "Party Builder",
+      "type": "Strike Zone Suite",
       "count": 1
     },
     {
@@ -9341,7 +10082,7 @@
     {
       "date": "2026-06-21",
       "type": "Sunday Lane",
-      "count": 32
+      "count": 26
     },
     {
       "date": "2026-06-21",
@@ -9380,13 +10121,13 @@
     },
     {
       "date": "2026-06-24",
-      "type": "General Lane Reservation",
+      "type": "Thursday Special",
       "count": 1
     },
     {
       "date": "2026-06-25",
       "type": "Weekday Lane",
-      "count": 4
+      "count": 3
     },
     {
       "date": "2026-06-25",
@@ -9400,12 +10141,12 @@
     },
     {
       "date": "2026-06-26",
-      "type": "Sports Party",
+      "type": "Party Builder",
       "count": 1
     },
     {
       "date": "2026-06-26",
-      "type": "Party Builder",
+      "type": "Sports Party",
       "count": 1
     },
     {
@@ -9420,12 +10161,12 @@
     },
     {
       "date": "2026-06-27",
-      "type": "Supercharge",
+      "type": "Party Builder",
       "count": 1
     },
     {
       "date": "2026-06-27",
-      "type": "Party Builder",
+      "type": "Supercharge",
       "count": 1
     },
     {
@@ -9460,13 +10201,18 @@
     },
     {
       "date": "2026-06-30",
+      "type": "Thursday Special",
+      "count": 2
+    },
+    {
+      "date": "2026-06-30",
       "type": "General Lane Reservation",
       "count": 1
     },
     {
       "date": "2026-07-01",
       "type": "Weekday Lane",
-      "count": 4
+      "count": 3
     },
     {
       "date": "2026-07-01",
@@ -9476,7 +10222,12 @@
     {
       "date": "2026-07-02",
       "type": "Weekday Lane",
-      "count": 3
+      "count": 2
+    },
+    {
+      "date": "2026-07-02",
+      "type": "Kingpin Suite",
+      "count": 1
     },
     {
       "date": "2026-07-03",
@@ -9535,8 +10286,13 @@
     },
     {
       "date": "2026-07-09",
+      "type": "Thursday Special",
+      "count": 4
+    },
+    {
+      "date": "2026-07-09",
       "type": "General Lane Reservation",
-      "count": 7
+      "count": 4
     },
     {
       "date": "2026-07-10",
@@ -9556,7 +10312,7 @@
     {
       "date": "2026-07-11",
       "type": "Party Builder",
-      "count": 7
+      "count": 8
     },
     {
       "date": "2026-07-11",
@@ -9566,7 +10322,7 @@
     {
       "date": "2026-07-12",
       "type": "Sunday Lane",
-      "count": 5
+      "count": 4
     },
     {
       "date": "2026-07-12",
@@ -9601,7 +10357,7 @@
     {
       "date": "2026-07-16",
       "type": "Weekday Lane",
-      "count": 5
+      "count": 3
     },
     {
       "date": "2026-07-16",
@@ -9620,12 +10376,17 @@
     },
     {
       "date": "2026-07-18",
-      "type": "Supercharge",
+      "type": "Pair & Spare",
       "count": 1
     },
     {
       "date": "2026-07-18",
       "type": "Party Builder",
+      "count": 1
+    },
+    {
+      "date": "2026-07-18",
+      "type": "Supercharge",
       "count": 1
     },
     {
@@ -9636,16 +10397,16 @@
     {
       "date": "2026-07-19",
       "type": "Sunday Lane",
-      "count": 2
-    },
-    {
-      "date": "2026-07-19",
-      "type": "Sports Party",
       "count": 1
     },
     {
       "date": "2026-07-19",
       "type": "Party Builder",
+      "count": 1
+    },
+    {
+      "date": "2026-07-19",
+      "type": "Sports Party",
       "count": 1
     },
     {
@@ -9656,12 +10417,17 @@
     {
       "date": "2026-07-21",
       "type": "Weekday Lane",
-      "count": 2
+      "count": 1
+    },
+    {
+      "date": "2026-07-21",
+      "type": "Supercharge",
+      "count": 1
     },
     {
       "date": "2026-07-21",
       "type": "General Lane Reservation",
-      "count": 1
+      "count": 3
     },
     {
       "date": "2026-07-22",
@@ -9670,12 +10436,12 @@
     },
     {
       "date": "2026-07-22",
-      "type": "Party Builder",
+      "type": "Thursday Special",
       "count": 1
     },
     {
       "date": "2026-07-22",
-      "type": "General Lane Reservation",
+      "type": "Party Builder",
       "count": 1
     },
     {
@@ -9685,12 +10451,12 @@
     },
     {
       "date": "2026-07-23",
-      "type": "Supercharge",
+      "type": "Party Builder",
       "count": 1
     },
     {
       "date": "2026-07-23",
-      "type": "Party Builder",
+      "type": "Supercharge",
       "count": 1
     },
     {
@@ -9710,13 +10476,13 @@
     },
     {
       "date": "2026-07-25",
-      "type": "Sports Party",
-      "count": 1
+      "type": "Party Builder",
+      "count": 2
     },
     {
       "date": "2026-07-25",
-      "type": "Party Builder",
-      "count": 2
+      "type": "Sports Party",
+      "count": 1
     },
     {
       "date": "2026-07-25",
@@ -9730,17 +10496,22 @@
     },
     {
       "date": "2026-07-26",
+      "type": "Pair & Spare",
+      "count": 1
+    },
+    {
+      "date": "2026-07-26",
+      "type": "Party Builder",
+      "count": 1
+    },
+    {
+      "date": "2026-07-26",
       "type": "Supercharge",
       "count": 1
     },
     {
       "date": "2026-07-26",
       "type": "Sports Party",
-      "count": 1
-    },
-    {
-      "date": "2026-07-26",
-      "type": "Party Builder",
       "count": 1
     },
     {
@@ -9756,11 +10527,16 @@
     {
       "date": "2026-07-28",
       "type": "Weekday Lane",
-      "count": 3
+      "count": 2
     },
     {
       "date": "2026-07-28",
       "type": "Summer Special",
+      "count": 1
+    },
+    {
+      "date": "2026-07-28",
+      "type": "Pair & Spare",
       "count": 1
     },
     {
@@ -9820,23 +10596,18 @@
     },
     {
       "date": "2026-08-02",
-      "type": "Sports Party",
+      "type": "Party Builder",
       "count": 1
     },
     {
       "date": "2026-08-02",
-      "type": "Party Builder",
+      "type": "Sports Party",
       "count": 1
     },
     {
       "date": "2026-08-02",
       "type": "General Lane Reservation",
       "count": 1
-    },
-    {
-      "date": "2026-08-03",
-      "type": "Weekday Lane",
-      "count": 2
     },
     {
       "date": "2026-08-04",
@@ -9929,6 +10700,16 @@
       "count": 1
     },
     {
+      "date": "2026-08-13",
+      "type": "Thursday Special",
+      "count": 3
+    },
+    {
+      "date": "2026-08-14",
+      "type": "Summer Special",
+      "count": 2
+    },
+    {
       "date": "2026-08-14",
       "type": "Party Builder",
       "count": 2
@@ -9940,13 +10721,18 @@
     },
     {
       "date": "2026-08-15",
+      "type": "Summer Special",
+      "count": 3
+    },
+    {
+      "date": "2026-08-15",
       "type": "Party Builder",
       "count": 4
     },
     {
       "date": "2026-08-15",
       "type": "General Lane Reservation",
-      "count": 7
+      "count": 6
     },
     {
       "date": "2026-08-16",
@@ -9966,7 +10752,7 @@
     {
       "date": "2026-08-17",
       "type": "Weekday Lane",
-      "count": 2
+      "count": 1
     },
     {
       "date": "2026-08-18",
@@ -9995,8 +10781,8 @@
     },
     {
       "date": "2026-08-20",
-      "type": "General Lane Reservation",
-      "count": 1
+      "type": "Thursday Special",
+      "count": 4
     },
     {
       "date": "2026-08-21",
@@ -10010,13 +10796,13 @@
     },
     {
       "date": "2026-08-22",
-      "type": "Sports Party",
-      "count": 1
+      "type": "Party Builder",
+      "count": 3
     },
     {
       "date": "2026-08-22",
-      "type": "Party Builder",
-      "count": 3
+      "type": "Sports Party",
+      "count": 1
     },
     {
       "date": "2026-08-22",
@@ -10027,6 +10813,11 @@
       "date": "2026-08-23",
       "type": "Sunday Lane",
       "count": 5
+    },
+    {
+      "date": "2026-08-23",
+      "type": "Pair & Spare",
+      "count": 1
     },
     {
       "date": "2026-08-23",
@@ -10044,33 +10835,28 @@
       "count": 1
     },
     {
-      "date": "2026-08-25",
-      "type": "Weekday Lane",
-      "count": 1
-    },
-    {
       "date": "2026-08-26",
       "type": "Weekday Lane",
       "count": 2
     },
     {
       "date": "2026-08-26",
-      "type": "General Lane Reservation",
-      "count": 1
-    },
-    {
-      "date": "2026-08-27",
-      "type": "Weekday Lane",
-      "count": 1
+      "type": "Thursday Special",
+      "count": 2
     },
     {
       "date": "2026-08-27",
       "type": "General Lane Reservation",
-      "count": 1
+      "count": 3
     },
     {
       "date": "2026-08-28",
       "type": "Weekday Lane",
+      "count": 1
+    },
+    {
+      "date": "2026-08-28",
+      "type": "Summer Special",
       "count": 1
     },
     {
@@ -10085,6 +10871,11 @@
     },
     {
       "date": "2026-08-29",
+      "type": "Summer Special",
+      "count": 3
+    },
+    {
+      "date": "2026-08-29",
       "type": "Party Builder",
       "count": 3
     },
@@ -10096,7 +10887,12 @@
     {
       "date": "2026-08-30",
       "type": "Sunday Lane",
-      "count": 5
+      "count": 4
+    },
+    {
+      "date": "2026-08-30",
+      "type": "Party Builder",
+      "count": 1
     },
     {
       "date": "2026-08-30",
@@ -10106,7 +10902,7 @@
     {
       "date": "2026-08-31",
       "type": "Weekday Lane",
-      "count": 2
+      "count": 1
     },
     {
       "date": "2026-08-31",
@@ -10150,18 +10946,18 @@
     },
     {
       "date": "2026-09-05",
+      "type": "Party Builder",
+      "count": 1
+    },
+    {
+      "date": "2026-09-05",
       "type": "Supercharge",
       "count": 1
     },
     {
       "date": "2026-09-05",
       "type": "Sports Party",
-      "count": 1
-    },
-    {
-      "date": "2026-09-05",
-      "type": "Party Builder",
-      "count": 1
+      "count": 2
     },
     {
       "date": "2026-09-05",
@@ -10171,12 +10967,12 @@
     {
       "date": "2026-09-06",
       "type": "Sunday Lane",
-      "count": 21
+      "count": 15
     },
     {
       "date": "2026-09-07",
       "type": "Weekday Lane",
-      "count": 8
+      "count": 7
     },
     {
       "date": "2026-09-07",
@@ -10242,18 +11038,26 @@
   "dailyTabs": [
     {
       "date": "2023-05-26",
-      "tabs": 3
+      "tabs": 5
     },
     {
       "date": "2023-05-27",
       "tabs": 2
     },
     {
-      "date": "2023-06-03",
+      "date": "2023-06-01",
       "tabs": 1
     },
     {
+      "date": "2023-06-03",
+      "tabs": 2
+    },
+    {
       "date": "2023-06-04",
+      "tabs": 1
+    },
+    {
+      "date": "2023-06-06",
       "tabs": 1
     },
     {
@@ -10261,8 +11065,16 @@
       "tabs": 1
     },
     {
-      "date": "2023-06-17",
+      "date": "2023-06-11",
       "tabs": 1
+    },
+    {
+      "date": "2023-06-16",
+      "tabs": 1
+    },
+    {
+      "date": "2023-06-17",
+      "tabs": 2
     },
     {
       "date": "2023-06-21",
@@ -10274,19 +11086,15 @@
     },
     {
       "date": "2023-06-24",
-      "tabs": 1
+      "tabs": 2
     },
     {
       "date": "2023-06-26",
-      "tabs": 5
+      "tabs": 1
     },
     {
       "date": "2023-06-27",
-      "tabs": 6
-    },
-    {
-      "date": "2023-06-28",
-      "tabs": 4
+      "tabs": 2
     },
     {
       "date": "2023-06-29",
@@ -10302,11 +11110,11 @@
     },
     {
       "date": "2023-07-02",
-      "tabs": 8
+      "tabs": 7
     },
     {
       "date": "2023-07-03",
-      "tabs": 11
+      "tabs": 4
     },
     {
       "date": "2023-07-05",
@@ -10314,7 +11122,7 @@
     },
     {
       "date": "2023-07-06",
-      "tabs": 4
+      "tabs": 3
     },
     {
       "date": "2023-07-07",
@@ -10326,7 +11134,7 @@
     },
     {
       "date": "2023-07-09",
-      "tabs": 7
+      "tabs": 6
     },
     {
       "date": "2023-07-10",
@@ -10338,11 +11146,11 @@
     },
     {
       "date": "2023-07-13",
-      "tabs": 13
+      "tabs": 10
     },
     {
       "date": "2023-07-14",
-      "tabs": 13
+      "tabs": 14
     },
     {
       "date": "2023-07-15",
@@ -10362,11 +11170,11 @@
     },
     {
       "date": "2023-07-19",
-      "tabs": 3
+      "tabs": 2
     },
     {
       "date": "2023-07-20",
-      "tabs": 5
+      "tabs": 6
     },
     {
       "date": "2023-07-21",
@@ -10378,7 +11186,7 @@
     },
     {
       "date": "2023-07-23",
-      "tabs": 14
+      "tabs": 11
     },
     {
       "date": "2023-07-24",
@@ -10386,15 +11194,15 @@
     },
     {
       "date": "2023-07-25",
-      "tabs": 5
+      "tabs": 4
     },
     {
       "date": "2023-07-26",
-      "tabs": 8
+      "tabs": 7
     },
     {
       "date": "2023-07-27",
-      "tabs": 10
+      "tabs": 6
     },
     {
       "date": "2023-07-28",
@@ -10406,11 +11214,11 @@
     },
     {
       "date": "2023-07-30",
-      "tabs": 13
+      "tabs": 10
     },
     {
       "date": "2023-08-01",
-      "tabs": 4
+      "tabs": 3
     },
     {
       "date": "2023-08-02",
@@ -10419,6 +11227,10 @@
     {
       "date": "2023-08-03",
       "tabs": 5
+    },
+    {
+      "date": "2023-08-04",
+      "tabs": 1
     },
     {
       "date": "2023-08-05",
@@ -10442,7 +11254,7 @@
     },
     {
       "date": "2023-08-11",
-      "tabs": 20
+      "tabs": 21
     },
     {
       "date": "2023-08-12",
@@ -10450,7 +11262,7 @@
     },
     {
       "date": "2023-08-13",
-      "tabs": 11
+      "tabs": 10
     },
     {
       "date": "2023-08-14",
@@ -10478,7 +11290,7 @@
     },
     {
       "date": "2023-08-20",
-      "tabs": 17
+      "tabs": 16
     },
     {
       "date": "2023-08-21",
@@ -10494,11 +11306,11 @@
     },
     {
       "date": "2023-08-24",
-      "tabs": 8
+      "tabs": 7
     },
     {
       "date": "2023-08-25",
-      "tabs": 13
+      "tabs": 14
     },
     {
       "date": "2023-08-26",
@@ -10514,7 +11326,7 @@
     },
     {
       "date": "2023-08-30",
-      "tabs": 3
+      "tabs": 2
     },
     {
       "date": "2023-08-31",
@@ -10522,7 +11334,7 @@
     },
     {
       "date": "2023-09-01",
-      "tabs": 12
+      "tabs": 13
     },
     {
       "date": "2023-09-02",
@@ -10530,11 +11342,11 @@
     },
     {
       "date": "2023-09-03",
-      "tabs": 23
+      "tabs": 22
     },
     {
       "date": "2023-09-04",
-      "tabs": 7
+      "tabs": 6
     },
     {
       "date": "2023-09-05",
@@ -10554,15 +11366,11 @@
     },
     {
       "date": "2023-09-09",
-      "tabs": 16
+      "tabs": 17
     },
     {
       "date": "2023-09-10",
-      "tabs": 9
-    },
-    {
-      "date": "2023-09-11",
-      "tabs": 1
+      "tabs": 7
     },
     {
       "date": "2023-09-13",
@@ -10574,7 +11382,7 @@
     },
     {
       "date": "2023-09-15",
-      "tabs": 18
+      "tabs": 19
     },
     {
       "date": "2023-09-16",
@@ -10586,10 +11394,6 @@
     },
     {
       "date": "2023-09-19",
-      "tabs": 1
-    },
-    {
-      "date": "2023-09-20",
       "tabs": 1
     },
     {
@@ -10606,7 +11410,11 @@
     },
     {
       "date": "2023-09-24",
-      "tabs": 18
+      "tabs": 14
+    },
+    {
+      "date": "2023-09-26",
+      "tabs": 1
     },
     {
       "date": "2023-09-27",
@@ -10622,11 +11430,11 @@
     },
     {
       "date": "2023-09-30",
-      "tabs": 20
+      "tabs": 21
     },
     {
       "date": "2023-10-01",
-      "tabs": 15
+      "tabs": 13
     },
     {
       "date": "2023-10-02",
@@ -10634,7 +11442,7 @@
     },
     {
       "date": "2023-10-04",
-      "tabs": 3
+      "tabs": 2
     },
     {
       "date": "2023-10-05",
@@ -10650,7 +11458,7 @@
     },
     {
       "date": "2023-10-08",
-      "tabs": 14
+      "tabs": 11
     },
     {
       "date": "2023-10-09",
@@ -10662,7 +11470,7 @@
     },
     {
       "date": "2023-10-11",
-      "tabs": 7
+      "tabs": 5
     },
     {
       "date": "2023-10-12",
@@ -10681,24 +11489,20 @@
       "tabs": 8
     },
     {
-      "date": "2023-10-16",
-      "tabs": 1
-    },
-    {
       "date": "2023-10-17",
       "tabs": 2
     },
     {
       "date": "2023-10-18",
-      "tabs": 4
+      "tabs": 3
     },
     {
       "date": "2023-10-19",
-      "tabs": 4
+      "tabs": 5
     },
     {
       "date": "2023-10-20",
-      "tabs": 14
+      "tabs": 15
     },
     {
       "date": "2023-10-21",
@@ -10706,15 +11510,15 @@
     },
     {
       "date": "2023-10-22",
-      "tabs": 14
+      "tabs": 12
     },
     {
       "date": "2023-10-23",
-      "tabs": 2
+      "tabs": 1
     },
     {
       "date": "2023-10-24",
-      "tabs": 5
+      "tabs": 4
     },
     {
       "date": "2023-10-26",
@@ -10722,15 +11526,15 @@
     },
     {
       "date": "2023-10-27",
-      "tabs": 10
+      "tabs": 11
     },
     {
       "date": "2023-10-28",
-      "tabs": 14
+      "tabs": 13
     },
     {
       "date": "2023-10-29",
-      "tabs": 18
+      "tabs": 14
     },
     {
       "date": "2023-10-31",
@@ -10742,7 +11546,7 @@
     },
     {
       "date": "2023-11-02",
-      "tabs": 6
+      "tabs": 4
     },
     {
       "date": "2023-11-03",
@@ -10754,7 +11558,7 @@
     },
     {
       "date": "2023-11-05",
-      "tabs": 8
+      "tabs": 6
     },
     {
       "date": "2023-11-06",
@@ -10766,11 +11570,11 @@
     },
     {
       "date": "2023-11-08",
-      "tabs": 7
+      "tabs": 1
     },
     {
       "date": "2023-11-09",
-      "tabs": 7
+      "tabs": 6
     },
     {
       "date": "2023-11-10",
@@ -10782,7 +11586,7 @@
     },
     {
       "date": "2023-11-12",
-      "tabs": 16
+      "tabs": 15
     },
     {
       "date": "2023-11-13",
@@ -10794,7 +11598,7 @@
     },
     {
       "date": "2023-11-15",
-      "tabs": 25
+      "tabs": 24
     },
     {
       "date": "2023-11-16",
@@ -10802,7 +11606,7 @@
     },
     {
       "date": "2023-11-17",
-      "tabs": 7
+      "tabs": 10
     },
     {
       "date": "2023-11-18",
@@ -10810,7 +11614,7 @@
     },
     {
       "date": "2023-11-19",
-      "tabs": 13
+      "tabs": 11
     },
     {
       "date": "2023-11-20",
@@ -10822,7 +11626,7 @@
     },
     {
       "date": "2023-11-22",
-      "tabs": 16
+      "tabs": 14
     },
     {
       "date": "2023-11-24",
@@ -10830,11 +11634,11 @@
     },
     {
       "date": "2023-11-25",
-      "tabs": 25
+      "tabs": 26
     },
     {
       "date": "2023-11-26",
-      "tabs": 11
+      "tabs": 9
     },
     {
       "date": "2023-11-27",
@@ -10850,11 +11654,11 @@
     },
     {
       "date": "2023-12-01",
-      "tabs": 14
+      "tabs": 17
     },
     {
       "date": "2023-12-02",
-      "tabs": 24
+      "tabs": 28
     },
     {
       "date": "2023-12-03",
@@ -10874,23 +11678,23 @@
     },
     {
       "date": "2023-12-08",
-      "tabs": 6
+      "tabs": 11
     },
     {
       "date": "2023-12-09",
-      "tabs": 23
+      "tabs": 26
     },
     {
       "date": "2023-12-10",
-      "tabs": 13
+      "tabs": 11
     },
     {
       "date": "2023-12-11",
-      "tabs": 3
+      "tabs": 1
     },
     {
       "date": "2023-12-12",
-      "tabs": 2
+      "tabs": 3
     },
     {
       "date": "2023-12-13",
@@ -10898,19 +11702,19 @@
     },
     {
       "date": "2023-12-14",
-      "tabs": 9
+      "tabs": 11
     },
     {
       "date": "2023-12-15",
-      "tabs": 10
+      "tabs": 15
     },
     {
       "date": "2023-12-16",
-      "tabs": 23
+      "tabs": 28
     },
     {
       "date": "2023-12-17",
-      "tabs": 32
+      "tabs": 31
     },
     {
       "date": "2023-12-18",
@@ -10918,35 +11722,35 @@
     },
     {
       "date": "2023-12-19",
-      "tabs": 10
+      "tabs": 12
     },
     {
       "date": "2023-12-20",
-      "tabs": 18
+      "tabs": 19
     },
     {
       "date": "2023-12-21",
-      "tabs": 26
+      "tabs": 27
     },
     {
       "date": "2023-12-22",
-      "tabs": 21
+      "tabs": 27
     },
     {
       "date": "2023-12-23",
-      "tabs": 29
+      "tabs": 30
     },
     {
       "date": "2023-12-26",
-      "tabs": 15
+      "tabs": 14
     },
     {
       "date": "2023-12-27",
-      "tabs": 18
+      "tabs": 19
     },
     {
       "date": "2023-12-28",
-      "tabs": 12
+      "tabs": 11
     },
     {
       "date": "2023-12-29",
@@ -10958,7 +11762,7 @@
     },
     {
       "date": "2023-12-31",
-      "tabs": 36
+      "tabs": 34
     },
     {
       "date": "2024-01-01",
@@ -10970,7 +11774,7 @@
     },
     {
       "date": "2024-01-03",
-      "tabs": 13
+      "tabs": 12
     },
     {
       "date": "2024-01-04",
@@ -10998,7 +11802,7 @@
     },
     {
       "date": "2024-01-10",
-      "tabs": 2
+      "tabs": 1
     },
     {
       "date": "2024-01-11",
@@ -11018,7 +11822,7 @@
     },
     {
       "date": "2024-01-15",
-      "tabs": 7
+      "tabs": 6
     },
     {
       "date": "2024-01-16",
@@ -11050,7 +11854,7 @@
     },
     {
       "date": "2024-01-23",
-      "tabs": 1
+      "tabs": 2
     },
     {
       "date": "2024-01-24",
@@ -11058,7 +11862,7 @@
     },
     {
       "date": "2024-01-25",
-      "tabs": 2
+      "tabs": 1
     },
     {
       "date": "2024-01-26",
@@ -11066,7 +11870,7 @@
     },
     {
       "date": "2024-01-27",
-      "tabs": 30
+      "tabs": 31
     },
     {
       "date": "2024-01-28",
@@ -11077,16 +11881,12 @@
       "tabs": 5
     },
     {
-      "date": "2024-01-31",
-      "tabs": 1
-    },
-    {
       "date": "2024-02-01",
       "tabs": 5
     },
     {
       "date": "2024-02-02",
-      "tabs": 21
+      "tabs": 22
     },
     {
       "date": "2024-02-03",
@@ -11094,7 +11894,7 @@
     },
     {
       "date": "2024-02-04",
-      "tabs": 20
+      "tabs": 17
     },
     {
       "date": "2024-02-05",
@@ -11102,7 +11902,7 @@
     },
     {
       "date": "2024-02-08",
-      "tabs": 5
+      "tabs": 4
     },
     {
       "date": "2024-02-09",
@@ -11114,7 +11914,7 @@
     },
     {
       "date": "2024-02-13",
-      "tabs": 2
+      "tabs": 1
     },
     {
       "date": "2024-02-14",
@@ -11126,7 +11926,7 @@
     },
     {
       "date": "2024-02-16",
-      "tabs": 21
+      "tabs": 22
     },
     {
       "date": "2024-02-17",
@@ -11134,23 +11934,19 @@
     },
     {
       "date": "2024-02-18",
-      "tabs": 36
+      "tabs": 28
     },
     {
       "date": "2024-02-19",
-      "tabs": 23
+      "tabs": 22
     },
     {
       "date": "2024-02-20",
-      "tabs": 7
-    },
-    {
-      "date": "2024-02-21",
-      "tabs": 1
+      "tabs": 8
     },
     {
       "date": "2024-02-22",
-      "tabs": 4
+      "tabs": 5
     },
     {
       "date": "2024-02-23",
@@ -11178,7 +11974,7 @@
     },
     {
       "date": "2024-03-01",
-      "tabs": 18
+      "tabs": 19
     },
     {
       "date": "2024-03-02",
@@ -11186,7 +11982,7 @@
     },
     {
       "date": "2024-03-03",
-      "tabs": 19
+      "tabs": 18
     },
     {
       "date": "2024-03-05",
@@ -11202,11 +11998,11 @@
     },
     {
       "date": "2024-03-08",
-      "tabs": 23
+      "tabs": 22
     },
     {
       "date": "2024-03-09",
-      "tabs": 31
+      "tabs": 33
     },
     {
       "date": "2024-03-10",
@@ -11222,7 +12018,7 @@
     },
     {
       "date": "2024-03-13",
-      "tabs": 2
+      "tabs": 1
     },
     {
       "date": "2024-03-14",
@@ -11238,11 +12034,11 @@
     },
     {
       "date": "2024-03-17",
-      "tabs": 26
+      "tabs": 20
     },
     {
       "date": "2024-03-18",
-      "tabs": 3
+      "tabs": 2
     },
     {
       "date": "2024-03-20",
@@ -11254,7 +12050,7 @@
     },
     {
       "date": "2024-03-22",
-      "tabs": 21
+      "tabs": 22
     },
     {
       "date": "2024-03-23",
@@ -11270,7 +12066,7 @@
     },
     {
       "date": "2024-03-26",
-      "tabs": 3
+      "tabs": 2
     },
     {
       "date": "2024-03-27",
@@ -11282,11 +12078,11 @@
     },
     {
       "date": "2024-03-29",
-      "tabs": 25
+      "tabs": 26
     },
     {
       "date": "2024-03-30",
-      "tabs": 49
+      "tabs": 50
     },
     {
       "date": "2024-04-01",
@@ -11314,7 +12110,7 @@
     },
     {
       "date": "2024-04-07",
-      "tabs": 6
+      "tabs": 5
     },
     {
       "date": "2024-04-08",
@@ -11334,7 +12130,7 @@
     },
     {
       "date": "2024-04-12",
-      "tabs": 12
+      "tabs": 13
     },
     {
       "date": "2024-04-13",
@@ -11366,11 +12162,11 @@
     },
     {
       "date": "2024-04-20",
-      "tabs": 27
+      "tabs": 28
     },
     {
       "date": "2024-04-21",
-      "tabs": 16
+      "tabs": 17
     },
     {
       "date": "2024-04-22",
@@ -11382,7 +12178,7 @@
     },
     {
       "date": "2024-04-24",
-      "tabs": 1
+      "tabs": 2
     },
     {
       "date": "2024-04-25",
@@ -11402,7 +12198,7 @@
     },
     {
       "date": "2024-04-30",
-      "tabs": 1
+      "tabs": 2
     },
     {
       "date": "2024-05-01",
@@ -11422,7 +12218,7 @@
     },
     {
       "date": "2024-05-05",
-      "tabs": 8
+      "tabs": 7
     },
     {
       "date": "2024-05-06",
@@ -11430,11 +12226,11 @@
     },
     {
       "date": "2024-05-07",
-      "tabs": 2
+      "tabs": 3
     },
     {
       "date": "2024-05-08",
-      "tabs": 2
+      "tabs": 3
     },
     {
       "date": "2024-05-09",
@@ -11446,7 +12242,7 @@
     },
     {
       "date": "2024-05-11",
-      "tabs": 23
+      "tabs": 24
     },
     {
       "date": "2024-05-12",
@@ -11478,7 +12274,7 @@
     },
     {
       "date": "2024-05-19",
-      "tabs": 12
+      "tabs": 10
     },
     {
       "date": "2024-05-21",
@@ -11490,7 +12286,7 @@
     },
     {
       "date": "2024-05-23",
-      "tabs": 5
+      "tabs": 4
     },
     {
       "date": "2024-05-24",
@@ -11502,7 +12298,7 @@
     },
     {
       "date": "2024-05-26",
-      "tabs": 18
+      "tabs": 17
     },
     {
       "date": "2024-05-27",
@@ -11510,11 +12306,11 @@
     },
     {
       "date": "2024-05-28",
-      "tabs": 6
+      "tabs": 4
     },
     {
       "date": "2024-05-29",
-      "tabs": 3
+      "tabs": 2
     },
     {
       "date": "2024-05-30",
@@ -11530,7 +12326,7 @@
     },
     {
       "date": "2024-06-02",
-      "tabs": 12
+      "tabs": 11
     },
     {
       "date": "2024-06-03",
@@ -11542,7 +12338,7 @@
     },
     {
       "date": "2024-06-05",
-      "tabs": 5
+      "tabs": 4
     },
     {
       "date": "2024-06-06",
@@ -11550,7 +12346,7 @@
     },
     {
       "date": "2024-06-07",
-      "tabs": 13
+      "tabs": 15
     },
     {
       "date": "2024-06-08",
@@ -11574,7 +12370,7 @@
     },
     {
       "date": "2024-06-13",
-      "tabs": 9
+      "tabs": 10
     },
     {
       "date": "2024-06-14",
@@ -11606,7 +12402,7 @@
     },
     {
       "date": "2024-06-22",
-      "tabs": 18
+      "tabs": 19
     },
     {
       "date": "2024-06-23",
@@ -11626,7 +12422,7 @@
     },
     {
       "date": "2024-06-27",
-      "tabs": 10
+      "tabs": 11
     },
     {
       "date": "2024-06-28",
@@ -11634,7 +12430,7 @@
     },
     {
       "date": "2024-06-29",
-      "tabs": 18
+      "tabs": 19
     },
     {
       "date": "2024-06-30",
@@ -11646,7 +12442,7 @@
     },
     {
       "date": "2024-07-02",
-      "tabs": 6
+      "tabs": 5
     },
     {
       "date": "2024-07-03",
@@ -11662,11 +12458,11 @@
     },
     {
       "date": "2024-07-07",
-      "tabs": 12
+      "tabs": 11
     },
     {
       "date": "2024-07-08",
-      "tabs": 4
+      "tabs": 3
     },
     {
       "date": "2024-07-09",
@@ -11678,7 +12474,7 @@
     },
     {
       "date": "2024-07-11",
-      "tabs": 4
+      "tabs": 3
     },
     {
       "date": "2024-07-12",
@@ -11726,7 +12522,7 @@
     },
     {
       "date": "2024-07-23",
-      "tabs": 10
+      "tabs": 9
     },
     {
       "date": "2024-07-24",
@@ -11738,7 +12534,7 @@
     },
     {
       "date": "2024-07-26",
-      "tabs": 11
+      "tabs": 12
     },
     {
       "date": "2024-07-27",
@@ -11754,7 +12550,7 @@
     },
     {
       "date": "2024-07-30",
-      "tabs": 8
+      "tabs": 7
     },
     {
       "date": "2024-07-31",
@@ -11798,7 +12594,7 @@
     },
     {
       "date": "2024-08-11",
-      "tabs": 7
+      "tabs": 8
     },
     {
       "date": "2024-08-12",
@@ -11806,7 +12602,7 @@
     },
     {
       "date": "2024-08-13",
-      "tabs": 6
+      "tabs": 5
     },
     {
       "date": "2024-08-14",
@@ -11818,7 +12614,7 @@
     },
     {
       "date": "2024-08-16",
-      "tabs": 13
+      "tabs": 12
     },
     {
       "date": "2024-08-17",
@@ -11826,7 +12622,7 @@
     },
     {
       "date": "2024-08-18",
-      "tabs": 11
+      "tabs": 10
     },
     {
       "date": "2024-08-19",
@@ -11842,11 +12638,11 @@
     },
     {
       "date": "2024-08-22",
-      "tabs": 6
+      "tabs": 5
     },
     {
       "date": "2024-08-23",
-      "tabs": 12
+      "tabs": 13
     },
     {
       "date": "2024-08-24",
@@ -11910,7 +12706,7 @@
     },
     {
       "date": "2024-09-09",
-      "tabs": 3
+      "tabs": 2
     },
     {
       "date": "2024-09-10",
@@ -11934,7 +12730,7 @@
     },
     {
       "date": "2024-09-15",
-      "tabs": 7
+      "tabs": 6
     },
     {
       "date": "2024-09-18",
@@ -11946,7 +12742,7 @@
     },
     {
       "date": "2024-09-20",
-      "tabs": 9
+      "tabs": 10
     },
     {
       "date": "2024-09-21",
@@ -11954,7 +12750,7 @@
     },
     {
       "date": "2024-09-22",
-      "tabs": 10
+      "tabs": 9
     },
     {
       "date": "2024-09-25",
@@ -12062,7 +12858,7 @@
     },
     {
       "date": "2024-10-25",
-      "tabs": 9
+      "tabs": 11
     },
     {
       "date": "2024-10-26",
@@ -12081,16 +12877,12 @@
       "tabs": 4
     },
     {
-      "date": "2024-10-30",
-      "tabs": 1
-    },
-    {
       "date": "2024-10-31",
       "tabs": 21
     },
     {
       "date": "2024-11-01",
-      "tabs": 5
+      "tabs": 6
     },
     {
       "date": "2024-11-02",
@@ -12098,7 +12890,7 @@
     },
     {
       "date": "2024-11-03",
-      "tabs": 9
+      "tabs": 8
     },
     {
       "date": "2024-11-04",
@@ -12122,11 +12914,11 @@
     },
     {
       "date": "2024-11-09",
-      "tabs": 26
+      "tabs": 27
     },
     {
       "date": "2024-11-10",
-      "tabs": 18
+      "tabs": 17
     },
     {
       "date": "2024-11-11",
@@ -12134,11 +12926,11 @@
     },
     {
       "date": "2024-11-12",
-      "tabs": 3
+      "tabs": 1
     },
     {
       "date": "2024-11-13",
-      "tabs": 6
+      "tabs": 5
     },
     {
       "date": "2024-11-14",
@@ -12170,7 +12962,7 @@
     },
     {
       "date": "2024-11-21",
-      "tabs": 4
+      "tabs": 3
     },
     {
       "date": "2024-11-22",
@@ -12209,28 +13001,32 @@
       "tabs": 5
     },
     {
+      "date": "2024-12-03",
+      "tabs": 1
+    },
+    {
       "date": "2024-12-04",
       "tabs": 3
     },
     {
       "date": "2024-12-05",
-      "tabs": 4
+      "tabs": 5
     },
     {
       "date": "2024-12-06",
-      "tabs": 13
-    },
-    {
-      "date": "2024-12-07",
-      "tabs": 24
-    },
-    {
-      "date": "2024-12-08",
       "tabs": 15
     },
     {
+      "date": "2024-12-07",
+      "tabs": 26
+    },
+    {
+      "date": "2024-12-08",
+      "tabs": 14
+    },
+    {
       "date": "2024-12-09",
-      "tabs": 2
+      "tabs": 1
     },
     {
       "date": "2024-12-10",
@@ -12238,7 +13034,7 @@
     },
     {
       "date": "2024-12-11",
-      "tabs": 5
+      "tabs": 6
     },
     {
       "date": "2024-12-12",
@@ -12246,11 +13042,11 @@
     },
     {
       "date": "2024-12-13",
-      "tabs": 18
+      "tabs": 21
     },
     {
       "date": "2024-12-14",
-      "tabs": 22
+      "tabs": 24
     },
     {
       "date": "2024-12-15",
@@ -12266,11 +13062,11 @@
     },
     {
       "date": "2024-12-18",
-      "tabs": 4
+      "tabs": 5
     },
     {
       "date": "2024-12-19",
-      "tabs": 22
+      "tabs": 23
     },
     {
       "date": "2024-12-20",
@@ -12278,11 +13074,11 @@
     },
     {
       "date": "2024-12-21",
-      "tabs": 22
+      "tabs": 23
     },
     {
       "date": "2024-12-22",
-      "tabs": 15
+      "tabs": 13
     },
     {
       "date": "2024-12-23",
@@ -12310,7 +13106,7 @@
     },
     {
       "date": "2024-12-31",
-      "tabs": 27
+      "tabs": 26
     },
     {
       "date": "2025-01-01",
@@ -12318,7 +13114,7 @@
     },
     {
       "date": "2025-01-02",
-      "tabs": 9
+      "tabs": 8
     },
     {
       "date": "2025-01-03",
@@ -12382,7 +13178,7 @@
     },
     {
       "date": "2025-01-19",
-      "tabs": 18
+      "tabs": 16
     },
     {
       "date": "2025-01-20",
@@ -12394,7 +13190,7 @@
     },
     {
       "date": "2025-01-22",
-      "tabs": 1
+      "tabs": 2
     },
     {
       "date": "2025-01-23",
@@ -12410,7 +13206,7 @@
     },
     {
       "date": "2025-01-26",
-      "tabs": 20
+      "tabs": 19
     },
     {
       "date": "2025-01-27",
@@ -12430,7 +13226,7 @@
     },
     {
       "date": "2025-01-31",
-      "tabs": 23
+      "tabs": 24
     },
     {
       "date": "2025-02-01",
@@ -12438,11 +13234,11 @@
     },
     {
       "date": "2025-02-02",
-      "tabs": 18
+      "tabs": 16
     },
     {
       "date": "2025-02-05",
-      "tabs": 2
+      "tabs": 1
     },
     {
       "date": "2025-02-06",
@@ -12458,7 +13254,7 @@
     },
     {
       "date": "2025-02-10",
-      "tabs": 1
+      "tabs": 2
     },
     {
       "date": "2025-02-11",
@@ -12486,7 +13282,7 @@
     },
     {
       "date": "2025-02-17",
-      "tabs": 12
+      "tabs": 11
     },
     {
       "date": "2025-02-18",
@@ -12498,7 +13294,7 @@
     },
     {
       "date": "2025-02-20",
-      "tabs": 3
+      "tabs": 2
     },
     {
       "date": "2025-02-21",
@@ -12510,7 +13306,7 @@
     },
     {
       "date": "2025-02-23",
-      "tabs": 12
+      "tabs": 10
     },
     {
       "date": "2025-02-25",
@@ -12541,6 +13337,10 @@
       "tabs": 2
     },
     {
+      "date": "2025-03-04",
+      "tabs": 1
+    },
+    {
       "date": "2025-03-05",
       "tabs": 1
     },
@@ -12550,7 +13350,7 @@
     },
     {
       "date": "2025-03-07",
-      "tabs": 12
+      "tabs": 13
     },
     {
       "date": "2025-03-08",
@@ -12569,12 +13369,8 @@
       "tabs": 3
     },
     {
-      "date": "2025-03-12",
-      "tabs": 1
-    },
-    {
       "date": "2025-03-13",
-      "tabs": 7
+      "tabs": 6
     },
     {
       "date": "2025-03-14",
@@ -12630,7 +13426,7 @@
     },
     {
       "date": "2025-03-30",
-      "tabs": 11
+      "tabs": 10
     },
     {
       "date": "2025-03-31",
@@ -12646,7 +13442,7 @@
     },
     {
       "date": "2025-04-03",
-      "tabs": 4
+      "tabs": 3
     },
     {
       "date": "2025-04-04",
@@ -12674,7 +13470,7 @@
     },
     {
       "date": "2025-04-10",
-      "tabs": 4
+      "tabs": 5
     },
     {
       "date": "2025-04-11",
@@ -12710,7 +13506,7 @@
     },
     {
       "date": "2025-04-21",
-      "tabs": 2
+      "tabs": 1
     },
     {
       "date": "2025-04-22",
@@ -12722,7 +13518,7 @@
     },
     {
       "date": "2025-04-24",
-      "tabs": 8
+      "tabs": 7
     },
     {
       "date": "2025-04-25",
@@ -12734,7 +13530,7 @@
     },
     {
       "date": "2025-04-27",
-      "tabs": 10
+      "tabs": 9
     },
     {
       "date": "2025-04-29",
@@ -12766,7 +13562,7 @@
     },
     {
       "date": "2025-05-07",
-      "tabs": 3
+      "tabs": 2
     },
     {
       "date": "2025-05-08",
@@ -12798,11 +13594,11 @@
     },
     {
       "date": "2025-05-15",
-      "tabs": 6
+      "tabs": 5
     },
     {
       "date": "2025-05-16",
-      "tabs": 17
+      "tabs": 18
     },
     {
       "date": "2025-05-17",
@@ -12838,7 +13634,7 @@
     },
     {
       "date": "2025-05-25",
-      "tabs": 18
+      "tabs": 16
     },
     {
       "date": "2025-05-26",
@@ -12854,11 +13650,11 @@
     },
     {
       "date": "2025-05-30",
-      "tabs": 14
+      "tabs": 15
     },
     {
       "date": "2025-05-31",
-      "tabs": 22
+      "tabs": 23
     },
     {
       "date": "2025-06-01",
@@ -12894,7 +13690,7 @@
     },
     {
       "date": "2025-06-10",
-      "tabs": 5
+      "tabs": 4
     },
     {
       "date": "2025-06-11",
@@ -12942,7 +13738,7 @@
     },
     {
       "date": "2025-06-22",
-      "tabs": 10
+      "tabs": 7
     },
     {
       "date": "2025-06-23",
@@ -12950,15 +13746,15 @@
     },
     {
       "date": "2025-06-24",
-      "tabs": 7
+      "tabs": 6
     },
     {
       "date": "2025-06-25",
-      "tabs": 5
+      "tabs": 4
     },
     {
       "date": "2025-06-26",
-      "tabs": 9
+      "tabs": 8
     },
     {
       "date": "2025-06-27",
@@ -12974,7 +13770,7 @@
     },
     {
       "date": "2025-07-01",
-      "tabs": 6
+      "tabs": 5
     },
     {
       "date": "2025-07-02",
@@ -12990,7 +13786,7 @@
     },
     {
       "date": "2025-07-06",
-      "tabs": 7
+      "tabs": 6
     },
     {
       "date": "2025-07-07",
@@ -13002,7 +13798,7 @@
     },
     {
       "date": "2025-07-09",
-      "tabs": 4
+      "tabs": 3
     },
     {
       "date": "2025-07-10",
@@ -13010,7 +13806,7 @@
     },
     {
       "date": "2025-07-11",
-      "tabs": 3
+      "tabs": 4
     },
     {
       "date": "2025-07-12",
@@ -13034,7 +13830,7 @@
     },
     {
       "date": "2025-07-17",
-      "tabs": 10
+      "tabs": 8
     },
     {
       "date": "2025-07-18",
@@ -13046,11 +13842,11 @@
     },
     {
       "date": "2025-07-20",
-      "tabs": 11
+      "tabs": 10
     },
     {
       "date": "2025-07-22",
-      "tabs": 3
+      "tabs": 2
     },
     {
       "date": "2025-07-23",
@@ -13058,7 +13854,7 @@
     },
     {
       "date": "2025-07-24",
-      "tabs": 10
+      "tabs": 9
     },
     {
       "date": "2025-07-25",
@@ -13070,7 +13866,7 @@
     },
     {
       "date": "2025-07-27",
-      "tabs": 9
+      "tabs": 8
     },
     {
       "date": "2025-07-28",
@@ -13098,7 +13894,7 @@
     },
     {
       "date": "2025-08-03",
-      "tabs": 8
+      "tabs": 7
     },
     {
       "date": "2025-08-04",
@@ -13106,7 +13902,7 @@
     },
     {
       "date": "2025-08-05",
-      "tabs": 6
+      "tabs": 5
     },
     {
       "date": "2025-08-06",
@@ -13142,7 +13938,7 @@
     },
     {
       "date": "2025-08-14",
-      "tabs": 9
+      "tabs": 8
     },
     {
       "date": "2025-08-15",
@@ -13206,11 +14002,11 @@
     },
     {
       "date": "2025-08-31",
-      "tabs": 11
+      "tabs": 10
     },
     {
       "date": "2025-09-01",
-      "tabs": 8
+      "tabs": 5
     },
     {
       "date": "2025-09-02",
@@ -13230,7 +14026,7 @@
     },
     {
       "date": "2025-09-07",
-      "tabs": 6
+      "tabs": 5
     },
     {
       "date": "2025-09-09",
@@ -13246,7 +14042,7 @@
     },
     {
       "date": "2025-09-12",
-      "tabs": 3
+      "tabs": 4
     },
     {
       "date": "2025-09-13",
@@ -13266,7 +14062,7 @@
     },
     {
       "date": "2025-09-17",
-      "tabs": 3
+      "tabs": 2
     },
     {
       "date": "2025-09-18",
@@ -13282,7 +14078,7 @@
     },
     {
       "date": "2025-09-21",
-      "tabs": 8
+      "tabs": 7
     },
     {
       "date": "2025-09-22",
@@ -13330,7 +14126,7 @@
     },
     {
       "date": "2025-10-05",
-      "tabs": 9
+      "tabs": 8
     },
     {
       "date": "2025-10-06",
@@ -13342,7 +14138,7 @@
     },
     {
       "date": "2025-10-09",
-      "tabs": 8
+      "tabs": 1
     },
     {
       "date": "2025-10-10",
@@ -13386,7 +14182,7 @@
     },
     {
       "date": "2025-10-21",
-      "tabs": 5
+      "tabs": 4
     },
     {
       "date": "2025-10-22",
@@ -13406,7 +14202,7 @@
     },
     {
       "date": "2025-10-26",
-      "tabs": 8
+      "tabs": 7
     },
     {
       "date": "2025-10-27",
@@ -13414,7 +14210,7 @@
     },
     {
       "date": "2025-10-28",
-      "tabs": 3
+      "tabs": 2
     },
     {
       "date": "2025-10-29",
@@ -13446,7 +14242,7 @@
     },
     {
       "date": "2025-11-06",
-      "tabs": 11
+      "tabs": 2
     },
     {
       "date": "2025-11-07",
@@ -13462,11 +14258,11 @@
     },
     {
       "date": "2025-11-10",
-      "tabs": 5
+      "tabs": 4
     },
     {
       "date": "2025-11-11",
-      "tabs": 4
+      "tabs": 5
     },
     {
       "date": "2025-11-12",
@@ -13486,7 +14282,7 @@
     },
     {
       "date": "2025-11-16",
-      "tabs": 43
+      "tabs": 40
     },
     {
       "date": "2025-11-17",
@@ -13506,7 +14302,7 @@
     },
     {
       "date": "2025-11-21",
-      "tabs": 8
+      "tabs": 9
     },
     {
       "date": "2025-11-22",
@@ -13522,7 +14318,7 @@
     },
     {
       "date": "2025-11-25",
-      "tabs": 11
+      "tabs": 10
     },
     {
       "date": "2025-11-26",
@@ -13550,7 +14346,7 @@
     },
     {
       "date": "2025-12-05",
-      "tabs": 12
+      "tabs": 13
     },
     {
       "date": "2025-12-06",
@@ -13558,7 +14354,7 @@
     },
     {
       "date": "2025-12-07",
-      "tabs": 5
+      "tabs": 4
     },
     {
       "date": "2025-12-08",
@@ -13566,7 +14362,7 @@
     },
     {
       "date": "2025-12-09",
-      "tabs": 3
+      "tabs": 4
     },
     {
       "date": "2025-12-10",
@@ -13578,7 +14374,7 @@
     },
     {
       "date": "2025-12-12",
-      "tabs": 9
+      "tabs": 11
     },
     {
       "date": "2025-12-13",
@@ -13586,7 +14382,7 @@
     },
     {
       "date": "2025-12-14",
-      "tabs": 16
+      "tabs": 14
     },
     {
       "date": "2025-12-15",
@@ -13594,7 +14390,7 @@
     },
     {
       "date": "2025-12-16",
-      "tabs": 5
+      "tabs": 6
     },
     {
       "date": "2025-12-17",
@@ -13602,7 +14398,7 @@
     },
     {
       "date": "2025-12-18",
-      "tabs": 15
+      "tabs": 16
     },
     {
       "date": "2025-12-19",
@@ -13610,19 +14406,19 @@
     },
     {
       "date": "2025-12-20",
-      "tabs": 20
+      "tabs": 21
     },
     {
       "date": "2025-12-21",
-      "tabs": 24
+      "tabs": 23
     },
     {
       "date": "2025-12-22",
-      "tabs": 11
+      "tabs": 10
     },
     {
       "date": "2025-12-23",
-      "tabs": 23
+      "tabs": 20
     },
     {
       "date": "2025-12-26",
@@ -13634,23 +14430,23 @@
     },
     {
       "date": "2025-12-28",
-      "tabs": 21
+      "tabs": 20
     },
     {
       "date": "2025-12-29",
-      "tabs": 7
+      "tabs": 6
     },
     {
       "date": "2025-12-30",
-      "tabs": 22
+      "tabs": 21
     },
     {
       "date": "2025-12-31",
-      "tabs": 45
+      "tabs": 43
     },
     {
       "date": "2026-01-01",
-      "tabs": 44
+      "tabs": 43
     },
     {
       "date": "2026-01-02",
@@ -13702,7 +14498,7 @@
     },
     {
       "date": "2026-01-15",
-      "tabs": 2
+      "tabs": 3
     },
     {
       "date": "2026-01-16",
@@ -13714,7 +14510,7 @@
     },
     {
       "date": "2026-01-18",
-      "tabs": 16
+      "tabs": 15
     },
     {
       "date": "2026-01-19",
@@ -13738,7 +14534,7 @@
     },
     {
       "date": "2026-01-25",
-      "tabs": 16
+      "tabs": 14
     },
     {
       "date": "2026-01-26",
@@ -13766,7 +14562,7 @@
     },
     {
       "date": "2026-02-01",
-      "tabs": 11
+      "tabs": 10
     },
     {
       "date": "2026-02-02",
@@ -13798,7 +14594,7 @@
     },
     {
       "date": "2026-02-10",
-      "tabs": 11
+      "tabs": 10
     },
     {
       "date": "2026-02-11",
@@ -13826,7 +14622,7 @@
     },
     {
       "date": "2026-02-17",
-      "tabs": 4
+      "tabs": 3
     },
     {
       "date": "2026-02-18",
@@ -13834,7 +14630,7 @@
     },
     {
       "date": "2026-02-19",
-      "tabs": 7
+      "tabs": 6
     },
     {
       "date": "2026-02-20",
@@ -13870,7 +14666,7 @@
     },
     {
       "date": "2026-02-28",
-      "tabs": 28
+      "tabs": 29
     },
     {
       "date": "2026-03-01",
@@ -13894,7 +14690,7 @@
     },
     {
       "date": "2026-03-08",
-      "tabs": 15
+      "tabs": 14
     },
     {
       "date": "2026-03-10",
@@ -13906,7 +14702,7 @@
     },
     {
       "date": "2026-03-12",
-      "tabs": 4
+      "tabs": 5
     },
     {
       "date": "2026-03-13",
@@ -13918,7 +14714,7 @@
     },
     {
       "date": "2026-03-15",
-      "tabs": 10
+      "tabs": 9
     },
     {
       "date": "2026-03-16",
@@ -14014,7 +14810,7 @@
     },
     {
       "date": "2026-04-12",
-      "tabs": 12
+      "tabs": 11
     },
     {
       "date": "2026-04-14",
@@ -14038,7 +14834,7 @@
     },
     {
       "date": "2026-04-19",
-      "tabs": 12
+      "tabs": 10
     },
     {
       "date": "2026-04-20",
@@ -14054,7 +14850,7 @@
     },
     {
       "date": "2026-04-23",
-      "tabs": 7
+      "tabs": 6
     },
     {
       "date": "2026-04-24",
@@ -14070,7 +14866,7 @@
     },
     {
       "date": "2026-04-28",
-      "tabs": 5
+      "tabs": 4
     },
     {
       "date": "2026-04-29",
@@ -14094,7 +14890,7 @@
     },
     {
       "date": "2026-05-05",
-      "tabs": 6
+      "tabs": 7
     },
     {
       "date": "2026-05-06",
@@ -14114,7 +14910,7 @@
     },
     {
       "date": "2026-05-10",
-      "tabs": 31
+      "tabs": 30
     },
     {
       "date": "2026-05-11",
@@ -14130,7 +14926,7 @@
     },
     {
       "date": "2026-05-14",
-      "tabs": 1
+      "tabs": 2
     },
     {
       "date": "2026-05-15",
@@ -14174,7 +14970,7 @@
     },
     {
       "date": "2026-05-26",
-      "tabs": 11
+      "tabs": 8
     },
     {
       "date": "2026-05-27",
@@ -14182,11 +14978,11 @@
     },
     {
       "date": "2026-05-28",
-      "tabs": 8
+      "tabs": 6
     },
     {
       "date": "2026-05-29",
-      "tabs": 10
+      "tabs": 11
     },
     {
       "date": "2026-05-30",
@@ -14194,7 +14990,7 @@
     },
     {
       "date": "2026-05-31",
-      "tabs": 7
+      "tabs": 6
     },
     {
       "date": "2026-06-01",
@@ -14202,11 +14998,11 @@
     },
     {
       "date": "2026-06-02",
-      "tabs": 4
+      "tabs": 5
     },
     {
       "date": "2026-06-03",
-      "tabs": 5
+      "tabs": 4
     },
     {
       "date": "2026-06-04",
@@ -14222,7 +15018,7 @@
     },
     {
       "date": "2026-06-07",
-      "tabs": 9
+      "tabs": 8
     },
     {
       "date": "2026-06-08",
@@ -14238,7 +15034,7 @@
     },
     {
       "date": "2026-06-11",
-      "tabs": 5
+      "tabs": 6
     },
     {
       "date": "2026-06-12",
@@ -14250,11 +15046,11 @@
     },
     {
       "date": "2026-06-14",
-      "tabs": 11
+      "tabs": 9
     },
     {
       "date": "2026-06-15",
-      "tabs": 2
+      "tabs": 1
     },
     {
       "date": "2026-06-16",
@@ -14262,7 +15058,7 @@
     },
     {
       "date": "2026-06-17",
-      "tabs": 5
+      "tabs": 4
     },
     {
       "date": "2026-06-18",
@@ -14278,7 +15074,7 @@
     },
     {
       "date": "2026-06-21",
-      "tabs": 40
+      "tabs": 34
     },
     {
       "date": "2026-06-22",
@@ -14294,7 +15090,7 @@
     },
     {
       "date": "2026-06-25",
-      "tabs": 6
+      "tabs": 5
     },
     {
       "date": "2026-06-26",
@@ -14314,11 +15110,11 @@
     },
     {
       "date": "2026-06-30",
-      "tabs": 3
+      "tabs": 5
     },
     {
       "date": "2026-07-01",
-      "tabs": 5
+      "tabs": 4
     },
     {
       "date": "2026-07-02",
@@ -14346,7 +15142,7 @@
     },
     {
       "date": "2026-07-09",
-      "tabs": 10
+      "tabs": 11
     },
     {
       "date": "2026-07-10",
@@ -14354,11 +15150,11 @@
     },
     {
       "date": "2026-07-11",
-      "tabs": 16
+      "tabs": 17
     },
     {
       "date": "2026-07-12",
-      "tabs": 8
+      "tabs": 7
     },
     {
       "date": "2026-07-13",
@@ -14374,7 +15170,7 @@
     },
     {
       "date": "2026-07-16",
-      "tabs": 6
+      "tabs": 4
     },
     {
       "date": "2026-07-17",
@@ -14386,7 +15182,7 @@
     },
     {
       "date": "2026-07-19",
-      "tabs": 4
+      "tabs": 3
     },
     {
       "date": "2026-07-20",
@@ -14394,7 +15190,7 @@
     },
     {
       "date": "2026-07-21",
-      "tabs": 3
+      "tabs": 5
     },
     {
       "date": "2026-07-22",
@@ -14422,7 +15218,7 @@
     },
     {
       "date": "2026-07-28",
-      "tabs": 5
+      "tabs": 4
     },
     {
       "date": "2026-07-29",
@@ -14443,10 +15239,6 @@
     {
       "date": "2026-08-02",
       "tabs": 9
-    },
-    {
-      "date": "2026-08-03",
-      "tabs": 2
     },
     {
       "date": "2026-08-04",
@@ -14486,7 +15278,7 @@
     },
     {
       "date": "2026-08-13",
-      "tabs": 1
+      "tabs": 4
     },
     {
       "date": "2026-08-14",
@@ -14502,7 +15294,7 @@
     },
     {
       "date": "2026-08-17",
-      "tabs": 2
+      "tabs": 1
     },
     {
       "date": "2026-08-18",
@@ -14514,7 +15306,7 @@
     },
     {
       "date": "2026-08-20",
-      "tabs": 4
+      "tabs": 7
     },
     {
       "date": "2026-08-21",
@@ -14533,16 +15325,12 @@
       "tabs": 1
     },
     {
-      "date": "2026-08-25",
-      "tabs": 1
-    },
-    {
       "date": "2026-08-26",
-      "tabs": 3
+      "tabs": 4
     },
     {
       "date": "2026-08-27",
-      "tabs": 2
+      "tabs": 3
     },
     {
       "date": "2026-08-28",
@@ -14558,7 +15346,7 @@
     },
     {
       "date": "2026-08-31",
-      "tabs": 4
+      "tabs": 3
     },
     {
       "date": "2026-09-01",
@@ -14578,15 +15366,15 @@
     },
     {
       "date": "2026-09-05",
-      "tabs": 19
+      "tabs": 20
     },
     {
       "date": "2026-09-06",
-      "tabs": 21
+      "tabs": 15
     },
     {
       "date": "2026-09-07",
-      "tabs": 9
+      "tabs": 8
     },
     {
       "date": "2026-09-08",
@@ -14610,8 +15398,8 @@
     }
   ],
   "validation": {
-    "distinctTabs": 11169,
-    "cellSum": 11194,
-    "delta": 25
+    "distinctTabs": 11021,
+    "cellSum": 11071,
+    "delta": 50
   }
 }
