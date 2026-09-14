@@ -55,6 +55,19 @@ export function getLast7Days(anchor?: string | null): DateRange {
   return trailingWindow(anchor, 7);
 }
 
+export function getLast30Days(anchor?: string | null): DateRange {
+  return trailingWindow(anchor, 30);
+}
+
+export function getLast90Days(anchor?: string | null): DateRange {
+  return trailingWindow(anchor, 90);
+}
+
+export function getLast12Months(anchor?: string | null): DateRange {
+  const end = resolveAnchor(anchor);
+  return [shiftDays(shiftYears(end, -1), 1), end];
+}
+
 export function getMTD(anchor?: string | null): DateRange {
   const end = resolveAnchor(anchor);
   return [`${end.slice(0, 7)}-01`, end];
@@ -63,6 +76,59 @@ export function getMTD(anchor?: string | null): DateRange {
 export function getYTD(anchor?: string | null): DateRange {
   const end = resolveAnchor(anchor);
   return [`${end.slice(0, 4)}-01-01`, end];
+}
+
+export function daysInclusive(range: DateRange): number {
+  const [y1, m1, d1] = range[0].split('-').map(Number);
+  const [y2, m2, d2] = range[1].split('-').map(Number);
+  const start = new Date(y1, m1 - 1, d1);
+  const end = new Date(y2, m2 - 1, d2);
+  return Math.round((end.getTime() - start.getTime()) / 86_400_000) + 1;
+}
+
+/** Same-length window ending the day before `range` starts. */
+export function priorEqualLength(range: DateRange): DateRange {
+  const days = daysInclusive(range);
+  const priorEnd = shiftDays(range[0], -1);
+  return [shiftDays(priorEnd, -(days - 1)), priorEnd];
+}
+
+/** Same calendar dates shifted back one year. */
+export function priorCalendarYear(range: DateRange): DateRange {
+  return [shiftYears(range[0], -1), shiftYears(range[1], -1)];
+}
+
+/** Move a window so its end date falls in `year`, keeping length and month/day. */
+export function shiftRangeToYear(range: DateRange, year: number): DateRange {
+  const currentYear = Number(range[1].slice(0, 4));
+  if (!Number.isFinite(currentYear) || !Number.isFinite(year)) return range;
+  const delta = year - currentYear;
+  if (delta === 0) return range;
+  return [shiftYears(range[0], delta), shiftYears(range[1], delta)];
+}
+
+export function defaultCompareYear(dataThrough?: string | null): number {
+  const through = dataThrough && ISO_RE.test(dataThrough) ? dataThrough : todayISO();
+  return Number(through.slice(0, 4)) - 1;
+}
+
+/** Years we can compare against, newest first, excluding the current data year. */
+export function compareYearOptions(
+  dataStart?: string | null,
+  dataThrough?: string | null,
+): number[] {
+  const throughY = dataThrough && ISO_RE.test(dataThrough)
+    ? Number(dataThrough.slice(0, 4))
+    : Number(todayISO().slice(0, 4));
+  const startY = Math.min(
+    dataStart && ISO_RE.test(dataStart)
+      ? Number(dataStart.slice(0, 4))
+      : throughY - 3,
+    throughY - 1,
+  );
+  const years: number[] = [];
+  for (let y = throughY - 1; y >= startY; y--) years.push(y);
+  return years;
 }
 
 export const DATE_PRESETS: DateRangePreset[] = [
@@ -94,10 +160,7 @@ export const DATE_PRESETS: DateRangePreset[] = [
   {
     id: '12mo',
     label: 'Last 12 Months',
-    range: (anchor) => {
-      const end = resolveAnchor(anchor);
-      return [shiftDays(shiftYears(end, -1), 1), end];
-    },
+    range: (anchor) => getLast12Months(anchor),
   },
   {
     id: 'prior-year',

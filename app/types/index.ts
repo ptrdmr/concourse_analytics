@@ -297,6 +297,30 @@ export interface GratuityData {
   dates: Record<string, GratuityDay>;
 }
 
+export interface ReservationCountRow {
+  date: string;
+  type: string;
+  count: number;
+}
+
+export interface ReservationDailyTabs {
+  date: string;
+  tabs: number;
+}
+
+export interface ReservationCountsData {
+  generatedAt: string;
+  dateRange: [string, string];
+  types: string[];
+  rows: ReservationCountRow[];
+  dailyTabs: ReservationDailyTabs[];
+  validation?: {
+    distinctTabs: number;
+    cellSum: number;
+    delta: number;
+  };
+}
+
 export interface EmployeeRankings {
   salesRank: number | null;
   salesPercentile: number | null;

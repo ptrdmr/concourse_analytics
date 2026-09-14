@@ -2103,6 +2103,12 @@ def main():
             return 1
         print(f'Ticket months: {", ".join(sorted(by_month))}')
         export_gratuity(by_month)
+        print('\nReservation counts...')
+        _scripts = os.path.join(_ROOT, 'scripts')
+        if _scripts not in sys.path:
+            sys.path.insert(0, _scripts)
+        from reservation_counts import export_reservation_counts
+        export_reservation_counts(by_month)
         return 0
 
     print('=' * 60)
@@ -2159,6 +2165,16 @@ def main():
 
     print('\n[8b/13] Gratuity (daypart x terminal)...')
     export_gratuity(by_month)
+
+    print('\n[8c/14] Reservation counts...')
+    try:
+        _scripts = os.path.join(_ROOT, 'scripts')
+        if _scripts not in sys.path:
+            sys.path.insert(0, _scripts)
+        from reservation_counts import export_reservation_counts
+        export_reservation_counts(by_month)
+    except ImportError as e:
+        print(f'  SKIP: reservation_counts not available ({e})')
 
     print('\n[9/13] Payments...')
     export_payments(csv_files)

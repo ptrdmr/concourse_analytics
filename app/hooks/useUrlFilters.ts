@@ -171,6 +171,68 @@ export function useUrlCompareState(defaults: {
   };
 }
 
+/** Reservations page: one date window + optional compare year. */
+export function useUrlReservationsState(defaults: {
+  periodA: DateRange;
+  vsYear: number;
+}) {
+  const { get, replaceParams, searchParams } = useUrlParams();
+
+  const compare = get('compare') === '1';
+  const periodA = useMemo(
+    () => parseDateRangeFromUrl(get('from'), get('to')) ?? defaults.periodA,
+    [searchParams, defaults.periodA, get],
+  );
+  const vsRaw = get('vs');
+  const vsYear = vsRaw && /^\d{4}$/.test(vsRaw) ? Number(vsRaw) : defaults.vsYear;
+
+  const setPeriodA = useCallback(
+    (range: DateRange | null) => {
+      if (!range) {
+        replaceParams({ from: null, to: null });
+      } else {
+        replaceParams({ from: range[0], to: range[1] });
+      }
+    },
+    [replaceParams],
+  );
+
+  const setCompare = useCallback(
+    (on: boolean) => {
+      if (on) {
+        replaceParams({
+          compare: '1',
+          vs: String(defaults.vsYear),
+        });
+      } else {
+        replaceParams({ compare: null, vs: null, bFrom: null, bTo: null });
+      }
+    },
+    [replaceParams, defaults.vsYear],
+  );
+
+  const setVsYear = useCallback(
+    (year: number) => {
+      replaceParams({
+        compare: '1',
+        vs: String(year),
+        bFrom: null,
+        bTo: null,
+      });
+    },
+    [replaceParams],
+  );
+
+  return {
+    compare,
+    periodA,
+    vsYear,
+    setCompare,
+    setPeriodA,
+    setVsYear,
+  };
+}
+
 /** Payments page: day vs range mode */
 export function useUrlPaymentsState(defaults: {
   mode: 'day' | 'range';

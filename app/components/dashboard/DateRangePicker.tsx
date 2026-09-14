@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, type ReactNode } from 'react';
 import { Calendar } from 'lucide-react';
 import { DATE_PRESETS, findPresetId, type DateRange } from '@/lib/date-ranges';
 
@@ -9,9 +9,12 @@ interface Props {
   onChange: (range: DateRange | null) => void;
   /** Last date with sales data; presets end here instead of on today. */
   dataThrough?: string | null;
+  /** Extra chips on the same row (e.g. Compare year). */
+  trailing?: ReactNode;
+  footnote?: ReactNode;
 }
 
-export function DateRangePicker({ value, onChange, dataThrough }: Props) {
+export function DateRangePicker({ value, onChange, dataThrough, trailing, footnote }: Props) {
   const [forceCustom, setForceCustom] = useState(false);
   const detectedId = findPresetId(value, dataThrough);
   const activeId = forceCustom ? 'custom' : detectedId;
@@ -64,6 +67,7 @@ export function DateRangePicker({ value, onChange, dataThrough }: Props) {
         >
           Custom
         </button>
+        {trailing}
       </div>
 
       {activeId === 'custom' && (
@@ -90,9 +94,11 @@ export function DateRangePicker({ value, onChange, dataThrough }: Props) {
         </div>
       )}
 
-      {value && (
+      {(value || footnote) && (
         <p className="text-xs text-muted">
-          Showing {value[0]} to {value[1]}
+          {value ? `Showing ${value[0]} to ${value[1]}` : null}
+          {value && footnote ? ' · ' : null}
+          {footnote}
         </p>
       )}
     </div>
