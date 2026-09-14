@@ -59,7 +59,7 @@ function SpecialsContent() {
       'Dashboard: Specials',
       `Date Range: ${dateRange ? `${dateRange[0]} to ${dateRange[1]}` : 'All time'}`,
       '',
-      'Summer package specials:',
+      'Package specials:',
       ...packageItems.slice(0, 10).map(
         (p, i) => `${i + 1}. ${p.name} - ${formatCurrency(p.revenue)} (qty: ${formatNumber(p.quantity)})`,
       ),
@@ -87,7 +87,7 @@ function SpecialsContent() {
         <div>
           <h1 className="text-2xl sm:text-3xl font-bold text-gradient">Specials</h1>
           <p className="text-sm text-muted mt-1">
-            Summer package performance and specialty cocktail sales
+            Seasonal package performance and specialty cocktail sales
           </p>
         </div>
 

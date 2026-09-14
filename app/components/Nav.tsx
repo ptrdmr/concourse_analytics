@@ -14,7 +14,7 @@ const NAV_LINKS = [
   { href: '/explorer', label: 'Data Explorer', desc: 'Dive into raw data & custom queries' },
   { href: '/dayparts', label: 'Dayparts', desc: 'Item sales by time of day' },
   { href: '/compare', label: 'Compare', desc: 'Side-by-side period comparisons' },
-  { href: '/specials', label: 'Specials', desc: 'Summer packages & specialty cocktails' },
+  { href: '/specials', label: 'Specials', desc: 'Seasonal packages & specialty cocktails' },
   { href: '/holidays', label: 'Holiday Analysis', desc: 'Performance around holidays & events' },
   { href: '/bowling', label: 'Bowling Forecast', desc: 'Projected bowling lane revenue' },
   { href: '/tickets', label: 'Ticket Lookup', desc: 'Search tickets by date or number' },

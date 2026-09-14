@@ -73,6 +73,7 @@ CATEGORY_COLORS = {
     'League Fees':        '#ffd700',
     'League Bowling':     '#60a5fa',
     'Summer Specials':    '#22c55e',
+    'Fall Specials':      '#ea580c',
     # Modifiers subdepartments
     'Food Mods':           '#2563eb',
     'Food':                '#60a5fa',
@@ -1547,10 +1548,11 @@ def export_payments(csv_files):
 
 
 # =============================================================================
-# EXPORT: packages.json (summer specials / package sales)
+# EXPORT: packages.json (seasonal specials / package sales)
 # =============================================================================
 
 PACKAGE_DEFS = [
+    {'displayName': 'Fall Bowling Special', 'posName': 'Fall Game Special', 'kind': 'package', 'category': 'Fall Specials'},
     {'displayName': 'Summer Triple Play', 'posName': 'Summer Triple PLay', 'kind': 'package'},
     {'displayName': 'Monday Roll Call', 'posName': 'Monday Roll Call', 'kind': 'package'},
     {'displayName': 'First Roll Friday', 'posName': 'Friday First Role', 'kind': 'package'},
@@ -1564,6 +1566,7 @@ PACKAGE_POS_NAMES = {d['posName'] for d in PACKAGE_DEFS if d['kind'] == 'package
 CHARGE_POS_NAMES = {d['posName'] for d in PACKAGE_DEFS if d['kind'] == 'charge'}
 POS_TO_DISPLAY = {d['posName']: d['displayName'] for d in PACKAGE_DEFS}
 PACKAGE_CATEGORY = 'Summer Specials'
+DISPLAY_TO_CATEGORY = {d['displayName']: d.get('category', PACKAGE_CATEGORY) for d in PACKAGE_DEFS}
 PACKAGE_DEPARTMENT = 'Bowling'
 
 
@@ -1591,7 +1594,7 @@ def _package_child_revenue(txn_rows, package_item_id):
 
 def aggregate_packages(csv_files):
     """
-    Export date-granular rows for tracked summer specials.
+    Export date-granular rows for tracked seasonal specials.
     Package-type items get revenue from bundled children (Sold in Package).
     Charge-type items use the charge product line directly.
     """
@@ -1685,7 +1688,7 @@ def aggregate_packages(csv_files):
             'name': display_name,
             'department': PACKAGE_DEPARTMENT,
             'subdepartment': 'Packages',
-            'category': PACKAGE_CATEGORY,
+            'category': DISPLAY_TO_CATEGORY.get(display_name, PACKAGE_CATEGORY),
             'quantity': data['quantity'],
             'revenue': round(data['revenue'], 2),
             'transactions': len(data['txn_ids']),
@@ -1696,7 +1699,7 @@ def aggregate_packages(csv_files):
 
 
 def export_packages(csv_files):
-    """Export package / summer special rows for the Package Detail dashboard."""
+    """Export package / seasonal special rows for the Package Detail dashboard."""
     rows = aggregate_packages(csv_files)
     out = os.path.join(OUTPUT_DIR, 'packages.json')
     _atomic_write_json(out, rows, separators=(',', ':'))
@@ -2160,7 +2163,7 @@ def main():
     print('\n[9/13] Payments...')
     export_payments(csv_files)
 
-    print('\n[10/12] Packages (summer specials)...')
+    print('\n[10/12] Packages (seasonal specials)...')
     export_packages(csv_files)
 
     print('\n[11/12] Intraday sales (by department/year)...')

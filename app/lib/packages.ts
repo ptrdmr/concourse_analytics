@@ -5,6 +5,7 @@ export const PACKAGE_CATEGORY = 'Summer Specials';
 
 /** Display order for the Package Detail table. */
 export const PACKAGE_DISPLAY_ORDER = [
+  'Fall Bowling Special',
   'Summer Triple Play',
   'All You Can Bowl',
   'Monday Roll Call',
