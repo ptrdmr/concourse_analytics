@@ -25,6 +25,7 @@ _ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 OUTPUT_DIR = os.path.join(_ROOT, 'public', 'data')
 DATA_DIR = os.path.join(_ROOT, 'data')
 CATEGORY_OVERRIDES = os.path.join(_ROOT, 'config', 'categories.json')
+PACKAGE_ALIASES_CONFIG = os.path.join(_ROOT, 'config', 'package_aliases.json')
 SERVICE_CHARGES_CONFIG = os.path.join(_ROOT, 'config', 'service_charges.json')
 GRATUITY_CONFIG = os.path.join(_ROOT, 'config', 'gratuity.json')
 EMPLOYEES_POS_OUTPUT = os.path.join(OUTPUT_DIR, '_employees_pos.json')
@@ -74,6 +75,11 @@ CATEGORY_COLORS = {
     'League Bowling':     '#60a5fa',
     'Summer Specials':    '#22c55e',
     'Fall Specials':      '#ea580c',
+    'Winter Specials':    '#38bdf8',
+    'Spring Specials':    '#a3e635',
+    'Bowling Packages':   '#4ade80',
+    'Bar Packages':       '#00b0ff',
+    'Food Packages':      '#60a5fa',
     # Modifiers subdepartments
     'Food Mods':           '#2563eb',
     'Food':                '#60a5fa',
@@ -1548,37 +1554,77 @@ def export_payments(csv_files):
 
 
 # =============================================================================
-# EXPORT: packages.json (seasonal specials / package sales)
+# EXPORT: packages.json (discovered POS packages + bowling charge specials)
 # =============================================================================
 
-PACKAGE_DEFS = [
-    {'displayName': 'Fall Bowling Special', 'posName': 'Fall Game Special', 'kind': 'package', 'category': 'Fall Specials'},
-    {'displayName': 'Summer Triple Play', 'posName': 'Summer Triple PLay', 'kind': 'package'},
-    {'displayName': 'Monday Roll Call', 'posName': 'Monday Roll Call', 'kind': 'package'},
-    {'displayName': 'First Roll Friday', 'posName': 'Friday First Role', 'kind': 'package'},
-    {'displayName': 'All You Can Bowl', 'posName': 'All you can bowl - Charge', 'kind': 'charge'},
-    {'displayName': 'Family Fun Pack', 'posName': 'Family Fun Pack Charge', 'kind': 'charge'},
-    {'displayName': 'Summer Party Builder', 'posName': 'Summer Party Builder Charge', 'kind': 'charge'},
-    {'displayName': 'Group Party Pack', 'posName': 'Group Party Charge', 'kind': 'charge'},
-]
+CHARGE_DEPTS = {'Bowling', 'Parties'}
+# Reservation/booking SKUs stay on /reservations. Party packs (Party Builder,
+# Group Party, Family Fun Pack) are kept here as charge-style specials.
+CHARGE_EXCLUDE_NEEDLES = (
+    'lane reservation',
+    'pair & spare',
+    'supercharge',
+    'sports party',
+    'summer special',
+    'mothers day',
+    "mother's day",
+    'nye reservation',
+)
+# Suite / named-program packages are bookings, not walk-up specials.
+RESERVATION_PACKAGE_NEEDLES = (
+    'supercharge',
+    'strike zone',
+    'kingpin',
+    'powerhouse',
+    'adult party',
+    'lane reservation',
+    'pair & spare',
+    'sports party',
+    'jr. strikers',
+    'jr strikers',
+    'half house',
+    'full facility',
+    'full house',
+    'nye reservation',
+)
 
-PACKAGE_POS_NAMES = {d['posName'] for d in PACKAGE_DEFS if d['kind'] == 'package'}
-CHARGE_POS_NAMES = {d['posName'] for d in PACKAGE_DEFS if d['kind'] == 'charge'}
-POS_TO_DISPLAY = {d['posName']: d['displayName'] for d in PACKAGE_DEFS}
-PACKAGE_CATEGORY = 'Summer Specials'
-DISPLAY_TO_CATEGORY = {d['displayName']: d.get('category', PACKAGE_CATEGORY) for d in PACKAGE_DEFS}
-PACKAGE_DEPARTMENT = 'Bowling'
+
+def load_package_aliases():
+    """Load optional POS name -> display name map. Missing file is fine."""
+    if not os.path.isfile(PACKAGE_ALIASES_CONFIG):
+        return {}
+    with open(PACKAGE_ALIASES_CONFIG, 'r', encoding='utf-8') as f:
+        data = json.load(f)
+    data.pop('_comment', None)
+    return {str(k): str(v) for k, v in data.items() if not str(k).startswith('_')}
 
 
-def _package_child_revenue(txn_rows, package_item_id):
-    """Sum bundled product revenue for one Package line item in a transaction."""
+def _package_display_name(pos_name, aliases):
+    return aliases.get(pos_name, pos_name)
+
+
+def _season_category(name):
+    low = (name or '').lower()
+    if 'fall' in low:
+        return 'Fall Specials'
+    if 'winter' in low:
+        return 'Winter Specials'
+    if 'spring' in low:
+        return 'Spring Specials'
+    if 'summer' in low:
+        return 'Summer Specials'
+    return None
+
+
+def _package_children(txn_rows, package_item_id):
+    """Product lines bundled under one Package header (Sold in Package)."""
     pkg_id = int(package_item_id)
     next_pkg_id = None
     for r in txn_rows:
         if r['item_type'] == 'Package' and int(r['item_id']) > pkg_id:
             next_pkg_id = int(r['item_id'])
             break
-    total = 0.0
+    kids = []
     for r in txn_rows:
         if r['item_type'] != 'Product' or not r.get('sold_in_package'):
             continue
@@ -1587,18 +1633,91 @@ def _package_child_revenue(txn_rows, package_item_id):
             continue
         if next_pkg_id is not None and iid >= next_pkg_id:
             continue
+        kids.append(r)
+    return kids
+
+
+def _package_child_revenue(children):
+    total = 0.0
+    for r in children:
         amt = r['item_total'] if r['item_total'] != 0 else (r['unit_price'] * (r['qty'] or 1))
         total += amt
     return total
 
 
+def _infer_dept_and_category_from_name(name, fallback_dept=''):
+    """When bundled children are missing, classify from the package name."""
+    low = (name or '').lower()
+    season = _season_category(name)
+    if 'bucket' in low or 'shot' in low:
+        return 'Bar', 'Bar Packages'
+    if any(n in low for n in ('pizza', 'taco', 'combo', 'platter', 'pitcher', 'salad', 'wing')):
+        return 'Food', 'Food Packages'
+    if fallback_dept == 'Bar':
+        return 'Bar', 'Bar Packages'
+    if fallback_dept == 'Food':
+        return 'Food', 'Food Packages'
+    return 'Bowling', season or 'Bowling Packages'
+
+
+def _package_dept_and_category(name, children, fallback_dept=''):
+    """Classify from bundled child departments; season from the package name."""
+    depts = {(c.get('department') or '').strip() for c in children}
+    depts.discard('')
+    season = _season_category(name)
+
+    if 'Bowling' in depts:
+        return 'Bowling', season or 'Bowling Packages'
+    if depts and depts <= {'Bar'}:
+        return 'Bar', 'Bar Packages'
+    if 'Food' in depts:
+        return 'Food', 'Food Packages'
+    return _infer_dept_and_category_from_name(name, fallback_dept)
+
+
+def _is_reservation_package(name):
+    low = (name or '').lower()
+    if 'test' in low:
+        return True
+    return any(needle in low for needle in RESERVATION_PACKAGE_NEEDLES)
+
+
+def _is_package_charge(name, department, sold_in_package):
+    """Walk-up bowling/party charge specials, not reservation booking SKUs."""
+    if sold_in_package:
+        return False
+    if department not in CHARGE_DEPTS:
+        return False
+    low = (name or '').lower()
+    if 'charge' not in low:
+        return False
+    return not any(needle in low for needle in CHARGE_EXCLUDE_NEEDLES)
+
+
+def _charge_dept_and_category(name, department):
+    season = _season_category(name)
+    if department == 'Bar':
+        return 'Bar', 'Bar Packages'
+    if department == 'Food':
+        return 'Food', 'Food Packages'
+    return 'Bowling', season or 'Bowling Packages'
+
+
 def aggregate_packages(csv_files):
     """
-    Export date-granular rows for tracked seasonal specials.
+    Export date-granular rows for every POS Package that sold, plus bowling
+    Charge products that are not reservation SKUs.
     Package-type items get revenue from bundled children (Sold in Package).
     Charge-type items use the charge product line directly.
     """
-    agg = defaultdict(lambda: {'revenue': 0.0, 'quantity': 0, 'txn_ids': set()})
+    aliases = load_package_aliases()
+    agg = defaultdict(lambda: {
+        'revenue': 0.0,
+        'quantity': 0,
+        'txn_ids': set(),
+        'department': None,
+        'category': None,
+    })
 
     columns = [
         'Transaction ID', 'Item ID', 'Name', 'Item Type',
@@ -1664,20 +1783,33 @@ def aggregate_packages(csv_files):
     for txn_id, rows in by_txn.items():
         rows.sort(key=lambda r: r['item_id'])
         for r in rows:
-            if r['item_type'] == 'Package' and r['name'] in PACKAGE_POS_NAMES:
-                display = POS_TO_DISPLAY[r['name']]
-                revenue = _package_child_revenue(rows, r['item_id'])
+            if r['item_type'] == 'Package':
+                if _is_reservation_package(r['name']):
+                    continue
+                children = _package_children(rows, r['item_id'])
+                display = _package_display_name(r['name'], aliases)
+                revenue = _package_child_revenue(children)
+                dept, category = _package_dept_and_category(display, children, r['department'])
                 bucket = (r['date'], display)
                 agg[bucket]['revenue'] += revenue
                 agg[bucket]['quantity'] += 1
                 agg[bucket]['txn_ids'].add(txn_id)
-            elif r['item_type'] == 'Product' and r['name'] in CHARGE_POS_NAMES:
-                display = POS_TO_DISPLAY[r['name']]
+                if agg[bucket]['department'] is None:
+                    agg[bucket]['department'] = dept
+                    agg[bucket]['category'] = category
+            elif r['item_type'] == 'Product' and _is_package_charge(
+                r['name'], r['department'], r.get('sold_in_package')
+            ):
+                display = _package_display_name(r['name'], aliases)
                 revenue = r['item_total'] if r['item_total'] != 0 else (r['unit_price'] * (r['qty'] or 1))
+                dept, category = _charge_dept_and_category(display, r['department'])
                 bucket = (r['date'], display)
                 agg[bucket]['revenue'] += revenue
                 agg[bucket]['quantity'] += int(r['qty'] or 1)
                 agg[bucket]['txn_ids'].add(txn_id)
+                if agg[bucket]['department'] is None:
+                    agg[bucket]['department'] = dept
+                    agg[bucket]['category'] = category
 
     out_rows = []
     for (date_str, display_name), data in agg.items():
@@ -1686,9 +1818,9 @@ def aggregate_packages(csv_files):
         out_rows.append({
             'date': date_str,
             'name': display_name,
-            'department': PACKAGE_DEPARTMENT,
+            'department': data['department'] or 'Bowling',
             'subdepartment': 'Packages',
-            'category': DISPLAY_TO_CATEGORY.get(display_name, PACKAGE_CATEGORY),
+            'category': data['category'] or 'Bowling Packages',
             'quantity': data['quantity'],
             'revenue': round(data['revenue'], 2),
             'transactions': len(data['txn_ids']),
@@ -2179,7 +2311,7 @@ def main():
     print('\n[9/13] Payments...')
     export_payments(csv_files)
 
-    print('\n[10/12] Packages (seasonal specials)...')
+    print('\n[10/12] Packages...')
     export_packages(csv_files)
 
     print('\n[11/12] Intraday sales (by department/year)...')

@@ -1,9 +1,7 @@
 import type { Filters, PackageRecord } from '@/types';
 import type { ItemData } from '@/components/dashboard/ItemDetailTable';
 
-export const PACKAGE_CATEGORY = 'Summer Specials';
-
-/** Display order for the Package Detail table. */
+/** Preferred pin order for well-known specials; everything else sorts by revenue. */
 export const PACKAGE_DISPLAY_ORDER = [
   'Fall Bowling Special',
   'Summer Triple Play',
@@ -14,8 +12,6 @@ export const PACKAGE_DISPLAY_ORDER = [
   'Summer Party Builder',
   'Group Party Pack',
 ] as const;
-
-export type PackageDisplayName = (typeof PACKAGE_DISPLAY_ORDER)[number];
 
 export function filterPackages(packages: PackageRecord[], filters: Filters): PackageRecord[] {
   let data = packages;
@@ -60,8 +56,8 @@ export function aggregatePackageItems(packages: PackageRecord[]): ItemData[] {
   return Array.from(map.entries())
     .map(([name, data]) => ({ name, ...data }))
     .sort((a, b) => {
-      const aOrder = order.get(a.name as PackageDisplayName);
-      const bOrder = order.get(b.name as PackageDisplayName);
+      const aOrder = order.get(a.name as (typeof PACKAGE_DISPLAY_ORDER)[number]);
+      const bOrder = order.get(b.name as (typeof PACKAGE_DISPLAY_ORDER)[number]);
       if (aOrder !== undefined && bOrder !== undefined) return aOrder - bOrder;
       if (aOrder !== undefined) return -1;
       if (bOrder !== undefined) return 1;
