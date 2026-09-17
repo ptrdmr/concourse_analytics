@@ -26,18 +26,24 @@ Open [http://localhost:3000](http://localhost:3000).
 
 ## Dashboard pages
 
-| Route | Description |
-|-------|-------------|
-| `/` | Overview — department KPIs and summary cards |
-| `/explorer` | Data Explorer — filters, trends, top items, calendar |
-| `/dayparts` | Dayparts — item sales by time of day (30-min buckets), day-of-week comparison, item/category filters |
-| `/payments` | Payment tender breakdown and daily trends |
-| `/compare` | Side-by-side period comparisons |
-| `/specials` | Summer packages and specialty cocktails |
-| `/holidays` | Holiday year-over-year analysis |
-| `/bowling` | Bowling seasonality and forecast |
-| `/tickets` | Ticket lookup by month and transaction ID |
-| `/employees` | Employee sales, hours, and gratuity (from POS + 7shifts) |
+The nav groups pages by subject — what the page is about, rather than what it
+does. When adding a page, put it in the group whose question it answers and add
+it to `NAV_GROUPS` in `app/components/Nav.tsx`.
+
+| Route | Group | Description |
+|-------|-------|-------------|
+| `/` | — | Overview — department KPIs and summary cards |
+| `/explorer` | Sales & Menu | Data Explorer — filters, trends, top items, calendar |
+| `/dayparts` | Sales & Menu | Item sales by time of day (30-min buckets), day-of-week comparison, item/category filters |
+| `/compare` | Sales & Menu | Side-by-side period comparisons |
+| `/specials` | Sales & Menu | Seasonal packages and specialty cocktails |
+| `/reservations` | Demand & Forecast | Weekly party and lane booking trends, optional year-over-year |
+| `/holidays` | Demand & Forecast | Holiday year-over-year analysis |
+| `/bowling` | Demand & Forecast | Bowling seasonality and forecast |
+| `/employees` | Staff | Employee sales, hours, and wage (from POS + 7shifts) |
+| `/gratuity` | Staff | Tip pool report by daypart and terminal house |
+| `/payments` | Transactions | Payment tender breakdown and daily trends |
+| `/tickets` | Transactions | Ticket lookup by month and transaction ID |
 
 The app reads static JSON from `public/data/`. No database required at request time.
 

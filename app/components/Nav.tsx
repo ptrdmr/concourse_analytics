@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, type CSSProperties } from 'react';
 import { createPortal } from 'react-dom';
 import Link from 'next/link';
 import Image from 'next/image';
@@ -24,20 +24,60 @@ import {
 } from 'lucide-react';
 import { ThemeToggle } from './ThemeToggle';
 
-const NAV_LINKS: { href: string; label: string; desc: string; icon: LucideIcon }[] = [
-  { href: '/', label: 'Overview', desc: 'Dashboard summary & key metrics', icon: LayoutDashboard },
-  { href: '/payments', label: 'Payments', desc: 'Revenue breakdown & payment trends', icon: CreditCard },
-  { href: '/explorer', label: 'Data Explorer', desc: 'Dive into raw data & custom queries', icon: Compass },
-  { href: '/dayparts', label: 'Dayparts', desc: 'Item sales by time of day', icon: Clock },
-  { href: '/compare', label: 'Compare', desc: 'Side-by-side period comparisons', icon: Columns2 },
-  { href: '/specials', label: 'Specials', desc: 'Seasonal packages & specialty cocktails', icon: Sparkles },
-  { href: '/reservations', label: 'Reservations', desc: 'Weekly party and lane booking trends', icon: CalendarCheck },
-  { href: '/holidays', label: 'Holiday Analysis', desc: 'Performance around holidays & events', icon: PartyPopper },
-  { href: '/bowling', label: 'Bowling Forecast', desc: 'Projected bowling lane revenue', icon: TrendingUp },
-  { href: '/tickets', label: 'Ticket Lookup', desc: 'Search tickets by date or number', icon: Receipt },
-  { href: '/employees', label: 'Employees', desc: 'Per-employee sales, tips, hours & wage', icon: Users },
-  { href: '/gratuity', label: 'Gratuity', desc: 'Tips by daypart and terminal house', icon: HandCoins },
+type NavItem = { href: string; label: string; desc: string; icon: LucideIcon };
+
+const OVERVIEW: NavItem = {
+  href: '/',
+  label: 'Overview',
+  desc: 'Dashboard summary & key metrics',
+  icon: LayoutDashboard,
+};
+
+// Grouped by subject — what the page is about, not what it does. A new page
+// should join the group whose question it answers: what we sold, how busy we
+// expect to be, who worked, or how the money came in.
+const NAV_GROUPS: { label: string; color: string; links: NavItem[] }[] = [
+  {
+    label: 'Sales & Menu',
+    color: 'sales',
+    links: [
+      { href: '/explorer', label: 'Data Explorer', desc: 'Dive into raw data & custom queries', icon: Compass },
+      { href: '/dayparts', label: 'Dayparts', desc: 'Item sales by time of day', icon: Clock },
+      { href: '/compare', label: 'Compare', desc: 'Side-by-side period comparisons', icon: Columns2 },
+      { href: '/specials', label: 'Specials', desc: 'Seasonal packages & specialty cocktails', icon: Sparkles },
+    ],
+  },
+  {
+    label: 'Demand & Forecast',
+    color: 'demand',
+    links: [
+      { href: '/reservations', label: 'Reservations', desc: 'Weekly party and lane booking trends', icon: CalendarCheck },
+      { href: '/holidays', label: 'Holiday Analysis', desc: 'Performance around holidays & events', icon: PartyPopper },
+      { href: '/bowling', label: 'Bowling Forecast', desc: 'Projected bowling lane revenue', icon: TrendingUp },
+    ],
+  },
+  {
+    label: 'Staff',
+    color: 'staff',
+    links: [
+      { href: '/employees', label: 'Employees', desc: 'Per-employee sales, tips, hours & wage', icon: Users },
+      { href: '/gratuity', label: 'Gratuity', desc: 'Tips by daypart and terminal house', icon: HandCoins },
+    ],
+  },
+  {
+    label: 'Transactions',
+    color: 'transactions',
+    links: [
+      { href: '/payments', label: 'Payments', desc: 'Revenue breakdown & payment trends', icon: CreditCard },
+      { href: '/tickets', label: 'Ticket Lookup', desc: 'Search tickets by date or number', icon: Receipt },
+    ],
+  },
 ];
+
+// Scopes one hue to a group box so the tint, border and label styles in
+// globals.css all derive from it.
+const groupStyle = (color: string) =>
+  ({ '--group-color': `var(--nav-group-${color})` }) as CSSProperties;
 
 function NavLink({
   href,
@@ -70,6 +110,27 @@ function NavLink({
       </span>
       <span className="block text-[11px] text-secondary/60 mt-0.5 pl-6">{desc}</span>
     </Link>
+  );
+}
+
+function NavPill({ href, label, desc, icon: Icon, active }: NavItem & { active: boolean }) {
+  return (
+    <div className="relative group shrink-0">
+      <Link
+        href={href}
+        className={`inline-flex items-center gap-1.5 whitespace-nowrap text-xs px-2.5 py-1.5 rounded-full transition-colors ${
+          active
+            ? 'bg-accent/15 text-accent'
+            : 'text-secondary hover:bg-overlay/5 hover:text-foreground'
+        }`}
+      >
+        <Icon className="w-3.5 h-3.5 shrink-0" aria-hidden="true" />
+        {label}
+      </Link>
+      <div className="pointer-events-none absolute left-1/2 -translate-x-1/2 top-full mt-2 px-3 py-1.5 rounded-lg bg-card-hover border border-border text-xs text-secondary whitespace-nowrap opacity-0 translate-y-1 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-150 shadow-lg z-10">
+        {desc}
+      </div>
+    </div>
   );
 }
 
@@ -147,25 +208,29 @@ export function Nav() {
         </div>
       </div>
 
-      <div className="hidden xl:flex max-w-7xl mx-auto px-4 sm:px-6 pb-2 items-center gap-0.5 flex-wrap">
-          {NAV_LINKS.map(link => (
-            <div key={link.href} className="relative group shrink-0">
-              <Link
-                href={link.href}
-                className={`inline-flex items-center gap-1.5 whitespace-nowrap text-xs px-2.5 py-1.5 rounded-full transition-colors ${
-                  linkActive(link.href)
-                    ? 'bg-accent/15 text-accent'
-                    : 'text-secondary hover:bg-overlay/5 hover:text-foreground'
-                }`}
-              >
-                <link.icon className="w-3.5 h-3.5 shrink-0" aria-hidden="true" />
-                {link.label}
-              </Link>
-              <div className="pointer-events-none absolute left-1/2 -translate-x-1/2 top-full mt-2 px-3 py-1.5 rounded-lg bg-card-hover border border-border text-xs text-secondary whitespace-nowrap opacity-0 translate-y-1 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-150 shadow-lg z-10">
-                {link.desc}
-              </div>
+      {/* items-end bottom-aligns the ungrouped Overview pill with the pills sitting
+          inside the group boxes, which are taller because of their label row. */}
+      <div className="hidden xl:flex max-w-7xl mx-auto px-4 sm:px-6 pb-2 items-end gap-1.5 flex-wrap">
+        <div className="shrink-0 mb-1.5">
+          <NavPill {...OVERVIEW} active={linkActive(OVERVIEW.href)} />
+        </div>
+        {NAV_GROUPS.map(navGroup => (
+          <div
+            key={navGroup.label}
+            className="nav-group shrink-0 rounded-xl px-1.5 pt-1 pb-1.5"
+            style={groupStyle(navGroup.color)}
+          >
+            <span className="nav-group-label block px-1.5 pb-1 text-[9px] font-semibold uppercase tracking-[0.08em] leading-none">
+              {navGroup.label}
+            </span>
+            {/* Keeps the group's pills on one line so a wrap never splits a box. */}
+            <div className="flex items-center gap-0.5">
+              {navGroup.links.map(link => (
+                <NavPill key={link.href} {...link} active={linkActive(link.href)} />
+              ))}
             </div>
-          ))}
+          </div>
+        ))}
       </div>
 
       {/* Mobile menu overlay - portaled to body so it always sits above page content */}
@@ -190,17 +255,34 @@ export function Nav() {
                   <X className="w-5 h-5" />
                 </button>
               </div>
-              <div className="flex-1 min-h-0 p-4 space-y-1 overflow-y-auto">
-                {NAV_LINKS.map(link => (
+              <div className="flex-1 min-h-0 p-4 overflow-y-auto flex flex-col gap-3">
+                <div className="shrink-0">
                   <NavLink
-                    key={link.href}
-                    href={link.href}
-                    label={link.label}
-                    desc={link.desc}
-                    icon={link.icon}
-                    active={linkActive(link.href)}
+                    {...OVERVIEW}
+                    active={linkActive(OVERVIEW.href)}
                     onClick={() => setMenuOpen(false)}
                   />
+                </div>
+                {NAV_GROUPS.map(navGroup => (
+                  <section
+                    key={navGroup.label}
+                    className="nav-group shrink-0 rounded-xl px-1.5 pt-1.5 pb-1.5"
+                    style={groupStyle(navGroup.color)}
+                  >
+                    <h2 className="nav-group-label px-2.5 pb-1 text-[10px] font-semibold uppercase tracking-wider">
+                      {navGroup.label}
+                    </h2>
+                    <div className="space-y-1">
+                      {navGroup.links.map(link => (
+                        <NavLink
+                          key={link.href}
+                          {...link}
+                          active={linkActive(link.href)}
+                          onClick={() => setMenuOpen(false)}
+                        />
+                      ))}
+                    </div>
+                  </section>
                 ))}
               </div>
             </div>

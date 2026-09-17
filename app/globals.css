@@ -38,6 +38,13 @@
   /* Chart axis + grid colors */
   --chart-grid: #e4e4e7;
   --chart-axis: #a1a1aa;
+  /* Nav group hues — one per subject group. Green is deliberately absent: it is
+     reserved for the active-link state, which has to stay legible inside any
+     group box. */
+  --nav-group-sales: #2563eb;
+  --nav-group-demand: #7c3aed;
+  --nav-group-staff: #b45309;
+  --nav-group-transactions: #be123c;
 }
 
 .dark {
@@ -56,6 +63,10 @@
   --overlay: #ffffff;
   --chart-grid: #1f1f1f;
   --chart-axis: #525252;
+  --nav-group-sales: #60a5fa;
+  --nav-group-demand: #a78bfa;
+  --nav-group-staff: #fbbf24;
+  --nav-group-transactions: #fb7185;
 }
 
 body {
@@ -83,6 +94,19 @@ body {
 .card:hover {
   border-color: var(--color-border-hover);
   background: var(--color-card-hover);
+}
+
+/* Nav group box. Each group sets --group-color inline to one of the
+   --nav-group-* hues above; those flip with the theme, so the tint and border
+   derived from them follow along without needing dark: variants (which this
+   codebase can't use — the theme is a .dark class, not a media query). */
+.nav-group {
+  background: color-mix(in srgb, var(--group-color) 7%, transparent);
+  border: 1px solid color-mix(in srgb, var(--group-color) 24%, transparent);
+}
+
+.nav-group-label {
+  color: var(--group-color);
 }
 
 /* Theme-aware Recharts axes/grid. The chart components hard-code colors as SVG
