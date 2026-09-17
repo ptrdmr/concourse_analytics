@@ -36,12 +36,17 @@ const OVERVIEW: NavItem = {
 // Grouped by subject — what the page is about, not what it does. A new page
 // should join the group whose question it answers: what we sold, how busy we
 // expect to be, who worked, or how the money came in.
+//
+// Labels stay short because the group label already supplies the qualifier
+// ("Bowling" under Demand & Forecast, "Tickets" under Transactions) and the
+// full sentence lives in `desc`, shown on hover. It is also load-bearing for
+// layout: the row only fits on one line inside max-w-7xl with these lengths.
 const NAV_GROUPS: { label: string; color: string; links: NavItem[] }[] = [
   {
     label: 'Sales & Menu',
     color: 'sales',
     links: [
-      { href: '/explorer', label: 'Data Explorer', desc: 'Dive into raw data & custom queries', icon: Compass },
+      { href: '/explorer', label: 'Explorer', desc: 'Dive into raw data & custom queries', icon: Compass },
       { href: '/dayparts', label: 'Dayparts', desc: 'Item sales by time of day', icon: Clock },
       { href: '/compare', label: 'Compare', desc: 'Side-by-side period comparisons', icon: Columns2 },
       { href: '/specials', label: 'Specials', desc: 'Seasonal packages & specialty cocktails', icon: Sparkles },
@@ -52,8 +57,8 @@ const NAV_GROUPS: { label: string; color: string; links: NavItem[] }[] = [
     color: 'demand',
     links: [
       { href: '/reservations', label: 'Reservations', desc: 'Weekly party and lane booking trends', icon: CalendarCheck },
-      { href: '/holidays', label: 'Holiday Analysis', desc: 'Performance around holidays & events', icon: PartyPopper },
-      { href: '/bowling', label: 'Bowling Forecast', desc: 'Projected bowling lane revenue', icon: TrendingUp },
+      { href: '/holidays', label: 'Holidays', desc: 'Performance around holidays & events', icon: PartyPopper },
+      { href: '/bowling', label: 'Bowling', desc: 'Projected bowling lane revenue', icon: TrendingUp },
     ],
   },
   {
@@ -69,7 +74,7 @@ const NAV_GROUPS: { label: string; color: string; links: NavItem[] }[] = [
     color: 'transactions',
     links: [
       { href: '/payments', label: 'Payments', desc: 'Revenue breakdown & payment trends', icon: CreditCard },
-      { href: '/tickets', label: 'Ticket Lookup', desc: 'Search tickets by date or number', icon: Receipt },
+      { href: '/tickets', label: 'Tickets', desc: 'Search tickets by date or number', icon: Receipt },
     ],
   },
 ];
