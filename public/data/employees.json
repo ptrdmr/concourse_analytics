@@ -1,12 +1,12 @@
 {
-  "generatedAt": "2026-09-20T05:35:13.687621",
+  "generatedAt": "2026-09-21T05:35:16.535445",
   "dateRange": [
     "2023-01-01",
-    "2026-09-20"
+    "2026-09-21"
   ],
   "laborDateRange": [
-    "2025-09-21",
-    "2026-09-20"
+    "2025-09-22",
+    "2026-09-21"
   ],
   "employees": [
     {
@@ -42301,11 +42301,24 @@
           "scheduledShifts": 0,
           "lateMinutes": 0,
           "noShow": 0
+        },
+        "2026-09-20": {
+          "sales": 31.0,
+          "tickets": 1,
+          "gratuity": 0.0,
+          "serviceChargeVip": 0.0,
+          "serviceChargeParty": 0.0,
+          "serviceChargeOther": 0.0,
+          "hours": 7.15,
+          "laborCost": 214.5,
+          "scheduledShifts": 0,
+          "lateMinutes": 0,
+          "noShow": 0
         }
       },
       "deptMix": {
         "Bowling": 1090614.06,
-        "Food": 145642.93,
+        "Food": 145673.93,
         "League Fees": 74516.97,
         "Arcade": 35923.21,
         "Bar": 25969.0,
@@ -53925,11 +53938,24 @@
           "scheduledShifts": 0,
           "lateMinutes": 0.0,
           "noShow": 0
+        },
+        "2026-09-20": {
+          "sales": 64.0,
+          "tickets": 4,
+          "gratuity": 32.0,
+          "serviceChargeVip": 0.0,
+          "serviceChargeParty": 0.0,
+          "serviceChargeOther": 0.0,
+          "hours": 0.0,
+          "laborCost": 0.0,
+          "scheduledShifts": 0,
+          "lateMinutes": 0.0,
+          "noShow": 0
         }
       },
       "deptMix": {
         "Bowling": 963741.64,
-        "Food": 131775.05,
+        "Food": 131839.05,
         "League Fees": 125919.62,
         "Arcade": 85541.86,
         "Parties": 6634.0,
@@ -63003,6 +63029,19 @@
           "serviceChargeOther": 0.0,
           "hours": 6.38,
           "laborCost": 127.67,
+          "scheduledShifts": 0,
+          "lateMinutes": 0,
+          "noShow": 0
+        },
+        "2026-09-20": {
+          "sales": 0.0,
+          "tickets": 0,
+          "gratuity": 0.0,
+          "serviceChargeVip": 0.0,
+          "serviceChargeParty": 0.0,
+          "serviceChargeOther": 0.0,
+          "hours": 6.48,
+          "laborCost": 129.67,
           "scheduledShifts": 0,
           "lateMinutes": 0,
           "noShow": 0
@@ -89899,13 +89938,26 @@
           "scheduledShifts": 0,
           "lateMinutes": 0,
           "noShow": 0
+        },
+        "2026-09-20": {
+          "sales": 1413.71,
+          "tickets": 29,
+          "gratuity": 148.05,
+          "serviceChargeVip": 0.0,
+          "serviceChargeParty": 0.0,
+          "serviceChargeOther": 0.0,
+          "hours": 5.83,
+          "laborCost": 98.58,
+          "scheduledShifts": 0,
+          "lateMinutes": 0,
+          "noShow": 0
         }
       },
       "deptMix": {
-        "Bar": 679208.5,
-        "Food": 117307.91,
+        "Bar": 680414.5,
+        "Food": 117429.62,
         "Parties": 47256.0,
-        "Bowling": 34490.59,
+        "Bowling": 34576.59,
         "General Income": 1420.14,
         "League Fees": 804.0,
         "Unknown": 0.0
@@ -89913,11 +89965,11 @@
       "topItems": [
         {
           "name": "Modelo Draft",
-          "revenue": 31033.0
+          "revenue": 31123.0
         },
         {
           "name": "Titos",
-          "revenue": 27090.0
+          "revenue": 27160.0
         },
         {
           "name": "Draft - Modelo",
@@ -89925,11 +89977,11 @@
         },
         {
           "name": "Pacifico Draft",
-          "revenue": 21318.0
+          "revenue": 21381.0
         },
         {
           "name": "Michelob Ultra Draft",
-          "revenue": 20752.0
+          "revenue": 20856.0
         },
         {
           "name": "Catering - Unlimited Pizzas",
@@ -89937,19 +89989,19 @@
         },
         {
           "name": "Coors Light Draft",
-          "revenue": 18878.0
+          "revenue": 18950.0
         },
         {
           "name": "Jameson",
-          "revenue": 17120.0
+          "revenue": 17230.0
         },
         {
           "name": "Well Vodka",
-          "revenue": 14632.0
+          "revenue": 14656.0
         },
         {
           "name": "Huckleberry Draft",
-          "revenue": 13921.0
+          "revenue": 13939.0
         }
       ]
     },
@@ -128578,11 +128630,24 @@
           "scheduledShifts": 0,
           "lateMinutes": 0,
           "noShow": 0
+        },
+        "2026-09-20": {
+          "sales": 694.88,
+          "tickets": 33,
+          "gratuity": 173.13,
+          "serviceChargeVip": 0.0,
+          "serviceChargeParty": 0.0,
+          "serviceChargeOther": 0.0,
+          "hours": 5.25,
+          "laborCost": 88.72,
+          "scheduledShifts": 0,
+          "lateMinutes": 0,
+          "noShow": 0
         }
       },
       "deptMix": {
-        "Bar": 497443.5,
-        "Food": 36439.56,
+        "Bar": 498102.5,
+        "Food": 36475.44,
         "Bowling": 6659.33,
         "General Income": 11.7,
         "Unknown": 0.0
@@ -128590,15 +128655,15 @@
       "topItems": [
         {
           "name": "Modelo Draft",
-          "revenue": 34010.0
+          "revenue": 34109.0
         },
         {
           "name": "Pacifico Draft",
-          "revenue": 24149.0
+          "revenue": 24212.0
         },
         {
           "name": "Titos",
-          "revenue": 18350.0
+          "revenue": 18360.0
         },
         {
           "name": "Michelob Ultra Draft",
@@ -128610,11 +128675,11 @@
         },
         {
           "name": "Coors Light Draft",
-          "revenue": 15017.0
+          "revenue": 15065.0
         },
         {
           "name": "Jameson",
-          "revenue": 14471.0
+          "revenue": 14481.0
         },
         {
           "name": "Slap N Tickle Draft",
@@ -128626,7 +128691,7 @@
         },
         {
           "name": "Well Vodka",
-          "revenue": 10920.0
+          "revenue": 10960.0
         }
       ]
     },
@@ -134140,10 +134205,23 @@
           "scheduledShifts": 0,
           "lateMinutes": 0.0,
           "noShow": 0
+        },
+        "2026-09-20": {
+          "sales": 1832.0,
+          "tickets": 23,
+          "gratuity": 0.0,
+          "serviceChargeVip": 0.0,
+          "serviceChargeParty": 0.0,
+          "serviceChargeOther": 0.0,
+          "hours": 0.0,
+          "laborCost": 0.0,
+          "scheduledShifts": 0,
+          "lateMinutes": 0.0,
+          "noShow": 0
         }
       },
       "deptMix": {
-        "League Fees": 507282.49,
+        "League Fees": 509114.49,
         "Food": 4918.93,
         "Bowling": 4335.97,
         "General Income": 21.69,
@@ -166711,10 +166789,23 @@
           "scheduledShifts": 0,
           "lateMinutes": 0,
           "noShow": 0
+        },
+        "2026-09-20": {
+          "sales": 711.44,
+          "tickets": 31,
+          "gratuity": 51.84,
+          "serviceChargeVip": 0.0,
+          "serviceChargeParty": 0.0,
+          "serviceChargeOther": 0.0,
+          "hours": 5.93,
+          "laborCost": 100.27,
+          "scheduledShifts": 0,
+          "lateMinutes": 0,
+          "noShow": 0
         }
       },
       "deptMix": {
-        "Food": 198545.01,
+        "Food": 199256.45,
         "Bowling": 5277.0,
         "Bar": 540.0,
         "General Income": 158.49,
@@ -166725,7 +166816,7 @@
       "topItems": [
         {
           "name": "Large",
-          "revenue": 25192.0
+          "revenue": 25276.0
         },
         {
           "name": "Chicken Wings",
@@ -166737,7 +166828,7 @@
         },
         {
           "name": "Chicken Strips",
-          "revenue": 10367.5
+          "revenue": 10382.0
         },
         {
           "name": "French Fries",
@@ -166745,23 +166836,23 @@
         },
         {
           "name": "Soda Pitcher",
-          "revenue": 8977.32
+          "revenue": 9005.16
         },
         {
           "name": "Large.",
-          "revenue": 8403.0
+          "revenue": 8430.0
         },
         {
           "name": "Mozzarella Sticks",
-          "revenue": 7164.5
+          "revenue": 7186.5
         },
         {
           "name": "Concourse Nacho",
-          "revenue": 6120.0
+          "revenue": 6137.5
         },
         {
           "name": "Medium",
-          "revenue": 5803.0
+          "revenue": 5839.0
         }
       ]
     },
@@ -174649,11 +174740,24 @@
           "scheduledShifts": 0,
           "lateMinutes": 0,
           "noShow": 0
+        },
+        "2026-09-20": {
+          "sales": 2255.89,
+          "tickets": 57,
+          "gratuity": 0.0,
+          "serviceChargeVip": 0.0,
+          "serviceChargeParty": 0.0,
+          "serviceChargeOther": 0.0,
+          "hours": 6.63,
+          "laborCost": 126.03,
+          "scheduledShifts": 0,
+          "lateMinutes": 0,
+          "noShow": 0
         }
       },
       "deptMix": {
-        "Bowling": 155596.54,
-        "Food": 3171.43,
+        "Bowling": 157822.43,
+        "Food": 3201.43,
         "League Fees": 331.0,
         "General Income": 228.99,
         "Arcade": 41.0,
@@ -174663,19 +174767,19 @@
       "topItems": [
         {
           "name": "Time Bowling",
-          "revenue": 70120.29
+          "revenue": 71378.04
         },
         {
           "name": "Lane Reservation Charge",
-          "revenue": 47041.75
+          "revenue": 47286.89
         },
         {
           "name": "Rental Shoes",
-          "revenue": 22871.5
+          "revenue": 23344.5
         },
         {
           "name": "Game Bowling",
-          "revenue": 6044.0
+          "revenue": 6294.0
         },
         {
           "name": "Pair & Spare Charge",
@@ -176368,11 +176472,24 @@
           "scheduledShifts": 0,
           "lateMinutes": 0,
           "noShow": 0
+        },
+        "2026-09-20": {
+          "sales": 2892.39,
+          "tickets": 47,
+          "gratuity": 0.0,
+          "serviceChargeVip": 0.0,
+          "serviceChargeParty": 0.0,
+          "serviceChargeOther": 0.0,
+          "hours": 6.18,
+          "laborCost": 123.67,
+          "scheduledShifts": 0,
+          "lateMinutes": 0,
+          "noShow": 0
         }
       },
       "deptMix": {
-        "Bowling": 142115.86,
-        "Food": 6230.36,
+        "Bowling": 144996.25,
+        "Food": 6242.36,
         "Arcade": 3984.0,
         "League Fees": 1670.0,
         "General Income": 359.61,
@@ -176382,15 +176499,15 @@
       "topItems": [
         {
           "name": "Time Bowling",
-          "revenue": 54216.3
+          "revenue": 55581.55
         },
         {
           "name": "Lane Reservation Charge",
-          "revenue": 33363.87
+          "revenue": 34433.01
         },
         {
           "name": "Rental Shoes",
-          "revenue": 20910.0
+          "revenue": 21354.0
         },
         {
           "name": "Game Bowling",
@@ -178191,12 +178308,25 @@
           "scheduledShifts": 0,
           "lateMinutes": 0,
           "noShow": 0
+        },
+        "2026-09-20": {
+          "sales": 460.0,
+          "tickets": 8,
+          "gratuity": 70.0,
+          "serviceChargeVip": 0.0,
+          "serviceChargeParty": 0.0,
+          "serviceChargeOther": 0.0,
+          "hours": 4.33,
+          "laborCost": 73.23,
+          "scheduledShifts": 0,
+          "lateMinutes": 0,
+          "noShow": 0
         }
       },
       "deptMix": {
-        "Bar": 106398.0,
-        "Food": 24008.5,
-        "Bowling": 2598.17,
+        "Bar": 106555.5,
+        "Food": 24115.0,
+        "Bowling": 2794.17,
         "Arcade": 100.0,
         "General Income": 41.4,
         "Unknown": 0.0
@@ -178216,7 +178346,7 @@
         },
         {
           "name": "Titos",
-          "revenue": 3930.0
+          "revenue": 3950.0
         },
         {
           "name": "Coors Light Draft",
@@ -178236,7 +178366,7 @@
         },
         {
           "name": "Firestone 805 Draft",
-          "revenue": 2696.0
+          "revenue": 2741.0
         },
         {
           "name": "Jack Daniels",
@@ -196091,10 +196221,23 @@
           "scheduledShifts": 0,
           "lateMinutes": 0,
           "noShow": 0
+        },
+        "2026-09-20": {
+          "sales": 330.78,
+          "tickets": 16,
+          "gratuity": 67.99,
+          "serviceChargeVip": 0.0,
+          "serviceChargeParty": 0.0,
+          "serviceChargeOther": 0.0,
+          "hours": 5.02,
+          "laborCost": 84.78,
+          "scheduledShifts": 0,
+          "lateMinutes": 0,
+          "noShow": 0
         }
       },
       "deptMix": {
-        "Food": 86427.63,
+        "Food": 86758.41,
         "Bowling": 3930.0,
         "Bar": 965.0,
         "General Income": 122.21,
@@ -196107,7 +196250,7 @@
         },
         {
           "name": "Chicken Wings",
-          "revenue": 7461.0
+          "revenue": 7478.0
         },
         {
           "name": "Soda",
@@ -196115,7 +196258,7 @@
         },
         {
           "name": "Soda Pitcher",
-          "revenue": 5181.36
+          "revenue": 5195.28
         },
         {
           "name": "Chicken Strips",
@@ -196135,11 +196278,11 @@
         },
         {
           "name": "Concourse Nacho",
-          "revenue": 2712.5
+          "revenue": 2730.0
         },
         {
           "name": "Medium",
-          "revenue": 2619.0
+          "revenue": 2637.0
         }
       ]
     },
@@ -202793,417 +202936,6 @@
       ]
     },
     {
-      "id": "ian",
-      "displayName": "Ian",
-      "posNames": [
-        "ian"
-      ],
-      "sevenShiftsUserId": null,
-      "roles": [],
-      "wage": 0.0,
-      "hiredAt": "",
-      "active": true,
-      "days": {
-        "2023-01-01": {
-          "sales": 2243.75,
-          "tickets": 55,
-          "gratuity": 0.0,
-          "serviceChargeVip": 0.0,
-          "serviceChargeParty": 0.0,
-          "serviceChargeOther": 0.0,
-          "hours": 0.0,
-          "laborCost": 0.0,
-          "scheduledShifts": 0,
-          "lateMinutes": 0.0,
-          "noShow": 0
-        },
-        "2023-01-04": {
-          "sales": 2362.25,
-          "tickets": 71,
-          "gratuity": 0.0,
-          "serviceChargeVip": 0.0,
-          "serviceChargeParty": 0.0,
-          "serviceChargeOther": 0.0,
-          "hours": 0.0,
-          "laborCost": 0.0,
-          "scheduledShifts": 0,
-          "lateMinutes": 0.0,
-          "noShow": 0
-        },
-        "2023-01-05": {
-          "sales": 4102.5,
-          "tickets": 114,
-          "gratuity": 0.0,
-          "serviceChargeVip": 0.0,
-          "serviceChargeParty": 0.0,
-          "serviceChargeOther": 0.0,
-          "hours": 0.0,
-          "laborCost": 0.0,
-          "scheduledShifts": 0,
-          "lateMinutes": 0.0,
-          "noShow": 0
-        },
-        "2023-01-06": {
-          "sales": 881.5,
-          "tickets": 24,
-          "gratuity": 0.0,
-          "serviceChargeVip": 0.0,
-          "serviceChargeParty": 0.0,
-          "serviceChargeOther": 0.0,
-          "hours": 0.0,
-          "laborCost": 0.0,
-          "scheduledShifts": 0,
-          "lateMinutes": 0.0,
-          "noShow": 0
-        },
-        "2023-01-08": {
-          "sales": 34.5,
-          "tickets": 5,
-          "gratuity": 0.0,
-          "serviceChargeVip": 0.0,
-          "serviceChargeParty": 0.0,
-          "serviceChargeOther": 0.0,
-          "hours": 0.0,
-          "laborCost": 0.0,
-          "scheduledShifts": 0,
-          "lateMinutes": 0.0,
-          "noShow": 0
-        },
-        "2023-01-10": {
-          "sales": 912.75,
-          "tickets": 40,
-          "gratuity": 0.0,
-          "serviceChargeVip": 0.0,
-          "serviceChargeParty": 0.0,
-          "serviceChargeOther": 0.0,
-          "hours": 0.0,
-          "laborCost": 0.0,
-          "scheduledShifts": 0,
-          "lateMinutes": 0.0,
-          "noShow": 0
-        },
-        "2023-01-15": {
-          "sales": 672.0,
-          "tickets": 28,
-          "gratuity": 0.0,
-          "serviceChargeVip": 0.0,
-          "serviceChargeParty": 0.0,
-          "serviceChargeOther": 0.0,
-          "hours": 0.0,
-          "laborCost": 0.0,
-          "scheduledShifts": 0,
-          "lateMinutes": 0.0,
-          "noShow": 0
-        },
-        "2023-01-18": {
-          "sales": 444.0,
-          "tickets": 20,
-          "gratuity": 0.0,
-          "serviceChargeVip": 0.0,
-          "serviceChargeParty": 0.0,
-          "serviceChargeOther": 0.0,
-          "hours": 0.0,
-          "laborCost": 0.0,
-          "scheduledShifts": 0,
-          "lateMinutes": 0.0,
-          "noShow": 0
-        },
-        "2023-01-20": {
-          "sales": 493.75,
-          "tickets": 16,
-          "gratuity": 0.0,
-          "serviceChargeVip": 0.0,
-          "serviceChargeParty": 0.0,
-          "serviceChargeOther": 0.0,
-          "hours": 0.0,
-          "laborCost": 0.0,
-          "scheduledShifts": 0,
-          "lateMinutes": 0.0,
-          "noShow": 0
-        },
-        "2023-01-21": {
-          "sales": 3997.5,
-          "tickets": 84,
-          "gratuity": 0.0,
-          "serviceChargeVip": 0.0,
-          "serviceChargeParty": 0.0,
-          "serviceChargeOther": 0.0,
-          "hours": 0.0,
-          "laborCost": 0.0,
-          "scheduledShifts": 0,
-          "lateMinutes": 0.0,
-          "noShow": 0
-        },
-        "2023-01-22": {
-          "sales": 1868.0,
-          "tickets": 60,
-          "gratuity": 0.0,
-          "serviceChargeVip": 0.0,
-          "serviceChargeParty": 0.0,
-          "serviceChargeOther": 0.0,
-          "hours": 0.0,
-          "laborCost": 0.0,
-          "scheduledShifts": 0,
-          "lateMinutes": 0.0,
-          "noShow": 0
-        },
-        "2023-01-25": {
-          "sales": 870.75,
-          "tickets": 33,
-          "gratuity": 0.0,
-          "serviceChargeVip": 0.0,
-          "serviceChargeParty": 0.0,
-          "serviceChargeOther": 0.0,
-          "hours": 0.0,
-          "laborCost": 0.0,
-          "scheduledShifts": 0,
-          "lateMinutes": 0.0,
-          "noShow": 0
-        },
-        "2023-01-26": {
-          "sales": 39.5,
-          "tickets": 1,
-          "gratuity": 0.0,
-          "serviceChargeVip": 0.0,
-          "serviceChargeParty": 0.0,
-          "serviceChargeOther": 0.0,
-          "hours": 0.0,
-          "laborCost": 0.0,
-          "scheduledShifts": 0,
-          "lateMinutes": 0.0,
-          "noShow": 0
-        },
-        "2023-01-29": {
-          "sales": 706.5,
-          "tickets": 19,
-          "gratuity": 0.0,
-          "serviceChargeVip": 0.0,
-          "serviceChargeParty": 0.0,
-          "serviceChargeOther": 0.0,
-          "hours": 0.0,
-          "laborCost": 0.0,
-          "scheduledShifts": 0,
-          "lateMinutes": 0.0,
-          "noShow": 0
-        },
-        "2023-02-02": {
-          "sales": 1560.25,
-          "tickets": 57,
-          "gratuity": 0.0,
-          "serviceChargeVip": 0.0,
-          "serviceChargeParty": 0.0,
-          "serviceChargeOther": 0.0,
-          "hours": 0.0,
-          "laborCost": 0.0,
-          "scheduledShifts": 0,
-          "lateMinutes": 0.0,
-          "noShow": 0
-        },
-        "2023-02-03": {
-          "sales": 2927.75,
-          "tickets": 84,
-          "gratuity": 0.0,
-          "serviceChargeVip": 0.0,
-          "serviceChargeParty": 0.0,
-          "serviceChargeOther": 0.0,
-          "hours": 0.0,
-          "laborCost": 0.0,
-          "scheduledShifts": 0,
-          "lateMinutes": 0.0,
-          "noShow": 0
-        },
-        "2023-02-05": {
-          "sales": 115.25,
-          "tickets": 10,
-          "gratuity": 0.0,
-          "serviceChargeVip": 0.0,
-          "serviceChargeParty": 0.0,
-          "serviceChargeOther": 0.0,
-          "hours": 0.0,
-          "laborCost": 0.0,
-          "scheduledShifts": 0,
-          "lateMinutes": 0.0,
-          "noShow": 0
-        },
-        "2023-02-07": {
-          "sales": 518.75,
-          "tickets": 20,
-          "gratuity": 0.0,
-          "serviceChargeVip": 0.0,
-          "serviceChargeParty": 0.0,
-          "serviceChargeOther": 0.0,
-          "hours": 0.0,
-          "laborCost": 0.0,
-          "scheduledShifts": 0,
-          "lateMinutes": 0.0,
-          "noShow": 0
-        },
-        "2023-02-08": {
-          "sales": 222.25,
-          "tickets": 11,
-          "gratuity": 0.0,
-          "serviceChargeVip": 0.0,
-          "serviceChargeParty": 0.0,
-          "serviceChargeOther": 0.0,
-          "hours": 0.0,
-          "laborCost": 0.0,
-          "scheduledShifts": 0,
-          "lateMinutes": 0.0,
-          "noShow": 0
-        },
-        "2023-02-10": {
-          "sales": 853.0,
-          "tickets": 19,
-          "gratuity": 0.0,
-          "serviceChargeVip": 0.0,
-          "serviceChargeParty": 0.0,
-          "serviceChargeOther": 0.0,
-          "hours": 0.0,
-          "laborCost": 0.0,
-          "scheduledShifts": 0,
-          "lateMinutes": 0.0,
-          "noShow": 0
-        },
-        "2023-02-11": {
-          "sales": 2502.75,
-          "tickets": 46,
-          "gratuity": 0.0,
-          "serviceChargeVip": 0.0,
-          "serviceChargeParty": 0.0,
-          "serviceChargeOther": 0.0,
-          "hours": 0.0,
-          "laborCost": 0.0,
-          "scheduledShifts": 0,
-          "lateMinutes": 0.0,
-          "noShow": 0
-        },
-        "2023-02-14": {
-          "sales": 671.0,
-          "tickets": 19,
-          "gratuity": 0.0,
-          "serviceChargeVip": 0.0,
-          "serviceChargeParty": 0.0,
-          "serviceChargeOther": 0.0,
-          "hours": 0.0,
-          "laborCost": 0.0,
-          "scheduledShifts": 0,
-          "lateMinutes": 0.0,
-          "noShow": 0
-        },
-        "2023-02-19": {
-          "sales": 1441.5,
-          "tickets": 43,
-          "gratuity": 0.0,
-          "serviceChargeVip": 0.0,
-          "serviceChargeParty": 0.0,
-          "serviceChargeOther": 0.0,
-          "hours": 0.0,
-          "laborCost": 0.0,
-          "scheduledShifts": 0,
-          "lateMinutes": 0.0,
-          "noShow": 0
-        },
-        "2023-02-21": {
-          "sales": 52.0,
-          "tickets": 4,
-          "gratuity": 0.0,
-          "serviceChargeVip": 0.0,
-          "serviceChargeParty": 0.0,
-          "serviceChargeOther": 0.0,
-          "hours": 0.0,
-          "laborCost": 0.0,
-          "scheduledShifts": 0,
-          "lateMinutes": 0.0,
-          "noShow": 0
-        },
-        "2023-02-24": {
-          "sales": 1220.0,
-          "tickets": 17,
-          "gratuity": 0.0,
-          "serviceChargeVip": 0.0,
-          "serviceChargeParty": 0.0,
-          "serviceChargeOther": 0.0,
-          "hours": 0.0,
-          "laborCost": 0.0,
-          "scheduledShifts": 0,
-          "lateMinutes": 0.0,
-          "noShow": 0
-        },
-        "2023-02-25": {
-          "sales": 0.0,
-          "tickets": 1,
-          "gratuity": 0.0,
-          "serviceChargeVip": 0.0,
-          "serviceChargeParty": 0.0,
-          "serviceChargeOther": 0.0,
-          "hours": 0.0,
-          "laborCost": 0.0,
-          "scheduledShifts": 0,
-          "lateMinutes": 0.0,
-          "noShow": 0
-        },
-        "2023-02-26": {
-          "sales": 1152.0,
-          "tickets": 35,
-          "gratuity": 0.0,
-          "serviceChargeVip": 0.0,
-          "serviceChargeParty": 0.0,
-          "serviceChargeOther": 0.0,
-          "hours": 0.0,
-          "laborCost": 0.0,
-          "scheduledShifts": 0,
-          "lateMinutes": 0.0,
-          "noShow": 0
-        }
-      },
-      "deptMix": {
-        "Bowling": 32865.75,
-        "Vending Machines": 0.0
-      },
-      "topItems": [
-        {
-          "name": "Time Bowling",
-          "revenue": 16847.25
-        },
-        {
-          "name": "Rental Shoes",
-          "revenue": 8478.0
-        },
-        {
-          "name": "Game Bowling",
-          "revenue": 5594.75
-        },
-        {
-          "name": "Holiday Time",
-          "revenue": 760.0
-        },
-        {
-          "name": "Holiday Game",
-          "revenue": 690.0
-        },
-        {
-          "name": "League Bowler Game",
-          "revenue": 336.25
-        },
-        {
-          "name": "Holiday Shoes",
-          "revenue": 80.5
-        },
-        {
-          "name": "General Party",
-          "revenue": 45.0
-        },
-        {
-          "name": "Concourse Shirt",
-          "revenue": 20.0
-        },
-        {
-          "name": "Employee Game",
-          "revenue": 14.0
-        }
-      ]
-    },
-    {
       "id": "hailey-diaz",
       "displayName": "Hailey Diaz",
       "posNames": [
@@ -204074,10 +203806,23 @@
           "scheduledShifts": 0,
           "lateMinutes": 0,
           "noShow": 0
+        },
+        "2026-09-20": {
+          "sales": 274.7,
+          "tickets": 4,
+          "gratuity": 51.67,
+          "serviceChargeVip": 0.0,
+          "serviceChargeParty": 0.0,
+          "serviceChargeOther": 0.0,
+          "hours": 5.2,
+          "laborCost": 87.88,
+          "scheduledShifts": 0,
+          "lateMinutes": 0,
+          "noShow": 0
         }
       },
       "deptMix": {
-        "Food": 32805.08,
+        "Food": 33079.78,
         "Bar": 18.0
       },
       "topItems": [
@@ -204087,7 +203832,7 @@
         },
         {
           "name": "Chicken Wings",
-          "revenue": 2896.0
+          "revenue": 2913.0
         },
         {
           "name": "Chicken Strips",
@@ -204099,7 +203844,7 @@
         },
         {
           "name": "Soda Pitcher",
-          "revenue": 1639.92
+          "revenue": 1681.68
         },
         {
           "name": "Soda",
@@ -204111,15 +203856,426 @@
         },
         {
           "name": "Large.",
-          "revenue": 1199.0
+          "revenue": 1226.0
         },
         {
           "name": "Concourse Nacho",
-          "revenue": 1175.0
+          "revenue": 1210.0
         },
         {
           "name": "Mozzarella Sticks",
-          "revenue": 998.0
+          "revenue": 1020.0
+        }
+      ]
+    },
+    {
+      "id": "ian",
+      "displayName": "Ian",
+      "posNames": [
+        "ian"
+      ],
+      "sevenShiftsUserId": null,
+      "roles": [],
+      "wage": 0.0,
+      "hiredAt": "",
+      "active": true,
+      "days": {
+        "2023-01-01": {
+          "sales": 2243.75,
+          "tickets": 55,
+          "gratuity": 0.0,
+          "serviceChargeVip": 0.0,
+          "serviceChargeParty": 0.0,
+          "serviceChargeOther": 0.0,
+          "hours": 0.0,
+          "laborCost": 0.0,
+          "scheduledShifts": 0,
+          "lateMinutes": 0.0,
+          "noShow": 0
+        },
+        "2023-01-04": {
+          "sales": 2362.25,
+          "tickets": 71,
+          "gratuity": 0.0,
+          "serviceChargeVip": 0.0,
+          "serviceChargeParty": 0.0,
+          "serviceChargeOther": 0.0,
+          "hours": 0.0,
+          "laborCost": 0.0,
+          "scheduledShifts": 0,
+          "lateMinutes": 0.0,
+          "noShow": 0
+        },
+        "2023-01-05": {
+          "sales": 4102.5,
+          "tickets": 114,
+          "gratuity": 0.0,
+          "serviceChargeVip": 0.0,
+          "serviceChargeParty": 0.0,
+          "serviceChargeOther": 0.0,
+          "hours": 0.0,
+          "laborCost": 0.0,
+          "scheduledShifts": 0,
+          "lateMinutes": 0.0,
+          "noShow": 0
+        },
+        "2023-01-06": {
+          "sales": 881.5,
+          "tickets": 24,
+          "gratuity": 0.0,
+          "serviceChargeVip": 0.0,
+          "serviceChargeParty": 0.0,
+          "serviceChargeOther": 0.0,
+          "hours": 0.0,
+          "laborCost": 0.0,
+          "scheduledShifts": 0,
+          "lateMinutes": 0.0,
+          "noShow": 0
+        },
+        "2023-01-08": {
+          "sales": 34.5,
+          "tickets": 5,
+          "gratuity": 0.0,
+          "serviceChargeVip": 0.0,
+          "serviceChargeParty": 0.0,
+          "serviceChargeOther": 0.0,
+          "hours": 0.0,
+          "laborCost": 0.0,
+          "scheduledShifts": 0,
+          "lateMinutes": 0.0,
+          "noShow": 0
+        },
+        "2023-01-10": {
+          "sales": 912.75,
+          "tickets": 40,
+          "gratuity": 0.0,
+          "serviceChargeVip": 0.0,
+          "serviceChargeParty": 0.0,
+          "serviceChargeOther": 0.0,
+          "hours": 0.0,
+          "laborCost": 0.0,
+          "scheduledShifts": 0,
+          "lateMinutes": 0.0,
+          "noShow": 0
+        },
+        "2023-01-15": {
+          "sales": 672.0,
+          "tickets": 28,
+          "gratuity": 0.0,
+          "serviceChargeVip": 0.0,
+          "serviceChargeParty": 0.0,
+          "serviceChargeOther": 0.0,
+          "hours": 0.0,
+          "laborCost": 0.0,
+          "scheduledShifts": 0,
+          "lateMinutes": 0.0,
+          "noShow": 0
+        },
+        "2023-01-18": {
+          "sales": 444.0,
+          "tickets": 20,
+          "gratuity": 0.0,
+          "serviceChargeVip": 0.0,
+          "serviceChargeParty": 0.0,
+          "serviceChargeOther": 0.0,
+          "hours": 0.0,
+          "laborCost": 0.0,
+          "scheduledShifts": 0,
+          "lateMinutes": 0.0,
+          "noShow": 0
+        },
+        "2023-01-20": {
+          "sales": 493.75,
+          "tickets": 16,
+          "gratuity": 0.0,
+          "serviceChargeVip": 0.0,
+          "serviceChargeParty": 0.0,
+          "serviceChargeOther": 0.0,
+          "hours": 0.0,
+          "laborCost": 0.0,
+          "scheduledShifts": 0,
+          "lateMinutes": 0.0,
+          "noShow": 0
+        },
+        "2023-01-21": {
+          "sales": 3997.5,
+          "tickets": 84,
+          "gratuity": 0.0,
+          "serviceChargeVip": 0.0,
+          "serviceChargeParty": 0.0,
+          "serviceChargeOther": 0.0,
+          "hours": 0.0,
+          "laborCost": 0.0,
+          "scheduledShifts": 0,
+          "lateMinutes": 0.0,
+          "noShow": 0
+        },
+        "2023-01-22": {
+          "sales": 1868.0,
+          "tickets": 60,
+          "gratuity": 0.0,
+          "serviceChargeVip": 0.0,
+          "serviceChargeParty": 0.0,
+          "serviceChargeOther": 0.0,
+          "hours": 0.0,
+          "laborCost": 0.0,
+          "scheduledShifts": 0,
+          "lateMinutes": 0.0,
+          "noShow": 0
+        },
+        "2023-01-25": {
+          "sales": 870.75,
+          "tickets": 33,
+          "gratuity": 0.0,
+          "serviceChargeVip": 0.0,
+          "serviceChargeParty": 0.0,
+          "serviceChargeOther": 0.0,
+          "hours": 0.0,
+          "laborCost": 0.0,
+          "scheduledShifts": 0,
+          "lateMinutes": 0.0,
+          "noShow": 0
+        },
+        "2023-01-26": {
+          "sales": 39.5,
+          "tickets": 1,
+          "gratuity": 0.0,
+          "serviceChargeVip": 0.0,
+          "serviceChargeParty": 0.0,
+          "serviceChargeOther": 0.0,
+          "hours": 0.0,
+          "laborCost": 0.0,
+          "scheduledShifts": 0,
+          "lateMinutes": 0.0,
+          "noShow": 0
+        },
+        "2023-01-29": {
+          "sales": 706.5,
+          "tickets": 19,
+          "gratuity": 0.0,
+          "serviceChargeVip": 0.0,
+          "serviceChargeParty": 0.0,
+          "serviceChargeOther": 0.0,
+          "hours": 0.0,
+          "laborCost": 0.0,
+          "scheduledShifts": 0,
+          "lateMinutes": 0.0,
+          "noShow": 0
+        },
+        "2023-02-02": {
+          "sales": 1560.25,
+          "tickets": 57,
+          "gratuity": 0.0,
+          "serviceChargeVip": 0.0,
+          "serviceChargeParty": 0.0,
+          "serviceChargeOther": 0.0,
+          "hours": 0.0,
+          "laborCost": 0.0,
+          "scheduledShifts": 0,
+          "lateMinutes": 0.0,
+          "noShow": 0
+        },
+        "2023-02-03": {
+          "sales": 2927.75,
+          "tickets": 84,
+          "gratuity": 0.0,
+          "serviceChargeVip": 0.0,
+          "serviceChargeParty": 0.0,
+          "serviceChargeOther": 0.0,
+          "hours": 0.0,
+          "laborCost": 0.0,
+          "scheduledShifts": 0,
+          "lateMinutes": 0.0,
+          "noShow": 0
+        },
+        "2023-02-05": {
+          "sales": 115.25,
+          "tickets": 10,
+          "gratuity": 0.0,
+          "serviceChargeVip": 0.0,
+          "serviceChargeParty": 0.0,
+          "serviceChargeOther": 0.0,
+          "hours": 0.0,
+          "laborCost": 0.0,
+          "scheduledShifts": 0,
+          "lateMinutes": 0.0,
+          "noShow": 0
+        },
+        "2023-02-07": {
+          "sales": 518.75,
+          "tickets": 20,
+          "gratuity": 0.0,
+          "serviceChargeVip": 0.0,
+          "serviceChargeParty": 0.0,
+          "serviceChargeOther": 0.0,
+          "hours": 0.0,
+          "laborCost": 0.0,
+          "scheduledShifts": 0,
+          "lateMinutes": 0.0,
+          "noShow": 0
+        },
+        "2023-02-08": {
+          "sales": 222.25,
+          "tickets": 11,
+          "gratuity": 0.0,
+          "serviceChargeVip": 0.0,
+          "serviceChargeParty": 0.0,
+          "serviceChargeOther": 0.0,
+          "hours": 0.0,
+          "laborCost": 0.0,
+          "scheduledShifts": 0,
+          "lateMinutes": 0.0,
+          "noShow": 0
+        },
+        "2023-02-10": {
+          "sales": 853.0,
+          "tickets": 19,
+          "gratuity": 0.0,
+          "serviceChargeVip": 0.0,
+          "serviceChargeParty": 0.0,
+          "serviceChargeOther": 0.0,
+          "hours": 0.0,
+          "laborCost": 0.0,
+          "scheduledShifts": 0,
+          "lateMinutes": 0.0,
+          "noShow": 0
+        },
+        "2023-02-11": {
+          "sales": 2502.75,
+          "tickets": 46,
+          "gratuity": 0.0,
+          "serviceChargeVip": 0.0,
+          "serviceChargeParty": 0.0,
+          "serviceChargeOther": 0.0,
+          "hours": 0.0,
+          "laborCost": 0.0,
+          "scheduledShifts": 0,
+          "lateMinutes": 0.0,
+          "noShow": 0
+        },
+        "2023-02-14": {
+          "sales": 671.0,
+          "tickets": 19,
+          "gratuity": 0.0,
+          "serviceChargeVip": 0.0,
+          "serviceChargeParty": 0.0,
+          "serviceChargeOther": 0.0,
+          "hours": 0.0,
+          "laborCost": 0.0,
+          "scheduledShifts": 0,
+          "lateMinutes": 0.0,
+          "noShow": 0
+        },
+        "2023-02-19": {
+          "sales": 1441.5,
+          "tickets": 43,
+          "gratuity": 0.0,
+          "serviceChargeVip": 0.0,
+          "serviceChargeParty": 0.0,
+          "serviceChargeOther": 0.0,
+          "hours": 0.0,
+          "laborCost": 0.0,
+          "scheduledShifts": 0,
+          "lateMinutes": 0.0,
+          "noShow": 0
+        },
+        "2023-02-21": {
+          "sales": 52.0,
+          "tickets": 4,
+          "gratuity": 0.0,
+          "serviceChargeVip": 0.0,
+          "serviceChargeParty": 0.0,
+          "serviceChargeOther": 0.0,
+          "hours": 0.0,
+          "laborCost": 0.0,
+          "scheduledShifts": 0,
+          "lateMinutes": 0.0,
+          "noShow": 0
+        },
+        "2023-02-24": {
+          "sales": 1220.0,
+          "tickets": 17,
+          "gratuity": 0.0,
+          "serviceChargeVip": 0.0,
+          "serviceChargeParty": 0.0,
+          "serviceChargeOther": 0.0,
+          "hours": 0.0,
+          "laborCost": 0.0,
+          "scheduledShifts": 0,
+          "lateMinutes": 0.0,
+          "noShow": 0
+        },
+        "2023-02-25": {
+          "sales": 0.0,
+          "tickets": 1,
+          "gratuity": 0.0,
+          "serviceChargeVip": 0.0,
+          "serviceChargeParty": 0.0,
+          "serviceChargeOther": 0.0,
+          "hours": 0.0,
+          "laborCost": 0.0,
+          "scheduledShifts": 0,
+          "lateMinutes": 0.0,
+          "noShow": 0
+        },
+        "2023-02-26": {
+          "sales": 1152.0,
+          "tickets": 35,
+          "gratuity": 0.0,
+          "serviceChargeVip": 0.0,
+          "serviceChargeParty": 0.0,
+          "serviceChargeOther": 0.0,
+          "hours": 0.0,
+          "laborCost": 0.0,
+          "scheduledShifts": 0,
+          "lateMinutes": 0.0,
+          "noShow": 0
+        }
+      },
+      "deptMix": {
+        "Bowling": 32865.75,
+        "Vending Machines": 0.0
+      },
+      "topItems": [
+        {
+          "name": "Time Bowling",
+          "revenue": 16847.25
+        },
+        {
+          "name": "Rental Shoes",
+          "revenue": 8478.0
+        },
+        {
+          "name": "Game Bowling",
+          "revenue": 5594.75
+        },
+        {
+          "name": "Holiday Time",
+          "revenue": 760.0
+        },
+        {
+          "name": "Holiday Game",
+          "revenue": 690.0
+        },
+        {
+          "name": "League Bowler Game",
+          "revenue": 336.25
+        },
+        {
+          "name": "Holiday Shoes",
+          "revenue": 80.5
+        },
+        {
+          "name": "General Party",
+          "revenue": 45.0
+        },
+        {
+          "name": "Concourse Shirt",
+          "revenue": 20.0
+        },
+        {
+          "name": "Employee Game",
+          "revenue": 14.0
         }
       ]
     },
@@ -221239,6 +221395,19 @@
           "scheduledShifts": 0,
           "lateMinutes": 0.0,
           "noShow": 0
+        },
+        "2026-09-20": {
+          "sales": 0.0,
+          "tickets": 1,
+          "gratuity": 0.0,
+          "serviceChargeVip": 0.0,
+          "serviceChargeParty": 0.0,
+          "serviceChargeOther": 0.0,
+          "hours": 0.0,
+          "laborCost": 0.0,
+          "scheduledShifts": 0,
+          "lateMinutes": 0.0,
+          "noShow": 0
         }
       },
       "deptMix": {
@@ -227421,19 +227590,6 @@
           "laborCost": 0.0,
           "scheduledShifts": 0,
           "lateMinutes": 0.0,
-          "noShow": 0
-        },
-        "2025-09-21": {
-          "sales": 0.0,
-          "tickets": 0,
-          "gratuity": 0.0,
-          "serviceChargeVip": 0.0,
-          "serviceChargeParty": 0.0,
-          "serviceChargeOther": 0.0,
-          "hours": 7.0,
-          "laborCost": 210.0,
-          "scheduledShifts": 0,
-          "lateMinutes": 0,
           "noShow": 0
         },
         "2025-09-24": {
@@ -236931,6 +237087,19 @@
           "scheduledShifts": 0,
           "lateMinutes": 0,
           "noShow": 0
+        },
+        "2026-09-20": {
+          "sales": 0.0,
+          "tickets": 0,
+          "gratuity": 0.0,
+          "serviceChargeVip": 0.0,
+          "serviceChargeParty": 0.0,
+          "serviceChargeOther": 0.0,
+          "hours": 6.88,
+          "laborCost": 165.2,
+          "scheduledShifts": 0,
+          "lateMinutes": 0,
+          "noShow": 0
         }
       },
       "deptMix": {},
@@ -237557,19 +237726,6 @@
       "hiredAt": "2024-11-09T18:26:23+00:00",
       "active": true,
       "days": {
-        "2025-09-21": {
-          "sales": 0.0,
-          "tickets": 0,
-          "gratuity": 0.0,
-          "serviceChargeVip": 0.0,
-          "serviceChargeParty": 0.0,
-          "serviceChargeOther": 0.0,
-          "hours": 6.0,
-          "laborCost": 120.0,
-          "scheduledShifts": 0,
-          "lateMinutes": 0,
-          "noShow": 0
-        },
         "2025-09-22": {
           "sales": 0.0,
           "tickets": 0,
@@ -239204,6 +239360,19 @@
           "serviceChargeOther": 0.0,
           "hours": 5.92,
           "laborCost": 118.33,
+          "scheduledShifts": 0,
+          "lateMinutes": 0,
+          "noShow": 0
+        },
+        "2026-09-20": {
+          "sales": 0.0,
+          "tickets": 0,
+          "gratuity": 0.0,
+          "serviceChargeVip": 0.0,
+          "serviceChargeParty": 0.0,
+          "serviceChargeOther": 0.0,
+          "hours": 7.98,
+          "laborCost": 159.67,
           "scheduledShifts": 0,
           "lateMinutes": 0,
           "noShow": 0
@@ -240885,6 +241054,19 @@
           "scheduledShifts": 0,
           "lateMinutes": 0,
           "noShow": 0
+        },
+        "2026-09-20": {
+          "sales": 0.0,
+          "tickets": 0,
+          "gratuity": 0.0,
+          "serviceChargeVip": 0.0,
+          "serviceChargeParty": 0.0,
+          "serviceChargeOther": 0.0,
+          "hours": 7.0,
+          "laborCost": 210.0,
+          "scheduledShifts": 0,
+          "lateMinutes": 0,
+          "noShow": 0
         }
       },
       "deptMix": {},
@@ -241992,6 +242174,19 @@
           "serviceChargeOther": 0.0,
           "hours": 4.7,
           "laborCost": 112.8,
+          "scheduledShifts": 0,
+          "lateMinutes": 0,
+          "noShow": 0
+        },
+        "2026-09-20": {
+          "sales": 0.0,
+          "tickets": 0,
+          "gratuity": 0.0,
+          "serviceChargeVip": 0.0,
+          "serviceChargeParty": 0.0,
+          "serviceChargeOther": 0.0,
+          "hours": 5.7,
+          "laborCost": 136.8,
           "scheduledShifts": 0,
           "lateMinutes": 0,
           "noShow": 0
@@ -243301,6 +243496,19 @@
           "scheduledShifts": 0,
           "lateMinutes": 0,
           "noShow": 0
+        },
+        "2026-09-20": {
+          "sales": 0.0,
+          "tickets": 0,
+          "gratuity": 0.0,
+          "serviceChargeVip": 0.0,
+          "serviceChargeParty": 0.0,
+          "serviceChargeOther": 0.0,
+          "hours": 5.62,
+          "laborCost": 134.8,
+          "scheduledShifts": 0,
+          "lateMinutes": 0,
+          "noShow": 0
         }
       },
       "deptMix": {},
@@ -243457,19 +243665,6 @@
       "hiredAt": "2024-01-22T21:40:24+00:00",
       "active": false,
       "days": {
-        "2025-09-21": {
-          "sales": 0.0,
-          "tickets": 0,
-          "gratuity": 0.0,
-          "serviceChargeVip": 0.0,
-          "serviceChargeParty": 0.0,
-          "serviceChargeOther": 0.0,
-          "hours": 5.52,
-          "laborCost": 115.85,
-          "scheduledShifts": 0,
-          "lateMinutes": 0,
-          "noShow": 0
-        },
         "2025-09-23": {
           "sales": 0.0,
           "tickets": 0,
@@ -244882,19 +245077,6 @@
       "hiredAt": "2024-01-22T21:40:24+00:00",
       "active": true,
       "days": {
-        "2025-09-21": {
-          "sales": 0.0,
-          "tickets": 0,
-          "gratuity": 0.0,
-          "serviceChargeVip": 0.0,
-          "serviceChargeParty": 0.0,
-          "serviceChargeOther": 0.0,
-          "hours": 8.25,
-          "laborCost": 206.25,
-          "scheduledShifts": 0,
-          "lateMinutes": 0,
-          "noShow": 0
-        },
         "2025-09-23": {
           "sales": 0.0,
           "tickets": 0,
@@ -248235,6 +248417,19 @@
           "scheduledShifts": 0,
           "lateMinutes": 0,
           "noShow": 0
+        },
+        "2026-09-20": {
+          "sales": 0.0,
+          "tickets": 0,
+          "gratuity": 0.0,
+          "serviceChargeVip": 0.0,
+          "serviceChargeParty": 0.0,
+          "serviceChargeOther": 0.0,
+          "hours": 8.03,
+          "laborCost": 216.9,
+          "scheduledShifts": 0,
+          "lateMinutes": 0,
+          "noShow": 0
         }
       },
       "deptMix": {},
@@ -248550,6 +248745,19 @@
           "serviceChargeOther": 0.0,
           "hours": 5.77,
           "laborCost": 97.46,
+          "scheduledShifts": 0,
+          "lateMinutes": 0,
+          "noShow": 0
+        },
+        "2026-09-20": {
+          "sales": 0.0,
+          "tickets": 0,
+          "gratuity": 0.0,
+          "serviceChargeVip": 0.0,
+          "serviceChargeParty": 0.0,
+          "serviceChargeOther": 0.0,
+          "hours": 7.6,
+          "laborCost": 128.44,
           "scheduledShifts": 0,
           "lateMinutes": 0,
           "noShow": 0
@@ -252614,19 +252822,6 @@
       "hiredAt": "2024-01-22T21:40:25+00:00",
       "active": true,
       "days": {
-        "2025-09-21": {
-          "sales": 0.0,
-          "tickets": 0,
-          "gratuity": 0.0,
-          "serviceChargeVip": 0.0,
-          "serviceChargeParty": 0.0,
-          "serviceChargeOther": 0.0,
-          "hours": 8.23,
-          "laborCost": 181.13,
-          "scheduledShifts": 0,
-          "lateMinutes": 0,
-          "noShow": 0
-        },
         "2025-09-23": {
           "sales": 0.0,
           "tickets": 0,
@@ -255564,6 +255759,19 @@
           "scheduledShifts": 0,
           "lateMinutes": 0,
           "noShow": 0
+        },
+        "2026-09-20": {
+          "sales": 0.0,
+          "tickets": 0,
+          "gratuity": 0.0,
+          "serviceChargeVip": 0.0,
+          "serviceChargeParty": 0.0,
+          "serviceChargeOther": 0.0,
+          "hours": 8.1,
+          "laborCost": 178.2,
+          "scheduledShifts": 0,
+          "lateMinutes": 0,
+          "noShow": 0
         }
       },
       "deptMix": {},
@@ -257383,6 +257591,19 @@
           "serviceChargeOther": 0.0,
           "hours": 6.02,
           "laborCost": 108.3,
+          "scheduledShifts": 0,
+          "lateMinutes": 0,
+          "noShow": 0
+        },
+        "2026-09-20": {
+          "sales": 0.0,
+          "tickets": 0,
+          "gratuity": 0.0,
+          "serviceChargeVip": 0.0,
+          "serviceChargeParty": 0.0,
+          "serviceChargeOther": 0.0,
+          "hours": 5.27,
+          "laborCost": 94.8,
           "scheduledShifts": 0,
           "lateMinutes": 0,
           "noShow": 0
