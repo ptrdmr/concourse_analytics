@@ -3,7 +3,9 @@
 import { useMemo, useState, useEffect } from 'react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { Nav } from '@/components/Nav';
+import { ServiceChargePanel } from '@/components/gratuity/ServiceChargePanel';
 import { useGratuity } from '@/hooks/useGratuity';
+import { useServiceCharges } from '@/hooks/useServiceCharges';
 import type { GratuityDay, GratuityDaypart, GratuityHouse } from '@/types';
 
 const HOUSES: GratuityHouse[] = ['Bar', 'Cafe', 'Other'];
@@ -13,6 +15,7 @@ const DAYPARTS: { key: GratuityDaypart; label: string }[] = [
 ];
 
 type Mode = 'day' | 'range';
+type Section = 'tips' | 'charges';
 
 function money(value: number): string {
   return new Intl.NumberFormat('en-US', {
@@ -133,6 +136,8 @@ function mergeDays(days: GratuityDay[]): GratuityDay {
 
 export default function GratuityPage() {
   const { data, dates, loading, available } = useGratuity();
+  const serviceCharges = useServiceCharges();
+  const [section, setSection] = useState<Section>('tips');
   const [mode, setMode] = useState<Mode>('day');
   const [selectedDate, setSelectedDate] = useState('');
   const [rangeStart, setRangeStart] = useState('');
@@ -183,13 +188,29 @@ export default function GratuityPage() {
     return { bar, cafe, other, all: bar + cafe + other };
   }, [view]);
 
-  const canPrevDay = Boolean(minDate && selectedDate > minDate);
-  const canNextDay = Boolean(maxDate && selectedDate < maxDate);
+  const chargeTabs = useMemo(() => {
+    const tabs = serviceCharges.data?.tabs ?? [];
+    if (mode === 'day') return tabs.filter((tab) => tab.date === selectedDate);
+    const start = rangeStart <= rangeEnd ? rangeStart : rangeEnd;
+    const end = rangeStart <= rangeEnd ? rangeEnd : rangeStart;
+    if (!start || !end) return [];
+    return tabs.filter((tab) => tab.date >= start && tab.date <= end);
+  }, [serviceCharges.data, mode, selectedDate, rangeStart, rangeEnd]);
+
+  const chargeDaysUsed = useMemo(
+    () => new Set(chargeTabs.map((tab) => tab.date)).size,
+    [chargeTabs],
+  );
+
+  const chargeDates = serviceCharges.dates;
+  const dayStepDates = section === 'charges' ? chargeDates : dates;
+  const canPrevDay = Boolean(dayStepDates.length && selectedDate > dayStepDates[0]);
+  const canNextDay = Boolean(dayStepDates.length && selectedDate < dayStepDates[dayStepDates.length - 1]);
   const canPrevRange = Boolean(minDate && rangeStart > minDate);
   const canNextRange = Boolean(maxDate && rangeEnd < maxDate);
 
   function goDay(dir: -1 | 1) {
-    setSelectedDate(stepToTippedDate(selectedDate, dates, dir));
+    setSelectedDate(stepToTippedDate(selectedDate, dayStepDates, dir));
   }
 
   function goRange(dir: -1 | 1) {
@@ -264,12 +285,37 @@ export default function GratuityPage() {
         <div>
           <h1 className="text-2xl sm:text-3xl font-bold text-gradient">Gratuity</h1>
           <p className="text-secondary text-sm mt-1">
-            Tips received, split before and after {daypartHour}:00 by ticket open time, then by
-            the terminal that rang the ticket.
+            {section === 'tips'
+              ? `Tips received, split before and after ${daypartHour}:00 by ticket open time, then by the terminal that rang the ticket.`
+              : 'Service charges on party tabs, with the party name, party type, and the server who owned the tab.'}
           </p>
         </div>
 
         <div className="card p-4 sm:p-5 space-y-4">
+          <div className="flex flex-wrap items-center gap-2">
+            <button
+              type="button"
+              onClick={() => setSection('tips')}
+              className={`px-4 py-2 rounded-full text-sm transition-colors ${
+                section === 'tips'
+                  ? 'bg-accent/15 text-accent'
+                  : 'text-secondary hover:bg-overlay/5 hover:text-foreground'
+              }`}
+            >
+              Tips
+            </button>
+            <button
+              type="button"
+              onClick={() => setSection('charges')}
+              className={`px-4 py-2 rounded-full text-sm transition-colors ${
+                section === 'charges'
+                  ? 'bg-accent/15 text-accent'
+                  : 'text-secondary hover:bg-overlay/5 hover:text-foreground'
+              }`}
+            >
+              Service charges
+            </button>
+          </div>
           <div className="flex flex-wrap items-center gap-2">
             <button
               type="button"
@@ -379,21 +425,41 @@ export default function GratuityPage() {
           {periodLabel && (
             <p className="text-sm text-secondary">
               {periodLabel}
-              {mode === 'range' && view && (
+              {mode === 'range' && section === 'tips' && view && (
                 <>
                   {' '}
                   · {view.daysUsed} day{view.daysUsed === 1 ? '' : 's'} with tips
+                </>
+              )}
+              {mode === 'range' && section === 'charges' && (
+                <>
+                  {' '}
+                  · {chargeDaysUsed} day{chargeDaysUsed === 1 ? '' : 's'} with service charges
                 </>
               )}
             </p>
           )}
         </div>
 
-        {!view?.day && (
+        {section === 'charges' && (
+          serviceCharges.loading ? (
+            <p className="text-secondary">Loading service charges…</p>
+          ) : !serviceCharges.available || !serviceCharges.data ? (
+            <p className="text-secondary">
+              No service charge file yet. From this machine run{' '}
+              <code className="text-accent">python scripts/export_dashboards.py --from-tickets</code>
+              . Nightly will write it on the next ETL.
+            </p>
+          ) : (
+            <ServiceChargePanel tabs={chargeTabs} />
+          )
+        )}
+
+        {section === 'tips' && !view?.day && (
           <p className="text-secondary">No tips recorded in this {mode === 'day' ? 'date' : 'range'}.</p>
         )}
 
-        {view?.day && totals && (
+        {section === 'tips' && view?.day && totals && (
           <>
             <div className="grid grid-cols-2 lg:grid-cols-4 gap-3">
               <SummaryCard

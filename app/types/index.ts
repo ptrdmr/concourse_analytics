@@ -298,6 +298,33 @@ export interface GratuityData {
   dates: Record<string, GratuityDay>;
 }
 
+export interface ServiceChargeTab {
+  date: string;
+  time: string;
+  txnId: string;
+  party: string | null;
+  accountNames: string[];
+  partyTypes: string[];
+  chargeType: string;
+  server: string;
+  terminal: string;
+  charges: Record<string, number>;
+  serviceCharge: number;
+  gratuity: number;
+  tabTotal: number;
+  accountApplied: number;
+}
+
+export interface ServiceChargeData {
+  generatedAt: string;
+  tabs: ServiceChargeTab[];
+  meta: {
+    cancelledSkipped: number;
+    noAccount: number;
+    multiAccount: number;
+  };
+}
+
 export interface ReservationCountRow {
   date: string;
   type: string;
@@ -320,6 +347,34 @@ export interface ReservationCountsData {
     cellSum: number;
     delta: number;
   };
+}
+
+export interface WebsiteEmptyCombo {
+  combo: string;
+  n: number;
+}
+
+export interface WebsiteDay {
+  date: string;
+  sessions: number;
+  views: number;
+  filtered: number;
+  clicked: number;
+  cta: Record<string, Record<string, number>>;
+  filters: Record<string, Record<string, number>>;
+  empty: WebsiteEmptyCombo[];
+}
+
+export interface WebsiteSource {
+  label: string;
+  pkgMap: Record<string, string>;
+  days: WebsiteDay[];
+}
+
+export interface WebsiteEventsData {
+  generatedAt: string;
+  dateRange: [string | null, string | null];
+  sources: Record<string, WebsiteSource>;
 }
 
 export interface EmployeeRankings {

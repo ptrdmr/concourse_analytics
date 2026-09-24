@@ -16,6 +16,7 @@ import csv
 import json
 import os
 import glob
+import re
 import statistics
 import sys
 from datetime import datetime, timedelta, date
@@ -30,6 +31,7 @@ SERVICE_CHARGES_CONFIG = os.path.join(_ROOT, 'config', 'service_charges.json')
 GRATUITY_CONFIG = os.path.join(_ROOT, 'config', 'gratuity.json')
 EMPLOYEES_POS_OUTPUT = os.path.join(OUTPUT_DIR, '_employees_pos.json')
 GRATUITY_OUTPUT = os.path.join(OUTPUT_DIR, 'gratuity.json')
+SERVICE_CHARGES_OUTPUT = os.path.join(OUTPUT_DIR, 'service_charges.json')
 
 # Bowling forecast: trailing level + shrink toward weighted same-week seasonality
 LEVEL_LOOKBACK = 52
@@ -1996,7 +1998,9 @@ def aggregate_employees_from_tickets(by_month):
                 else:
                     sc_other += amt
 
-            if ticket_user_norm and (sc_vip or sc_party or sc_other):
+            # Cancelled tabs still carry service-charge lines. They are not
+            # collected money, so they do not count toward a server's charges.
+            if ticket.get('type') == 'Sales' and ticket_user_norm and (sc_vip or sc_party or sc_other):
                 ensure_emp(ticket_user_norm, ticket_user)
                 day = employees[ticket_user_norm]['days'][date]
                 day['serviceChargeVip'] += sc_vip
@@ -2219,6 +2223,172 @@ def export_gratuity(by_month):
 
 
 # =============================================================================
+# EXPORT: service_charges.json (one row per party tab)
+# =============================================================================
+
+_PARTY_NAME_LEADING_DATE = re.compile(r'^\d{1,2}/\d{1,2}/\d{4}\s+')
+_PARTY_NAME_TRAILING_DATE = re.compile(r'\s+\d{1,2}[-.]\d{1,2}[-.]\d{2,4}$')
+# A lane reservation sitting next to a named party is the booking slot, not the party.
+_PLAIN_LANE_TYPES = frozenset({'Weekday Lane', 'Sunday Lane'})
+
+
+def _import_reservation_counts():
+    _scripts = os.path.join(_ROOT, 'scripts')
+    if _scripts not in sys.path:
+        sys.path.insert(0, _scripts)
+    import reservation_counts
+    return reservation_counts
+
+
+def _clean_party_name(raw):
+    """Drop the event date staff type into the POS account name."""
+    text = ' '.join(str(raw or '').split())
+    text = _PARTY_NAME_LEADING_DATE.sub('', text)
+    text = _PARTY_NAME_TRAILING_DATE.sub('', text)
+    text = ' '.join(text.split())
+    return text or None
+
+
+def _party_types_for_tab(ticket, reservation_counts):
+    """Party type from the booking item, using the Reservations page's names.
+
+    Extra rules here do not change reservation counts: a plain lane next to a
+    named party is dropped, and a tab with no match falls back to General Party
+    or Unclassified.
+    """
+    found = set(reservation_counts.classify_tab(ticket.get('items')))
+    named = found - _PLAIN_LANE_TYPES
+    if named and (found & _PLAIN_LANE_TYPES):
+        found = named
+    if found:
+        order = reservation_counts.TYPE_NAMES
+        return sorted(found, key=lambda name: order.index(name) if name in order else len(order))
+    for item in ticket.get('items') or []:
+        if (item.get('name') or '').strip().lower() == 'general party':
+            return ['General Party']
+    return ['Unclassified']
+
+
+def _primary_charge_type(charges):
+    if not charges:
+        return ''
+    return max(charges.items(), key=lambda kv: (kv[1], kv[0]))[0]
+
+
+def aggregate_service_charges_from_tickets(by_month):
+    """One row per Sales tab with a non-zero service charge.
+
+    Party name comes from the Account line. Party type comes from the booking
+    item via reservation_counts.classify_tab. Cancelled tabs are counted in
+    meta and not emitted.
+    """
+    cfg = _load_service_charges_config()
+    reservation_counts = _import_reservation_counts()
+    tabs = []
+    cancelled_skipped = 0
+    no_account = 0
+    multi_account = 0
+
+    for tickets in (by_month or {}).values():
+        for ticket in tickets or []:
+            charges = {}
+            gratuity = 0.0
+            accounts = []
+            for line in ticket.get('items') or []:
+                item_type = line.get('itemType')
+                amount = _ticket_line_amount(line)
+                if item_type == 'Adjustment':
+                    name = (line.get('name') or '').strip()
+                    if _is_service_charge(name, cfg) and amount:
+                        charges[name] = round(charges.get(name, 0.0) + float(amount), 2)
+                elif item_type == 'GratuityIn':
+                    gratuity += float(amount or 0)
+                elif item_type == 'Account':
+                    name = (line.get('name') or '').strip()
+                    if name:
+                        accounts.append((name, float(amount or 0)))
+
+            if not charges:
+                continue
+            if ticket.get('type') != 'Sales':
+                cancelled_skipped += 1
+                continue
+
+            seen = []
+            for name, _amt in accounts:
+                if name not in seen:
+                    seen.append(name)
+            if len(seen) > 1:
+                multi_account += 1
+                party_raw = max(accounts, key=lambda pair: abs(pair[1]))[0]
+            elif seen:
+                party_raw = seen[0]
+            else:
+                no_account += 1
+                party_raw = None
+
+            service_charge = round(sum(charges.values()), 2)
+            tabs.append({
+                'date': (ticket.get('date') or '').strip(),
+                'time': ticket.get('time') or '',
+                'txnId': str(ticket.get('txnId') or ''),
+                'party': _clean_party_name(party_raw) if party_raw else None,
+                'accountNames': seen,
+                'partyTypes': _party_types_for_tab(ticket, reservation_counts),
+                'chargeType': _primary_charge_type(charges),
+                'server': (ticket.get('user') or '').strip(),
+                'terminal': (ticket.get('terminal') or '').strip(),
+                'charges': charges,
+                'serviceCharge': service_charge,
+                'gratuity': round(gratuity, 2),
+                'tabTotal': round(float(ticket.get('total') or 0), 2),
+                'accountApplied': round(sum(abs(amt) for _name, amt in accounts), 2),
+            })
+
+    tabs.sort(key=lambda row: (row['date'], row['time'], row['txnId']))
+    return {
+        'generatedAt': datetime.now().isoformat(),
+        'tabs': tabs,
+        'meta': {
+            'cancelledSkipped': cancelled_skipped,
+            'noAccount': no_account,
+            'multiAccount': multi_account,
+        },
+    }
+
+
+def export_service_charges(by_month):
+    """Write public/data/service_charges.json from ticket month buckets."""
+    payload = aggregate_service_charges_from_tickets(by_month)
+    _atomic_write_json(SERVICE_CHARGES_OUTPUT, payload, indent=2, trailing_newline=True)
+    size_kb = os.path.getsize(SERVICE_CHARGES_OUTPUT) / 1024
+    print(f'  -> {SERVICE_CHARGES_OUTPUT}  ({len(payload["tabs"]):,} tabs, {size_kb:.0f} KB)')
+    return payload
+
+
+def warn_if_service_charge_totals_differ(emp_payload, sc_payload):
+    """The employees page and the tips page must show the same service-charge money."""
+    emp_total = 0.0
+    for emp in (emp_payload or {}).get('employees', {}).values():
+        for day in (emp.get('days') or {}).values():
+            emp_total += float(day.get('serviceChargeVip') or 0)
+            emp_total += float(day.get('serviceChargeParty') or 0)
+            emp_total += float(day.get('serviceChargeOther') or 0)
+    sc_total = sum(float(tab.get('serviceCharge') or 0) for tab in (sc_payload or {}).get('tabs') or [])
+    emp_total = round(emp_total, 2)
+    sc_total = round(sc_total, 2)
+    if abs(emp_total - sc_total) > 0.01:
+        print(
+            f'  WARNING: service charge totals differ. '
+            f'Employees ${emp_total:,.2f} vs party tabs ${sc_total:,.2f} '
+            f'(delta ${emp_total - sc_total:,.2f}).'
+        )
+        return False
+    print(f'  Service charges agree: ${sc_total:,.2f} on employees and party tabs.')
+    return True
+
+
+# =============================================================================
 # MAIN
 # =============================================================================
 
@@ -2235,6 +2405,11 @@ def main():
             return 1
         print(f'Ticket months: {", ".join(sorted(by_month))}')
         export_gratuity(by_month)
+        print('\nService charges...')
+        sc_payload = export_service_charges(by_month)
+        print('\nEmployee POS aggregation (service charges exclude cancelled tabs)...')
+        emp_payload = export_employees_pos(by_month)
+        warn_if_service_charge_totals_differ(emp_payload, sc_payload)
         print('\nReservation counts...')
         _scripts = os.path.join(_ROOT, 'scripts')
         if _scripts not in sys.path:
@@ -2293,10 +2468,14 @@ def main():
     by_month = export_ticket_detail(csv_files)
 
     print('\n[8/13] Employee POS aggregation...')
-    export_employees_pos(by_month)
+    emp_payload = export_employees_pos(by_month)
 
     print('\n[8b/13] Gratuity (daypart x terminal)...')
     export_gratuity(by_month)
+
+    print('\n[8b2/13] Service charges (party tabs)...')
+    sc_payload = export_service_charges(by_month)
+    warn_if_service_charge_totals_differ(emp_payload, sc_payload)
 
     print('\n[8c/14] Reservation counts...')
     try:
