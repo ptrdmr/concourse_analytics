@@ -3,11 +3,12 @@
 import { useState, useEffect, useMemo, Suspense } from 'react';
 import { Nav } from '@/components/Nav';
 import { HolidaySelector } from '@/components/dashboard/HolidaySelector';
-import { DepartmentFilter } from '@/components/dashboard/DepartmentFilter';
+import { DepartmentPills } from '@/components/dashboard/DepartmentPills';
 import { HolidayRanking } from '@/components/dashboard/HolidayRanking';
 import { HolidayYoYTable } from '@/components/dashboard/HolidayYoYTable';
 import { HolidayComparisonChart } from '@/components/dashboard/HolidayComparisonChart';
-import { useUrlString } from '@/hooks/useUrlFilters';
+import { useUrlDepartments, useUrlString } from '@/hooks/useUrlFilters';
+import { revenueForDepartments } from '@/lib/departments';
 import { buildHolidaysSummary } from '@/lib/build-data-summary';
 import { useDataContext } from '@/context/DataContext';
 
@@ -48,7 +49,7 @@ function HolidaysContent() {
   const [data, setData] = useState<HolidayAnalysisData | null>(null);
   const [loading, setLoading] = useState(true);
   const [selectedHoliday, setSelectedHoliday] = useUrlString('holiday', '');
-  const [department, setDepartment] = useUrlString('dept', 'All');
+  const [selectedDepts, setSelectedDepts] = useUrlDepartments();
 
   useEffect(() => {
     fetch('/data/holiday_analysis.json')
@@ -87,29 +88,28 @@ function HolidaysContent() {
         Object.keys(y.byDepartment).forEach((d) => depts.add(d));
       }
     }
-    return Array.from(depts).sort();
-  }, [selectedData]);
+    // Keep a selected department visible even if this holiday has no sales for it.
+    selectedDepts.forEach((d) => depts.add(d));
+    return ['All', ...Array.from(depts).sort()];
+  }, [selectedData, selectedDepts]);
 
   const rankingYears = useMemo(() => {
     if (!selectedData) return [];
-    const rev = department === 'All'
-      ? (y: HolidayYearData) => y.revenue
-      : (y: HolidayYearData) => (y.byDepartment?.[department] ?? 0);
     return selectedData.years.map((y) => ({
       year: y.year,
-      revenue: rev(y),
+      revenue: revenueForDepartments(y.revenue, y.byDepartment, selectedDepts),
       transactions: y.transactions,
     }));
-  }, [selectedData, department]);
+  }, [selectedData, selectedDepts]);
 
   const summaryText = useMemo(() => {
     if (!selectedHoliday || rankingYears.length === 0) return '';
     return buildHolidaysSummary({
       holiday: selectedHoliday,
-      department,
+      departments: selectedDepts,
       years: rankingYears,
     });
-  }, [selectedHoliday, department, rankingYears]);
+  }, [selectedHoliday, selectedDepts, rankingYears]);
 
   useEffect(() => {
     if (summaryText) setDataSummary(summaryText);
@@ -160,23 +160,21 @@ function HolidaysContent() {
 
         {selectedData && (
           <>
-            <div className="flex flex-wrap items-center gap-4">
-              <DepartmentFilter
-                value={department}
-                onChange={setDepartment}
-                available={availableDepartments}
-              />
-            </div>
+            <DepartmentPills
+              options={availableDepartments}
+              selected={selectedDepts}
+              onChange={setSelectedDepts}
+            />
 
             <HolidayRanking years={rankingYears} yearColors={data.yearColors} />
 
             <div className="grid grid-cols-1 xl:grid-cols-2 gap-8">
               <HolidayComparisonChart
                 years={selectedData.years}
-                department={department}
+                departments={selectedDepts}
                 yearColors={data.yearColors}
               />
-              <HolidayYoYTable years={selectedData.years} department={department} />
+              <HolidayYoYTable years={selectedData.years} departments={selectedDepts} />
             </div>
           </>
         )}

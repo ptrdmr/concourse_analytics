@@ -15,7 +15,7 @@ export interface DailyData {
 interface Props {
   dailyRevenue: DailyData[];
   dateRange: [string, string] | null;
-  department: string;
+  departmentLabel: string;
   onDayClick: (date: string) => void;
 }
 
@@ -36,7 +36,7 @@ function toDateKey(d: Date): string {
   return d.toISOString().slice(0, 10);
 }
 
-export function RevenueCalendarCard({ dailyRevenue, dateRange, department, onDayClick }: Props) {
+export function RevenueCalendarCard({ dailyRevenue, dateRange, departmentLabel, onDayClick }: Props) {
   const revenueByDate = useMemo(() => {
     const map = new Map<string, DailyData>();
     for (const d of dailyRevenue) {
@@ -94,7 +94,7 @@ export function RevenueCalendarCard({ dailyRevenue, dateRange, department, onDay
     }
   }
 
-  const subtitle = `${department === 'All' ? 'All departments' : department} — All time`;
+  const subtitle = `${departmentLabel} — All time`;
 
   return (
     <div className="card p-6">

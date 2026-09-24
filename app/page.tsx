@@ -52,7 +52,7 @@ function HomeContent() {
   const salesThrough = summary?.dateRange?.[1] ?? null;
   const [dateRange, setDateRange] = useUrlDateRange(getLast7Days(salesThrough));
   const filters = useMemo<Filters>(() => ({
-    department: 'All',
+    departments: [],
     dateRange,
     categories: [],
     searchTerm: '',

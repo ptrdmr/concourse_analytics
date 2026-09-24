@@ -27,7 +27,8 @@ export interface Summary {
 }
 
 export interface Filters {
-  department: string;
+  /** Empty means all departments. */
+  departments: string[];
   dateRange: [string, string] | null;
   categories: string[];
   searchTerm: string;

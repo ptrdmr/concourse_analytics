@@ -5,6 +5,7 @@ import {
   Tooltip, ResponsiveContainer,
 } from 'recharts';
 import { formatCompact, formatCurrency } from '@/lib/format';
+import { departmentLabel, revenueForDepartments } from '@/lib/departments';
 
 interface YearData {
   year: number;
@@ -15,7 +16,8 @@ interface YearData {
 
 interface Props {
   years: YearData[];
-  department: string;
+  /** Empty means all departments. */
+  departments: string[];
   yearColors: string[];
 }
 
@@ -29,12 +31,12 @@ function CustomTooltip({ active, payload, label }: { active?: boolean; payload?:
   );
 }
 
-export function HolidayComparisonChart({ years, department, yearColors }: Props) {
+export function HolidayComparisonChart({ years, departments, yearColors }: Props) {
   const data = years
     .sort((a, b) => a.year - b.year)
     .map((y, i) => ({
       year: String(y.year),
-      revenue: department === 'All' ? y.revenue : (y.byDepartment?.[department] ?? 0),
+      revenue: revenueForDepartments(y.revenue, y.byDepartment, departments),
       fill: yearColors[i % yearColors.length],
     }));
 
@@ -42,7 +44,7 @@ export function HolidayComparisonChart({ years, department, yearColors }: Props)
     <div className="card p-6">
       <h3 className="text-lg font-semibold text-foreground mb-1">Sales by Year</h3>
       <p className="text-sm text-muted mb-6">
-        {department === 'All' ? 'All departments' : department} — {years.length} years
+        {departmentLabel(departments)} — {years.length} years
       </p>
       <div className="h-[300px]">
         <ResponsiveContainer width="100%" height="100%">

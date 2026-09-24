@@ -1,4 +1,5 @@
 import { formatCurrency, formatNumber, formatPercent } from './format';
+import { departmentLabel } from './departments';
 
 interface TopItem {
   name: string;
@@ -25,18 +26,18 @@ interface KPIs {
 }
 
 export function buildExplorerSummary(opts: {
-  department: string;
+  departments: string[];
   dateRange: [string, string] | null;
   kpis: KPIs;
   categoryBreakdown: CategoryEntry[];
   weeklyTrends: WeeklyEntry[];
   topItems: TopItem[];
 }): string {
-  const { department, dateRange, kpis, categoryBreakdown, weeklyTrends, topItems } = opts;
+  const { departments, dateRange, kpis, categoryBreakdown, weeklyTrends, topItems } = opts;
   const lines: string[] = [];
 
   lines.push('Dashboard: Data Explorer');
-  lines.push(`Department: ${department || 'All'} | Date Range: ${dateRange ? `${dateRange[0]} to ${dateRange[1]}` : 'All time'}`);
+  lines.push(`Department: ${departmentLabel(departments)} | Date Range: ${dateRange ? `${dateRange[0]} to ${dateRange[1]}` : 'All time'}`);
   lines.push(`KPIs: Sales ${formatCurrency(kpis.totalRevenue)} | Qty ${formatNumber(kpis.totalQuantity)} | Transactions ${formatNumber(kpis.totalTransactions)} | Unique Items ${kpis.uniqueItems}`);
   lines.push('');
 
@@ -133,18 +134,18 @@ export function buildBowlingSummary(opts: {
 }
 
 export function buildDaypartsSummary(opts: {
-  department: string;
+  departments: string[];
   dateRange: [string, string] | null;
   metric: string;
   dayCount: number;
   peakSlot?: string;
   peakValue?: number;
 }): string {
-  const { department, dateRange, metric, dayCount, peakSlot, peakValue } = opts;
+  const { departments, dateRange, metric, dayCount, peakSlot, peakValue } = opts;
   const lines: string[] = [];
 
   lines.push('Dashboard: Dayparts');
-  lines.push(`Department: ${department} | Date Range: ${dateRange ? `${dateRange[0]} to ${dateRange[1]}` : 'All time'}`);
+  lines.push(`Department: ${departmentLabel(departments)} | Date Range: ${dateRange ? `${dateRange[0]} to ${dateRange[1]}` : 'All time'}`);
   lines.push(`Metric: ${metric} | Matching days: ${dayCount}`);
   if (peakSlot && peakValue != null) {
     lines.push(`Peak slot: ${peakSlot} (${metric === 'revenue' ? formatCurrency(peakValue) : formatNumber(peakValue)})`);
@@ -186,14 +187,14 @@ export function buildPaymentsSummary(opts: {
 
 export function buildHolidaysSummary(opts: {
   holiday: string;
-  department: string;
+  departments: string[];
   years: Array<{ year: number; revenue: number; transactions: number }>;
 }): string {
-  const { holiday, department, years } = opts;
+  const { holiday, departments, years } = opts;
   const lines: string[] = [];
 
   lines.push('Dashboard: Holiday Analysis');
-  lines.push(`Holiday: ${holiday} | Department: ${department}`);
+  lines.push(`Holiday: ${holiday} | Department: ${departmentLabel(departments)}`);
   lines.push('');
 
   if (years.length > 0) {
@@ -210,18 +211,18 @@ export function buildHolidaysSummary(opts: {
 export function buildCompareSummary(opts: {
   periodA: [string, string];
   periodB: [string, string];
-  department: string;
+  departments: string[];
   granularity: string;
   kpisA: KPIs;
   kpisB: KPIs;
 }): string {
-  const { periodA, periodB, department, granularity, kpisA, kpisB } = opts;
+  const { periodA, periodB, departments, granularity, kpisA, kpisB } = opts;
   const lines: string[] = [];
 
   lines.push('Dashboard: Period Comparison');
   lines.push(`Period A: ${periodA[0]} to ${periodA[1]}`);
   lines.push(`Period B: ${periodB[0]} to ${periodB[1]}`);
-  lines.push(`Department: ${department} | Granularity: ${granularity}`);
+  lines.push(`Department: ${departmentLabel(departments)} | Granularity: ${granularity}`);
   lines.push('');
   lines.push(`Period A KPIs: Sales ${formatCurrency(kpisA.totalRevenue)} | Qty ${formatNumber(kpisA.totalQuantity)} | Txns ${formatNumber(kpisA.totalTransactions)}`);
   lines.push(`Period B KPIs: Sales ${formatCurrency(kpisB.totalRevenue)} | Qty ${formatNumber(kpisB.totalQuantity)} | Txns ${formatNumber(kpisB.totalTransactions)}`);

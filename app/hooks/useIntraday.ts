@@ -8,6 +8,7 @@ import {
   countMatchingDays,
 } from '@/lib/intraday';
 import type { DateRange } from '@/lib/date-ranges';
+import { departmentsKey } from '@/lib/departments';
 
 const LOAD_TIMEOUT_MS = 60000;
 
@@ -21,7 +22,8 @@ function fetchWithTimeout(url: string, timeout = LOAD_TIMEOUT_MS): Promise<Respo
 }
 
 export interface IntradayFilters {
-  department: string;
+  /** Empty means all departments. */
+  departments: string[];
   dateRange: DateRange | null;
   daysOfWeek: number[];
   categories: string[];
@@ -58,11 +60,9 @@ function intradayDepartments(index: IntradayIndex): string[] {
 
 function mergeSalesForSelection(
   cache: Record<string, IntradayRecord[]>,
-  department: string,
-  departments: string[],
+  depts: string[],
   years: string[],
 ): IntradayRecord[] {
-  const depts = department === 'All' ? departments : [department];
   return depts.flatMap(dept => years.flatMap(y => cache[`${dept}/${y}`] ?? []));
 }
 
@@ -91,10 +91,16 @@ export function useIntradayData(
   }, [index, dateFrom, dateTo, filters.dateRange]);
 
   const yearsKey = yearsNeeded.join(',');
-  const loadKey = `${filters.department}:${yearsKey}`;
+  const loadKey = `${departmentsKey(filters.departments)}:${yearsKey}`;
+
+  const deptsToLoad = useMemo(() => {
+    if (filters.departments.length === 0) return departments;
+    const known = new Set(departments);
+    return filters.departments.filter(d => known.has(d));
+  }, [filters.departments, departments]);
 
   useEffect(() => {
-    if (!index || !filters.department || yearsNeeded.length === 0) {
+    if (!index || deptsToLoad.length === 0 || yearsNeeded.length === 0) {
       if (loadedKey !== '') {
         setSalesRecords([]);
         setLoadedKey('');
@@ -102,7 +108,6 @@ export function useIntradayData(
       return;
     }
 
-    const deptsToLoad = filters.department === 'All' ? departments : [filters.department];
     const missingPairs: { dept: string; year: string }[] = [];
     for (const dept of deptsToLoad) {
       for (const year of yearsNeeded) {
@@ -114,12 +119,7 @@ export function useIntradayData(
 
     if (missingPairs.length === 0) {
       if (loadedKey === loadKey) return;
-      setSalesRecords(mergeSalesForSelection(
-        salesCache.current,
-        filters.department,
-        departments,
-        yearsNeeded,
-      ));
+      setSalesRecords(mergeSalesForSelection(salesCache.current, deptsToLoad, yearsNeeded));
       setLoadedKey(loadKey);
       return;
     }
@@ -138,17 +138,12 @@ export function useIntradayData(
       ),
     )
       .then(() => {
-        setSalesRecords(mergeSalesForSelection(
-          salesCache.current,
-          filters.department,
-          departments,
-          yearsNeeded,
-        ));
+        setSalesRecords(mergeSalesForSelection(salesCache.current, deptsToLoad, yearsNeeded));
         setLoadedKey(loadKey);
       })
       .catch(() => setSalesRecords([]))
       .finally(() => setLoading(false));
-  }, [index, filters.department, departments, yearsKey, yearsNeeded, loadKey, loadedKey]);
+  }, [index, deptsToLoad, yearsKey, yearsNeeded, loadKey, loadedKey]);
 
   const filteredSales = useMemo(
     () =>

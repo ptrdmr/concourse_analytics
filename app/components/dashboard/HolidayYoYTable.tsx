@@ -2,6 +2,7 @@
 
 import { useMemo } from 'react';
 import { formatCurrency, formatNumber, formatPercent } from '@/lib/format';
+import { revenueForDepartments } from '@/lib/departments';
 
 interface YearData {
   year: number;
@@ -14,7 +15,8 @@ interface YearData {
 
 interface Props {
   years: YearData[];
-  department: string;
+  /** Empty means all departments. */
+  departments: string[];
 }
 
 function formatDateRange(start: string, end: string): string {
@@ -22,15 +24,13 @@ function formatDateRange(start: string, end: string): string {
   return `${start} – ${end}`;
 }
 
-export function HolidayYoYTable({ years, department }: Props) {
+export function HolidayYoYTable({ years, departments }: Props) {
   const rows = useMemo(() => {
     const sorted = [...years].sort((a, b) => a.year - b.year);
     return sorted.map((y, i) => {
       const prev = sorted[i - 1];
-      const currRev = department === 'All' ? y.revenue : (y.byDepartment?.[department] ?? 0);
-      const prevRev = prev
-        ? (department === 'All' ? prev.revenue : (prev.byDepartment?.[department] ?? 0))
-        : 0;
+      const currRev = revenueForDepartments(y.revenue, y.byDepartment, departments);
+      const prevRev = prev ? revenueForDepartments(prev.revenue, prev.byDepartment, departments) : 0;
       const revYoY = prevRev > 0 ? ((currRev - prevRev) / prevRev) * 100 : null;
       const txnYoY = prev && prev.transactions > 0
         ? ((y.transactions - prev.transactions) / prev.transactions) * 100
@@ -42,7 +42,7 @@ export function HolidayYoYTable({ years, department }: Props) {
         txnYoY,
       };
     });
-  }, [years, department]);
+  }, [years, departments]);
 
   return (
     <div className="card overflow-hidden">

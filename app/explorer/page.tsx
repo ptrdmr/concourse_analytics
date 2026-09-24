@@ -7,6 +7,7 @@ import { getYTD } from '@/lib/date-ranges';
 import { buildExplorerSummary } from '@/lib/build-data-summary';
 import { useDataContext } from '@/context/DataContext';
 import { parseDateRangeFromUrl, useUrlParams } from '@/hooks/useUrlFilters';
+import { departmentLabel, parseDepartmentsParam, serializeDepartmentsParam } from '@/lib/departments';
 import { FilterBar } from '@/components/dashboard/FilterBar';
 import { KpiRow } from '@/components/dashboard/KpiRow';
 import { CategoryPieChart } from '@/components/dashboard/CategoryPieChart';
@@ -39,7 +40,7 @@ function ExplorerContent() {
     const parsed = parseDateRangeFromUrl(get('from'), get('to'));
     const ytd = getYTD(dataThrough);
     return {
-      department: get('dept') || 'All',
+      departments: parseDepartmentsParam(get('dept')),
       dateRange: parsed ?? [ytd[0], ytd[1]],
       categories,
       searchTerm: get('q') || '',
@@ -50,7 +51,7 @@ function ExplorerContent() {
     (next: Filters | ((prev: Filters) => Filters)) => {
       const resolved = typeof next === 'function' ? next(filters) : next;
       replaceParams({
-        dept: resolved.department === 'All' ? null : resolved.department,
+        dept: serializeDepartmentsParam(resolved.departments),
         from: resolved.dateRange?.[0] ?? null,
         to: resolved.dateRange?.[1] ?? null,
         cats: resolved.categories.length
@@ -79,26 +80,27 @@ function ExplorerContent() {
     return ['All', ...sorted];
   }, [summary]);
 
+  const isModifiersView = filters.departments.length === 1 && filters.departments[0] === 'Modifiers';
+
   const availableCategories = useMemo(() => {
-    if (!summary || filters.department === 'All') {
-      const cats = new Set<string>();
-      if (summary) {
-        Object.values(summary.departments).forEach(d => d.categories.forEach(c => cats.add(c)));
-      }
-      return Array.from(cats).sort();
-    }
-    if (filters.department === 'Modifiers') {
+    if (isModifiersView) {
       const cats = new Set(modifiers.map(m => m.subdepartment || 'Other').filter(Boolean));
       return Array.from(cats).sort();
     }
-    return summary.departments[filters.department]?.categories || [];
-  }, [summary, filters.department, modifiers]);
+    const cats = new Set<string>();
+    if (summary) {
+      const depts = filters.departments.length > 0
+        ? filters.departments.map(d => summary.departments[d]).filter(Boolean)
+        : Object.values(summary.departments);
+      depts.forEach(d => d.categories.forEach(c => cats.add(c)));
+    }
+    return Array.from(cats).sort();
+  }, [summary, filters.departments, isModifiersView, modifiers]);
 
   const { filtered, kpis, categoryBreakdown, weeklyTrends, topItems, dailyRevenue, dailyRevenueAllTime } =
     useFilteredData(raw, filters);
 
   const modifierFiltered = useFilteredData(modifierTransactions, filters);
-  const isModifiersView = filters.department === 'Modifiers';
 
   // When Modifiers is selected, use date-granular modifier_transactions.json for full dashboard
   const displayKpis = isModifiersView ? modifierFiltered.kpis : kpis;
@@ -111,14 +113,14 @@ function ExplorerContent() {
   const summaryText = useMemo(() => {
     if (txnLoading || sumLoading) return '';
     return buildExplorerSummary({
-      department: filters.department,
+      departments: filters.departments,
       dateRange: filters.dateRange,
       kpis: displayKpis,
       categoryBreakdown: displayCategoryBreakdown,
       weeklyTrends: displayWeeklyTrends,
       topItems: displayTopItems,
     });
-  }, [txnLoading, sumLoading, filters.department, filters.dateRange, displayKpis, displayCategoryBreakdown, displayWeeklyTrends, displayTopItems]);
+  }, [txnLoading, sumLoading, filters.departments, filters.dateRange, displayKpis, displayCategoryBreakdown, displayWeeklyTrends, displayTopItems]);
 
   useEffect(() => {
     if (summaryText) setDataSummary(summaryText);
@@ -146,6 +148,7 @@ function ExplorerContent() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 py-6 sm:py-8 space-y-6 sm:space-y-8">
         <FilterBar
           departments={departments}
+          exclusiveDepartments={['Modifiers']}
           categories={availableCategories}
           filters={filters}
           onChange={setFilters}
@@ -201,7 +204,7 @@ function ExplorerContent() {
               <RevenueCalendarCard
                 dailyRevenue={displayDailyRevenueAllTime}
                 dateRange={null}
-                department={filters.department}
+                departmentLabel={departmentLabel(filters.departments)}
                 onDayClick={(date) => {
                   setSelectedCard('calendar');
                   setSelectedDate(date);
@@ -211,7 +214,7 @@ function ExplorerContent() {
           </div>
         </div>
 
-        {(filters.department === 'Food' || filters.department === 'Modifiers') && (
+        {(isModifiersView || filters.departments.includes('Food')) && (
           <ModifiersPanel modifiers={modifiers} />
         )}
 

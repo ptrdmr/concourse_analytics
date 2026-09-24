@@ -141,8 +141,9 @@ export function useFilteredData(raw: Transaction[], filters: Filters) {
   const filtered = useMemo(() => {
     let data = raw;
 
-    if (filters.department && filters.department !== 'All') {
-      data = data.filter(r => r.department === filters.department);
+    if (filters.departments.length > 0) {
+      const depts = new Set(filters.departments);
+      data = data.filter(r => depts.has(r.department));
     }
 
     if (filters.dateRange) {
@@ -239,8 +240,9 @@ export function useFilteredData(raw: Transaction[], filters: Filters) {
   // All-time data for calendar: same filters except date range (department, categories, search only)
   const allTimeFiltered = useMemo(() => {
     let data = raw;
-    if (filters.department && filters.department !== 'All') {
-      data = data.filter(r => r.department === filters.department);
+    if (filters.departments.length > 0) {
+      const depts = new Set(filters.departments);
+      data = data.filter(r => depts.has(r.department));
     }
     if (filters.categories.length > 0) {
       data = data.filter(r => filters.categories.includes(r.category));
@@ -250,7 +252,7 @@ export function useFilteredData(raw: Transaction[], filters: Filters) {
       data = data.filter(r => r.name.toLowerCase().includes(term));
     }
     return data;
-  }, [raw, filters.department, filters.categories, filters.searchTerm]);
+  }, [raw, filters.departments, filters.categories, filters.searchTerm]);
 
   const dailyRevenueAllTime = useMemo(() => {
     const map = new Map<string, { revenue: number; transactions: number; items: Transaction[] }>();

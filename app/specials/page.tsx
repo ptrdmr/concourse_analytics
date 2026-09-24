@@ -27,14 +27,14 @@ function SpecialsContent() {
   const [historySource, setHistorySource] = useState<'cocktails' | 'packages'>('packages');
 
   const barFilters = useMemo<Filters>(() => ({
-    department: 'Bar',
+    departments: ['Bar'],
     dateRange,
     categories: [],
     searchTerm: '',
   }), [dateRange]);
 
   const packageFilters = useMemo<Filters>(() => ({
-    department: 'All',
+    departments: [],
     dateRange,
     categories: [],
     searchTerm: '',

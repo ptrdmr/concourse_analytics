@@ -13,6 +13,7 @@ import type { DateRange } from '@/lib/date-ranges';
 import { useUrlCompareState } from '@/hooks/useUrlFilters';
 import { buildCompareSummary } from '@/lib/build-data-summary';
 import { useDataContext } from '@/context/DataContext';
+import { DepartmentPills } from '@/components/dashboard/DepartmentPills';
 
 const GRANULARITIES: { id: PeriodGranularity; label: string }[] = [
   { id: 'day', label: 'Day' },
@@ -66,18 +67,18 @@ function CompareContent() {
   const {
     periodA,
     periodB,
-    department,
+    departments: selectedDepts,
     granularity: granularityStr,
     setPeriodA,
     setPeriodB,
-    setDepartment,
+    setDepartments,
     setGranularity,
   } = useUrlCompareState({
     periodA: defaults.periodA,
     periodB: defaults.periodB,
-    department: 'All',
     granularity: 'week',
   });
+  const isModifiersView = selectedDepts.length === 1 && selectedDepts[0] === 'Modifiers';
 
   const granularity = granularityStr as PeriodGranularity;
 
@@ -91,24 +92,21 @@ function CompareContent() {
     return ['All', ...sorted];
   }, [summary]);
 
-  const sourceData = useMemo(() => {
-    const isModifiers = department === 'Modifiers';
-    return isModifiers ? modifierTransactions : raw;
-  }, [department, raw, modifierTransactions]);
+  const sourceData = isModifiersView ? modifierTransactions : raw;
 
   const filtersA: Filters = useMemo(() => ({
-    department,
+    departments: selectedDepts,
     dateRange: periodA,
     categories: [],
     searchTerm: '',
-  }), [department, periodA]);
+  }), [selectedDepts, periodA]);
 
   const filtersB: Filters = useMemo(() => ({
-    department,
+    departments: selectedDepts,
     dateRange: periodB,
     categories: [],
     searchTerm: '',
-  }), [department, periodB]);
+  }), [selectedDepts, periodB]);
 
   const filteredA = useFilteredData(sourceData, filtersA);
   const filteredB = useFilteredData(sourceData, filtersB);
@@ -127,18 +125,18 @@ function CompareContent() {
     return buildCompareSummary({
       periodA,
       periodB,
-      department,
+      departments: selectedDepts,
       granularity,
       kpisA: filteredA.kpis,
       kpisB: filteredB.kpis,
     });
-  }, [txnLoading, sumLoading, periodA, periodB, department, granularity, filteredA.kpis, filteredB.kpis]);
+  }, [txnLoading, sumLoading, periodA, periodB, selectedDepts, granularity, filteredA.kpis, filteredB.kpis]);
 
   useEffect(() => {
     if (summaryText) setDataSummary(summaryText);
   }, [summaryText, setDataSummary]);
 
-  const loading = txnLoading || sumLoading || (department === 'Modifiers' && modTxnLoading);
+  const loading = txnLoading || sumLoading || (isModifiersView && modTxnLoading);
 
   if (loading) {
     return (
@@ -183,21 +181,12 @@ function CompareContent() {
           <CompareInstruction>
             Filter by department (All, Bowling, Bar, Food, etc.) to focus on a specific area of your business.
           </CompareInstruction>
-          <div className="flex flex-wrap gap-2">
-            {departments.map(dept => (
-              <button
-                key={dept}
-                onClick={() => setDepartment(dept)}
-                className={`px-4 py-2 rounded-full text-sm font-medium transition-colors ${
-                  department === dept
-                    ? 'bg-accent text-accent-foreground'
-                    : 'bg-overlay/5 text-secondary hover:bg-overlay/10 hover:text-foreground'
-                }`}
-              >
-                {dept}
-              </button>
-            ))}
-          </div>
+          <DepartmentPills
+            options={departments}
+            selected={selectedDepts}
+            exclusive={['Modifiers']}
+            onChange={setDepartments}
+          />
         </section>
 
         <section>

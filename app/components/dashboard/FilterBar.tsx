@@ -3,34 +3,27 @@
 import { Search, X } from 'lucide-react';
 import type { Filters } from '@/types';
 import { DateRangePicker } from './DateRangePicker';
+import { DepartmentPills } from './DepartmentPills';
 import type { DateRange } from '@/lib/date-ranges';
 
 interface Props {
   departments: string[];
+  exclusiveDepartments?: string[];
   categories: string[];
   filters: Filters;
   onChange: (filters: Filters) => void;
   dataThrough?: string | null;
 }
 
-export function FilterBar({ departments, categories, filters, onChange, dataThrough }: Props) {
+export function FilterBar({ departments, exclusiveDepartments, categories, filters, onChange, dataThrough }: Props) {
   return (
     <div className="space-y-4">
-      <div className="flex flex-wrap gap-2">
-        {departments.map(dept => (
-          <button
-            key={dept}
-            onClick={() => onChange({ ...filters, department: dept, categories: [] })}
-            className={`px-4 py-2 rounded-full text-sm font-medium transition-colors ${
-              filters.department === dept
-                ? 'bg-accent text-accent-foreground'
-                : 'bg-overlay/5 text-secondary hover:bg-overlay/10 hover:text-foreground'
-            }`}
-          >
-            {dept}
-          </button>
-        ))}
-      </div>
+      <DepartmentPills
+        options={departments}
+        selected={filters.departments}
+        exclusive={exclusiveDepartments}
+        onChange={next => onChange({ ...filters, departments: next, categories: [] })}
+      />
 
       <DateRangePicker
         value={filters.dateRange}

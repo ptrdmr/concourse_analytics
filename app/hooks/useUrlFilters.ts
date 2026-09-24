@@ -3,6 +3,7 @@
 import { useCallback, useMemo } from 'react';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import type { DateRange } from '@/lib/date-ranges';
+import { parseDepartmentsParam, serializeDepartmentsParam } from '@/lib/departments';
 
 const DATE_RE = /^\d{4}-\d{2}-\d{2}$/;
 
@@ -113,11 +114,25 @@ export function useUrlStringArray(key: string) {
   return [value, setValue] as const;
 }
 
-/** Compare page: period A/B dates + department + granularity */
+/** `?dept=` as a list; empty means all departments. */
+export function useUrlDepartments() {
+  const { get, replaceParams } = useUrlParams();
+  const raw = get('dept');
+
+  const value = useMemo(() => parseDepartmentsParam(raw), [raw]);
+
+  const setValue = useCallback(
+    (depts: string[]) => replaceParams({ dept: serializeDepartmentsParam(depts) }),
+    [replaceParams],
+  );
+
+  return [value, setValue] as const;
+}
+
+/** Compare page: period A/B dates + departments + granularity */
 export function useUrlCompareState(defaults: {
   periodA: DateRange;
   periodB: DateRange;
-  department: string;
   granularity: string;
 }) {
   const { get, replaceParams, searchParams } = useUrlParams();
@@ -130,7 +145,7 @@ export function useUrlCompareState(defaults: {
     () => parseDateRangeFromUrl(get('bFrom'), get('bTo')) ?? defaults.periodB,
     [searchParams, defaults.periodB, get],
   );
-  const department = get('dept') ?? defaults.department;
+  const [departments, setDepartments] = useUrlDepartments();
   const granularity = get('gran') ?? defaults.granularity;
 
   const setPeriodA = useCallback(
@@ -149,11 +164,6 @@ export function useUrlCompareState(defaults: {
     [replaceParams],
   );
 
-  const setDepartment = useCallback(
-    (dept: string) => replaceParams({ dept: dept === 'All' ? null : dept }),
-    [replaceParams],
-  );
-
   const setGranularity = useCallback(
     (gran: string) => replaceParams({ gran: gran === defaults.granularity ? null : gran }),
     [replaceParams, defaults.granularity],
@@ -162,11 +172,11 @@ export function useUrlCompareState(defaults: {
   return {
     periodA,
     periodB,
-    department,
+    departments,
     granularity,
     setPeriodA,
     setPeriodB,
-    setDepartment,
+    setDepartments,
     setGranularity,
   };
 }

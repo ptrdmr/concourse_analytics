@@ -16,7 +16,9 @@ import {
 } from '@/hooks/useIntraday';
 import { getYTD } from '@/lib/date-ranges';
 import type { DateRange } from '@/lib/date-ranges';
-import { useUrlDateRange, useUrlString } from '@/hooks/useUrlFilters';
+import { useUrlDateRange, useUrlDepartments } from '@/hooks/useUrlFilters';
+import { DepartmentPills } from '@/components/dashboard/DepartmentPills';
+import { departmentLabel } from '@/lib/departments';
 import { useDataThrough } from '@/hooks/useTransactions';
 import { buildDaypartsSummary } from '@/lib/build-data-summary';
 import { useDataContext } from '@/context/DataContext';
@@ -70,7 +72,7 @@ function DaypartsContent() {
   const { index, loading: indexLoading, error: indexError } = useIntradayIndex();
   const departments = useIntradayDepartments(index);
 
-  const [department, setDepartment] = useUrlString('dept', 'All');
+  const [selectedDepts, setSelectedDepts] = useUrlDepartments();
   const dataThrough = useDataThrough();
   const [dateRange, setDateRange] = useUrlDateRange(getYTD(dataThrough));
   const [daysOfWeek, setDaysOfWeek] = useState<number[]>([]);
@@ -84,14 +86,14 @@ function DaypartsContent() {
   const { laborDays, available: laborAvailable } = useIntradayLabor();
 
   useEffect(() => {
-    if (departments.length > 0 && !departments.includes(department)) {
-      setDepartment('All');
-    }
-  }, [departments, department]);
+    if (departments.length === 0) return;
+    const known = selectedDepts.filter(d => departments.includes(d));
+    if (known.length !== selectedDepts.length) setSelectedDepts(known);
+  }, [departments, selectedDepts, setSelectedDepts]);
 
   const filters: IntradayFilters = useMemo(
-    () => ({ department, dateRange, daysOfWeek, categories, selectedItems }),
-    [department, dateRange, daysOfWeek, categories, selectedItems],
+    () => ({ departments: selectedDepts, dateRange, daysOfWeek, categories, selectedItems }),
+    [selectedDepts, dateRange, daysOfWeek, categories, selectedItems],
   );
 
   const { filteredSales, dayCount, categories: availableCategories, availableItems, loading, isReady } =
@@ -181,14 +183,14 @@ function DaypartsContent() {
       }
     }
     return buildDaypartsSummary({
-      department,
+      departments: selectedDepts,
       dateRange,
       metric,
       dayCount,
       peakSlot,
       peakValue,
     });
-  }, [isReady, dayShapeSeries, department, dateRange, metric, dayCount]);
+  }, [isReady, dayShapeSeries, selectedDepts, dateRange, metric, dayCount]);
 
   useEffect(() => {
     if (summaryText) setDataSummary(summaryText);
@@ -242,21 +244,11 @@ function DaypartsContent() {
         </div>
 
         {/* Department */}
-        <div className="flex flex-wrap gap-2">
-          {departments.map(dept => (
-            <button
-              key={dept}
-              onClick={() => { setDepartment(dept); setCategories([]); setSelectedItems([]); setSelectedSlot(null); }}
-              className={`px-4 py-2 rounded-full text-sm font-medium transition-colors ${
-                department === dept
-                  ? 'bg-accent text-accent-foreground'
-                  : 'bg-overlay/5 text-secondary hover:bg-overlay/10 hover:text-foreground'
-              }`}
-            >
-              {dept}
-            </button>
-          ))}
-        </div>
+        <DepartmentPills
+          options={departments}
+          selected={selectedDepts}
+          onChange={next => { setSelectedDepts(next); setCategories([]); setSelectedItems([]); setSelectedSlot(null); }}
+        />
 
         {/* Date range */}
         <DateRangePicker value={dateRange} onChange={setDateRange} dataThrough={dataThrough} />
@@ -374,7 +366,7 @@ function DaypartsContent() {
 
         {loading && (
           <p className="text-sm text-muted animate-pulse">
-            Loading {department === 'All' ? 'all departments' : department} data...
+            Loading {selectedDepts.length === 0 ? 'all departments' : departmentLabel(selectedDepts)} data...
           </p>
         )}
 

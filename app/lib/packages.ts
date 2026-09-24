@@ -16,8 +16,9 @@ export const PACKAGE_DISPLAY_ORDER = [
 export function filterPackages(packages: PackageRecord[], filters: Filters): PackageRecord[] {
   let data = packages;
 
-  if (filters.department && filters.department !== 'All') {
-    data = data.filter((r) => r.department === filters.department);
+  if (filters.departments.length > 0) {
+    const depts = new Set(filters.departments);
+    data = data.filter((r) => depts.has(r.department));
   }
 
   if (filters.dateRange) {
