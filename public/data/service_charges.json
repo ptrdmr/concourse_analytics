@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-25T05:34:02.006307",
+  "generatedAt": "2026-09-26T05:34:09.758998",
   "tabs": [
     {
       "date": "2023-06-01",
@@ -13098,6 +13098,50 @@
       "gratuity": 0.0,
       "tabTotal": 867.65,
       "accountApplied": 480.25
+    },
+    {
+      "date": "2026-09-25",
+      "time": "17:01",
+      "txnId": "830554",
+      "party": "Olenka Palomo",
+      "accountNames": [
+        "9/25/2026 Olenka Palomo"
+      ],
+      "partyTypes": [
+        "Supercharge"
+      ],
+      "chargeType": "Party Service Charge",
+      "server": "Sasha",
+      "terminal": "MPOS5",
+      "charges": {
+        "Party Service Charge": 134.2
+      },
+      "serviceCharge": 134.2,
+      "gratuity": 0.0,
+      "tabTotal": 908.33,
+      "accountApplied": 624.54
+    },
+    {
+      "date": "2026-09-25",
+      "time": "18:52",
+      "txnId": "837034",
+      "party": "Loraine Samonte",
+      "accountNames": [
+        "9/25/2026 Loraine Samonte"
+      ],
+      "partyTypes": [
+        "Supercharge"
+      ],
+      "chargeType": "Party Service Charge",
+      "server": "Allyssa",
+      "terminal": "MPOS4",
+      "charges": {
+        "Party Service Charge": 101.6
+      },
+      "serviceCharge": 101.6,
+      "gratuity": 0.0,
+      "tabTotal": 648.97,
+      "accountApplied": 504.4
     }
   ],
   "meta": {
