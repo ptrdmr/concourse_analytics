@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-26T05:34:09.758998",
+  "generatedAt": "2026-09-27T05:34:07.844630",
   "tabs": [
     {
       "date": "2023-06-01",
@@ -13142,6 +13142,50 @@
       "gratuity": 0.0,
       "tabTotal": 648.97,
       "accountApplied": 504.4
+    },
+    {
+      "date": "2026-09-26",
+      "time": "11:59",
+      "txnId": "833103",
+      "party": "Ana Fernandez",
+      "accountNames": [
+        "Ana Fernandez 09-26-26"
+      ],
+      "partyTypes": [
+        "Supercharge"
+      ],
+      "chargeType": "Party Service Charge",
+      "server": "Gabbi",
+      "terminal": "MPOS8",
+      "charges": {
+        "Party Service Charge": 123.05
+      },
+      "serviceCharge": 123.05,
+      "gratuity": 0.0,
+      "tabTotal": 928.29,
+      "accountApplied": 480.25
+    },
+    {
+      "date": "2026-09-26",
+      "time": "12:41",
+      "txnId": "821393",
+      "party": "AGMG",
+      "accountNames": [
+        "AGMG 09.26.26"
+      ],
+      "partyTypes": [
+        "Strike Zone Suite"
+      ],
+      "chargeType": "VIP Service Charge",
+      "server": "Sasha",
+      "terminal": "MPOS8",
+      "charges": {
+        "VIP Service Charge": 373.2
+      },
+      "serviceCharge": 373.2,
+      "gratuity": 150.0,
+      "tabTotal": 616.48,
+      "accountApplied": 3094.25
     }
   ],
   "meta": {

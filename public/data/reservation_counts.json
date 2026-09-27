@@ -1,8 +1,8 @@
 {
-  "generatedAt": "2026-09-26T05:34:21",
+  "generatedAt": "2026-09-27T05:34:20",
   "dateRange": [
     "2023-05-26",
-    "2026-09-25"
+    "2026-09-26"
   ],
   "types": [
     "Weekday Lane",
@@ -11113,6 +11113,26 @@
       "date": "2026-09-25",
       "type": "General Lane Reservation",
       "count": 10
+    },
+    {
+      "date": "2026-09-26",
+      "type": "Pair & Spare",
+      "count": 3
+    },
+    {
+      "date": "2026-09-26",
+      "type": "Supercharge",
+      "count": 1
+    },
+    {
+      "date": "2026-09-26",
+      "type": "Strike Zone Suite",
+      "count": 1
+    },
+    {
+      "date": "2026-09-26",
+      "type": "General Lane Reservation",
+      "count": 10
     }
   ],
   "dailyTabs": [
@@ -15511,11 +15531,15 @@
     {
       "date": "2026-09-25",
       "tabs": 13
+    },
+    {
+      "date": "2026-09-26",
+      "tabs": 15
     }
   ],
   "validation": {
-    "distinctTabs": 11068,
-    "cellSum": 11118,
+    "distinctTabs": 11083,
+    "cellSum": 11133,
     "delta": 50
   }
 }
