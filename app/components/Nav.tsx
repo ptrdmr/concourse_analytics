@@ -17,6 +17,7 @@ import {
   PartyPopper,
   Receipt,
   Sparkles,
+  Trophy,
   TrendingUp,
   Users,
   X,
@@ -40,7 +41,8 @@ const OVERVIEW: NavItem = {
 // Labels stay short because the group label already supplies the qualifier
 // ("Bowling" under Demand & Forecast, "Tickets" under Transactions) and the
 // full sentence lives in `desc`, shown on hover. It is also load-bearing for
-// layout: the row only fits on one line inside max-w-7xl with these lengths.
+// layout: the row only fits on one line inside max-w-7xl with these lengths
+// and the px-2 pill padding.
 const NAV_GROUPS: { label: string; color: string; links: NavItem[] }[] = [
   {
     label: 'Sales & Menu',
@@ -50,6 +52,7 @@ const NAV_GROUPS: { label: string; color: string; links: NavItem[] }[] = [
       { href: '/dayparts', label: 'Dayparts', desc: 'Item sales by time of day', icon: Clock },
       { href: '/compare', label: 'Compare', desc: 'Side-by-side period comparisons', icon: Columns2 },
       { href: '/specials', label: 'Specials', desc: 'Seasonal packages & specialty cocktails', icon: Sparkles },
+      { href: '/leagues', label: 'Leagues', desc: 'League lineage & prize fund by league', icon: Trophy },
     ],
   },
   {
@@ -123,7 +126,7 @@ function NavPill({ href, label, desc, icon: Icon, active }: NavItem & { active: 
     <div className="relative group shrink-0">
       <Link
         href={href}
-        className={`inline-flex items-center gap-1.5 whitespace-nowrap text-xs px-2.5 py-1.5 rounded-full transition-colors ${
+        className={`inline-flex items-center gap-1.5 whitespace-nowrap text-xs px-2 py-1.5 rounded-full transition-colors ${
           active
             ? 'bg-accent/15 text-accent'
             : 'text-secondary hover:bg-overlay/5 hover:text-foreground'

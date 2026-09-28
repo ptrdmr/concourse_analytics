@@ -13,6 +13,7 @@ import {
 } from '@/lib/sales-labor';
 import { useDataContext } from '@/context/DataContext';
 import { useUrlDateRange } from '@/hooks/useUrlFilters';
+import { nonRevenueMap } from '@/lib/departments';
 import { DollarSign, Receipt, TrendingDown, TrendingUp, Users } from 'lucide-react';
 import Link from 'next/link';
 import { Nav } from '@/components/Nav';
@@ -111,6 +112,21 @@ function HomeContent() {
       }))
       .sort((a, b) => b.revenue - a.revenue);
   }, [filtered]);
+
+  const heldForOthers = useMemo(() => {
+    const labels = nonRevenueMap(summary);
+    const parts: { name: string; label: string; revenue: number }[] = [];
+    for (const [name, label] of Object.entries(labels)) {
+      let revenue = 0;
+      for (const row of raw) {
+        if (row.department !== name) continue;
+        if (dateRange && (row.date < dateRange[0] || row.date > dateRange[1])) continue;
+        revenue += row.revenue;
+      }
+      if (revenue !== 0) parts.push({ name, label, revenue });
+    }
+    return parts;
+  }, [raw, summary, dateRange]);
 
   const summaryText = useMemo(() => {
     if (txnLoading || sumLoading) return '';
@@ -255,6 +271,28 @@ function HomeContent() {
               );
             })}
           </div>
+          {heldForOthers.length > 0 && (
+            <div className="mt-8">
+              <h3 className="text-lg font-semibold text-secondary mb-1">Collected for others</h3>
+              <p className="text-sm text-muted mb-3">Not included in sales above.</p>
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+                {heldForOthers.map(({ name, label, revenue }) => (
+                  <Link
+                    key={name}
+                    href="/leagues"
+                    className="card p-4 border border-dashed border-secondary/40 hover:-translate-y-0.5 transition-transform"
+                  >
+                    <h4 className="text-base font-semibold mb-1">{name}</h4>
+                    <p className="text-xs text-muted mb-3">{label}</p>
+                    <div className="flex justify-between text-sm">
+                      <span className="text-secondary">Collected</span>
+                      <span className="font-mono font-medium">{formatCompact(revenue)}</span>
+                    </div>
+                  </Link>
+                ))}
+              </div>
+            </div>
+          )}
         </div>
       </section>
     </main>

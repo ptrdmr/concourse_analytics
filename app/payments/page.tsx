@@ -22,6 +22,8 @@ import { formatCurrency, formatNumber } from '@/lib/format';
 import { useUrlPaymentsState } from '@/hooks/useUrlFilters';
 import { buildPaymentsSummary } from '@/lib/build-data-summary';
 import { useDataContext } from '@/context/DataContext';
+import { useLeagues } from '@/hooks/useLeagues';
+import { prizeFundInRange } from '@/lib/leagues';
 
 export default function PaymentsPage() {
   return (
@@ -38,6 +40,7 @@ export default function PaymentsPage() {
 function PaymentsContent() {
   const { setDataSummary } = useDataContext();
   const { payments, loading } = usePayments();
+  const { data: leagues } = useLeagues();
 
   const defaultRangeEnd = getYesterday();
   const defaultRangeStart = (() => {
@@ -101,6 +104,12 @@ function PaymentsContent() {
     [byName],
   );
 
+  const prizeFundCollected = useMemo(() => {
+    if (!leagues) return 0;
+    if (mode === 'day') return prizeFundInRange(leagues, dayDate, dayDate);
+    return prizeFundInRange(leagues, rangeStart, rangeEnd);
+  }, [leagues, mode, dayDate, rangeStart, rangeEnd]);
+
   const dateBounds = useMemo(() => getPaymentDateBounds(payments), [payments]);
 
   const canGoPrevDay = dateBounds ? dayDate > dateBounds.min : false;
@@ -114,7 +123,7 @@ function PaymentsContent() {
 
   const summaryText = useMemo(() => {
     if (loading || !payments.length) return '';
-    return buildPaymentsSummary({
+    const base = buildPaymentsSummary({
       periodLabel,
       cashAmount: cashKpi.amount,
       cashTransactions: cashKpi.transactions,
@@ -123,7 +132,9 @@ function PaymentsContent() {
       totalAmount,
       topPayments: byName.map((r) => ({ name: r.name, amount: r.amount, transactions: r.transactions })),
     });
-  }, [loading, payments.length, periodLabel, cashKpi, creditKpi, totalAmount, byName]);
+    if (prizeFundCollected <= 0) return base;
+    return `${base}\nIncludes ${formatCurrency(prizeFundCollected)} collected for league prize funds (not business revenue).`;
+  }, [loading, payments.length, periodLabel, cashKpi, creditKpi, totalAmount, byName, prizeFundCollected]);
 
   useEffect(() => {
     if (summaryText) setDataSummary(summaryText);
@@ -161,6 +172,11 @@ function PaymentsContent() {
           <p className="text-secondary">
             How customers paid for the selected period. Totals reflect tender rung in at the POS.
           </p>
+          {prizeFundCollected > 0 && (
+            <p className="text-sm text-muted mt-2">
+              Includes {formatCurrency(prizeFundCollected)} collected for league prize funds (not business revenue).
+            </p>
+          )}
         </div>
 
         <div className="card p-4 sm:p-5">

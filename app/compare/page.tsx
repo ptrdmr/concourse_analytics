@@ -13,7 +13,8 @@ import type { DateRange } from '@/lib/date-ranges';
 import { useUrlCompareState } from '@/hooks/useUrlFilters';
 import { buildCompareSummary } from '@/lib/build-data-summary';
 import { useDataContext } from '@/context/DataContext';
-import { DepartmentPills } from '@/components/dashboard/DepartmentPills';
+import { DepartmentPills, NonRevenueNotice } from '@/components/dashboard/DepartmentPills';
+import { isNonRevenueSelection, nonRevenueMap } from '@/lib/departments';
 
 const GRANULARITIES: { id: PeriodGranularity; label: string }[] = [
   { id: 'day', label: 'Day' },
@@ -82,15 +83,23 @@ function CompareContent() {
 
   const granularity = granularityStr as PeriodGranularity;
 
+  const nonRevenue = useMemo(() => nonRevenueMap(summary), [summary]);
+  const nonRevenueList = useMemo(() => Object.keys(nonRevenue), [nonRevenue]);
+  const nonRevenueView = isNonRevenueSelection(selectedDepts, nonRevenue);
+  const nonRevenueLabel = selectedDepts.map(d => nonRevenue[d]).filter(Boolean)[0];
+
   const departments = useMemo(() => {
     if (!summary) return [];
     const depts = Object.keys(summary.departments).filter(d => d !== 'Vending Machines');
-    const sorted = depts.sort((a, b) =>
-      (summary.departments[b]?.revenue || 0) - (summary.departments[a]?.revenue || 0)
-    );
+    const sorted = depts.sort((a, b) => {
+      const aHeld = nonRevenueList.includes(a) ? 1 : 0;
+      const bHeld = nonRevenueList.includes(b) ? 1 : 0;
+      if (aHeld !== bHeld) return aHeld - bHeld;
+      return (summary.departments[b]?.revenue || 0) - (summary.departments[a]?.revenue || 0);
+    });
     if (!sorted.includes('Modifiers')) sorted.push('Modifiers');
     return ['All', ...sorted];
-  }, [summary]);
+  }, [summary, nonRevenueList]);
 
   const sourceData = isModifiersView ? modifierTransactions : raw;
 
@@ -108,8 +117,8 @@ function CompareContent() {
     searchTerm: '',
   }), [selectedDepts, periodB]);
 
-  const filteredA = useFilteredData(sourceData, filtersA);
-  const filteredB = useFilteredData(sourceData, filtersB);
+  const filteredA = useFilteredData(sourceData, filtersA, nonRevenue);
+  const filteredB = useFilteredData(sourceData, filtersB, nonRevenue);
 
   const periodDataA = useMemo(
     () => aggregateByPeriod(filteredA.filtered, granularity),
@@ -184,9 +193,15 @@ function CompareContent() {
           <DepartmentPills
             options={departments}
             selected={selectedDepts}
-            exclusive={['Modifiers']}
+            exclusive={['Modifiers', ...nonRevenueList]}
+            nonRevenue={nonRevenueList}
             onChange={setDepartments}
           />
+          {nonRevenueView && nonRevenueLabel && (
+            <div className="mt-3">
+              <NonRevenueNotice label={nonRevenueLabel} />
+            </div>
+          )}
         </section>
 
         <section>
@@ -221,6 +236,7 @@ function CompareContent() {
             kpisB={filteredB.kpis}
             labelA="Period A"
             labelB="Period B"
+            revenueLabel={nonRevenueView ? 'Collected (not revenue)' : 'Sales'}
           />
         </section>
 

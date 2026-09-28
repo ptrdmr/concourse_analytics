@@ -76,6 +76,9 @@ export function EmployeeRoster({ rollups, selectedId, sortKey, onSelect }: Props
                   {r.roles.length ? r.roles.join(', ') : 'POS only'}
                   {!r.laborLinked ? ' · no 7shifts link' : ''}
                 </p>
+                {r.nonRevenueCollected > 0 && (
+                  <p className="text-[10px] text-muted">Held {formatCurrency(r.nonRevenueCollected)}</p>
+                )}
               </div>
               <div className="text-right shrink-0">
                 <p className="text-sm font-mono tabular-nums text-accent">{metricLabel(r, sortKey)}</p>

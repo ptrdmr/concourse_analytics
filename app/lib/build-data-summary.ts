@@ -236,6 +236,50 @@ export function buildCompareSummary(opts: {
   return lines.join('\n');
 }
 
+export function buildLeaguesSummary(opts: {
+  dateRange: [string, string] | null;
+  dataThrough: string;
+  inSeason: string[];
+  totals: {
+    combined: number;
+    lineage: number;
+    prizeFund: number;
+    prizeFundGeneral: number;
+    total: number;
+  };
+  league: {
+    name: string;
+    lineage: number;
+    prizeFund: number;
+    prizeFundGeneral: number;
+    nights: number;
+    since: string;
+  } | null;
+}): string {
+  const { dateRange, dataThrough, inSeason, totals, league } = opts;
+  const lines: string[] = [];
+  lines.push('Dashboard: Leagues');
+  lines.push(`Date Range: ${dateRange ? `${dateRange[0]} to ${dateRange[1]}` : 'All time'}`);
+  lines.push(`Data through: ${dataThrough}`);
+  lines.push('Lineage is house revenue. Prize fund is held for leagues and is not sales.');
+  lines.push('Combined fees are nights before a league moved to split pricing. They are not assigned to a league.');
+  lines.push('');
+  lines.push(`In season: ${inSeason.length ? inSeason.join(', ') : 'none'}`);
+  lines.push(`Combined league fees: ${formatCurrency(totals.combined)}`);
+  lines.push(`Lineage: ${formatCurrency(totals.lineage)}`);
+  lines.push(`Prize fund (package): ${formatCurrency(totals.prizeFund)}`);
+  lines.push(`Prize fund general: ${formatCurrency(totals.prizeFundGeneral)}`);
+  lines.push(`Total collected: ${formatCurrency(totals.total)}`);
+  if (league) {
+    lines.push('');
+    lines.push(`Selected league: ${league.name}`);
+    lines.push(`Split pricing since ${league.since}. Nights in range: ${formatNumber(league.nights)}`);
+    lines.push(`Lineage ${formatCurrency(league.lineage)} | Prize fund ${formatCurrency(league.prizeFund)} | General ${formatCurrency(league.prizeFundGeneral)}`);
+  }
+  lines.push('');
+  return lines.join('\n');
+}
+
 export function buildTicketsSummary(opts: {
   month: string | null;
   monthLabel: string;

@@ -1,5 +1,6 @@
 import type { DateRange } from '@/lib/date-ranges';
 import type { DailySalesLaborPoint, LaborDay, SalesLaborSummary, Transaction } from '@/types';
+import { revenueOnly } from '@/lib/departments';
 
 function toISO(d: Date): string {
   return d.toISOString().slice(0, 10);
@@ -94,7 +95,7 @@ export function dailySalesByDate(
   dateRange: DateRange | null,
 ): Map<string, { sales: number; transactions: number }> {
   const map = new Map<string, { sales: number; transactions: number }>();
-  for (const row of transactions) {
+  for (const row of revenueOnly(transactions)) {
     if (dateRange) {
       const [start, end] = dateRange;
       if (row.date < start || row.date > end) continue;
@@ -193,7 +194,8 @@ export function filterTransactionsByRange(
   transactions: Transaction[],
   dateRange: DateRange | null,
 ): Transaction[] {
-  if (!dateRange) return transactions;
+  const revenueRows = revenueOnly(transactions);
+  if (!dateRange) return revenueRows;
   const [start, end] = dateRange;
-  return transactions.filter((t) => t.date >= start && t.date <= end);
+  return revenueRows.filter((t) => t.date >= start && t.date <= end);
 }

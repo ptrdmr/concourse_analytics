@@ -16,6 +16,8 @@ export interface DepartmentSummary {
   uniqueItems: number;
   categories: string[];
   dateRange: [string, string];
+  /** False for money collected for someone else, such as league prize funds. */
+  countsAsRevenue?: boolean;
 }
 
 export interface Summary {
@@ -24,6 +26,10 @@ export interface Summary {
   totalRevenue: number;
   departments: Record<string, DepartmentSummary>;
   categoryColors: Record<string, string>;
+  nonRevenue?: {
+    departments: Record<string, string>;
+    total: number;
+  };
 }
 
 export interface Filters {
@@ -107,6 +113,7 @@ export interface IntradayIndex {
   generated: string;
   voidYears: string[];
   counts?: Record<string, number>;
+  nonRevenueDepartments?: string[];
 }
 
 export interface LaborDay {
@@ -199,6 +206,8 @@ export interface EmployeeDaily {
   serviceChargeVip: number;
   serviceChargeParty: number;
   serviceChargeOther: number;
+  /** Prize fund and other pass-through money, kept out of sales. */
+  nonRevenueCollected?: number;
   hours: number;
   laborCost: number;
   scheduledShifts: number;
@@ -248,6 +257,7 @@ export interface EmployeeRollup {
   laborSales: number;
   laborTips: number;
   sales: number;
+  nonRevenueCollected: number;
   tickets: number;
   gratuity: number;
   serviceChargeVip: number;
