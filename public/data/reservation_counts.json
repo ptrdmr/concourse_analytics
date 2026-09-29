@@ -1,8 +1,8 @@
 {
-  "generatedAt": "2026-09-28T05:34:13",
+  "generatedAt": "2026-09-29T05:34:14",
   "dateRange": [
     "2023-05-26",
-    "2026-09-27"
+    "2026-09-28"
   ],
   "types": [
     "Weekday Lane",
@@ -11148,6 +11148,11 @@
       "date": "2026-09-27",
       "type": "Party Builder",
       "count": 1
+    },
+    {
+      "date": "2026-09-28",
+      "type": "Weekday Lane",
+      "count": 1
     }
   ],
   "dailyTabs": [
@@ -15554,11 +15559,15 @@
     {
       "date": "2026-09-27",
       "tabs": 9
+    },
+    {
+      "date": "2026-09-28",
+      "tabs": 1
     }
   ],
   "validation": {
-    "distinctTabs": 11092,
-    "cellSum": 11143,
+    "distinctTabs": 11093,
+    "cellSum": 11144,
     "delta": 51
   }
 }
