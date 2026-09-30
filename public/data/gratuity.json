@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-29T05:34:01.660616",
+  "generatedAt": "2026-09-30T05:34:01.823402",
   "daypartHour": 17,
   "dates": {
     "2023-06-30": {
@@ -55590,6 +55590,64 @@
         "unmappedTerminals": [
           "FRONTDESK1",
           "FRONTDESK2",
+          "System Terminal"
+        ]
+      }
+    },
+    "2026-09-29": {
+      "pre17": {
+        "Bar": {
+          "amanda": 16.56,
+          "Ciera": 16.57,
+          "Tony S.": 27.57,
+          "Trinity D.": 16.57,
+          "Adam": 22.0
+        },
+        "Cafe": {
+          "Allyssa": 4.0,
+          "Adam": 3.0
+        },
+        "Other": {
+          "amanda": 3.0,
+          "Ciera": 3.0,
+          "Tony S.": 3.0,
+          "Trinity D.": 3.0,
+          "Adam": 9.82
+        }
+      },
+      "post17": {
+        "Bar": {
+          "amanda": 39.83,
+          "Ciera": 39.81,
+          "Tony S.": 39.81,
+          "Trinity D.": 39.81,
+          "Christopher": 33.45
+        },
+        "Cafe": {
+          "Allyssa": 20.13,
+          "Emma": 20.13
+        },
+        "Other": {
+          "amanda": 66.13,
+          "Ciera": 66.14,
+          "Tony S.": 66.14,
+          "Trinity D.": 66.14,
+          "Allyssa": 10.62,
+          "Emma": 10.62,
+          "Christopher": 16.0
+        }
+      },
+      "meta": {
+        "lines": 328,
+        "zeroLines": 59,
+        "tipOut": 0.0,
+        "unknownTimes": 0,
+        "unmappedTerminals": [
+          "FRONTDESK1",
+          "MPOS3",
+          "MPOS4",
+          "MPOS5",
+          "MPOS8",
           "System Terminal"
         ]
       }
