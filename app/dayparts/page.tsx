@@ -17,8 +17,8 @@ import {
 import { getYTD } from '@/lib/date-ranges';
 import type { DateRange } from '@/lib/date-ranges';
 import { useUrlDateRange, useUrlDepartments } from '@/hooks/useUrlFilters';
-import { DepartmentPills } from '@/components/dashboard/DepartmentPills';
-import { departmentLabel } from '@/lib/departments';
+import { DepartmentPills, NonRevenueNotice } from '@/components/dashboard/DepartmentPills';
+import { BUNDLED_NON_REVENUE, departmentLabel, isNonRevenueSelection, nonRevenueNames } from '@/lib/departments';
 import { useDataThrough } from '@/hooks/useTransactions';
 import { buildDaypartsSummary } from '@/lib/build-data-summary';
 import { useDataContext } from '@/context/DataContext';
@@ -247,8 +247,12 @@ function DaypartsContent() {
         <DepartmentPills
           options={departments}
           selected={selectedDepts}
+          nonRevenue={nonRevenueNames(index)}
           onChange={next => { setSelectedDepts(next); setCategories([]); setSelectedItems([]); setSelectedSlot(null); }}
         />
+        {isNonRevenueSelection(selectedDepts, nonRevenueNames(index)) && (
+          <NonRevenueNotice label={BUNDLED_NON_REVENUE[selectedDepts[0]] ?? 'Held for someone else'} />
+        )}
 
         {/* Date range */}
         <DateRangePicker value={dateRange} onChange={setDateRange} dataThrough={dataThrough} />
@@ -331,7 +335,7 @@ function DaypartsContent() {
                     : 'bg-overlay/5 text-muted hover:text-secondary border border-transparent'
                 }`}
               >
-                {m}
+                {m === 'revenue' && isNonRevenueSelection(selectedDepts, nonRevenueNames(index)) ? 'collected' : m}
               </button>
             ))}
           </div>

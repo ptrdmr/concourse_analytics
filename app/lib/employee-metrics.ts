@@ -1,4 +1,5 @@
 import type { EmployeeDaily, EmployeePeriod, EmployeeProfile, EmployeeRankings, EmployeeRollup, EmployeeTopItem } from '@/types';
+import { isRevenueDepartment } from '@/lib/departments';
 
 export function dayTips(d: EmployeeDaily): number {
   return d.gratuity + d.serviceChargeVip + d.serviceChargeParty + d.serviceChargeOther;
@@ -57,8 +58,10 @@ function mergeDeptMix(entries: Array<[string, EmployeeDaily]>, profile: Employee
   if (!inPeriod) return profile.deptMix;
   const totalSales = entries.reduce((s, [, d]) => s + d.sales, 0);
   if (totalSales <= 0) return profile.deptMix;
+  const heldInPeriod = entries.some(([, day]) => (day.nonRevenueCollected ?? 0) !== 0);
   const mix: Record<string, number> = {};
   for (const [dept, amt] of Object.entries(profile.deptMix)) {
+    if (heldInPeriod && !isRevenueDepartment(dept)) continue;
     mix[dept] = amt;
   }
   return mix;
@@ -80,6 +83,7 @@ export function rollupEmployee(
     : [];
 
   let sales = 0;
+  let nonRevenueCollected = 0;
   let tickets = 0;
   let gratuity = 0;
   let serviceChargeVip = 0;
@@ -100,6 +104,7 @@ export function rollupEmployee(
 
   for (const [date, d] of entries) {
     sales += d.sales;
+    nonRevenueCollected += d.nonRevenueCollected ?? 0;
     tickets += d.tickets;
     gratuity += d.gratuity;
     serviceChargeVip += d.serviceChargeVip;
@@ -151,6 +156,7 @@ export function rollupEmployee(
     laborSales,
     laborTips,
     sales,
+    nonRevenueCollected,
     tickets,
     gratuity,
     serviceChargeVip,

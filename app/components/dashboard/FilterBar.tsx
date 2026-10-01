@@ -9,19 +9,21 @@ import type { DateRange } from '@/lib/date-ranges';
 interface Props {
   departments: string[];
   exclusiveDepartments?: string[];
+  nonRevenueDepartments?: string[];
   categories: string[];
   filters: Filters;
   onChange: (filters: Filters) => void;
   dataThrough?: string | null;
 }
 
-export function FilterBar({ departments, exclusiveDepartments, categories, filters, onChange, dataThrough }: Props) {
+export function FilterBar({ departments, exclusiveDepartments, nonRevenueDepartments, categories, filters, onChange, dataThrough }: Props) {
   return (
     <div className="space-y-4">
       <DepartmentPills
         options={departments}
         selected={filters.departments}
         exclusive={exclusiveDepartments}
+        nonRevenue={nonRevenueDepartments}
         onChange={next => onChange({ ...filters, departments: next, categories: [] })}
       />
 

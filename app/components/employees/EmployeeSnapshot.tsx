@@ -99,6 +99,9 @@ export function EmployeeSnapshot({ rollup, profile, rankings, allRollups }: Prop
           <MetricTile label="Total sales" value={formatMetricCurrency(rollup.sales)} accent />
           <MetricTile label="Avg check" value={rollup.avgCheck != null ? formatCurrency(rollup.avgCheck) : '—'} />
           <MetricTile label="Tickets" value={formatNumber(rollup.tickets)} />
+          {rollup.nonRevenueCollected > 0 && (
+            <MetricTile label="Collected for others" value={formatMetricCurrency(rollup.nonRevenueCollected)} />
+          )}
         </div>
         <div className="grid lg:grid-cols-2 gap-4 mt-4">
           <div>

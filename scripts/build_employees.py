@@ -37,6 +37,7 @@ EMPTY_DAY = {
     'serviceChargeVip': 0.0,
     'serviceChargeParty': 0.0,
     'serviceChargeOther': 0.0,
+    'nonRevenueCollected': 0.0,
     'hours': 0.0,
     'laborCost': 0.0,
     'scheduledShifts': 0,

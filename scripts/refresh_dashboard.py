@@ -37,6 +37,7 @@ REQUIRED_FILES = [
     'packages.json',
     os.path.join('intraday', 'index.json'),
     os.path.join('tickets', 'months.json'),
+    'leagues.json',
 ]
 
 # Data older than this (vs. today) probably means the ETL read stale CSVs.
@@ -124,6 +125,7 @@ def validate():
     if not departments:
         fail('summary.json has no departments')
     print(f'  total revenue: ${total:,.0f} across {len(departments)} departments')
+    validate_non_revenue(summary)
 
     months = load_json(os.path.join('tickets', 'months.json'))
     if max_date[:7] not in months:
@@ -135,6 +137,45 @@ def validate():
 
     print('Validation passed.')
     return max_date
+
+
+def validate_non_revenue(summary):
+    """totalRevenue is revenue departments only, and configured departments are flagged."""
+    config_path = os.path.join(_ROOT, 'config', 'non_revenue.json')
+    try:
+        with open(config_path, encoding='utf-8') as handle:
+            configured = list((json.load(handle).get('departments') or {}).keys())
+    except (OSError, json.JSONDecodeError) as exc:
+        fail(f'config/non_revenue.json could not be read: {exc}')
+
+    departments = summary.get('departments') or {}
+    flags_present = any(isinstance(info, dict) and 'countsAsRevenue' in info for info in departments.values())
+    if not flags_present:
+        print('  non-revenue flags not in summary yet (next ETL adds them)')
+        return
+
+    for name in configured:
+        info = departments.get(name)
+        if info is None:
+            continue
+        if info.get('countsAsRevenue') is not False:
+            fail(f'{name} is in config/non_revenue.json but countsAsRevenue is not false')
+
+    revenue_sum = round(sum(
+        (info.get('revenue') or 0)
+        for name, info in departments.items()
+        if info.get('countsAsRevenue') is True
+    ), 2)
+    total = round(summary.get('totalRevenue') or 0, 2)
+    if abs(revenue_sum - total) > 0.05:
+        fail(f'totalRevenue ${total:,.2f} != sum of revenue departments ${revenue_sum:,.2f}')
+    print(f'  non-revenue excluded from totalRevenue ({len(configured)} configured)')
+
+    block = summary.get('nonRevenue') or {}
+    labelled = set((block.get('departments') or {}).keys())
+    missing = [name for name in configured if name not in labelled]
+    if missing:
+        fail(f'summary.nonRevenue is missing {", ".join(missing)}')
 
 
 def validate_labor_optional():

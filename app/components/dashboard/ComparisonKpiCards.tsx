@@ -14,6 +14,7 @@ interface Props {
   kpisB: Kpis;
   labelA?: string;
   labelB?: string;
+  revenueLabel?: string;
 }
 
 function pctChange(a: number, b: number): string {
@@ -23,9 +24,9 @@ function pctChange(a: number, b: number): string {
   return `${sign}${pct.toFixed(1)}%`;
 }
 
-export function ComparisonKpiCards({ kpisA, kpisB, labelA = 'Period A', labelB = 'Period B' }: Props) {
+export function ComparisonKpiCards({ kpisA, kpisB, labelA = 'Period A', labelB = 'Period B', revenueLabel = 'Sales' }: Props) {
   const metrics = [
-    { key: 'totalRevenue', label: 'Sales', format: (v: number) => formatCompact(v) },
+    { key: 'totalRevenue', label: revenueLabel, format: (v: number) => formatCompact(v) },
     { key: 'totalQuantity', label: 'Quantity', format: (v: number) => formatNumber(v) },
     { key: 'totalTransactions', label: 'Transactions', format: (v: number) => formatNumber(v) },
     { key: 'uniqueItems', label: 'Unique Items', format: (v: number) => String(v) },

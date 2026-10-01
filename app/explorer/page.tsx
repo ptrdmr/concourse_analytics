@@ -7,8 +7,9 @@ import { getYTD } from '@/lib/date-ranges';
 import { buildExplorerSummary } from '@/lib/build-data-summary';
 import { useDataContext } from '@/context/DataContext';
 import { parseDateRangeFromUrl, useUrlParams } from '@/hooks/useUrlFilters';
-import { departmentLabel, parseDepartmentsParam, serializeDepartmentsParam } from '@/lib/departments';
+import { departmentLabel, isNonRevenueSelection, isRevenueDepartment, nonRevenueMap, parseDepartmentsParam, serializeDepartmentsParam } from '@/lib/departments';
 import { FilterBar } from '@/components/dashboard/FilterBar';
+import { NonRevenueNotice } from '@/components/dashboard/DepartmentPills';
 import { KpiRow } from '@/components/dashboard/KpiRow';
 import { CategoryPieChart } from '@/components/dashboard/CategoryPieChart';
 import { WeeklyTrendsChart } from '@/components/dashboard/WeeklyTrendsChart';
@@ -67,10 +68,16 @@ function ExplorerContent() {
   const [selectedDate, setSelectedDate] = useState<string | null>(null);
   const [selectedCard, setSelectedCard] = useState<'category' | 'trends' | 'calendar' | null>(null);
 
+  const nonRevenue = useMemo(() => nonRevenueMap(summary), [summary]);
+  const nonRevenueList = useMemo(() => Object.keys(nonRevenue), [nonRevenue]);
+
   const departments = useMemo(() => {
     if (!summary) return [];
     const depts = Object.keys(summary.departments).filter(d => d !== 'Vending Machines');
     const sorted = depts.sort((a, b) => {
+      const aHeld = nonRevenueList.includes(a) ? 1 : 0;
+      const bHeld = nonRevenueList.includes(b) ? 1 : 0;
+      if (aHeld !== bHeld) return aHeld - bHeld;
       return (summary.departments[b]?.revenue || 0) - (summary.departments[a]?.revenue || 0);
     });
     // Modifiers comes from modifiers.json, not transactions - add so user can view it
@@ -78,7 +85,10 @@ function ExplorerContent() {
       sorted.push('Modifiers');
     }
     return ['All', ...sorted];
-  }, [summary]);
+  }, [summary, nonRevenueList]);
+
+  const nonRevenueView = isNonRevenueSelection(filters.departments, nonRevenue);
+  const nonRevenueLabel = filters.departments.map(d => nonRevenue[d]).filter(Boolean)[0];
 
   const isModifiersView = filters.departments.length === 1 && filters.departments[0] === 'Modifiers';
 
@@ -89,16 +99,19 @@ function ExplorerContent() {
     }
     const cats = new Set<string>();
     if (summary) {
-      const depts = filters.departments.length > 0
-        ? filters.departments.map(d => summary.departments[d]).filter(Boolean)
-        : Object.values(summary.departments);
-      depts.forEach(d => d.categories.forEach(c => cats.add(c)));
+      const names = filters.departments.length > 0
+        ? filters.departments
+        : Object.keys(summary.departments).filter(d => isRevenueDepartment(d, nonRevenue));
+      names
+        .map(d => summary.departments[d])
+        .filter(Boolean)
+        .forEach(d => d.categories.forEach(c => cats.add(c)));
     }
     return Array.from(cats).sort();
-  }, [summary, filters.departments, isModifiersView, modifiers]);
+  }, [summary, filters.departments, isModifiersView, modifiers, nonRevenue]);
 
   const { filtered, kpis, categoryBreakdown, weeklyTrends, topItems, dailyRevenue, dailyRevenueAllTime } =
-    useFilteredData(raw, filters);
+    useFilteredData(raw, filters, nonRevenue);
 
   const modifierFiltered = useFilteredData(modifierTransactions, filters);
 
@@ -148,14 +161,17 @@ function ExplorerContent() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 py-6 sm:py-8 space-y-6 sm:space-y-8">
         <FilterBar
           departments={departments}
-          exclusiveDepartments={['Modifiers']}
+          exclusiveDepartments={['Modifiers', ...nonRevenueList]}
+          nonRevenueDepartments={nonRevenueList}
           categories={availableCategories}
           filters={filters}
           onChange={setFilters}
           dataThrough={dataThrough}
         />
 
-        <KpiRow kpis={displayKpis} />
+        {nonRevenueView && nonRevenueLabel && <NonRevenueNotice label={nonRevenueLabel} />}
+
+        <KpiRow kpis={displayKpis} revenueLabel={nonRevenueView ? 'Collected (not revenue)' : 'Sales'} />
 
         <div className="grid grid-cols-1 xl:grid-cols-3 gap-6 xl:gap-8">
           <div

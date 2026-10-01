@@ -3,6 +3,7 @@
 import { useState, useEffect, useMemo } from 'react';
 import { useDataContext } from '@/context/DataContext';
 import type { Transaction, Summary, Filters, PaymentRecord, PackageRecord } from '@/types';
+import { BUNDLED_NON_REVENUE, revenueOnly } from '@/lib/departments';
 
 const LOAD_TIMEOUT_MS = 60000; // 60 seconds for large transactions.json
 
@@ -137,14 +138,25 @@ export function useModifierTransactions() {
   return { modifierTransactions, loading };
 }
 
-export function useFilteredData(raw: Transaction[], filters: Filters) {
-  const filtered = useMemo(() => {
-    let data = raw;
+function applyDepartmentFilter(
+  data: Transaction[],
+  departments: string[],
+  nonRevenue: Record<string, string>,
+): Transaction[] {
+  if (departments.length > 0) {
+    const depts = new Set(departments);
+    return data.filter(r => depts.has(r.department));
+  }
+  return revenueOnly(data, nonRevenue);
+}
 
-    if (filters.departments.length > 0) {
-      const depts = new Set(filters.departments);
-      data = data.filter(r => depts.has(r.department));
-    }
+export function useFilteredData(
+  raw: Transaction[],
+  filters: Filters,
+  nonRevenue: Record<string, string> = BUNDLED_NON_REVENUE,
+) {
+  const filtered = useMemo(() => {
+    let data = applyDepartmentFilter(raw, filters.departments, nonRevenue);
 
     if (filters.dateRange) {
       const [start, end] = filters.dateRange;
@@ -161,7 +173,7 @@ export function useFilteredData(raw: Transaction[], filters: Filters) {
     }
 
     return data;
-  }, [raw, filters]);
+  }, [raw, filters, nonRevenue]);
 
   const kpis = useMemo(() => {
     const totalRevenue = filtered.reduce((s, r) => s + r.revenue, 0);
@@ -239,11 +251,7 @@ export function useFilteredData(raw: Transaction[], filters: Filters) {
 
   // All-time data for calendar: same filters except date range (department, categories, search only)
   const allTimeFiltered = useMemo(() => {
-    let data = raw;
-    if (filters.departments.length > 0) {
-      const depts = new Set(filters.departments);
-      data = data.filter(r => depts.has(r.department));
-    }
+    let data = applyDepartmentFilter(raw, filters.departments, nonRevenue);
     if (filters.categories.length > 0) {
       data = data.filter(r => filters.categories.includes(r.category));
     }
@@ -252,7 +260,7 @@ export function useFilteredData(raw: Transaction[], filters: Filters) {
       data = data.filter(r => r.name.toLowerCase().includes(term));
     }
     return data;
-  }, [raw, filters.departments, filters.categories, filters.searchTerm]);
+  }, [raw, filters.departments, filters.categories, filters.searchTerm, nonRevenue]);
 
   const dailyRevenueAllTime = useMemo(() => {
     const map = new Map<string, { revenue: number; transactions: number; items: Transaction[] }>();

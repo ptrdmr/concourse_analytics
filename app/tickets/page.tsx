@@ -6,6 +6,7 @@ import { useTicketMonths, useTicketDetail } from '@/hooks/useTickets';
 import type { Ticket, TicketLineItem } from '@/types';
 import { X, Receipt, ChevronDown, ChevronUp } from 'lucide-react';
 import { buildTicketsSummary } from '@/lib/build-data-summary';
+import { isRevenueDepartment } from '@/lib/departments';
 import { useDataContext } from '@/context/DataContext';
 
 const PAGE_SIZE = 50;
@@ -128,6 +129,11 @@ function TicketReceipt({ ticket, onClose }: { ticket: Ticket; onClose: () => voi
                       <span className="text-muted mr-1">{line.qty}×</span>
                     ) : null}
                     {line.name}
+                    {line.dept && !isRevenueDepartment(line.dept) ? (
+                      <span className="ml-2 text-[10px] uppercase tracking-wide text-muted border border-dashed border-secondary/40 rounded px-1">
+                        held
+                      </span>
+                    ) : null}
                     {isChild ? (
                       <span className="text-muted ml-1 text-[10px]">(modifier)</span>
                     ) : null}

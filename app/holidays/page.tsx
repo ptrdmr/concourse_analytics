@@ -8,7 +8,7 @@ import { HolidayRanking } from '@/components/dashboard/HolidayRanking';
 import { HolidayYoYTable } from '@/components/dashboard/HolidayYoYTable';
 import { HolidayComparisonChart } from '@/components/dashboard/HolidayComparisonChart';
 import { useUrlDepartments, useUrlString } from '@/hooks/useUrlFilters';
-import { revenueForDepartments } from '@/lib/departments';
+import { BUNDLED_NON_REVENUE, revenueForDepartments } from '@/lib/departments';
 import { buildHolidaysSummary } from '@/lib/build-data-summary';
 import { useDataContext } from '@/context/DataContext';
 
@@ -163,6 +163,7 @@ function HolidaysContent() {
             <DepartmentPills
               options={availableDepartments}
               selected={selectedDepts}
+              nonRevenue={Object.keys(BUNDLED_NON_REVENUE)}
               onChange={setSelectedDepts}
             />
 

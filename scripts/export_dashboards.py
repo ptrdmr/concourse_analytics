@@ -29,6 +29,7 @@ CATEGORY_OVERRIDES = os.path.join(_ROOT, 'config', 'categories.json')
 PACKAGE_ALIASES_CONFIG = os.path.join(_ROOT, 'config', 'package_aliases.json')
 SERVICE_CHARGES_CONFIG = os.path.join(_ROOT, 'config', 'service_charges.json')
 GRATUITY_CONFIG = os.path.join(_ROOT, 'config', 'gratuity.json')
+NON_REVENUE_CONFIG = os.path.join(_ROOT, 'config', 'non_revenue.json')
 EMPLOYEES_POS_OUTPUT = os.path.join(OUTPUT_DIR, '_employees_pos.json')
 GRATUITY_OUTPUT = os.path.join(OUTPUT_DIR, 'gratuity.json')
 SERVICE_CHARGES_OUTPUT = os.path.join(OUTPUT_DIR, 'service_charges.json')
@@ -75,6 +76,8 @@ CATEGORY_COLORS = {
     'Parties':            '#ff9100',
     'League Fees':        '#ffd700',
     'League Bowling':     '#60a5fa',
+    'League Lineage':     '#34d399',
+    'League Prize Fund':  '#c084fc',
     'Summer Specials':    '#22c55e',
     'Fall Specials':      '#ea580c',
     'Winter Specials':    '#38bdf8',
@@ -95,6 +98,21 @@ YEAR_COLORS = ['#00b0ff', '#f5a623', '#ff5252', '#0ea5e9', '#ff9100', '#bb86fc']
 BUSINESS_DAY_CUTOFF_HOUR = 4
 SKIP_DEPARTMENTS = {'', 'TEST DEPARTMENT', 'Parties test'}
 INTRADAY_DIR = os.path.join(OUTPUT_DIR, 'intraday')
+
+
+def load_non_revenue_departments():
+    """Department name -> label for money collected for someone else.
+
+    These rows stay in the export so they can be viewed, but they are not
+    business revenue. config/non_revenue.json is the list.
+    """
+    try:
+        with open(NON_REVENUE_CONFIG, encoding='utf-8') as handle:
+            data = json.load(handle)
+    except (OSError, json.JSONDecodeError):
+        return {}
+    departments = data.get('departments') or {}
+    return {str(name): str(label) for name, label in departments.items()}
 
 
 def parse_time_fields(time_raw):
@@ -827,6 +845,7 @@ def export_intraday(products, category_overrides):
         'departments': departments,
         'years': years,
         'counts': counts,
+        'rows': rows,
     }
 
 
@@ -840,10 +859,10 @@ def export_voids(csv_files, category_overrides):
     print(f'  {len(rows):,} void rows')
 
     departments, years, counts = _write_intraday_shards(rows, subdir='voids')
-    return sorted(years), counts
+    return sorted(years), counts, rows
 
 
-def write_intraday_index(intraday_meta, void_years, void_counts=None):
+def write_intraday_index(intraday_meta, void_years, void_counts=None, non_revenue=None):
     """Write index.json for the intraday dashboard."""
     counts = dict(intraday_meta.get('counts', {}))
     if void_counts:
@@ -854,6 +873,7 @@ def write_intraday_index(intraday_meta, void_years, void_counts=None):
         'generated': datetime.now().isoformat(),
         'voidYears': void_years,
         'counts': counts,
+        'nonRevenueDepartments': sorted((non_revenue or {}).keys()),
     }
     os.makedirs(INTRADAY_DIR, exist_ok=True)
     out = os.path.join(INTRADAY_DIR, 'index.json')
@@ -946,8 +966,13 @@ def export_modifiers(csv_files):
 # EXPORT: summary.json
 # =============================================================================
 
-def export_summary(rows):
-    """Export pre-computed KPIs per department."""
+def export_summary(rows, non_revenue=None):
+    """Export pre-computed KPIs per department.
+
+    non_revenue is a name -> label map. Those departments stay in the
+    department list but are left out of totalRevenue.
+    """
+    non_revenue = non_revenue or {}
     departments = defaultdict(lambda: {
         'revenue': 0.0, 'quantity': 0, 'transactions': 0,
         'items': set(), 'categories': set(), 'dates': set(),
@@ -968,24 +993,37 @@ def export_summary(rows):
         all_dates |= d['dates']
 
     dept_summary = {}
+    revenue_total = 0.0
+    non_revenue_total = 0.0
     for dept, d in sorted(departments.items()):
         dates_sorted = sorted(d['dates'])
+        counts_as_revenue = dept not in non_revenue
+        rounded = round(d['revenue'], 2)
+        if counts_as_revenue:
+            revenue_total += rounded
+        else:
+            non_revenue_total += rounded
         dept_summary[dept] = {
-            'revenue': round(d['revenue'], 2),
+            'revenue': rounded,
             'quantity': d['quantity'],
             'transactions': d['transactions'],
             'uniqueItems': len(d['items']),
             'categories': sorted(d['categories']),
             'dateRange': [dates_sorted[0], dates_sorted[-1]] if dates_sorted else [],
+            'countsAsRevenue': counts_as_revenue,
         }
 
     all_dates_sorted = sorted(all_dates)
     summary = {
         'generatedAt': datetime.now().isoformat(),
         'dateRange': [all_dates_sorted[0], all_dates_sorted[-1]] if all_dates_sorted else [],
-        'totalRevenue': round(sum(d['revenue'] for d in departments.values()), 2),
+        'totalRevenue': round(revenue_total, 2),
         'departments': dept_summary,
         'categoryColors': CATEGORY_COLORS,
+        'nonRevenue': {
+            'departments': non_revenue,
+            'total': round(non_revenue_total, 2),
+        },
     }
 
     out = os.path.join(OUTPUT_DIR, 'summary.json')
@@ -1950,12 +1988,14 @@ def _empty_employee_day():
         'serviceChargeVip': 0.0,
         'serviceChargeParty': 0.0,
         'serviceChargeOther': 0.0,
+        'nonRevenueCollected': 0.0,
     }
 
 
 def aggregate_employees_from_tickets(by_month):
     """Aggregate POS sales, gratuity, and service charges per employee per day."""
     cfg = _load_service_charges_config()
+    non_revenue = set(load_non_revenue_departments())
     product_types = {'Product', 'Modifier', 'Package'}
     employees = {}
     date_min = None
@@ -2023,7 +2063,9 @@ def aggregate_employees_from_tickets(by_month):
                     amt = _ticket_line_amount(line)
                     dept = (line.get('dept') or 'Unknown').strip() or 'Unknown'
                     item_name = (line.get('name') or '').strip()
-                    if ticket_user_norm:
+                    if ticket_user_norm and dept in non_revenue:
+                        employees[ticket_user_norm]['days'][date]['nonRevenueCollected'] += amt
+                    elif ticket_user_norm:
                         employees[ticket_user_norm]['days'][date]['sales'] += amt
                         employees[ticket_user_norm]['deptMix'][dept] += amt
                         if item_name:
@@ -2442,7 +2484,8 @@ def main():
     export_modifier_transactions(csv_files)
 
     print('\n[3/11] Summary...')
-    summary = export_summary(rows)
+    non_revenue = load_non_revenue_departments()
+    summary = export_summary(rows, non_revenue)
     for dept, info in summary['departments'].items():
         print(f'  {dept}: ${info["revenue"]:,.0f}  '
               f'({info["uniqueItems"]} items, {info["transactions"]:,} txns)')
@@ -2459,7 +2502,8 @@ def main():
         if _scripts not in sys.path:
             sys.path.insert(0, _scripts)
         from holiday_analysis import export_holiday_analysis
-        if export_holiday_analysis(rows, quiet=True) == 0:
+        holiday_rows = [r for r in rows if r['department'] not in non_revenue]
+        if export_holiday_analysis(holiday_rows, quiet=True) == 0:
             print(f'  -> {os.path.join(OUTPUT_DIR, "holiday_analysis.json")}')
     except ImportError as e:
         print(f'  SKIP: holiday_analysis not available ({e})')
@@ -2497,8 +2541,18 @@ def main():
     intraday_meta = export_intraday(products, category_overrides)
 
     print('\n[12/12] Intraday voids (by department/year)...')
-    void_years, void_counts = export_voids(csv_files, category_overrides)
-    write_intraday_index(intraday_meta, void_years, void_counts)
+    void_years, void_counts, void_rows = export_voids(csv_files, category_overrides)
+    write_intraday_index(intraday_meta, void_years, void_counts, non_revenue)
+
+    print('\n[13/13] Leagues...')
+    _scripts = os.path.join(_ROOT, 'scripts')
+    if _scripts not in sys.path:
+        sys.path.insert(0, _scripts)
+    from league_export import build_league_payload
+    league_payload = build_league_payload(intraday_meta.get('rows') or [], void_rows)
+    league_out = os.path.join(OUTPUT_DIR, 'leagues.json')
+    _atomic_write_json(league_out, league_payload, indent=2, trailing_newline=True)
+    print(f'  -> {league_out}  ({len(league_payload["split"]):,} split rows)')
 
     print('\n' + '=' * 60)
     print(f'Done! {len(rows):,} transaction rows written to {OUTPUT_DIR}')

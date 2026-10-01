@@ -8,7 +8,7 @@ import {
   countMatchingDays,
 } from '@/lib/intraday';
 import type { DateRange } from '@/lib/date-ranges';
-import { departmentsKey } from '@/lib/departments';
+import { departmentsKey, nonRevenueNames } from '@/lib/departments';
 
 const LOAD_TIMEOUT_MS = 60000;
 
@@ -94,10 +94,13 @@ export function useIntradayData(
   const loadKey = `${departmentsKey(filters.departments)}:${yearsKey}`;
 
   const deptsToLoad = useMemo(() => {
-    if (filters.departments.length === 0) return departments;
     const known = new Set(departments);
+    if (filters.departments.length === 0) {
+      const held = new Set(nonRevenueNames(index));
+      return departments.filter(d => !held.has(d));
+    }
     return filters.departments.filter(d => known.has(d));
-  }, [filters.departments, departments]);
+  }, [filters.departments, departments, index]);
 
   useEffect(() => {
     if (!index || deptsToLoad.length === 0 || yearsNeeded.length === 0) {

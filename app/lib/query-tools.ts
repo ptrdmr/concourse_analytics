@@ -1,5 +1,6 @@
 import type { Transaction } from '@/types';
 import { formatCurrency, formatNumber, formatPercent } from './format';
+import { revenueOnly } from './departments';
 
 interface ToolCall {
   name: string;
@@ -7,7 +8,7 @@ interface ToolCall {
 }
 
 function filterByDept(data: Transaction[], department?: string): Transaction[] {
-  if (!department || department === 'All') return data;
+  if (!department || department === 'All') return revenueOnly(data);
   return data.filter(r => r.department.toLowerCase() === department.toLowerCase());
 }
 
@@ -25,7 +26,7 @@ function filterByCategory(data: Transaction[], category?: string): Transaction[]
 
 function describeFilters(department?: string, startDate?: string, endDate?: string, category?: string): string {
   const parts: string[] = [];
-  parts.push(department && department !== 'All' ? department : 'All departments');
+  parts.push(department && department !== 'All' ? department : 'All revenue departments');
   if (category) parts.push(`category: ${category}`);
   if (startDate && endDate) parts.push(`${startDate} to ${endDate}`);
   else if (startDate) parts.push(`from ${startDate}`);
