@@ -9,11 +9,12 @@ import { useUrlDateRange, useUrlParams } from '@/hooks/useUrlFilters';
 import { getYTD } from '@/lib/date-ranges';
 import { formatCurrency, formatNumber } from '@/lib/format';
 import {
-  inSeasonLeagues,
+  canonicalLeagueName,
+  leagueColor,
   leagueDetail,
+  leagueNames,
   periodTotals,
   weeklyTotals,
-  type LeagueCard,
 } from '@/lib/leagues';
 import { buildLeaguesSummary } from '@/lib/build-data-summary';
 import { useDataContext } from '@/context/DataContext';
@@ -39,11 +40,9 @@ function LeaguesContent() {
   const { get, replaceParams } = useUrlParams();
   const [dateRange, setDateRange] = useUrlDateRange(getYTD(data?.dataThrough ?? null));
   const selectedName = get('league');
+  const selectedLeague = selectedName ? canonicalLeagueName(selectedName) : null;
 
-  const cards = useMemo(
-    () => (data ? inSeasonLeagues(data, dateRange) : []),
-    [data, dateRange],
-  );
+  const names = useMemo(() => (data ? leagueNames(data) : []), [data]);
   const totals = useMemo(
     () => (data ? periodTotals(data, dateRange) : null),
     [data, dateRange],
@@ -53,8 +52,8 @@ function LeaguesContent() {
     [data, dateRange],
   );
   const detail = useMemo(
-    () => (data && selectedName ? leagueDetail(data, selectedName, dateRange) : null),
-    [data, selectedName, dateRange],
+    () => (data && selectedLeague ? leagueDetail(data, selectedLeague, dateRange) : null),
+    [data, selectedLeague, dateRange],
   );
   const detailWeeks = useMemo(
     () => (data && detail ? weeklyTotals(data, dateRange, detail.name) : []),
@@ -66,7 +65,7 @@ function LeaguesContent() {
     return buildLeaguesSummary({
       dateRange,
       dataThrough: data.dataThrough,
-      inSeason: cards.map((card) => card.name),
+      leagues: names,
       totals,
       league: detail
         ? {
@@ -74,19 +73,20 @@ function LeaguesContent() {
             lineage: detail.lineage,
             prizeFund: detail.prizeFund,
             prizeFundGeneral: detail.prizeFundGeneral,
-            nights: detail.nights,
+            leaguePayment: detail.leaguePayment,
+            preSplit: detail.preSplit,
             since: detail.since,
           }
         : null,
     });
-  }, [data, totals, dateRange, cards, detail]);
+  }, [data, totals, dateRange, names, detail]);
 
   useEffect(() => {
     if (summaryText) setDataSummary(summaryText);
   }, [summaryText, setDataSummary]);
 
   const selectLeague = (name: string) => {
-    replaceParams({ league: selectedName === name ? null : name });
+    replaceParams({ league: selectedLeague === name ? null : name });
   };
 
   if (loading) {
@@ -126,35 +126,23 @@ function LeaguesContent() {
           <DateRangePicker value={dateRange} onChange={setDateRange} dataThrough={data.dataThrough} />
         </div>
 
-        <section>
-          <h2 className="text-lg font-semibold mb-1">In season now</h2>
-          <p className="text-sm text-muted mb-4">
-            Leagues with a split-pricing ring in the 14 days through {data.dataThrough}. Amounts use the dates selected above.
-          </p>
-          {cards.length === 0 ? (
-            <p className="text-sm text-muted">No leagues have rung lineage or prize fund in the last 14 days.</p>
-          ) : (
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
-              {cards.map((card) => (
-                <LeagueSeasonCard
-                  key={card.name}
-                  card={card}
-                  selected={card.name === selectedName}
-                  onSelect={() => selectLeague(card.name)}
-                />
-              ))}
-            </div>
-          )}
-        </section>
-
         <section className="space-y-4">
           <h2 className="text-lg font-semibold">Collections for the selected dates</h2>
           <p className="text-sm text-muted">
-            Before each league moved to split pricing, lineage and prize fund rang as one fee. Those nights stay in combined fees and are not split by league.
+            Before each league moved to split pricing, lineage and prize fund rang as one fee. Those named fees are on the league. Wednesday League Payment is Super Sports. League Payment on any other day stays in the combined total.
           </p>
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
-            <TotalTile label="Combined league fees (before split)" value={totals.combined} />
-            <TotalTile label="Lineage — house revenue" value={totals.lineage} accent />
+            <TotalTile
+              label="Combined league fees (before split)"
+              value={totals.combined}
+              detail={totals.unassigned ? `Unassigned ${formatCurrency(totals.unassigned)}` : undefined}
+            />
+            <TotalTile
+              label="Lineage — house revenue"
+              value={totals.lineage + totals.leaguePayment}
+              accent
+              detail={totals.leaguePayment ? `League Payment ${formatCurrency(totals.leaguePayment)}` : undefined}
+            />
             <TotalTile
               label="Prize fund — held for leagues"
               value={totals.prizeFund + totals.prizeFundGeneral}
@@ -165,44 +153,83 @@ function LeaguesContent() {
           <LeagueWeeklyChart data={weeks} title="Weekly collections" />
         </section>
 
+        <section>
+          <h2 className="text-lg font-semibold mb-1">Leagues</h2>
+          <p className="text-sm text-muted mb-4">
+            Select a league to see its lineage and prize fund for these dates.
+          </p>
+          {names.length === 0 ? (
+            <p className="text-sm text-muted">No leagues have split pricing yet.</p>
+          ) : (
+            <div className="flex flex-wrap gap-2">
+              {names.map((name) => {
+                const selected = name === selectedLeague;
+                const color = leagueColor(name);
+                return (
+                  <button
+                    key={name}
+                    type="button"
+                    onClick={() => selectLeague(name)}
+                    className={`rounded-full border px-3 py-1.5 text-sm font-medium transition-colors ${
+                      selected ? 'bg-card' : 'border-border text-secondary hover:text-foreground'
+                    }`}
+                    style={selected ? { borderColor: color, color } : undefined}
+                  >
+                    {name}
+                  </button>
+                );
+              })}
+            </div>
+          )}
+        </section>
+
         {detail && (
           <section className="space-y-4">
             <header
               className="rounded-xl border border-border p-6"
               style={{ borderLeftWidth: 8, borderLeftColor: detail.color }}
             >
-              <p className="text-xs uppercase tracking-[0.2em] mb-1" style={{ color: detail.color }}>
-                {detail.night} · {detail.usualTime}
-              </p>
               <h2 className="text-3xl sm:text-5xl font-bold" style={{ color: detail.color }}>
                 {detail.name}
               </h2>
-              <p className="text-sm text-secondary mt-2">Split pricing since {detail.since}</p>
+              <p className="text-sm text-secondary mt-2">
+                {detail.since
+                  ? `Split pricing since ${detail.since}`
+                  : detail.leaguePayment !== 0
+                    ? 'General revenue from League Payment. This is house revenue, not a split package yet.'
+                    : detail.preSplit !== 0
+                      ? 'These fees were rung before lineage and prize fund were split out.'
+                      : 'No split-pricing package yet.'}
+              </p>
             </header>
 
             <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
+              {detail.preSplit !== 0 && (
+                <TotalTile label="Fees before split" value={detail.preSplit} />
+              )}
               <TotalTile label="Lineage" value={detail.lineage} accent />
+              {detail.leaguePayment !== 0 && (
+                <TotalTile label="General revenue" value={detail.leaguePayment} detail="League Payment" accent />
+              )}
               <TotalTile label="Prize fund from the package" value={detail.prizeFund} />
               <TotalTile label="Prize fund general" value={detail.prizeFundGeneral} />
               <TotalTile label="Total collected" value={detail.total} />
-              <TotalTile label="Nights bowled" value={detail.nights} plain />
               <TotalTile label="Payments" value={detail.payments} plain />
-              <TotalTile
-                label="Average lineage per night"
-                value={detail.avgLineagePerNight}
-                money={detail.avgLineagePerNight != null}
-              />
               <TotalTile label="Voids" value={detail.voidValue} />
             </div>
             <p className="text-sm text-muted">
-              Payments count how many times lineage was rung, not how many people bowled. Some bowlers pay for a month at a time.
+              Payments count how many times the fee was rung, not how many people bowled. Some bowlers pay for a month at a time.
             </p>
 
-            <LeagueWeeklyChart data={detailWeeks} title={`${detail.name} by week`} />
+            <LeagueWeeklyChart
+              data={detailWeeks}
+              title={`${detail.name} by week`}
+              note={detail.preSplit !== 0 ? 'Combined fees are this league only, from before the split.' : undefined}
+            />
 
             <div className="card overflow-hidden">
               <div className="px-4 py-3 border-b border-border">
-                <h3 className="text-sm font-semibold">Night by night</h3>
+                <h3 className="text-sm font-semibold">By date</h3>
               </div>
               <div className="overflow-x-auto">
                 <table className="w-full text-sm">
@@ -210,18 +237,35 @@ function LeaguesContent() {
                     <tr className="text-left text-xs text-muted">
                       <th className="px-4 py-2 font-medium">Date</th>
                       <th className="px-4 py-2 font-medium text-right">Payments</th>
+                      {detail.preSplit !== 0 && (
+                        <th className="px-4 py-2 font-medium text-right">Before split</th>
+                      )}
                       <th className="px-4 py-2 font-medium text-right">Lineage</th>
+                      {detail.leaguePayment !== 0 && (
+                        <th className="px-4 py-2 font-medium text-right">General revenue</th>
+                      )}
                       <th className="px-4 py-2 font-medium text-right">Prize fund</th>
-                      <th className="px-4 py-2 font-medium text-right">General</th>
+                      <th className="px-4 py-2 font-medium text-right">Prize fund general</th>
                       <th className="px-4 py-2 font-medium text-right">Total</th>
                     </tr>
                   </thead>
                   <tbody>
+                    {detail.rows.length === 0 && (
+                      <tr className="border-t border-border/70">
+                        <td className="px-4 py-3 text-muted" colSpan={6 + (detail.leaguePayment !== 0 ? 1 : 0) + (detail.preSplit !== 0 ? 1 : 0)}>No rings in these dates.</td>
+                      </tr>
+                    )}
                     {detail.rows.map((night) => (
                       <tr key={night.date} className="border-t border-border/70">
                         <td className="px-4 py-2">{night.date}</td>
                         <td className="px-4 py-2 text-right font-mono">{formatNumber(night.payments)}</td>
+                        {detail.preSplit !== 0 && (
+                          <td className="px-4 py-2 text-right font-mono">{formatCurrency(night.preSplit)}</td>
+                        )}
                         <td className="px-4 py-2 text-right font-mono">{formatCurrency(night.lineage)}</td>
+                        {detail.leaguePayment !== 0 && (
+                          <td className="px-4 py-2 text-right font-mono">{formatCurrency(night.leaguePayment)}</td>
+                        )}
                         <td className="px-4 py-2 text-right font-mono">{formatCurrency(night.prizeFund)}</td>
                         <td className="px-4 py-2 text-right font-mono">{formatCurrency(night.prizeFundGeneral)}</td>
                         <td className="px-4 py-2 text-right font-mono">{formatCurrency(night.total)}</td>
@@ -235,44 +279,6 @@ function LeaguesContent() {
         )}
       </div>
     </main>
-  );
-}
-
-function LeagueSeasonCard({
-  card,
-  selected,
-  onSelect,
-}: {
-  card: LeagueCard;
-  selected: boolean;
-  onSelect: () => void;
-}) {
-  return (
-    <button
-      type="button"
-      onClick={onSelect}
-      className={`card p-4 text-left border transition-colors ${
-        selected ? 'border-accent' : 'border-transparent hover:border-border'
-      }`}
-      style={{ borderLeftWidth: 6, borderLeftColor: card.color }}
-    >
-      <p className="text-xs text-muted">{card.night} · {card.usualTime}</p>
-      <h3 className="text-lg font-semibold mt-1" style={{ color: card.color }}>{card.name}</h3>
-      <p className="text-xs text-secondary mt-1">Last bowled {card.lastBowled}</p>
-      <div className="mt-3 space-y-1 text-sm">
-        <MoneyLine label="Lineage" value={card.lineage} />
-        <MoneyLine label="Prize fund" value={card.prizeFund + card.prizeFundGeneral} />
-      </div>
-    </button>
-  );
-}
-
-function MoneyLine({ label, value }: { label: string; value: number }) {
-  return (
-    <div className="flex justify-between gap-3">
-      <span className="text-secondary">{label}</span>
-      <span className="font-mono">{formatCurrency(value)}</span>
-    </div>
   );
 }
 

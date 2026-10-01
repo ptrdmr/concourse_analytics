@@ -239,12 +239,13 @@ export function buildCompareSummary(opts: {
 export function buildLeaguesSummary(opts: {
   dateRange: [string, string] | null;
   dataThrough: string;
-  inSeason: string[];
+  leagues: string[];
   totals: {
     combined: number;
     lineage: number;
     prizeFund: number;
     prizeFundGeneral: number;
+    leaguePayment: number;
     total: number;
   };
   league: {
@@ -252,29 +253,39 @@ export function buildLeaguesSummary(opts: {
     lineage: number;
     prizeFund: number;
     prizeFundGeneral: number;
-    nights: number;
+    leaguePayment: number;
+    preSplit: number;
     since: string;
   } | null;
 }): string {
-  const { dateRange, dataThrough, inSeason, totals, league } = opts;
+  const { dateRange, dataThrough, leagues, totals, league } = opts;
   const lines: string[] = [];
   lines.push('Dashboard: Leagues');
   lines.push(`Date Range: ${dateRange ? `${dateRange[0]} to ${dateRange[1]}` : 'All time'}`);
   lines.push(`Data through: ${dataThrough}`);
   lines.push('Lineage is house revenue. Prize fund is held for leagues and is not sales.');
-  lines.push('Combined fees are nights before a league moved to split pricing. They are not assigned to a league.');
+  lines.push('Named fees from before the split are on each league. Wednesday League Payment is Super Sports house revenue. League Payment on any other day stays in combined fees.');
   lines.push('');
-  lines.push(`In season: ${inSeason.length ? inSeason.join(', ') : 'none'}`);
+  lines.push(`Leagues: ${leagues.length ? leagues.join(', ') : 'none'}`);
   lines.push(`Combined league fees: ${formatCurrency(totals.combined)}`);
   lines.push(`Lineage: ${formatCurrency(totals.lineage)}`);
+  if (totals.leaguePayment) {
+    lines.push(`Super Sports general revenue (League Payment): ${formatCurrency(totals.leaguePayment)}`);
+  }
   lines.push(`Prize fund (package): ${formatCurrency(totals.prizeFund)}`);
   lines.push(`Prize fund general: ${formatCurrency(totals.prizeFundGeneral)}`);
   lines.push(`Total collected: ${formatCurrency(totals.total)}`);
   if (league) {
     lines.push('');
     lines.push(`Selected league: ${league.name}`);
-    lines.push(`Split pricing since ${league.since}. Nights in range: ${formatNumber(league.nights)}`);
-    lines.push(`Lineage ${formatCurrency(league.lineage)} | Prize fund ${formatCurrency(league.prizeFund)} | General ${formatCurrency(league.prizeFundGeneral)}`);
+    lines.push(league.since
+      ? `Split pricing since ${league.since}`
+      : league.leaguePayment
+        ? 'General revenue from League Payment. This is house revenue, not a split package yet.'
+        : league.preSplit
+          ? 'Fees before lineage and prize fund were split out.'
+          : 'No split-pricing package yet.');
+    lines.push(`Before split ${formatCurrency(league.preSplit)} | Lineage ${formatCurrency(league.lineage)} | Prize fund ${formatCurrency(league.prizeFund)} | General ${formatCurrency(league.prizeFundGeneral)} | League Payment ${formatCurrency(league.leaguePayment)}`);
   }
   lines.push('');
   return lines.join('\n');

@@ -18,6 +18,7 @@ const SERIES = [
   { key: 'lineage', name: 'Lineage', fill: '#34d399' },
   { key: 'prizeFund', name: 'Prize fund', fill: '#c084fc' },
   { key: 'prizeFundGeneral', name: 'Prize fund general', fill: '#f472b6' },
+  { key: 'leaguePayment', name: 'League payment', fill: '#38bdf8' },
 ] as const;
 
 function ChartTooltip({
@@ -43,12 +44,23 @@ function ChartTooltip({
   );
 }
 
-export function LeagueWeeklyChart({ data, title }: { data: WeekStack[]; title: string }) {
+export function LeagueWeeklyChart({
+  data,
+  title,
+  note,
+}: {
+  data: WeekStack[];
+  title: string;
+  note?: string;
+}) {
   const visible = SERIES.filter((series) => data.some((row) => row[series.key] !== 0));
+  const caption = note
+    ? `Monday-start weeks in the selected dates. ${note}`
+    : 'Monday-start weeks in the selected dates';
   return (
     <div className="card p-6">
       <h3 className="text-lg font-semibold text-foreground mb-1">{title}</h3>
-      <p className="text-sm text-muted mb-6">Monday-start weeks in the selected dates</p>
+      <p className="text-sm text-muted mb-6">{caption}</p>
       {data.length === 0 ? (
         <p className="text-sm text-muted">No league collections in this date range.</p>
       ) : (
