@@ -1,6 +1,6 @@
 {
-  "generatedAt": "2026-10-02T05:34:54.178161",
-  "dataThrough": "2026-10-01",
+  "generatedAt": "2026-10-03T05:35:09.733194",
+  "dataThrough": "2026-10-02",
   "combined": [
     {
       "date": "2024-01-21",
@@ -15703,6 +15703,33 @@
       "quantity": 4.0,
       "payments": 4,
       "firstSlot": 26
+    },
+    {
+      "date": "2026-10-02",
+      "league": "Lucky Ladies & Gents",
+      "kind": "lineage",
+      "revenue": 1365.0,
+      "quantity": 105.0,
+      "payments": 34,
+      "firstSlot": 23
+    },
+    {
+      "date": "2026-10-02",
+      "league": "Lucky Ladies & Gents",
+      "kind": "prizeFund",
+      "revenue": 1575.0,
+      "quantity": 105.0,
+      "payments": 34,
+      "firstSlot": 23
+    },
+    {
+      "date": "2026-10-02",
+      "league": "Lucky Ladies & Gents",
+      "kind": "prizeFundGeneral",
+      "revenue": 20.0,
+      "quantity": 1.0,
+      "payments": 1,
+      "firstSlot": 23
     }
   ],
   "voids": [

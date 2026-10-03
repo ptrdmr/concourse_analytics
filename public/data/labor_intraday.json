@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-10-02T05:35:11.822038-07:00",
+  "generatedAt": "2026-10-03T05:35:27.926518-07:00",
   "timezone": "America/Los_Angeles",
   "source": "punches+report",
   "slotResolution": 30,
   "dateRange": [
-    "2025-10-03",
-    "2026-10-02"
+    "2025-10-04",
+    "2026-10-03"
   ],
   "reconciliation": {
     "flaggedDays": [
@@ -43,15 +43,15 @@
         "targetCost": 829.99
       },
       {
-        "date": "2026-10-02",
+        "date": "2026-10-03",
         "reason": "report_cost_no_punches",
-        "targetCost": 1025.37
+        "targetCost": 1025.36
       }
     ],
-    "mean": 1.4808,
+    "mean": 1.4804,
     "min": 0.6466,
     "max": 4.0133,
-    "stddev": 0.4116,
+    "stddev": 0.4117,
     "dayCount": 363
   },
   "roles": {
@@ -77,163 +77,6 @@
     "2910900": "General Manager"
   },
   "days": {
-    "2025-10-03": {
-      "factor": 1.3711,
-      "slots": {
-        "0": {
-          "cost": 1.01,
-          "headcount": 1
-        },
-        "11": {
-          "cost": 3.84,
-          "headcount": 1
-        },
-        "12": {
-          "cost": 14.4,
-          "headcount": 1
-        },
-        "13": {
-          "cost": 14.4,
-          "headcount": 1
-        },
-        "14": {
-          "cost": 14.4,
-          "headcount": 1
-        },
-        "15": {
-          "cost": 14.4,
-          "headcount": 1
-        },
-        "16": {
-          "cost": 37.59,
-          "headcount": 2
-        },
-        "17": {
-          "cost": 38.39,
-          "headcount": 2
-        },
-        "18": {
-          "cost": 38.39,
-          "headcount": 2
-        },
-        "19": {
-          "cost": 38.39,
-          "headcount": 2
-        },
-        "20": {
-          "cost": 38.39,
-          "headcount": 2
-        },
-        "21": {
-          "cost": 38.39,
-          "headcount": 2
-        },
-        "22": {
-          "cost": 38.39,
-          "headcount": 2
-        },
-        "23": {
-          "cost": 41.13,
-          "headcount": 3
-        },
-        "24": {
-          "cost": 56.56,
-          "headcount": 3
-        },
-        "25": {
-          "cost": 44.56,
-          "headcount": 2
-        },
-        "26": {
-          "cost": 44.56,
-          "headcount": 2
-        },
-        "27": {
-          "cost": 44.56,
-          "headcount": 2
-        },
-        "28": {
-          "cost": 44.56,
-          "headcount": 2
-        },
-        "29": {
-          "cost": 44.56,
-          "headcount": 2
-        },
-        "30": {
-          "cost": 44.56,
-          "headcount": 2
-        },
-        "31": {
-          "cost": 48.58,
-          "headcount": 3
-        },
-        "32": {
-          "cost": 52.44,
-          "headcount": 3
-        },
-        "33": {
-          "cost": 35.65,
-          "headcount": 2
-        },
-        "34": {
-          "cost": 35.65,
-          "headcount": 2
-        },
-        "35": {
-          "cost": 39.76,
-          "headcount": 3
-        },
-        "36": {
-          "cost": 49.36,
-          "headcount": 3
-        },
-        "37": {
-          "cost": 49.36,
-          "headcount": 3
-        },
-        "38": {
-          "cost": 49.36,
-          "headcount": 3
-        },
-        "39": {
-          "cost": 49.36,
-          "headcount": 3
-        },
-        "40": {
-          "cost": 35.65,
-          "headcount": 3
-        },
-        "41": {
-          "cost": 28.79,
-          "headcount": 2
-        },
-        "42": {
-          "cost": 28.79,
-          "headcount": 2
-        },
-        "43": {
-          "cost": 28.79,
-          "headcount": 2
-        },
-        "44": {
-          "cost": 28.79,
-          "headcount": 2
-        },
-        "45": {
-          "cost": 28.79,
-          "headcount": 2
-        },
-        "46": {
-          "cost": 28.79,
-          "headcount": 2
-        },
-        "47": {
-          "cost": 28.79,
-          "headcount": 2
-        }
-      }
-    },
     "2025-10-04": {
       "factor": 1.2107,
       "slots": {
@@ -52725,6 +52568,159 @@
         "43": {
           "cost": 54.95,
           "headcount": 4
+        }
+      }
+    },
+    "2026-10-02": {
+      "factor": 1.2415,
+      "slots": {
+        "0": {
+          "cost": 34.4,
+          "headcount": 7
+        },
+        "12": {
+          "cost": 12.64,
+          "headcount": 1
+        },
+        "13": {
+          "cost": 14.59,
+          "headcount": 1
+        },
+        "14": {
+          "cost": 14.59,
+          "headcount": 1
+        },
+        "15": {
+          "cost": 14.59,
+          "headcount": 1
+        },
+        "16": {
+          "cost": 14.59,
+          "headcount": 1
+        },
+        "17": {
+          "cost": 18.02,
+          "headcount": 3
+        },
+        "18": {
+          "cost": 65.49,
+          "headcount": 4
+        },
+        "19": {
+          "cost": 66.19,
+          "headcount": 5
+        },
+        "20": {
+          "cost": 87.4,
+          "headcount": 6
+        },
+        "21": {
+          "cost": 91.5,
+          "headcount": 7
+        },
+        "22": {
+          "cost": 109.5,
+          "headcount": 7
+        },
+        "23": {
+          "cost": 109.5,
+          "headcount": 7
+        },
+        "24": {
+          "cost": 96.86,
+          "headcount": 7
+        },
+        "25": {
+          "cost": 94.91,
+          "headcount": 6
+        },
+        "26": {
+          "cost": 86.47,
+          "headcount": 6
+        },
+        "27": {
+          "cost": 89.41,
+          "headcount": 7
+        },
+        "28": {
+          "cost": 114.16,
+          "headcount": 8
+        },
+        "29": {
+          "cost": 117.2,
+          "headcount": 8
+        },
+        "30": {
+          "cost": 122.52,
+          "headcount": 10
+        },
+        "31": {
+          "cost": 133.38,
+          "headcount": 10
+        },
+        "32": {
+          "cost": 164.15,
+          "headcount": 12
+        },
+        "33": {
+          "cost": 160.2,
+          "headcount": 17
+        },
+        "34": {
+          "cost": 220.36,
+          "headcount": 19
+        },
+        "35": {
+          "cost": 205.22,
+          "headcount": 16
+        },
+        "36": {
+          "cost": 205.22,
+          "headcount": 16
+        },
+        "37": {
+          "cost": 199.05,
+          "headcount": 16
+        },
+        "38": {
+          "cost": 172.75,
+          "headcount": 15
+        },
+        "39": {
+          "cost": 164.4,
+          "headcount": 15
+        },
+        "40": {
+          "cost": 155.66,
+          "headcount": 15
+        },
+        "41": {
+          "cost": 173.45,
+          "headcount": 15
+        },
+        "42": {
+          "cost": 138.2,
+          "headcount": 12
+        },
+        "43": {
+          "cost": 150.6,
+          "headcount": 13
+        },
+        "44": {
+          "cost": 137.0,
+          "headcount": 12
+        },
+        "45": {
+          "cost": 128.93,
+          "headcount": 11
+        },
+        "46": {
+          "cost": 109.18,
+          "headcount": 11
+        },
+        "47": {
+          "cost": 80.57,
+          "headcount": 7
         }
       }
     }
