@@ -1,29 +1,29 @@
 {
-  "generatedAt": "2026-10-05T05:31:27.267636",
+  "generatedAt": "2026-10-06T05:31:27.082457",
   "dateRange": [
     "2023-01-01",
-    "2026-10-04"
+    "2026-10-05"
   ],
-  "totalRevenue": 21517755.95,
+  "totalRevenue": 21528532.09,
   "departments": {
     "Arcade": {
-      "revenue": 148911.81,
-      "quantity": 4138,
-      "transactions": 3925,
+      "revenue": 149589.81,
+      "quantity": 4139,
+      "transactions": 3926,
       "uniqueItems": 5,
       "categories": [
         "Arcade"
       ],
       "dateRange": [
         "2023-12-07",
-        "2026-09-28"
+        "2026-10-05"
       ],
       "countsAsRevenue": true
     },
     "Bar": {
-      "revenue": 5224094.85,
-      "quantity": 621892,
-      "transactions": 611051,
+      "revenue": 5225527.85,
+      "quantity": 622052,
+      "transactions": 611207,
       "uniqueItems": 545,
       "categories": [
         "Bar",
@@ -35,14 +35,14 @@
       ],
       "dateRange": [
         "2023-05-26",
-        "2026-10-04"
+        "2026-10-05"
       ],
       "countsAsRevenue": true
     },
     "Bowling": {
-      "revenue": 5765144.88,
-      "quantity": 7980827,
-      "transactions": 447923,
+      "revenue": 5765803.88,
+      "quantity": 7981328,
+      "transactions": 447998,
       "uniqueItems": 47,
       "categories": [
         "Bowling",
@@ -54,14 +54,14 @@
       ],
       "dateRange": [
         "2023-01-01",
-        "2026-10-04"
+        "2026-10-05"
       ],
       "countsAsRevenue": true
     },
     "Food": {
-      "revenue": 3409675.53,
-      "quantity": 370937,
-      "transactions": 344205,
+      "revenue": 3410537.67,
+      "quantity": 371043,
+      "transactions": 344311,
       "uniqueItems": 235,
       "categories": [
         "Appetizers & Sides",
@@ -80,7 +80,7 @@
       ],
       "dateRange": [
         "2023-05-26",
-        "2026-10-04"
+        "2026-10-05"
       ],
       "countsAsRevenue": true
     },
@@ -100,8 +100,8 @@
     },
     "League Fees": {
       "revenue": 3067324.03,
-      "quantity": 176816,
-      "transactions": 49609,
+      "quantity": 176920,
+      "transactions": 49611,
       "uniqueItems": 125,
       "categories": [
         "League Bowling",
@@ -109,35 +109,35 @@
       ],
       "dateRange": [
         "2023-06-01",
-        "2026-10-04"
+        "2026-10-05"
       ],
       "countsAsRevenue": true
     },
     "League Lineage": {
-      "revenue": 21136.0,
-      "quantity": 1306,
-      "transactions": 852,
-      "uniqueItems": 14,
+      "revenue": 28280.0,
+      "quantity": 1682,
+      "transactions": 1009,
+      "uniqueItems": 15,
       "categories": [
         "League Lineage"
       ],
       "dateRange": [
         "2026-09-17",
-        "2026-10-04"
+        "2026-10-05"
       ],
       "countsAsRevenue": true
     },
     "League Prize Fund": {
-      "revenue": 15372.0,
-      "quantity": 1347,
-      "transactions": 893,
-      "uniqueItems": 24,
+      "revenue": 18756.0,
+      "quantity": 1723,
+      "transactions": 1050,
+      "uniqueItems": 25,
       "categories": [
         "League Prize Fund"
       ],
       "dateRange": [
         "2026-09-17",
-        "2026-10-04"
+        "2026-10-05"
       ],
       "countsAsRevenue": false
     },
@@ -216,6 +216,6 @@
     "departments": {
       "League Prize Fund": "Held for league prize funds"
     },
-    "total": 15372.0
+    "total": 18756.0
   }
 }
