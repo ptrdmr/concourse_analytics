@@ -1,6 +1,7 @@
 # run_nightly.ps1
 # Orchestrates: git pull -> DB pull -> ETL -> specialty JSON -> 7shifts labor
-#               -> employee merge -> git add public/data -> commit -> push
+#               -> employee merge -> POS lane book to the leads chart
+#               -> git add public/data -> commit -> push
 #
 # Runs from the concourse_analytics clone. The ETL writes JSON in place under
 # public/data; there is no second repo and no copy step.
@@ -283,6 +284,9 @@ try {
             }
         }
     }
+
+    # Leads chart. Non-fatal: a down leads site must not stop the sales publish.
+    Invoke-OptionalStep 'POS lane book' "$Python scripts/push_lane_chart.py" | Out-Null
 
     $Stray = git status --porcelain | Where-Object {
         -not (Test-PathUnderPublicData (Get-PorcelainPath $_))
