@@ -42,6 +42,11 @@ _ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 TZ = ZoneInfo('America/Los_Angeles')
 LANE_RE = re.compile(r'^Lane\s+(\d+)$', re.IGNORECASE)
 SOURCE = 'Sync.RSVReservations'
+# Title text, matched case-insensitively. These are holds staff keep in the POS
+# so the lanes look closed. They are not parties, and they hide the real book.
+SKIP_TITLE_PARTS = (
+    'no reservations',
+)
 
 SQL = """
 SELECT
@@ -85,6 +90,7 @@ def shape_book(rows: list[dict]) -> tuple[dict[str, list[dict]], dict]:
         'skipped_status': defaultdict(int),
         'clipped': 0,
         'bad_end': 0,
+        'skipped_title': 0,
         'firm': 0,
         'hold': 0,
     }
@@ -143,6 +149,10 @@ def shape_book(rows: list[dict]) -> tuple[dict[str, list[dict]], dict]:
     blocks_by_res: dict[object, list[dict]] = defaultdict(list)
     for window in windows.values():
         if window.get('skip'):
+            continue
+        title_low = window['title'].lower()
+        if any(part in title_low for part in SKIP_TITLE_PARTS):
+            stats['skipped_title'] += 1
             continue
         if not window['lanes']:
             stats['skipped_no_lanes'] += 1
@@ -231,7 +241,8 @@ def summary_line(stats: dict) -> str:
         f"skipped resource {stats['skipped_resource']}, "
         f"no lanes {stats['skipped_no_lanes']}, "
         f"status {stats['skipped_status']}; "
-        f"clipped {stats['clipped']}, bad end {stats['bad_end']}"
+        f"clipped {stats['clipped']}, bad end {stats['bad_end']}, "
+        f"title {stats['skipped_title']}"
     )
 
 

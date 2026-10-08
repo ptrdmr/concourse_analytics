@@ -86,6 +86,16 @@ class ShapeBookTests(unittest.TestCase):
         self.assertEqual(block['startMinute'] + block['durationMinutes'], 1440)
         self.assertEqual(stats['clipped'], 1)
 
+    def test_no_reservations_title_is_left_out(self):
+        days, stats = shape_book([
+            row(title='NO RESERVATIONS', resource_name='Lane 1'),
+            row(title='NO RESERVATIONS', resource_name='Lane 2'),
+            row(reservation_id=9, title='Smith Birthday', resource_name='Lane 4'),
+        ])
+        labels = [block['label'] for block in days['2026-10-07']]
+        self.assertEqual(labels, ['Smith Birthday - Kingpin'])
+        self.assertEqual(stats['skipped_title'], 1)
+
     def test_id_suffix_on_shared_start(self):
         days, _stats = shape_book([
             row(start=datetime(2026, 10, 7, 19, 0), end=datetime(2026, 10, 7, 20, 0), resource_name='Lane 1'),
