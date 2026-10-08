@@ -36,9 +36,9 @@ def _pick_driver() -> str:
     )
 
 
-def connection_string() -> str:
+def connection_string(database: str | None = None) -> str:
     server = os.getenv('SQL_SERVER', r'SYNCSERVER\SYNCDB')
-    database = os.getenv('SQL_DATABASE', 'SyncJournal')
+    database = database or os.getenv('SQL_DATABASE', 'SyncJournal')
     user = os.getenv('SQL_USER', 'concourse_readonly')
     password = os.getenv('SQL_PASSWORD', '')
     if not password:
@@ -57,10 +57,10 @@ def connection_string() -> str:
     return ';'.join(parts)
 
 
-def connect(retries: int = 3, delay_sec: float = 2.0) -> pyodbc.Connection:
+def connect(retries: int = 3, delay_sec: float = 2.0, database: str | None = None) -> pyodbc.Connection:
     """Open a read-only-intent connection with simple retries."""
     last_err: Exception | None = None
-    conn_str = connection_string()
+    conn_str = connection_string(database)
     for attempt in range(1, retries + 1):
         try:
             conn = pyodbc.connect(conn_str, timeout=30)
