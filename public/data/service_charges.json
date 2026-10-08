@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-07T05:34:04.534669",
+  "generatedAt": "2026-10-08T05:34:04.434038",
   "tabs": [
     {
       "date": "2023-06-01",
@@ -13186,6 +13186,28 @@
       "gratuity": 150.0,
       "tabTotal": 616.48,
       "accountApplied": 3094.25
+    },
+    {
+      "date": "2026-10-07",
+      "time": "17:10",
+      "txnId": "824513",
+      "party": "Mercury Insurance",
+      "accountNames": [
+        "Mercury Insurance"
+      ],
+      "partyTypes": [
+        "Kingpin Suite"
+      ],
+      "chargeType": "VIP Service Charge",
+      "server": "Brianna",
+      "terminal": "CAFE1",
+      "charges": {
+        "VIP Service Charge": 324.0
+      },
+      "serviceCharge": 324.0,
+      "gratuity": 0.0,
+      "tabTotal": 0.0,
+      "accountApplied": 4278.06
     }
   ],
   "meta": {

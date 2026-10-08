@@ -1,8 +1,8 @@
 {
-  "generatedAt": "2026-10-07T05:34:16",
+  "generatedAt": "2026-10-08T05:34:16",
   "dateRange": [
     "2023-05-26",
-    "2026-10-04"
+    "2026-10-07"
   ],
   "types": [
     "Weekday Lane",
@@ -11198,6 +11198,11 @@
       "date": "2026-10-04",
       "type": "Sunday Lane",
       "count": 5
+    },
+    {
+      "date": "2026-10-07",
+      "type": "Kingpin Suite",
+      "count": 1
     }
   ],
   "dailyTabs": [
@@ -15628,11 +15633,15 @@
     {
       "date": "2026-10-04",
       "tabs": 5
+    },
+    {
+      "date": "2026-10-07",
+      "tabs": 1
     }
   ],
   "validation": {
-    "distinctTabs": 11124,
-    "cellSum": 11177,
+    "distinctTabs": 11125,
+    "cellSum": 11178,
     "delta": 53
   }
 }

@@ -1,6 +1,6 @@
 {
-  "generatedAt": "2026-10-07T05:34:55.057967",
-  "dataThrough": "2026-10-06",
+  "generatedAt": "2026-10-08T05:34:55.081237",
+  "dataThrough": "2026-10-07",
   "combined": [
     {
       "date": "2024-01-21",
@@ -15838,6 +15838,123 @@
       "quantity": 2.0,
       "payments": 2,
       "firstSlot": 38
+    },
+    {
+      "date": "2026-10-07",
+      "league": "Alley Cats",
+      "kind": "lineage",
+      "revenue": 2261.0,
+      "quantity": 119.0,
+      "payments": 38,
+      "firstSlot": 36
+    },
+    {
+      "date": "2026-10-07",
+      "league": "Alley Cats",
+      "kind": "prizeFund",
+      "revenue": 1309.0,
+      "quantity": 119.0,
+      "payments": 38,
+      "firstSlot": 36
+    },
+    {
+      "date": "2026-10-07",
+      "league": "Alley Cats",
+      "kind": "prizeFundGeneral",
+      "revenue": 126.0,
+      "quantity": 2.0,
+      "payments": 2,
+      "firstSlot": 36
+    },
+    {
+      "date": "2026-10-07",
+      "league": "Cerra Villa",
+      "kind": "lineage",
+      "revenue": 624.0,
+      "quantity": 48.0,
+      "payments": 48,
+      "firstSlot": 23
+    },
+    {
+      "date": "2026-10-07",
+      "league": "Cerra Villa",
+      "kind": "prizeFund",
+      "revenue": 336.0,
+      "quantity": 48.0,
+      "payments": 48,
+      "firstSlot": 23
+    },
+    {
+      "date": "2026-10-07",
+      "league": "Renegades",
+      "kind": "lineage",
+      "revenue": 1144.0,
+      "quantity": 88.0,
+      "payments": 88,
+      "firstSlot": 24
+    },
+    {
+      "date": "2026-10-07",
+      "league": "Renegades",
+      "kind": "prizeFund",
+      "revenue": 528.0,
+      "quantity": 88.0,
+      "payments": 88,
+      "firstSlot": 24
+    },
+    {
+      "date": "2026-10-07",
+      "league": "Renegades",
+      "kind": "prizeFundGeneral",
+      "revenue": 18.0,
+      "quantity": 1.0,
+      "payments": 1,
+      "firstSlot": 25
+    },
+    {
+      "date": "2026-10-07",
+      "league": "Super Sports",
+      "kind": "lineage",
+      "revenue": 693.0,
+      "quantity": 77.0,
+      "payments": 77,
+      "firstSlot": 29
+    },
+    {
+      "date": "2026-10-07",
+      "league": "Super Sports",
+      "kind": "prizeFund",
+      "revenue": 77.0,
+      "quantity": 77.0,
+      "payments": 77,
+      "firstSlot": 29
+    },
+    {
+      "date": "2026-10-07",
+      "league": "Vegas Bound",
+      "kind": "lineage",
+      "revenue": 3249.0,
+      "quantity": 171.0,
+      "payments": 58,
+      "firstSlot": 38
+    },
+    {
+      "date": "2026-10-07",
+      "league": "Vegas Bound",
+      "kind": "prizeFund",
+      "revenue": 1881.0,
+      "quantity": 171.0,
+      "payments": 58,
+      "firstSlot": 38
+    },
+    {
+      "date": "2026-10-07",
+      "league": "Vegas Bound",
+      "kind": "prizeFundGeneral",
+      "revenue": 131.0,
+      "quantity": 3.0,
+      "payments": 3,
+      "firstSlot": 38
     }
   ],
   "voids": [
@@ -17912,6 +18029,20 @@
       "kind": "lineage",
       "count": 2.0,
       "value": 38.0
+    },
+    {
+      "date": "2026-10-07",
+      "league": "Super Sports",
+      "kind": "lineage",
+      "count": 2.0,
+      "value": 18.0
+    },
+    {
+      "date": "2026-10-07",
+      "league": "Super Sports",
+      "kind": "prizeFund",
+      "count": 2.0,
+      "value": 2.0
     }
   ]
 }
