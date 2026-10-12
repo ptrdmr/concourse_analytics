@@ -286,6 +286,7 @@ try {
     }
 
     # Leads chart. Non-fatal: a down leads site must not stop the sales publish.
+    # The 10-minute task is the usual publisher. This 05:30 post is the backup.
     Invoke-OptionalStep 'POS lane book' "$Python scripts/push_lane_chart.py" | Out-Null
 
     $Stray = git status --porcelain | Where-Object {

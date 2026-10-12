@@ -54,9 +54,10 @@ The app reads static JSON from `public/data/`. No database required at request t
 This is the whole procedure. There is no second folder to copy.
 
 1. `git clone https://github.com/ptrdmr/concourse_analytics.git C:\repos\concourse_analytics`
-2. Copy `.env.example` to `.env` and fill in `SQL_PASSWORD` and the 7shifts variables. Never commit `.env`.
+2. Copy `.env.example` to `.env` and fill in `SQL_PASSWORD`, the 7shifts variables, and `LEADS_LANE_SYNC_SECRET`. Never commit `.env`.
 3. `py -3 -m pip install -r requirements.txt`
 4. `powershell -ExecutionPolicy Bypass -File register_task.ps1`
+5. `powershell -ExecutionPolicy Bypass -File register_lane_task.ps1`
 
 Git credentials must already be stored (fine-grained PAT). The first `git push` from this clone prompts; Git Credential Manager keeps them for the unattended nightly.
 
@@ -91,6 +92,7 @@ Fill in:
 - `SEVENSHIFTS_COMPANY_ID` — 7shifts company id
 - `SEVENSHIFTS_TIMEZONE` — `America/Los_Angeles`
 - `SEVENSHIFTS_PULL_DAYS` — `365`, and see the warning below
+- `LEADS_LANE_SYNC_SECRET` — same value as Netlify `LANE_SYNC_SECRET` on the leads site. `LEADS_LANE_SYNC_URL` is already set in the example.
 
 `SEVENSHIFTS_GUID` is optional; the pull resolves it from `/companies` when blank.
 
@@ -216,6 +218,27 @@ Logs: `logs/nightly_YYYYMMDD_HHMMSS.log`
 
 Do **not** move this to 5:00 AM. SYNCSERVER reboots every morning between 05:00:01 and 05:00:49, and a run starting at 05:00 is killed mid-flight — it shows up as `LastTaskResult 267014` (`SCHED_S_TASK_TERMINATED`) and a truncated log of 100-200 bytes instead of the usual ~760. SQL Server is back and accepting connections by about 05:02.
 
+### H. Register the lane chart task
+
+Posts the POS lane book to the leads site every 10 minutes. This task only runs `scripts/push_lane_chart.py`. It does not pull, commit, or push, so it cannot dirty the tree the nightly refuses to publish from.
+
+The 05:30 nightly still posts the book once. If this task is stopped, that morning post is the backup.
+
+```powershell
+powershell -ExecutionPolicy Bypass -File register_lane_task.ps1
+```
+
+Task name: `Concourse Lane Chart`. It runs while logged off, skips a new start if the previous one is still going, and is stopped if a run exceeds 8 minutes. A start missed during the 05:00 reboot runs when the machine is back.
+
+Logs: `logs/lane_chart_YYYYMMDD.log` (one file per day).
+
+```powershell
+Start-ScheduledTask -TaskName 'Concourse Lane Chart'
+Get-ScheduledTaskInfo -TaskName 'Concourse Lane Chart'   # LastTaskResult 0 = success
+```
+
+Requires `LEADS_LANE_SYNC_URL` and `LEADS_LANE_SYNC_SECRET` in `.env`.
+
 ---
 
 ## Nightly behavior
@@ -275,12 +298,14 @@ data/
 ├── app/                  # Next.js 15 dashboard (App Router)
 ├── config/               # Category overrides, enum map, cocktail list, employee map
 ├── data/                 # POS CSV exports (gitignored, server-local)
-├── logs/                 # Nightly run logs (gitignored)
+├── logs/                 # Nightly and lane-chart logs (gitignored)
 ├── public/data/          # Generated JSON (committed, what Netlify serves)
 ├── scripts/              # Python ETL, journal pull, 7shifts, analysis
 ├── tests/                # Push/rebase/pull fixtures
 ├── run_nightly.ps1       # Orchestrator
-├── register_task.ps1     # Task Scheduler setup
+├── register_task.ps1     # Nightly Task Scheduler setup
+├── run_lane_chart.ps1    # POS lane book to the leads site
+├── register_lane_task.ps1 # Every-10-minute lane task
 └── netlify/functions/    # Serverless chat (optional)
 ```
 
@@ -341,6 +366,7 @@ python scripts/reconcile_month.py
 | `FAIL: 401 Unauthorized` | 7shifts token expired or revoked — regenerate in 7shifts admin |
 | `Missing dependency` on `requests` | `py -3 -m pip install -r requirements.txt` |
 | `WARN: 7shifts labor pull failed` | Working as designed: POS data still published and the previous labor JSON ships |
+| Lane chart `LastTaskResult` is not 0 | Read `logs/lane_chart_YYYYMMDD.log`. The 05:30 nightly still posts a book if this task is down |
 | `WARN: labor source is 'punches_estimated'` | 7shifts plan no longer exposes the Daily Sales & Labor report |
 | `WARN: labor.json has only N days` | `SEVENSHIFTS_PULL_DAYS` was lowered; publishing was refused to protect history |
 | Employee shows sales but zero hours | Missing or wrong line in `config/employee_map.txt` |

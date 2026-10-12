@@ -35,6 +35,7 @@ print('=== 1. Required files ===')
 required = [
     'README.md', 'requirements.txt', '.env.example', '.gitignore',
     'run_nightly.ps1', 'register_task.ps1',
+    'run_lane_chart.ps1', 'register_lane_task.ps1',
     'config/enum_map.json', 'config/categories.json',
     'config/service_charges.json', 'config/specialty_cocktails.txt',
     'scripts/db.py', 'scripts/pull_journal.py', 'scripts/reconcile_pull.py',
