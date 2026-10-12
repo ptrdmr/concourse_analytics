@@ -1,8 +1,8 @@
 {
-  "generatedAt": "2026-10-09T05:34:22",
+  "generatedAt": "2026-10-12T10:44:33",
   "dateRange": [
     "2023-05-26",
-    "2026-10-08"
+    "2026-10-11"
   ],
   "types": [
     "Weekday Lane",
@@ -11213,6 +11213,46 @@
       "date": "2026-10-08",
       "type": "General Lane Reservation",
       "count": 2
+    },
+    {
+      "date": "2026-10-09",
+      "type": "General Lane Reservation",
+      "count": 9
+    },
+    {
+      "date": "2026-10-10",
+      "type": "Pair & Spare",
+      "count": 3
+    },
+    {
+      "date": "2026-10-10",
+      "type": "Kingpin Suite",
+      "count": 1
+    },
+    {
+      "date": "2026-10-10",
+      "type": "Powerhouse Suite",
+      "count": 1
+    },
+    {
+      "date": "2026-10-10",
+      "type": "General Lane Reservation",
+      "count": 10
+    },
+    {
+      "date": "2026-10-11",
+      "type": "Sunday Lane",
+      "count": 7
+    },
+    {
+      "date": "2026-10-11",
+      "type": "Pair & Spare",
+      "count": 1
+    },
+    {
+      "date": "2026-10-11",
+      "type": "Sports Party",
+      "count": 1
     }
   ],
   "dailyTabs": [
@@ -15651,11 +15691,23 @@
     {
       "date": "2026-10-08",
       "tabs": 3
+    },
+    {
+      "date": "2026-10-09",
+      "tabs": 9
+    },
+    {
+      "date": "2026-10-10",
+      "tabs": 15
+    },
+    {
+      "date": "2026-10-11",
+      "tabs": 9
     }
   ],
   "validation": {
-    "distinctTabs": 11128,
-    "cellSum": 11181,
+    "distinctTabs": 11161,
+    "cellSum": 11214,
     "delta": 53
   }
 }

@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-09T05:34:09.273791",
+  "generatedAt": "2026-10-12T10:44:18.854739",
   "daypartHour": 17,
   "dates": {
     "2023-06-30": {
@@ -57061,6 +57061,143 @@
           "FRONTDESK2",
           "MPOS3",
           "MPOS4",
+          "MPOS8",
+          "System Terminal"
+        ]
+      }
+    },
+    "2026-10-11": {
+      "pre17": {
+        "Bar": {
+          "Trinity D.": 116.53,
+          "branda": 62.32,
+          "Traver": 35.0,
+          "Ciera": 111.43,
+          "Christopher": 9.0
+        },
+        "Cafe": {
+          "Emma": 16.0,
+          "Allyssa": 121.0
+        },
+        "Other": {
+          "Emma": 20.23,
+          "Allyssa": 34.27
+        }
+      },
+      "post17": {
+        "Bar": {
+          "branda": 177.33,
+          "Traver": 22.0,
+          "Trinity D.": 164.0
+        },
+        "Cafe": {
+          "Angela": 38.25,
+          "Emma": 25.25
+        },
+        "Other": {}
+      },
+      "meta": {
+        "lines": 295,
+        "zeroLines": 59,
+        "tipOut": 0.0,
+        "unknownTimes": 0,
+        "unmappedTerminals": [
+          "FRONTDESK1",
+          "FRONTDESK2",
+          "MPOS5",
+          "System Terminal"
+        ]
+      }
+    },
+    "2026-10-10": {
+      "pre17": {
+        "Bar": {
+          "amanda": 109.59,
+          "Darrien C.": 22.33,
+          "Tony S.": 22.33,
+          "Trinity D.": 150.25,
+          "Christopher": 10.0
+        },
+        "Cafe": {
+          "Sasha": 49.0,
+          "Gabbi": 5.0
+        },
+        "Other": {
+          "Sasha": 33.41,
+          "Gabbi": 20.76,
+          "Val": 583.69
+        }
+      },
+      "post17": {
+        "Bar": {
+          "Darrien C.": 229.64,
+          "Tony S.": 229.65,
+          "Traver": 55.0,
+          "amanda": 150.13
+        },
+        "Cafe": {
+          "Brianna": 148.05,
+          "Gabbi": 7.0,
+          "Christopher": 9.0
+        },
+        "Other": {
+          "Brianna": 146.01
+        }
+      },
+      "meta": {
+        "lines": 463,
+        "zeroLines": 39,
+        "tipOut": 0.0,
+        "unknownTimes": 0,
+        "unmappedTerminals": [
+          "FRONTDESK1",
+          "FRONTDESK2",
+          "MPOS5",
+          "System Terminal"
+        ]
+      }
+    },
+    "2026-10-09": {
+      "pre17": {
+        "Bar": {
+          "branda": 23.0,
+          "Tony S.": 23.0,
+          "Ciera": 197.56,
+          "Christopher": 25.0
+        },
+        "Cafe": {
+          "Ciera": 16.0,
+          "CODY": 11.0
+        },
+        "Other": {
+          "Gabbi": 4.27,
+          "Ciera": 12.2
+        }
+      },
+      "post17": {
+        "Bar": {
+          "branda": 231.42,
+          "Tony S.": 231.51,
+          "Traver": 55.0,
+          "Ciera": 5.0
+        },
+        "Cafe": {
+          "Allyssa": 32.25,
+          "Gabbi": 11.25
+        },
+        "Other": {
+          "Allyssa": 40.34,
+          "Gabbi": 12.63
+        }
+      },
+      "meta": {
+        "lines": 308,
+        "zeroLines": 29,
+        "tipOut": 0.0,
+        "unknownTimes": 0,
+        "unmappedTerminals": [
+          "FRONTDESK1",
+          "FRONTDESK2",
           "MPOS8",
           "System Terminal"
         ]

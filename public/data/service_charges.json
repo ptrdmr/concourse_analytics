@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-09T05:34:10.544297",
+  "generatedAt": "2026-10-12T10:44:20.390416",
   "tabs": [
     {
       "date": "2023-06-01",
@@ -13208,10 +13208,54 @@
       "gratuity": 0.0,
       "tabTotal": 0.0,
       "accountApplied": 4278.06
+    },
+    {
+      "date": "2026-10-10",
+      "time": "11:21",
+      "txnId": "840021",
+      "party": "amwest",
+      "accountNames": [
+        "amwest 10-10-26"
+      ],
+      "partyTypes": [
+        "Kingpin Suite"
+      ],
+      "chargeType": "VIP Service Charge",
+      "server": "Val",
+      "terminal": "MPOS5",
+      "charges": {
+        "VIP Service Charge": 640.0
+      },
+      "serviceCharge": 640.0,
+      "gratuity": 578.69,
+      "tabTotal": 4816.6,
+      "accountApplied": 1797.0
+    },
+    {
+      "date": "2026-10-10",
+      "time": "18:50",
+      "txnId": "844004",
+      "party": "Z and K Consultants",
+      "accountNames": [
+        "Z and K Consultants 10.10.26"
+      ],
+      "partyTypes": [
+        "Powerhouse Suite"
+      ],
+      "chargeType": "VIP Service Charge",
+      "server": "Val",
+      "terminal": "FRONTDESK2",
+      "charges": {
+        "VIP Service Charge": 691.3
+      },
+      "serviceCharge": 691.3,
+      "gratuity": 0.0,
+      "tabTotal": 0.0,
+      "accountApplied": 8532.63
     }
   ],
   "meta": {
-    "cancelledSkipped": 27,
+    "cancelledSkipped": 28,
     "noAccount": 14,
     "multiAccount": 10
   }
