@@ -193,6 +193,39 @@ py -3 scripts/build_employees.py
 
 Anyone showing sales but zero hours needs a line in `config/employee_map.txt`.
 
+### E4. Daily review email
+
+After the push, `scripts/daily_review.py` emails the previous business day to the addresses in `DAILY_REVIEW_TO`. It reads the JSON just written under `public/data`. It does not query SQL.
+
+The message is plain Markdown plus an HTML version with inline styles, sent from `concoursebowling@gmail.com` through Gmail. A copy is kept in `reports/daily_review/` (gitignored, so it cannot trip the next night's dirty-tree check).
+
+One-time setup on that Gmail account:
+
+1. Turn on 2-Step Verification. Gmail will not create an app password without it.
+2. Google Account → Security → App passwords → name it `syncserver-daily-review`.
+3. Put the 16-character password in SYNCSERVER's `.env` as `GMAIL_APP_PASSWORD`. If it leaks, revoke that app password. The account password stays put.
+4. Set `DAILY_REVIEW_TO` to the comma-separated recipient list.
+5. Leave `DAILY_REVIEW_ENABLED=0` until a preview looks right.
+
+```powershell
+py -3 scripts/daily_review.py --date 2026-10-07 --preview
+# open reports/preview/2026-10-07.html
+py -3 scripts/daily_review.py --date 2026-10-07 --to you@example.com
+```
+
+`--to` sends even while the switch is off. Set `DAILY_REVIEW_ENABLED=1` only after that test lands. A rehearsal (`run_nightly.ps1 -SkipPush`) writes a preview and does not send.
+
+What the email contains:
+
+- Net sales, labor (cost, % of sales, hours, sales per hour) and tips, each against the same weekday last year. The headline also shows the same calendar date last year. Labor % divides by that same net sales figure, so league-heavy stretches pull the percentage down.
+- Sales for Cafe (the Food department), Bar, Bowling, Parties, Leagues (fees + lineage) and Other, with the top three items. League prize fund is a side note, not part of net sales. That is the same rule as the Overview page.
+- Bowling games, lane hours, shoe rentals and online reservations. Lane hours are Time Bowling quantity divided by 60. The POS stores that quantity in minutes. Checked against a Sunday: 4,155 quantity is 69.2 lane hours.
+- Party packages from `reservation_counts.json`. Upcoming parties and open tickets are not in v1.
+- Week, month and year to date, compared with the same weekdays a year earlier.
+- A Needs Attention block: a department (Cafe, Bar or Bowling) down more than 40% against last year when last year was at least $200; adjustments and refunds of $470 or more; tip % outside 3–10% of sales; labor missing or estimated; an employee who rang at least $25 and did not clock in, but who did clock in sometime in the prior 28 days. People who never clock in are not listed, or the same names would appear every morning. Leagues, Parties and Other are not drop-flagged: a quiet booking day or a league that doesn't bowl that weekday looks like a collapse. Thresholds live in `config/daily_review.json`. `scripts/derive_review_thresholds.py` reprints the history they came from.
+
+A closed day (fresh POS data, zero sales) sends nothing. If the nightly fails, the email is only a banner, unless the POS file for that morning is already in place, in which case the numbers go out with the banner on top. A failed 7shifts pull shows labor as unavailable. It never repeats the previous day's labor.
+
 ### F. End-to-end rehearsal (no push)
 
 ```powershell
@@ -248,6 +281,7 @@ Requires `LEADS_LANE_SYNC_URL` and `LEADS_LANE_SYNC_SECRET` in `.env`.
 3. ETL + specialty cocktails JSON + 7shifts labor + employee merge
 4. Fail if anything outside `public/data` changed
 5. `git add public/data`, commit `chore(data): nightly refresh YYYY-MM-DD`, rebase onto `origin/main` if needed, push
+6. Email the daily review. A send failure is logged and does not fail the night. If an earlier step threw, the email is a "data incomplete" banner instead.
 
 Netlify builds with `npm run build` only. It never runs Python.
 
@@ -334,6 +368,8 @@ python scripts/build_dashboard.py        # needs matplotlib
 python scripts/build_bar_dashboard.py    # needs matplotlib
 python scripts/reconcile_day.py
 python scripts/reconcile_month.py
+python scripts/daily_review.py --preview
+python scripts/derive_review_thresholds.py
 ```
 
 ### npm scripts
@@ -371,6 +407,8 @@ python scripts/reconcile_month.py
 | `WARN: labor.json has only N days` | `SEVENSHIFTS_PULL_DAYS` was lowered; publishing was refused to protect history |
 | Employee shows sales but zero hours | Missing or wrong line in `config/employee_map.txt` |
 | Labor JSON reverts every morning | Something other than this server is also writing `public/data` |
+| Daily review did not arrive | `DAILY_REVIEW_ENABLED` is not `1`, or `GMAIL_APP_PASSWORD` is missing. A closed day (zero sales) also sends nothing |
+| Daily review says data incomplete | The nightly failed before the POS JSON was refreshed. The log line above the email has the reason |
 
 ### Check earliest data in DB
 

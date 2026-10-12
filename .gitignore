@@ -43,8 +43,14 @@ Thumbs.db
 /logs/*
 !/logs/.gitkeep
 
+# Rendered daily review emails. Local archive only; a file here must not
+# trip the nightly dirty-tree check.
+/reports/*
+!/reports/.gitkeep
+
 # Last-good 7shifts JSON, restored if a pull produces nothing usable
 /.labor_snapshot/
+/.web_events_snapshot/
 
 # Large generated index (rebuilt by ETL)
 public/data/ticket_index.json

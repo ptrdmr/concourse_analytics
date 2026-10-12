@@ -1,0 +1,58 @@
+{
+  "departmentGroups": [
+    {"id": "food", "label": "Cafe", "departments": ["Food"]},
+    {"id": "bar", "label": "Bar", "departments": ["Bar"]},
+    {"id": "bowling", "label": "Bowling", "departments": ["Bowling"]},
+    {"id": "parties", "label": "Parties", "departments": ["Parties"]},
+    {"id": "leagues", "label": "Leagues", "departments": ["League Fees", "League Lineage"]},
+    {"id": "other", "label": "Other", "departments": ["Arcade", "Vending Machines", "General Income"]}
+  ],
+  "prizeFundDepartment": "League Prize Fund",
+  "bowling": {
+    "gamesSubdepartments": ["Game Bowling"],
+    "laneHoursSubdepartments": ["Time Bowling"],
+    "laneHoursDivisor": 60,
+    "shoesSubdepartments": ["Rental Shoes"],
+    "onlineSubdepartments": ["Online Lane Reservations"]
+  },
+  "partyTypes": [
+    "Party Builder",
+    "Adult Party",
+    "Supercharge",
+    "Strike Zone Suite",
+    "Kingpin Suite",
+    "Powerhouse Suite",
+    "Jr. Strikers",
+    "Sports Party",
+    "Half House",
+    "Full Facility",
+    "NYE Reservation"
+  ],
+  "roleOrder": [
+    "Kitchen Manager",
+    "Line",
+    "Prep/Pizza",
+    "Dish/Prep",
+    "Cafe Front",
+    "Server",
+    "Party Server",
+    "Bartender",
+    "Bar back",
+    "Front Desk",
+    "League Support",
+    "Scoretech",
+    "Mechanic",
+    "Maintenace",
+    "Janitorial",
+    "Office"
+  ],
+  "dropFlagGroups": ["food", "bar", "bowling"],
+  "thresholds": {
+    "deptDropPct": 40,
+    "deptDropMinLyDollars": 200,
+    "refundsDollars": 470,
+    "tipPctLow": 3,
+    "tipPctHigh": 10,
+    "noHoursMinSales": 25
+  }
+}

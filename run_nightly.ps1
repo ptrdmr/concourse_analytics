@@ -1,7 +1,7 @@
 # run_nightly.ps1
 # Orchestrates: git pull -> DB pull -> ETL -> specialty JSON -> 7shifts labor
 #               -> employee merge -> POS lane book to the leads chart
-#               -> git add public/data -> commit -> push
+#               -> git add public/data -> commit -> push -> daily review email
 #
 # Runs from the concourse_analytics clone. The ETL writes JSON in place under
 # public/data; there is no second repo and no copy step.
@@ -14,7 +14,9 @@
 #
 # Prerequisites:
 #   - .env configured (SQL_PASSWORD, SEVENSHIFTS_TOKEN,
-#     SEVENSHIFTS_COMPANY_ID, SEVENSHIFTS_PULL_DAYS=365)
+#     SEVENSHIFTS_COMPANY_ID, SEVENSHIFTS_PULL_DAYS=365,
+#     LEADS_LANE_SYNC_URL, LEADS_LANE_SYNC_SECRET,
+#     GMAIL_USER, GMAIL_APP_PASSWORD, DAILY_REVIEW_TO)
 #   - Python + requirements installed
 #   - Git credentials stored (fine-grained PAT on first push)
 #   - Working tree clean (a dirty tree aborts - edit on the workstation and push)
@@ -312,10 +314,28 @@ try {
         Invoke-GitPush
     }
 
+    # After the push so a reporting bug cannot block the data publish. A failed
+    # send is a warning. --preview on a rehearsal so stakeholders are not emailed.
+    if ($SkipPush) {
+        Invoke-OptionalStep 'Daily review email (preview)' "$Python scripts/daily_review.py --preview" | Out-Null
+    } else {
+        Invoke-OptionalStep 'Daily review email' "$Python scripts/daily_review.py" | Out-Null
+    }
+
     Write-Log '=== Nightly pipeline complete ==='
     exit 0
 }
 catch {
     Write-Log "ERROR: $($_.Exception.Message)"
+    # The data publish failed. Still tell the recipients, with a banner and no
+    # numbers unless this morning's POS file actually covers the business day.
+    $Reason = ($_.Exception.Message -replace '[\r\n"]', ' ')
+    if ($Reason.Length -gt 300) { $Reason = $Reason.Substring(0, 300) }
+    if (-not $Python) { $Python = 'py -3' }
+    try {
+        Invoke-OptionalStep 'Daily review email (failed run)' "$Python scripts/daily_review.py --incomplete ""$Reason""" | Out-Null
+    } catch {
+        Write-Log "WARN: daily review email could not be attempted: $($_.Exception.Message)"
+    }
     exit 1
 }
