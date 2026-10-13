@@ -282,12 +282,19 @@ def render_markdown(metrics: dict) -> str:
         f"{_qty(bowling.get('shoes'))} shoes · {_qty(bowling.get('online'))} online"
     )
     lines.append('')
-    sellers = []
+    lines.append('**Top sellers**')
+    lines.append('')
+    seller_lines = []
     for group in metrics.get('departments') or []:
+        if group.get('id') not in ('food', 'bar', 'bowling'):
+            continue
         names = _top_line(group.get('top_items') or [])
         if names:
-            sellers.append(f"{group['label']}: {names}")
-    lines.append('**Top sellers** ' + (' · '.join(sellers) if sellers else 'none'))
+            seller_lines.append(f"- {group['label']}: {names}")
+    if seller_lines:
+        lines.extend(seller_lines)
+    else:
+        lines.append('None.')
     lines.append('')
     running_bits = []
     for key, label in (('wtd', 'Week'), ('mtd', 'Month'), ('ytd', 'Year')):
