@@ -48,6 +48,7 @@ def _config():
             'tipPctLow': 3,
             'tipPctHigh': 10,
             'noHoursMinSales': 25,
+            'laborPctHigh': 35,
         },
     }
 
@@ -72,7 +73,8 @@ def _write(directory: Path, name: str, payload) -> None:
 
 
 def _fixture(directory: Path, *, generated='2026-06-16T05:31:00', labor_generated='2026-06-16T05:40:00',
-             rows=None, labor_source='report', employees=None, tips=80.0) -> None:
+             rows=None, labor_source='report', employees=None, tips=80.0,
+             labor_cost=200.0, labor_hours=10.0) -> None:
     _write(directory, 'summary.json', {
         'generatedAt': generated,
         'dateRange': ['2023-01-01', '2026-06-15'],
@@ -83,7 +85,7 @@ def _fixture(directory: Path, *, generated='2026-06-16T05:31:00', labor_generate
         'generatedAt': labor_generated,
         'source': labor_source,
         'days': {
-            REVIEW.isoformat(): {'laborCost': 200.0, 'laborHours': 10.0, 'source': labor_source},
+            REVIEW.isoformat(): {'laborCost': labor_cost, 'laborHours': labor_hours, 'source': labor_source},
             LY_DOW.isoformat(): {'laborCost': 180.0, 'laborHours': 9.0, 'source': 'report'},
         },
     })
@@ -136,9 +138,9 @@ class GatherTests(unittest.TestCase):
         self.assertAlmostEqual(metrics['net_sales'], 1120.0)
         self.assertAlmostEqual(metrics['prize_fund'], 90.0)
         self.assertEqual(metrics['ly_dow'], LY_DOW.isoformat())
-        self.assertEqual(metrics['ly_date'], LY_DATE.isoformat())
+        self.assertNotIn('ly_date', metrics)
         self.assertAlmostEqual(metrics['net_sales_ly_dow'], 1800.0)
-        self.assertAlmostEqual(metrics['net_sales_ly_date'], 700.0)
+        self.assertNotIn('net_sales_ly_date', metrics)
         self.assertAlmostEqual(metrics['bowling']['games'], 40.0)
         self.assertAlmostEqual(metrics['bowling']['lane_hours'], 2.0)
         self.assertEqual(metrics['parties']['count'], 2)
@@ -154,13 +156,17 @@ class GatherTests(unittest.TestCase):
         self.assertIn('Needs Attention', text)
         self.assertNotIn('All clear.', text)
         self.assertTrue(subject_line(metrics).startswith('['))
+        self.assertIn('## By Department', text)
+        self.assertIn('## Details', text)
+        self.assertNotIn('## Departments', text)
+        self.assertNotIn('same date', text.lower())
         html_body = render_html(text, metrics['date'])
         self.assertIn('Concourse Bowling Daily Sales', html_body)
         self.assertIn('#ff1d25', html_body)
-        self.assertIn('Net Sales', html_body)
-        self.assertNotIn('<html><head>', html_body)
+        self.assertIn('color-scheme', html_body)
+        self.assertIn('Details', html_body)
+        self.assertNotIn('same date', html_body.lower())
         self.assertIn('Concourse Bowling Daily Sales', subject_line(metrics))
-        self.assertIn('color:#188c3a', html_body)
         self.assertIn('color:#ff1d25', html_body)
 
     def test_each_flag_can_stay_off(self):
@@ -224,6 +230,43 @@ class GatherTests(unittest.TestCase):
         metrics = gather_review(REVIEW, str(self.data), _config())
         self.assertTrue(metrics['labor']['available'])
         self.assertTrue(any('estimated' in flag['title'] for flag in metrics['flags']))
+
+    def test_high_labor_flags(self):
+        rows = [_row(REVIEW, 'Burger', 'Food', 1000), _row(LY_DOW, 'Burger', 'Food', 1000)]
+        _fixture(self.data, rows=rows, tips=60.0, labor_cost=500.0, labor_hours=20.0)
+        metrics = gather_review(REVIEW, str(self.data), _config())
+        self.assertTrue(any(flag['title'].startswith('Labor ') for flag in metrics['flags']))
+        self.assertIn('threshold 35%', metrics['flags'][0]['detail'])
+
+    def test_by_role_hours_split_the_day(self):
+        rows = [_row(REVIEW, 'Burger', 'Food', 500), _row(LY_DOW, 'Burger', 'Food', 500)]
+        _fixture(self.data, rows=rows, tips=30.0, employees=[{
+            'displayName': 'Sam',
+            'roles': ['Line', 'Bartender'],
+            'days': {
+                REVIEW.isoformat(): {
+                    'sales': 100,
+                    'hours': 6,
+                    'laborCost': 90,
+                    'byRole': {
+                        'Line': {'hours': 4, 'laborCost': 60},
+                        'Bartender': {'hours': 2, 'laborCost': 30},
+                    },
+                },
+            },
+        }])
+        metrics = gather_review(REVIEW, str(self.data), _config())
+        self.assertEqual([row['name'] for row in metrics['roles']], ['Line', 'Bartender'])
+
+    def test_missing_by_role_falls_back(self):
+        rows = [_row(REVIEW, 'Burger', 'Food', 500), _row(LY_DOW, 'Burger', 'Food', 500)]
+        _fixture(self.data, rows=rows, tips=30.0, employees=[{
+            'displayName': 'Sam',
+            'roles': ['Line', 'Bartender'],
+            'days': {REVIEW.isoformat(): {'sales': 100, 'hours': 6, 'laborCost': 90}},
+        }])
+        metrics = gather_review(REVIEW, str(self.data), _config())
+        self.assertEqual([row['name'] for row in metrics['roles']], ['Multiple roles'])
 
     def test_decide(self):
         closed = {'closed': True, 'banner': None}

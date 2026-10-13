@@ -26,14 +26,13 @@ _TAG_STYLES = {
         f'background:{_BLACK};padding:18px 18px 14px;'
     ),
     'h2': (
-        f'font-size:22px;font-weight:600;margin:28px 0 10px;padding-bottom:4px;'
-        f'color:{_BLACK};border-bottom:2px solid {_RED};'
+        f'font-size:13px;font-weight:600;letter-spacing:0.04em;text-transform:uppercase;'
+        f'margin:22px 0 8px;padding-bottom:4px;color:{_BLACK};border-bottom:2px solid {_RED};'
     ),
     'h3': (
-        f'font-size:18px;font-weight:600;margin:22px 0 4px;color:{_BLACK};'
-        f'border-left:3px solid {_BLUE};padding-left:8px;'
+        f'font-size:15px;font-weight:600;margin:14px 0 4px;color:{_BLACK};'
     ),
-    'p': 'margin:4px 0 10px;font-size:14px;line-height:1.4;',
+    'p': 'margin:4px 0 8px;font-size:15px;line-height:1.4;',
     'table': 'border-collapse:collapse;width:100%;margin:8px 0 16px;font-size:14px;',
     'th': (
         f'border-bottom:2px solid {_BLACK};padding:4px 8px;font-weight:600;'
@@ -77,7 +76,13 @@ class _InlineStyler(HTMLParser):
             self._cell = 0
         if tag in ('td', 'th'):
             self._cell += 1
-        style = _TAG_STYLES.get(tag, '')
+        attr_map = dict(attrs)
+        if tag == 'p' and attr_map.get('data-hero'):
+            style = (
+                f'margin:2px 0 4px;font-size:32px;font-weight:600;line-height:1.1;color:{_BLACK};'
+            )
+        else:
+            style = _TAG_STYLES.get(tag, '')
         if tag in ('td', 'th') and self._cell > 1:
             style += 'text-align:right;'
         kept = [(k, v) for k, v in attrs if k != 'style']
@@ -157,13 +162,16 @@ def _qty(value: float | None) -> str:
 
 
 def _top_line(items: list[dict]) -> str:
-    if not items:
-        return 'No items.'
-    parts = []
-    for item in items:
-        qty = int(round(item.get('quantity') or 0))
-        parts.append(f"{item['name']} ({qty:,})")
-    return ' · '.join(parts)
+    names = [item['name'] for item in items if item.get('name')]
+    return ', '.join(names) if names else ''
+
+
+def _date_line(metrics: dict) -> str:
+    day = _as_date(metrics['date'])
+    text = f"{day.strftime('%A')}, {day.strftime('%b')} {day.day}"
+    if metrics.get('holiday'):
+        text += f" · {metrics['holiday']}"
+    return text
 
 
 def _generated_clock(value: str) -> str:
@@ -199,96 +207,46 @@ def subject_line(metrics: dict) -> str:
 
 def render_markdown(metrics: dict) -> str:
     if metrics.get('closed') and not metrics.get('banner'):
-        return f"# {BRAND_NAME}\n\n{_long(metrics['date'])}\n\nClosed. No review sent.\n"
+        return f"# {BRAND_NAME}\n\n<p data-date=\"1\">{_date_line(metrics)}</p>\n\nClosed. No review sent.\n"
 
     lines: list[str] = []
     if metrics.get('banner'):
         lines.append(f"> **Data incomplete.** {metrics['banner']}")
         lines.append('')
 
+    lines.append(f"# {BRAND_NAME}")
+    lines.append('')
+    lines.append(f"<p data-date=\"1\">{_date_line(metrics)}</p>")
+    lines.append('')
+
     if not metrics.get('show_numbers'):
-        lines.append(f"# {BRAND_NAME}")
-        lines.append('')
-        lines.append(_long(metrics['date']))
-        lines.append('')
         lines.append(_footer(metrics))
         return '\n'.join(lines).rstrip() + '\n'
 
-    lines.append(f"# {BRAND_NAME}")
-    lines.append('')
-    lines.append(_long(metrics['date']))
-    lines.append('')
-    lines.append('---')
-    holiday_bits = []
-    if metrics.get('holiday'):
-        holiday_bits.append(f"Yesterday was {metrics['holiday']}.")
-    if metrics.get('ly_dow_holiday'):
-        holiday_bits.append(
-            f"Comparison day ({_short(metrics['ly_dow'])}) was {metrics['ly_dow_holiday']}."
-        )
-    elif metrics.get('ly_date_holiday'):
-        holiday_bits.append(
-            f"Same date last year ({_short(metrics['ly_date'])}) was {metrics['ly_date_holiday']}."
-        )
-    if holiday_bits:
-        lines.append('')
-        lines.append('*' + ' '.join(holiday_bits) + '*')
-
-    lines.append('')
-    lines.append('## The Day at a Glance')
-    lines.append('')
-    ly_dow = _short(metrics['ly_dow'])
-    ly_date = _short(metrics['ly_date'])
-    lines.append(f'| | Yesterday | vs LY ({ly_dow}) | vs same date LY ({ly_date}) |')
-    lines.append('|---|---:|---:|---:|')
     net = metrics['net_sales']
+    lines.append(f"<p data-hero=\"1\">{_money(net)}</p>")
+    lines.append('')
+    change = _pct_text(_pct(net, metrics.get('net_sales_ly_dow')))
     lines.append(
-        '| **Net Sales** | **' + _money(net) + '** | '
-        + _pct_text(_pct(net, metrics.get('net_sales_ly_dow')))
-        + f" ({_signed_money((net or 0) - (metrics.get('net_sales_ly_dow') or 0))}) | "
-        + _pct_text(_pct(net, metrics.get('net_sales_ly_date'))) + ' |'
+        f"{change} vs last year's {metrics.get('weekday') or 'weekday'} "
+        f"({_money(metrics.get('net_sales_ly_dow'))})"
     )
+    if metrics.get('ly_dow_holiday'):
+        lines.append('')
+        lines.append(f"*Last year's {metrics.get('weekday')} was {metrics['ly_dow_holiday']}.*")
+    lines.append('')
     labor = metrics.get('labor') or {}
-    ly_labor = metrics.get('labor_ly_dow') or {}
-    ly_labor_date = metrics.get('labor_ly_date') or {}
     if labor.get('available'):
-        labor_cell = f"**{_money(labor['cost'])}** · {labor['pct']:.1f}% of sales" if labor.get('pct') is not None else f"**{_money(labor['cost'])}**"
-        lines.append(
-            '| **Labor** | ' + labor_cell + ' | '
-            + _pts_text(labor.get('pct'), ly_labor.get('pct')) + ' | '
-            + _pts_text(labor.get('pct'), ly_labor_date.get('pct')) + ' |'
-        )
+        pct = f"{labor['pct']:.0f}% of sales" if labor.get('pct') is not None else 'sales % n/a'
+        lines.append(f"Labor **{_money(labor.get('cost'))}** · {pct}")
     else:
-        lines.append('| **Labor** | **unavailable** | n/a | n/a |')
+        lines.append('Labor **unavailable**')
+    lines.append('')
     tips = metrics.get('tips')
     if tips is None or not net:
-        tip_cell = 'n/a'
-        tip_pct = None
+        lines.append('Tips **n/a**')
     else:
-        tip_pct = tips / net * 100.0
-        tip_cell = f"**{_money(tips)}** · {tip_pct:.1f}% of sales"
-    lines.append(
-        '| **Tips** | ' + tip_cell + ' | '
-        + _pct_text(_pct(tips, metrics.get('tips_ly_dow'))) + ' | '
-        + _pct_text(_pct(tips, metrics.get('tips_ly_date'))) + ' |'
-    )
-
-    lines.append('')
-    lines.append('### Sales by Department')
-    lines.append('')
-    lines.append('| Department | Sales | vs LY | |')
-    lines.append('|---|---:|---:|---|')
-    for group in metrics.get('departments') or []:
-        marker = ' ⚠' if group.get('flagged') else ''
-        lines.append(
-            f"| {group['label']} | {_money(group['sales'])} | {_pct_text(group.get('delta_pct'))} |{marker} |"
-        )
-    lines.append(f"| **Total** | **{_money(net)}** | **{_pct_text(_pct(net, metrics.get('net_sales_ly_dow')))}** | |")
-    lines.append('')
-    lines.append(
-        f"*League prize fund collected (not revenue): {_money(metrics.get('prize_fund'))} "
-        f"· vs LY {_pct_text(_pct(metrics.get('prize_fund'), metrics.get('prize_fund_ly')))}*"
-    )
+        lines.append(f"Tips **{_money(tips)}** · {tips / net * 100.0:.1f}% of sales")
 
     lines.append('')
     lines.append('## Needs Attention')
@@ -301,95 +259,74 @@ def render_markdown(metrics: dict) -> str:
             lines.append(f"- **{flag['title']}.** {flag['detail']}")
 
     lines.append('')
-    lines.append('## Departments')
+    lines.append('## By Department')
+    lines.append('')
+    lines.append('| Department | Sales | vs LY |')
+    lines.append('|---|---:|---:|')
     for group in metrics.get('departments') or []:
-        lines.append('')
         lines.append(
-            f"### {group['label']} — {_money(group['sales'])} ({_pct_text(group.get('delta_pct'))})"
+            f"| {group['label']} | {_money(group['sales'])} | {_pct_text(group.get('delta_pct'))} |"
         )
-        lines.append(f"Top items: {_top_line(group.get('top_items') or [])}")
-        if group['id'] == 'bowling' and metrics.get('bowling'):
-            bowling = metrics['bowling']
-            lines.append('')
-            lines.append('| Games bowled | Lane hours | Shoe rentals | Online reservations |')
-            lines.append('|---:|---:|---:|---:|')
-            lines.append(
-                '| ' + ' | '.join([
-                    f"{_qty(bowling['games'])} ({_pct_text(_pct(bowling['games'], bowling['games_ly']))})",
-                    f"{bowling['lane_hours']:.1f} ({_pct_text(_pct(bowling['lane_hours'], bowling['lane_hours_ly']))})",
-                    f"{_qty(bowling['shoes'])} ({_pct_text(_pct(bowling['shoes'], bowling['shoes_ly']))})",
-                    f"{_qty(bowling['online'])} ({_pct_text(_pct(bowling['online'], bowling['online_ly']))})",
-                ]) + ' |'
-            )
-        if group['id'] == 'parties' and metrics.get('parties') is not None:
-            parties = metrics['parties']
-            top = parties.get('top') or []
-            top_text = ' · '.join(f"{item['name']} ({item['count']})" for item in top) or 'none recorded'
-            lines.append('')
-            count = parties['count']
-            label = 'party package' if count == 1 else 'party packages'
-            lines.append(f"**{count} {label} yesterday.** {top_text}")
-        if group['id'] == 'other':
-            detail = metrics.get('other_detail') or []
-            if detail:
-                bits = ' · '.join(f"{row['name']} {_money(row['sales'])}" for row in detail)
-                lines.append('')
-                lines.append(bits)
+    lines.append(
+        f"| **Total** | **{_money(net)}** | **{_pct_text(_pct(net, metrics.get('net_sales_ly_dow')))}** |"
+    )
+    lines.append('')
+    lines.append(f"*Prize fund collected (not revenue): {_money(metrics.get('prize_fund'))}*")
 
     lines.append('')
-    lines.append('## Labor')
+    lines.append('## Details')
     lines.append('')
-    if not labor.get('available'):
-        lines.append('Unavailable. Yesterday\'s labor is not shown in its place.')
-    else:
-        splh = f"${labor['splh']:.0f} sales per labor hour" if labor.get('splh') is not None else 'sales per labor hour n/a'
-        ly_splh = ly_labor.get('splh')
-        splh_delta = ''
-        if labor.get('splh') is not None and ly_splh is not None:
-            splh_delta = f" ({_signed_money(labor['splh'] - ly_splh)} vs LY)"
-        lines.append(f"**{labor['hours']:.1f} hrs** · **{_money(labor['cost'])}** · **{splh}**{splh_delta}")
-        roles = metrics.get('roles') or []
-        if roles:
-            lines.append('')
-            lines.append('| Role | Hours | Cost | % of labor |')
-            lines.append('|---|---:|---:|---:|')
-            role_cost = sum(r['cost'] for r in roles) or 0
-            for role in roles:
-                share = (role['cost'] / role_cost * 100.0) if role_cost else 0
-                lines.append(
-                    f"| {role['name']} | {role['hours']:.1f} | {_money(role['cost'])} | {share:.1f}% |"
-                )
-            report_hours = labor.get('hours') or 0
-            punch_hours = metrics.get('role_hours') or 0
-            lines.append('')
-            note = (
-                'Someone who has worked more than one role is listed under Multiple roles, '
-                'because the day is not stored per role.'
-            )
-            if report_hours and abs(punch_hours - report_hours) / report_hours > 0.05:
-                note = (
-                    f"Role hours are from time punches ({punch_hours:.1f} hrs); "
-                    f"the total above is the 7shifts report ({report_hours:.1f} hrs). " + note
-                )
-            lines.append(f'*{note}*')
-        else:
-            lines.append('')
-            lines.append('No punch detail for this day.')
-
+    bowling = metrics.get('bowling') or {}
+    lines.append(
+        f"**Bowling** {_qty(bowling.get('games'))} games · {bowling.get('lane_hours') or 0:.1f} lane hrs · "
+        f"{_qty(bowling.get('shoes'))} shoes · {_qty(bowling.get('online'))} online"
+    )
     lines.append('')
-    lines.append('## Running Totals')
+    sellers = []
+    for group in metrics.get('departments') or []:
+        names = _top_line(group.get('top_items') or [])
+        if names:
+            sellers.append(f"{group['label']}: {names}")
+    lines.append('**Top sellers** ' + (' · '.join(sellers) if sellers else 'none'))
     lines.append('')
-    lines.append('| | Sales | vs LY | Labor % |')
-    lines.append('|---|---:|---:|---:|')
-    labels = (('wtd', 'Week to date'), ('mtd', 'Month to date'), ('ytd', 'Year to date'))
-    for key, label in labels:
+    running_bits = []
+    for key, label in (('wtd', 'Week'), ('mtd', 'Month'), ('ytd', 'Year')):
         block = (metrics.get('running') or {}).get(key) or {}
-        labor_pct = block.get('labor_pct')
-        labor_text = 'n/a' if labor_pct is None else f'{labor_pct:.1f}%'
-        lines.append(
-            f"| {label} ({block.get('days', 0)} days) | {_money(block.get('sales'))} | "
-            f"{_pct_text(block.get('delta_pct'))} | {labor_text} |"
+        running_bits.append(
+            f"{label} {_money(block.get('sales'))} {_pct_text(block.get('delta_pct'))}"
         )
+    lines.append('**To date** ' + ' · '.join(running_bits))
+
+    lines.append('')
+    lines.append('**Labor by role**')
+    lines.append('')
+    roles = metrics.get('roles') or []
+    if not labor.get('available'):
+        lines.append("Unavailable. Yesterday's labor is not shown in its place.")
+    elif not roles:
+        lines.append('No punch detail for this day.')
+    else:
+        lines.append('| Role | |')
+        lines.append('|---|---:|')
+        for role in roles:
+            lines.append(
+                f"| {role['name']} | {role['hours']:.1f} hrs · {_money(role['cost'])} |"
+            )
+        notes = []
+        if any(role['name'] == 'Multiple roles' for role in roles):
+            notes.append(
+                'Multiple roles means that person has no per-shift role on file yet.'
+            )
+        report_hours = labor.get('hours') or 0
+        punch_hours = metrics.get('role_hours') or 0
+        if report_hours and abs(punch_hours - report_hours) / report_hours > 0.05:
+            notes.append(
+                f"Role hours are from time punches ({punch_hours:.1f} hrs). "
+                f"The labor total above is the 7shifts report ({report_hours:.1f} hrs)."
+            )
+        if notes:
+            lines.append('')
+            lines.append('*' + ' '.join(notes) + '*')
 
     lines.append('')
     lines.append('---')
@@ -417,18 +354,18 @@ def _footer(metrics: dict) -> str:
 def _header_block(date_line: str) -> str:
     """Black bar, brand name, date, and the red stripe. Tables survive Gmail."""
     date_html = (
-        f'<div style="margin-top:8px;font-size:16px;color:{_GRAY};">{html.escape(date_line)}</div>'
+        f'<div style="margin-top:6px;font-size:14px;color:{_GRAY};">{html.escape(date_line)}</div>'
         if date_line else ''
     )
     return (
         '<table role="presentation" width="100%" cellpadding="0" cellspacing="0" '
-        f'style="background:{_BLACK};margin:0;border-collapse:collapse;">'
-        '<tr><td style="padding:20px 18px 16px;">'
-        f'<div style="font-size:28px;line-height:1.2;font-weight:600;color:#ffffff;">'
+        f'bgcolor="{_BLACK}" style="background:{_BLACK};margin:0;border-collapse:collapse;">'
+        f'<tr><td bgcolor="{_BLACK}" style="padding:16px 18px 12px;background:{_BLACK};">'
+        f'<div style="font-size:20px;line-height:1.2;font-weight:600;color:#ffffff;">'
         f'{html.escape(BRAND_NAME)}</div>'
         f'{date_html}'
         '</td></tr>'
-        f'<tr><td style="height:4px;background:{_RED};font-size:0;line-height:0;">&nbsp;</td></tr>'
+        f'<tr><td bgcolor="{_RED}" style="height:4px;background:{_RED};font-size:0;line-height:0;">&nbsp;</td></tr>'
         '</table>'
     )
 
@@ -450,15 +387,21 @@ def render_html(markdown_text: str, review_date: str | None = None) -> str:
     styled = ''.join(styler.parts)
     # The plain-text heading becomes the colored bar instead, so it is not shown twice.
     styled = re.sub(r'<h1\b[^>]*>.*?</h1>\s*', '', styled, count=1, flags=re.DOTALL)
-    date_line = _long(review_date) if review_date else ''
-    if date_line:
-        styled = styled.replace(f'<p style="{_TAG_STYLES["p"]}">{html.escape(date_line)}</p>', '', 1)
+    date_match = re.search(r'<p\b[^>]*data-date="1"[^>]*>(.*?)</p>\s*', styled, flags=re.DOTALL)
+    if date_match:
+        date_line = date_match.group(1)
+        styled = styled[:date_match.start()] + styled[date_match.end():]
+    else:
+        date_line = _long(review_date) if review_date else ''
     # The rule under the title is the red stripe in the header, not a second line.
     styled = re.sub(r'^\s*<hr\b[^>]*/>\s*', '', styled, count=1)
     styled = _color_changes(styled)
     header = _header_block(date_line)
     return (
-        '<!DOCTYPE html><html><body style="margin:0;padding:16px;background:#f2f2f2;">'
+        '<!DOCTYPE html><html><head>'
+        '<meta name="color-scheme" content="light dark">'
+        '<meta name="supported-color-schemes" content="light dark">'
+        '</head><body style="margin:0;padding:16px;background:#f2f2f2;">'
         '<div style="max-width:640px;margin:0 auto;font-family:Segoe UI, Helvetica, Arial, sans-serif;'
         f'color:{_BLACK};font-size:15px;line-height:1.45;background:#ffffff;">'
         f'{header}'

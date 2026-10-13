@@ -229,14 +229,23 @@ def _party_summary(reservations: dict | None, day: str, party_types: set[str]) -
 
 
 def _role_rows(employees: dict | None, day: str, role_order: list[str]) -> list[dict]:
-    """Punch hours by role. An employee with several roles cannot be split, so
-    those hours land in 'Multiple roles'."""
+    """Hours by the role on that day's punches.
+
+    Older employee files have no byRole. Those people fall back to their
+    year-long role list, which lumps anyone with more than one role into
+    'Multiple roles'.
+    """
     hours: dict[str, float] = defaultdict(float)
     cost: dict[str, float] = defaultdict(float)
-    order = {name: i for i, name in enumerate(role_order)}
     for emp in (employees or {}).get('employees') or []:
         entry = (emp.get('days') or {}).get(day)
         if not entry:
+            continue
+        by_role = entry.get('byRole')
+        if by_role:
+            for name, parts in by_role.items():
+                hours[name] += float((parts or {}).get('hours') or 0)
+                cost[name] += float((parts or {}).get('laborCost') or 0)
             continue
         worked = float(entry.get('hours') or 0)
         if worked <= 0:
@@ -248,8 +257,9 @@ def _role_rows(employees: dict | None, day: str, role_order: list[str]) -> list[
     rows = [
         {'name': name, 'hours': hrs, 'cost': cost[name]}
         for name, hrs in hours.items()
+        if hrs > 0
     ]
-    rows.sort(key=lambda r: (order.get(r['name'], 1000), r['name']))
+    rows.sort(key=lambda r: (-r['hours'], r['name']))
     return rows
 
 
@@ -410,34 +420,16 @@ def gather_review(
         show_numbers = False
 
     ly_dow = review - timedelta(days=WEEKDAY_SHIFT)
-    try:
-        ly_date = date(review.year - 1, review.month, review.day)
-    except ValueError:
-        # Feb 29 has no calendar twin. Use Feb 28.
-        ly_date = date(review.year - 1, 2, 28)
     ly_dow_bucket = index.get(ly_dow.isoformat()) or _empty_day()
-    ly_date_bucket = index.get(ly_date.isoformat()) or _empty_day()
 
     holidays_cache: dict = {}
     labor_fresh = file_is_fresh(labor.get('generatedAt'), review)
     labor_today = _labor_block(
         _labor_day(labor, key), bucket['net'], labor_fresh and show_numbers,
     )
-    # Last year's labor is historical. Use it whenever the file still has that day.
-    labor_ly = _labor_block(
-        _labor_day(labor, ly_dow.isoformat()),
-        ly_dow_bucket['net'],
-        _labor_day(labor, ly_dow.isoformat()) is not None,
-    )
-    labor_ly_date = _labor_block(
-        _labor_day(labor, ly_date.isoformat()),
-        ly_date_bucket['net'],
-        _labor_day(labor, ly_date.isoformat()) is not None,
-    )
 
     tips = _tips_for(gratuity, key) if show_numbers else None
     tips_ly = _tips_for(gratuity, ly_dow.isoformat())
-    tips_ly_date = _tips_for(gratuity, ly_date.isoformat())
 
     groups = []
     for group in config['departmentGroups']:
@@ -486,19 +478,13 @@ def gather_review(
         'holiday': _holiday_name(review, holidays_cache),
         'ly_dow': ly_dow.isoformat(),
         'ly_dow_holiday': _holiday_name(ly_dow, holidays_cache),
-        'ly_date': ly_date.isoformat(),
-        'ly_date_holiday': _holiday_name(ly_date, holidays_cache),
         'net_sales': bucket['net'] if show_numbers else None,
         'net_sales_ly_dow': ly_dow_bucket['net'],
-        'net_sales_ly_date': ly_date_bucket['net'],
         'labor': labor_today,
-        'labor_ly_dow': labor_ly,
-        'labor_ly_date': labor_ly_date,
         'labor_generated_at': labor.get('generatedAt') or '',
         'labor_file_source': labor.get('source') or '',
         'tips': tips,
         'tips_ly_dow': tips_ly,
-        'tips_ly_date': tips_ly_date,
         'departments': groups,
         'prize_fund': bucket['prize'] if show_numbers else None,
         'prize_fund_ly': ly_dow_bucket['prize'],
@@ -549,6 +535,18 @@ def evaluate_flags(metrics: dict, config: dict) -> list[dict]:
             'title': 'Labor is estimated',
             'detail': f"Source is {labor.get('source') or metrics.get('labor_file_source')}, not the 7shifts report.",
         })
+    else:
+        labor_high = float(thresholds.get('laborPctHigh') or 0)
+        pct = labor.get('pct')
+        net = metrics.get('net_sales') or 0
+        if labor_high and pct is not None and pct > labor_high:
+            flags.append({
+                'title': f'Labor {pct:.0f}% of sales',
+                'detail': (
+                    f"Labor ${labor.get('cost') or 0:,.0f} is {pct:.0f}% of "
+                    f"${net:,.0f} sales (threshold {labor_high:.0f}%)."
+                ),
+            })
 
     for note in metrics.get('health_notes') or []:
         flags.append({'title': 'Data health', 'detail': note})

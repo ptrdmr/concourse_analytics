@@ -72,9 +72,17 @@ def merge_days(pos_days: dict, labor_days: dict) -> dict[str, dict]:
         for key, val in (pos_days.get(day) or {}).items():
             if key in out:
                 out[key] = val
-        for key, val in (labor_days.get(day) or {}).items():
+        labor = labor_days.get(day) or {}
+        for key, val in labor.items():
             if key in out:
                 out[key] = val
+        by_role = labor.get('byRole')
+        if by_role:
+            # Fresh dicts so one day's roles cannot leak into another.
+            out['byRole'] = {
+                name: {'hours': parts.get('hours', 0), 'laborCost': parts.get('laborCost', 0)}
+                for name, parts in by_role.items()
+            }
         if any(out[k] for k in out if isinstance(out[k], (int, float)) and out[k]):
             merged[day] = out
     return merged

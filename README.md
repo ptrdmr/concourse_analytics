@@ -215,14 +215,14 @@ py -3 scripts/daily_review.py --date 2026-10-07 --to you@example.com
 
 `--to` sends even while the switch is off. Set `DAILY_REVIEW_ENABLED=1` only after that test lands. A rehearsal (`run_nightly.ps1 -SkipPush`) writes a preview and does not send.
 
-What the email contains:
+What the email contains, in one column so it reads on a phone:
 
-- Net sales, labor (cost, % of sales, hours, sales per hour) and tips, each against the same weekday last year. The headline also shows the same calendar date last year. Labor % divides by that same net sales figure, so league-heavy stretches pull the percentage down.
-- Sales for Cafe (the Food department), Bar, Bowling, Parties, Leagues (fees + lineage) and Other, with the top three items. League prize fund is a side note, not part of net sales. That is the same rule as the Overview page.
-- Bowling games, lane hours, shoe rentals and online reservations. Lane hours are Time Bowling quantity divided by 60. The POS stores that quantity in minutes. Checked against a Sunday: 4,155 quantity is 69.2 lane hours.
-- Party packages from `reservation_counts.json`. Upcoming parties and open tickets are not in v1.
-- Week, month and year to date, compared with the same weekdays a year earlier.
-- A Needs Attention block: a department (Cafe, Bar or Bowling) down more than 40% against last year when last year was at least $200; adjustments and refunds of $470 or more; tip % outside 3–10% of sales; labor missing or estimated; an employee who rang at least $25 and did not clock in, but who did clock in sometime in the prior 28 days. People who never clock in are not listed, or the same names would appear every morning. Leagues, Parties and Other are not drop-flagged: a quiet booking day or a league that doesn't bowl that weekday looks like a collapse. Thresholds live in `config/daily_review.json`. `scripts/derive_review_thresholds.py` reprints the history they came from.
+- Net sales in large type, compared with the same weekday last year only. Labor (cost and % of sales) and tips sit under that as two lines. There is no same-calendar-date comparison, and labor is not compared with last year. Labor % divides by net sales, so league-heavy stretches pull the percentage down.
+- One department table: Cafe (the Food department), Bar, Bowling, Parties, Leagues (fees + lineage) and Other. League prize fund is a side note, not part of net sales. That is the same rule as the Overview page.
+- A short details block: bowling games, lane hours, shoe rentals and online reservations on one line; top sellers by name; week, month and year to date on one line; hours by the role punched that day. Lane hours are Time Bowling quantity divided by 60. The POS stores that quantity in minutes.
+- A Needs Attention block: labor above 35% of sales; a department (Cafe, Bar or Bowling) down more than 40% against last year when last year was at least $200; adjustments and refunds of $470 or more; tip % outside 3–10% of sales; labor missing or estimated; an employee who rang at least $25 and did not clock in, but who did clock in sometime in the prior 28 days. People who never clock in are not listed. Leagues, Parties and Other are not drop-flagged. Thresholds live in `config/daily_review.json`.
+
+Role hours come from each punch's role, stored as `byRole` on the employee day. One nightly 7shifts pull fills that for the year already on file. Until then the email falls back to the older role list.
 
 A closed day (fresh POS data, zero sales) sends nothing. If the nightly fails, the email is only a banner, unless the POS file for that morning is already in place, in which case the numbers go out with the banner on top. A failed 7shifts pull shows labor as unavailable. It never repeats the previous day's labor.
 

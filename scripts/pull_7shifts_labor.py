@@ -462,6 +462,9 @@ def _empty_labor_day() -> dict:
         'scheduledShifts': 0,
         'lateMinutes': 0,
         'noShow': 0,
+        # Hours and cost for this day, split by the role on each punch.
+        # A new dict per day: defaultdict calls this once per key.
+        'byRole': {},
     }
 
 
@@ -572,6 +575,10 @@ def aggregate_employees_labor(
         day['hours'] += hours
         day['laborCost'] += cost
         day['punches'] += 1
+        role_name = roles.get(str(role_id), f'Role {role_id}') if role_id is not None else 'Unassigned'
+        role_bucket = day['byRole'].setdefault(role_name, {'hours': 0.0, 'laborCost': 0.0})
+        role_bucket['hours'] += hours
+        role_bucket['laborCost'] += cost
 
     # punctuality + no-shows from schedules
     for (uid, bd), starts in scheduled.items():
@@ -600,6 +607,14 @@ def aggregate_employees_labor(
     for uid, entry in employees.items():
         days_out = {}
         for day_key, vals in entry['days'].items():
+            by_role = {
+                name: {
+                    'hours': round(parts['hours'], 2),
+                    'laborCost': round(parts['laborCost'], 2),
+                }
+                for name, parts in (vals.get('byRole') or {}).items()
+                if parts.get('hours')
+            }
             days_out[day_key] = {
                 'hours': round(vals['hours'], 2),
                 'laborCost': round(vals['laborCost'], 2),
@@ -607,6 +622,7 @@ def aggregate_employees_labor(
                 'scheduledShifts': int(vals['scheduledShifts']),
                 'lateMinutes': round(vals['lateMinutes'], 1),
                 'noShow': int(vals['noShow']),
+                'byRole': by_role,
             }
         users_out[uid] = {
             'name': entry['name'],
