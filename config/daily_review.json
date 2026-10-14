@@ -55,5 +55,39 @@
     "tipPctHigh": 10,
     "noHoursMinSales": 25,
     "laborPctHigh": 35
+  },
+  "periodThresholds": {
+    "week": {
+      "deptDropPct": 20,
+      "deptDropMinLyDollars": 1000,
+      "refundsDollars": 2000,
+      "tipPctLow": 3,
+      "tipPctHigh": 10,
+      "laborPctHigh": 35
+    },
+    "month": {
+      "deptDropPct": 12,
+      "deptDropMinLyDollars": 4000,
+      "refundsDollars": 7400,
+      "tipPctLow": 3,
+      "tipPctHigh": 10,
+      "laborPctHigh": 33
+    },
+    "quarter": {
+      "deptDropPct": 10,
+      "deptDropMinLyDollars": 12000,
+      "refundsDollars": 21200,
+      "tipPctLow": 3,
+      "tipPctHigh": 10,
+      "laborPctHigh": 32
+    },
+    "year": {
+      "deptDropPct": 5,
+      "deptDropMinLyDollars": 50000,
+      "refundsDollars": 90000,
+      "tipPctLow": 3,
+      "tipPctHigh": 10,
+      "laborPctHigh": 32
+    }
   }
 }

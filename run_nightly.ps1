@@ -2,6 +2,7 @@
 # Orchestrates: git pull -> DB pull -> ETL -> specialty JSON -> 7shifts labor
 #               -> employee merge -> POS lane book to the leads chart
 #               -> git add public/data -> commit -> push -> daily review email
+#               -> week / month / quarter / year review emails, when one just ended
 #
 # Runs from the concourse_analytics clone. The ETL writes JSON in place under
 # public/data; there is no second repo and no copy step.
@@ -16,7 +17,8 @@
 #   - .env configured (SQL_PASSWORD, SEVENSHIFTS_TOKEN,
 #     SEVENSHIFTS_COMPANY_ID, SEVENSHIFTS_PULL_DAYS=365,
 #     LEADS_LANE_SYNC_URL, LEADS_LANE_SYNC_SECRET,
-#     GMAIL_USER, GMAIL_APP_PASSWORD, DAILY_REVIEW_TO)
+#     GMAIL_USER, GMAIL_APP_PASSWORD, DAILY_REVIEW_TO,
+#     PERIOD_REVIEW_ENABLED)
 #   - Python + requirements installed
 #   - Git credentials stored (fine-grained PAT on first push)
 #   - Working tree clean (a dirty tree aborts - edit on the workstation and push)
@@ -318,8 +320,10 @@ try {
     # send is a warning. --preview on a rehearsal so stakeholders are not emailed.
     if ($SkipPush) {
         Invoke-OptionalStep 'Daily review email (preview)' "$Python scripts/daily_review.py --preview" | Out-Null
+        Invoke-OptionalStep 'Period review emails (preview)' "$Python scripts/period_review.py --due --preview" | Out-Null
     } else {
         Invoke-OptionalStep 'Daily review email' "$Python scripts/daily_review.py" | Out-Null
+        Invoke-OptionalStep 'Period review emails' "$Python scripts/period_review.py --due" | Out-Null
     }
 
     Write-Log '=== Nightly pipeline complete ==='

@@ -48,6 +48,7 @@ _TAG_STYLES = {
     'hr': 'border:none;border-top:1px solid #dddddd;margin:16px 0;',
     'strong': 'font-weight:600;',
     'em': 'font-style:italic;',
+    'a': f'color:{_BLUE};',
 }
 
 
@@ -358,7 +359,7 @@ def _footer(metrics: dict) -> str:
     )
 
 
-def _header_block(date_line: str) -> str:
+def _header_block(date_line: str, brand: str = BRAND_NAME) -> str:
     """Black bar, brand name, date, and the red stripe. Tables survive Gmail."""
     date_html = (
         f'<div style="margin-top:6px;font-size:14px;color:{_GRAY};">{html.escape(date_line)}</div>'
@@ -369,7 +370,7 @@ def _header_block(date_line: str) -> str:
         f'bgcolor="{_BLACK}" style="background:{_BLACK};margin:0;border-collapse:collapse;">'
         f'<tr><td bgcolor="{_BLACK}" style="padding:16px 18px 12px;background:{_BLACK};">'
         f'<div style="font-size:20px;line-height:1.2;font-weight:600;color:#ffffff;">'
-        f'{html.escape(BRAND_NAME)}</div>'
+        f'{html.escape(brand)}</div>'
         f'{date_html}'
         '</td></tr>'
         f'<tr><td bgcolor="{_RED}" style="height:4px;background:{_RED};font-size:0;line-height:0;">&nbsp;</td></tr>'
@@ -387,7 +388,7 @@ def _color_changes(markup: str) -> str:
     return re.sub(r'[▲▼] \d+(?:\.\d+)?(?:%| pts)', paint, markup)
 
 
-def render_html(markdown_text: str, review_date: str | None = None) -> str:
+def render_html(markdown_text: str, review_date: str | None = None, brand: str | None = None) -> str:
     body = markdown.markdown(markdown_text, extensions=['tables'])
     styler = _InlineStyler()
     styler.feed(body)
@@ -403,7 +404,7 @@ def render_html(markdown_text: str, review_date: str | None = None) -> str:
     # The rule under the title is the red stripe in the header, not a second line.
     styled = re.sub(r'^\s*<hr\b[^>]*/>\s*', '', styled, count=1)
     styled = _color_changes(styled)
-    header = _header_block(date_line)
+    header = _header_block(date_line, brand or BRAND_NAME)
     return (
         '<!DOCTYPE html><html><head>'
         '<meta name="color-scheme" content="light dark">'

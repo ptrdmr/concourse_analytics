@@ -226,6 +226,36 @@ Role hours come from each punch's role, stored as `byRole` on the employee day. 
 
 A closed day (fresh POS data, zero sales) sends nothing. If the nightly fails, the email is only a banner, unless the POS file for that morning is already in place, in which case the numbers go out with the banner on top. A failed 7shifts pull shows labor as unavailable. It never repeats the previous day's labor.
 
+### E5. Week, month, quarter, and year emails
+
+After the daily review, `scripts/period_review.py --due` sends whichever of those periods just ended. Same Gmail account, same JSON, no SQL. A send failure is a warning and does not fail the night. A failed nightly does not attempt these; the next successful morning catches up, as long as the period ended within the last 7 days. That window is also why turning this on does not dump last quarter and last year on the first run.
+
+`PERIOD_REVIEW_TO` falls back to `DAILY_REVIEW_TO`. Leave `PERIOD_REVIEW_ENABLED=0` until a preview looks right. Set optional `DASHBOARD_URL` and the footer links to it.
+
+```powershell
+py -3 scripts/period_review.py --period week --as-of 2026-10-12 --preview
+py -3 scripts/period_review.py --period month --as-of 2026-09-30 --preview
+py -3 scripts/period_review.py --period quarter --as-of 2026-09-30 --preview
+py -3 scripts/period_review.py --period year --as-of 2025-12-31 --preview
+# open reports/preview/<label>.html
+py -3 scripts/period_review.py --period month --as-of 2026-09-30 --to you@example.com
+```
+
+`--as-of` is the review date, and the email is the period that had finished by then. `--to` sends while the switch is off and does not mark the period sent, so the real one still goes out. Copies land in `reports/period_review/` (gitignored).
+
+What each email contains, shortest at the top:
+
+- The period total, compared with the same calendar period last year. Weeks use the same ISO week number. There is no last-year labor comparison.
+- A short paragraph, at most five sentences: what moved the total, an extra Saturday, a streak such as a second month down vs last year, a record since 2023. Quiet periods say so in one line instead of filling space.
+- Needs Attention, capped at five items. Thresholds are per period in `config/daily_review.json` and were set against 2023–2026 history so a department flags about one period in ten, not most of them. Week: Cafe, Bar, or Bowling down more than 20% vs last year when last year was at least $1,000, labor above 35%, adjustments and refunds of $2,000 or more. Month: 12%, $4,000, labor above 33%, refunds $7,400. Quarter: 10%, $12,000, labor above 32%, refunds $21,200. Year: 5%, $50,000, labor above 32%, refunds $90,000. Tips outside 3–10% flag in every period. A department down vs last year for three periods, even when none of them crossed the line, is flagged as a slow decline.
+- One line of key numbers, then the department table, a short breakdown (the week by day, the month's busiest and quietest day, the quarter or year by month), top sellers, and labor by role except on the weekly email.
+
+```powershell
+py -3 scripts/period_review.py --due
+```
+
+That is what the nightly runs. The week goes out on Monday morning. The month goes out on the 1st, the quarter on Jan 1, Apr 1, Jul 1, and Oct 1, and the year on Jan 1. If that morning's run failed, the next successful run within 7 days sends it.
+
 ### F. End-to-end rehearsal (no push)
 
 ```powershell
@@ -281,7 +311,7 @@ Requires `LEADS_LANE_SYNC_URL` and `LEADS_LANE_SYNC_SECRET` in `.env`.
 3. ETL + specialty cocktails JSON + 7shifts labor + employee merge
 4. Fail if anything outside `public/data` changed
 5. `git add public/data`, commit `chore(data): nightly refresh YYYY-MM-DD`, rebase onto `origin/main` if needed, push
-6. Email the daily review. A send failure is logged and does not fail the night. If an earlier step threw, the email is a "data incomplete" banner instead.
+6. Email the daily review, then any week, month, quarter, or year review that just ended. A send failure is logged and does not fail the night. If an earlier step threw, the daily email is a "data incomplete" banner instead. The period emails wait for the next successful night.
 
 Netlify builds with `npm run build` only. It never runs Python.
 
@@ -409,6 +439,7 @@ python scripts/derive_review_thresholds.py
 | Labor JSON reverts every morning | Something other than this server is also writing `public/data` |
 | Daily review did not arrive | `DAILY_REVIEW_ENABLED` is not `1`, or `GMAIL_APP_PASSWORD` is missing. A closed day (zero sales) also sends nothing |
 | Daily review says data incomplete | The nightly failed before the POS JSON was refreshed. The log line above the email has the reason |
+| Period review did not arrive | The period ended more than 7 days ago, it was already sent, or `PERIOD_REVIEW_ENABLED` is not `1`. A closed period (every day dark) also sends nothing |
 
 ### Check earliest data in DB
 
