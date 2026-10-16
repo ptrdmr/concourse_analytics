@@ -1,8 +1,8 @@
 {
-  "generatedAt": "2026-10-15T05:34:17",
+  "generatedAt": "2026-10-16T05:34:17",
   "dateRange": [
     "2023-05-26",
-    "2026-10-14"
+    "2026-10-15"
   ],
   "types": [
     "Weekday Lane",
@@ -11258,6 +11258,21 @@
       "date": "2026-10-14",
       "type": "Weekday Lane",
       "count": 4
+    },
+    {
+      "date": "2026-10-15",
+      "type": "Weekday Lane",
+      "count": 1
+    },
+    {
+      "date": "2026-10-15",
+      "type": "Kingpin Suite",
+      "count": 1
+    },
+    {
+      "date": "2026-10-15",
+      "type": "General Lane Reservation",
+      "count": 2
     }
   ],
   "dailyTabs": [
@@ -15712,11 +15727,15 @@
     {
       "date": "2026-10-14",
       "tabs": 4
+    },
+    {
+      "date": "2026-10-15",
+      "tabs": 4
     }
   ],
   "validation": {
-    "distinctTabs": 11165,
-    "cellSum": 11218,
+    "distinctTabs": 11169,
+    "cellSum": 11222,
     "delta": 53
   }
 }

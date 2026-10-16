@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-15T05:34:04.912915",
+  "generatedAt": "2026-10-16T05:34:05.709031",
   "tabs": [
     {
       "date": "2023-06-01",
@@ -13252,11 +13252,53 @@
       "gratuity": 0.0,
       "tabTotal": 0.0,
       "accountApplied": 8532.63
+    },
+    {
+      "date": "2026-10-15",
+      "time": "15:42",
+      "txnId": "803350",
+      "party": "YJOMS",
+      "accountNames": [
+        "YJOMS 10.15.26"
+      ],
+      "partyTypes": [
+        "Kingpin Suite"
+      ],
+      "chargeType": "VIP Service Charge",
+      "server": "Allyssa",
+      "terminal": "CAFE1",
+      "charges": {
+        "VIP Service Charge": 506.0
+      },
+      "serviceCharge": 506.0,
+      "gratuity": 0.0,
+      "tabTotal": 0.0,
+      "accountApplied": 6187.86
+    },
+    {
+      "date": "2026-10-15",
+      "time": "17:10",
+      "txnId": "846158",
+      "party": null,
+      "accountNames": [],
+      "partyTypes": [
+        "Unclassified"
+      ],
+      "chargeType": "VIP Service Charge",
+      "server": "Sasha",
+      "terminal": "MPOS6",
+      "charges": {
+        "VIP Service Charge": 227.6
+      },
+      "serviceCharge": 227.6,
+      "gratuity": 200.0,
+      "tabTotal": 1653.18,
+      "accountApplied": 0
     }
   ],
   "meta": {
     "cancelledSkipped": 28,
-    "noAccount": 14,
+    "noAccount": 15,
     "multiAccount": 10
   }
 }
