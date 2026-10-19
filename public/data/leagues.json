@@ -1,6 +1,6 @@
 {
-  "generatedAt": "2026-10-18T05:34:57.999656",
-  "dataThrough": "2026-10-16",
+  "generatedAt": "2026-10-19T05:35:13.617748",
+  "dataThrough": "2026-10-18",
   "combined": [
     {
       "date": "2024-01-21",
@@ -16333,6 +16333,33 @@
       "quantity": 1.0,
       "payments": 1,
       "firstSlot": 25
+    },
+    {
+      "date": "2026-10-18",
+      "league": "Bowling 4 $'s",
+      "kind": "lineage",
+      "revenue": 570.0,
+      "quantity": 30.0,
+      "payments": 30,
+      "firstSlot": 36
+    },
+    {
+      "date": "2026-10-18",
+      "league": "Bowling 4 $'s",
+      "kind": "prizeFund",
+      "revenue": 450.0,
+      "quantity": 30.0,
+      "payments": 30,
+      "firstSlot": 36
+    },
+    {
+      "date": "2026-10-18",
+      "league": "Bowling 4 $'s",
+      "kind": "prizeFundGeneral",
+      "revenue": 74.0,
+      "quantity": 2.0,
+      "payments": 2,
+      "firstSlot": 37
     }
   ],
   "voids": [
