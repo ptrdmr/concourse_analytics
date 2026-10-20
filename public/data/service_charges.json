@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-19T05:34:22.413091",
+  "generatedAt": "2026-10-20T05:34:04.297133",
   "tabs": [
     {
       "date": "2023-06-01",
@@ -13294,6 +13294,28 @@
       "gratuity": 200.0,
       "tabTotal": 1653.18,
       "accountApplied": 0
+    },
+    {
+      "date": "2026-10-19",
+      "time": "18:09",
+      "txnId": "846011",
+      "party": "INC Real Estate",
+      "accountNames": [
+        "INC Real Estate 10-19-26"
+      ],
+      "partyTypes": [
+        "Kingpin Suite"
+      ],
+      "chargeType": "VIP Service Charge",
+      "server": "Brianna",
+      "terminal": "MPOS8",
+      "charges": {
+        "VIP Service Charge": 288.0
+      },
+      "serviceCharge": 288.0,
+      "gratuity": 100.0,
+      "tabTotal": 2024.74,
+      "accountApplied": 1398.0
     }
   ],
   "meta": {
