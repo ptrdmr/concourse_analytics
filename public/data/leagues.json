@@ -1,6 +1,6 @@
 {
-  "generatedAt": "2026-10-20T05:34:57.765257",
-  "dataThrough": "2026-10-19",
+  "generatedAt": "2026-10-21T05:34:57.630670",
+  "dataThrough": "2026-10-20",
   "combined": [
     {
       "date": "2024-01-21",
@@ -16387,6 +16387,78 @@
       "quantity": 71.0,
       "payments": 71,
       "firstSlot": 34
+    },
+    {
+      "date": "2026-10-20",
+      "league": "Pins and Needles",
+      "kind": "lineage",
+      "revenue": 65.0,
+      "quantity": 5.0,
+      "payments": 5,
+      "firstSlot": 24
+    },
+    {
+      "date": "2026-10-20",
+      "league": "Pins and Needles",
+      "kind": "prizeFund",
+      "revenue": 35.0,
+      "quantity": 5.0,
+      "payments": 5,
+      "firstSlot": 24
+    },
+    {
+      "date": "2026-10-20",
+      "league": "Pins and Needles",
+      "kind": "prizeFundGeneral",
+      "revenue": 70.0,
+      "quantity": 3.0,
+      "payments": 3,
+      "firstSlot": 24
+    },
+    {
+      "date": "2026-10-20",
+      "league": "Silver Striking Seniors",
+      "kind": "lineage",
+      "revenue": 117.0,
+      "quantity": 9.0,
+      "payments": 9,
+      "firstSlot": 24
+    },
+    {
+      "date": "2026-10-20",
+      "league": "Silver Striking Seniors",
+      "kind": "prizeFund",
+      "revenue": 72.0,
+      "quantity": 9.0,
+      "payments": 9,
+      "firstSlot": 24
+    },
+    {
+      "date": "2026-10-20",
+      "league": "Vegas or Bust",
+      "kind": "lineage",
+      "revenue": 969.0,
+      "quantity": 51.0,
+      "payments": 51,
+      "firstSlot": 36
+    },
+    {
+      "date": "2026-10-20",
+      "league": "Vegas or Bust",
+      "kind": "prizeFund",
+      "revenue": 663.0,
+      "quantity": 51.0,
+      "payments": 51,
+      "firstSlot": 36
+    },
+    {
+      "date": "2026-10-20",
+      "league": "Vegas or Bust",
+      "kind": "prizeFundGeneral",
+      "revenue": 6.0,
+      "quantity": 1.0,
+      "payments": 1,
+      "firstSlot": 37
     }
   ],
   "voids": [
@@ -18552,6 +18624,34 @@
       "kind": "prizeFund",
       "count": 1.0,
       "value": 8.0
+    },
+    {
+      "date": "2026-10-20",
+      "league": "Bowling 4 $'s",
+      "kind": "lineage",
+      "count": 0.0,
+      "value": 38.0
+    },
+    {
+      "date": "2026-10-20",
+      "league": "Bowling 4 $'s",
+      "kind": "prizeFund",
+      "count": 0.0,
+      "value": 30.0
+    },
+    {
+      "date": "2026-10-20",
+      "league": "Vegas or Bust",
+      "kind": "lineage",
+      "count": 0.0,
+      "value": 114.0
+    },
+    {
+      "date": "2026-10-20",
+      "league": "Vegas or Bust",
+      "kind": "prizeFund",
+      "count": 0.0,
+      "value": 78.0
     }
   ]
 }
