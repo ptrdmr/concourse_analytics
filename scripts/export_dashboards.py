@@ -2282,6 +2282,18 @@ def _import_reservation_counts():
     return reservation_counts
 
 
+def _export_booking_pace(by_month):
+    """Deposits with an event date. A database miss uses the last snapshot."""
+    try:
+        _scripts = os.path.join(_ROOT, 'scripts')
+        if _scripts not in sys.path:
+            sys.path.insert(0, _scripts)
+        from booking_pace import export_booking_pace
+        export_booking_pace(by_month)
+    except Exception as exc:
+        print(f'  SKIP: booking pace failed ({exc})')
+
+
 def _clean_party_name(raw):
     """Drop the event date staff type into the POS account name."""
     text = ' '.join(str(raw or '').split())
@@ -2458,6 +2470,8 @@ def main():
             sys.path.insert(0, _scripts)
         from reservation_counts import export_reservation_counts
         export_reservation_counts(by_month)
+        print('\nBooking pace...')
+        _export_booking_pace(by_month)
         return 0
 
     print('=' * 60)
@@ -2530,6 +2544,9 @@ def main():
         export_reservation_counts(by_month)
     except ImportError as e:
         print(f'  SKIP: reservation_counts not available ({e})')
+
+    print('\n[8d/14] Booking pace...')
+    _export_booking_pace(by_month)
 
     print('\n[9/13] Payments...')
     export_payments(csv_files)

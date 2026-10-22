@@ -1,0 +1,62 @@
+{
+  "_comment": "Party type names match app/lib/reservations.ts. VIP Suite is the extra label used when the POS only says 'VIP Suites' and not which suite. A null reservation type falls through to the account category, then the payment name, then lanes.",
+  "reservationTypes": {
+    "Supercharge": "Supercharge",
+    "Pair and Spair": "Pair & Spare",
+    "Strikezone 4 Lane Suite": "Strike Zone Suite",
+    "Kingpin 8 Lane Suite": "Kingpin Suite",
+    "Powerhouse 12 Lane Suite": "Powerhouse Suite",
+    "Half House 20 Lane Suite": "Half House",
+    "Full Facility Rental": "Full Facility",
+    "Adult Party": "Adult Party",
+    "summer party builder": "Party Builder",
+    "Fall Game Special": "Summer Special",
+    "Birthday": "General Party",
+    "Undefined": null,
+    "League": null,
+    "Special Event": null,
+    "Make-up/Pre-Bowl": null,
+    "Online Reservations": null,
+    "all you can bowl": null,
+    "family fun pack": null
+  },
+  "collections": {
+    "Supercharge": "Supercharge",
+    "VIP Suites": "VIP Suite",
+    "Pair & Spare": "Pair & Spare",
+    "Sports Party": "Sports Party",
+    "Summer Special": "Summer Special",
+    "Adult Party Package": "Adult Party",
+    "summer triple play": "Summer Special",
+    "Event": null,
+    "League": null,
+    "System Account": null
+  },
+  "tenders": [
+    {"needle": "supercharge", "type": "Supercharge"},
+    {"needle": "vip suite", "type": "VIP Suite"},
+    {"needle": "sports party", "type": "Sports Party"},
+    {"needle": "pair", "type": "Pair & Spare"},
+    {"needle": "adult party", "type": "Adult Party"},
+    {"needle": "summer", "type": "Summer Special"},
+    {"needle": "jr. striker", "type": "Jr. Strikers"},
+    {"needle": "jr striker", "type": "Jr. Strikers"},
+    {"needle": "half house", "type": "Half House"},
+    {"needle": "full facility", "type": "Full Facility"},
+    {"needle": "full house", "type": "Full Facility"},
+    {"needle": "kingpin", "type": "Kingpin Suite"},
+    {"needle": "powerhouse", "type": "Powerhouse Suite"},
+    {"needle": "strike zone", "type": "Strike Zone Suite"},
+    {"needle": "strikezone", "type": "Strike Zone Suite"},
+    {"needle": "lane reservation", "type": "General Lane Reservation"},
+    {"needle": "meriq online deposit", "type": "General Lane Reservation"}
+  ],
+  "groups": {
+    "lanes": ["Weekday Lane", "Sunday Lane", "Thursday Special", "General Lane Reservation", "NYE Reservation"],
+    "suites": ["Strike Zone Suite", "Kingpin Suite", "Powerhouse Suite", "Half House", "Full Facility", "VIP Suite"],
+    "kids": ["Supercharge", "Sports Party", "Summer Special", "Jr. Strikers"],
+    "pair": ["Pair & Spare", "Party Builder", "Adult Party"]
+  },
+  "defaultType": "General Lane Reservation",
+  "defaultGroup": "lanes"
+}

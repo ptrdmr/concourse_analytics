@@ -11,7 +11,35 @@ import pyodbc
 from dotenv import load_dotenv
 
 _ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-load_dotenv(os.path.join(_ROOT, '.env'))
+
+
+def _env_file() -> str:
+    """Credentials live in .env, which is gitignored.
+
+    A linked worktree has no .env of its own. Fall back to the checkout this
+    worktree was created from (the one the nightly job runs), so a dev run
+    still connects as concourse_readonly and nothing secret is copied.
+    """
+    local = os.path.join(_ROOT, '.env')
+    if os.path.isfile(local):
+        return local
+    git_path = os.path.join(_ROOT, '.git')
+    if not os.path.isfile(git_path):
+        return local
+    with open(git_path, encoding='utf-8') as handle:
+        line = handle.read().strip()
+    if not line.lower().startswith('gitdir:'):
+        return local
+    gitdir = os.path.normpath(line.split(':', 1)[1].strip())
+    # gitdir: <main>/.git/worktrees/<name>  ->  main checkout is three levels up
+    if os.path.basename(os.path.dirname(gitdir)) != 'worktrees':
+        return local
+    main_root = os.path.dirname(os.path.dirname(os.path.dirname(gitdir)))
+    sibling = os.path.join(main_root, '.env')
+    return sibling if os.path.isfile(sibling) else local
+
+
+load_dotenv(_env_file())
 
 PREFERRED_DRIVERS = [
     'ODBC Driver 18 for SQL Server',
