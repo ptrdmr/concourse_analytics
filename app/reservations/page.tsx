@@ -9,6 +9,7 @@ import { ReservationTrendsChart } from '@/components/dashboard/ReservationTrends
 import { ReservationCompareCharts } from '@/components/dashboard/ReservationCompareCharts';
 import { ReservationWeekdayChart } from '@/components/dashboard/ReservationWeekdayChart';
 import { ReservationTypeTable } from '@/components/dashboard/ReservationTypeTable';
+import { BookingPaceSection } from '@/components/dashboard/BookingPaceSection';
 import { useSummary } from '@/hooks/useTransactions';
 import { useReservations } from '@/hooks/useReservations';
 import { useUrlReservationsState } from '@/hooks/useUrlFilters';
@@ -306,6 +307,8 @@ function ReservationsContent() {
             Realized party and lane bookings by week — one tab, one reservation
           </p>
         </div>
+
+        <BookingPaceSection />
 
         <DateRangePicker
           value={rangeA}
