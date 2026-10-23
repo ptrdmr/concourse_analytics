@@ -1,6 +1,6 @@
 {
-  "generatedAt": "2026-10-22T05:34:59.393192",
-  "dataThrough": "2026-10-21",
+  "generatedAt": "2026-10-23T05:35:17.868594",
+  "dataThrough": "2026-10-22",
   "combined": [
     {
       "date": "2024-01-21",
@@ -16540,6 +16540,60 @@
       "quantity": 4.0,
       "payments": 4,
       "firstSlot": 36
+    },
+    {
+      "date": "2026-10-22",
+      "league": "River Magic",
+      "kind": "lineage",
+      "revenue": 1235.0,
+      "quantity": 65.0,
+      "payments": 65,
+      "firstSlot": 32
+    },
+    {
+      "date": "2026-10-22",
+      "league": "River Magic",
+      "kind": "prizeFund",
+      "revenue": 715.0,
+      "quantity": 65.0,
+      "payments": 65,
+      "firstSlot": 32
+    },
+    {
+      "date": "2026-10-22",
+      "league": "River Magic",
+      "kind": "prizeFundGeneral",
+      "revenue": 96.0,
+      "quantity": 5.0,
+      "payments": 5,
+      "firstSlot": 37
+    },
+    {
+      "date": "2026-10-22",
+      "league": "Silver & Gold",
+      "kind": "lineage",
+      "revenue": 143.0,
+      "quantity": 11.0,
+      "payments": 11,
+      "firstSlot": 22
+    },
+    {
+      "date": "2026-10-22",
+      "league": "Silver & Gold",
+      "kind": "prizeFund",
+      "revenue": 88.0,
+      "quantity": 11.0,
+      "payments": 11,
+      "firstSlot": 22
+    },
+    {
+      "date": "2026-10-22",
+      "league": "Silver & Gold",
+      "kind": "prizeFundGeneral",
+      "revenue": 6.0,
+      "quantity": 1.0,
+      "payments": 1,
+      "firstSlot": 26
     }
   ],
   "voids": [
@@ -18733,6 +18787,34 @@
       "kind": "prizeFund",
       "count": 0.0,
       "value": 78.0
+    },
+    {
+      "date": "2026-10-22",
+      "league": "River Magic",
+      "kind": "lineage",
+      "count": 7.0,
+      "value": 133.0
+    },
+    {
+      "date": "2026-10-22",
+      "league": "River Magic",
+      "kind": "prizeFund",
+      "count": 7.0,
+      "value": 77.0
+    },
+    {
+      "date": "2026-10-22",
+      "league": "Vegas Bound",
+      "kind": "lineage",
+      "count": 2.0,
+      "value": 38.0
+    },
+    {
+      "date": "2026-10-22",
+      "league": "Vegas Bound",
+      "kind": "prizeFund",
+      "count": 2.0,
+      "value": 22.0
     }
   ]
 }
