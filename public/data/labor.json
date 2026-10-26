@@ -1,18 +1,13 @@
 {
-  "generatedAt": "2026-10-25T05:35:15.611201-07:00",
+  "generatedAt": "2026-10-26T05:35:14.607304-07:00",
   "timezone": "America/Los_Angeles",
   "companyId": "312507",
   "source": "report",
   "dateRange": [
-    "2025-10-26",
-    "2026-10-25"
+    "2025-10-27",
+    "2026-10-26"
   ],
   "days": {
-    "2025-10-26": {
-      "laborCost": 1246.9,
-      "laborHours": 35.37,
-      "source": "report"
-    },
     "2025-10-27": {
       "laborCost": 1006.25,
       "laborHours": 27.12,
@@ -1829,7 +1824,12 @@
       "source": "report"
     },
     "2026-10-25": {
-      "laborCost": 0.0,
+      "laborCost": 2963.12,
+      "laborHours": 125.48,
+      "source": "report"
+    },
+    "2026-10-26": {
+      "laborCost": 2441.02,
       "laborHours": 0.0,
       "source": "report"
     }

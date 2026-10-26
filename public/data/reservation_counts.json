@@ -1,8 +1,8 @@
 {
-  "generatedAt": "2026-10-25T05:34:18",
+  "generatedAt": "2026-10-26T05:34:17",
   "dateRange": [
     "2023-05-26",
-    "2026-10-24"
+    "2026-10-25"
   ],
   "types": [
     "Weekday Lane",
@@ -11358,6 +11358,21 @@
       "date": "2026-10-24",
       "type": "General Lane Reservation",
       "count": 16
+    },
+    {
+      "date": "2026-10-25",
+      "type": "Weekday Lane",
+      "count": 1
+    },
+    {
+      "date": "2026-10-25",
+      "type": "Sunday Lane",
+      "count": 8
+    },
+    {
+      "date": "2026-10-25",
+      "type": "Pair & Spare",
+      "count": 1
     }
   ],
   "dailyTabs": [
@@ -15848,11 +15863,15 @@
     {
       "date": "2026-10-24",
       "tabs": 16
+    },
+    {
+      "date": "2026-10-25",
+      "tabs": 10
     }
   ],
   "validation": {
-    "distinctTabs": 11232,
-    "cellSum": 11286,
+    "distinctTabs": 11242,
+    "cellSum": 11296,
     "delta": 54
   }
 }

@@ -1,5 +1,5 @@
 {
-  "pulledAt": "2026-10-25T05:34:19",
+  "pulledAt": "2026-10-26T05:34:17",
   "reservations": [
     {
       "id": 37008,
@@ -16822,7 +16822,7 @@
       "id": 41454,
       "created": "2026-09-23T11:21:17",
       "event": "2026-10-25",
-      "statusId": 0,
+      "statusId": 2,
       "type": "Online Reservations",
       "accountId": 12249,
       "transactionId": 835961,
@@ -19496,7 +19496,7 @@
       "id": 41818,
       "created": "2026-10-03T17:48:15",
       "event": "2026-10-25",
-      "statusId": 0,
+      "statusId": 2,
       "type": "Online Reservations",
       "accountId": 12332,
       "transactionId": 840574,
@@ -21455,7 +21455,7 @@
       "id": 42124,
       "created": "2026-10-14T16:38:04",
       "event": "2026-10-25",
-      "statusId": 0,
+      "statusId": 2,
       "type": "Online Reservations",
       "accountId": 12411,
       "transactionId": 845694,
@@ -23551,7 +23551,7 @@
       "id": 42312,
       "created": "2026-10-21T14:40:01",
       "event": "2026-10-25",
-      "statusId": 0,
+      "statusId": 2,
       "type": "Online Reservations",
       "accountId": 12464,
       "transactionId": 848690,
@@ -23851,7 +23851,7 @@
       "id": 42334,
       "created": "2026-10-23T10:25:45",
       "event": "2026-10-25",
-      "statusId": 0,
+      "statusId": 2,
       "type": "Online Reservations",
       "accountId": 12480,
       "transactionId": 849696,
@@ -23935,7 +23935,7 @@
       "id": 42341,
       "created": "2026-10-23T12:26:46",
       "event": "2026-10-25",
-      "statusId": 0,
+      "statusId": 2,
       "type": "Online Reservations",
       "accountId": 12484,
       "transactionId": 849744,
@@ -24217,7 +24217,7 @@
       "id": 42361,
       "created": "2026-10-23T20:17:51",
       "event": "2026-10-25",
-      "statusId": 0,
+      "statusId": 2,
       "type": "Online Reservations",
       "accountId": 12499,
       "transactionId": 850040,
@@ -24299,6 +24299,84 @@
       "title": "Jared Rodriguez",
       "parentId": null,
       "txnIds": []
+    },
+    {
+      "id": 42367,
+      "created": "2026-10-25T10:47:29",
+      "event": "2026-10-31",
+      "statusId": 0,
+      "type": "Online Reservations",
+      "accountId": 12504,
+      "transactionId": 850753,
+      "title": "Timothy Duran",
+      "parentId": null,
+      "txnIds": [
+        850752,
+        850753
+      ]
+    },
+    {
+      "id": 42369,
+      "created": "2026-10-25T13:59:55",
+      "event": "2026-10-25",
+      "statusId": 2,
+      "type": "Adult Party",
+      "accountId": null,
+      "transactionId": null,
+      "title": "New Reservation",
+      "parentId": null,
+      "txnIds": []
+    },
+    {
+      "id": 42370,
+      "created": "2026-10-25T14:00:03",
+      "event": "2026-10-25",
+      "statusId": 2,
+      "type": "Adult Party",
+      "accountId": null,
+      "transactionId": null,
+      "title": "New Reservation",
+      "parentId": null,
+      "txnIds": []
+    },
+    {
+      "id": 42373,
+      "created": "2026-10-25T15:24:53",
+      "event": "2026-10-25",
+      "statusId": 2,
+      "type": "Adult Party",
+      "accountId": null,
+      "transactionId": null,
+      "title": "New Reservation",
+      "parentId": null,
+      "txnIds": []
+    },
+    {
+      "id": 42374,
+      "created": "2026-10-25T16:20:55",
+      "event": "2026-11-01",
+      "statusId": 2,
+      "type": "Make-up/Pre-Bowl",
+      "accountId": null,
+      "transactionId": null,
+      "title": "Janan Tm1 Big Ballers",
+      "parentId": null,
+      "txnIds": []
+    },
+    {
+      "id": 42375,
+      "created": "2026-10-25T20:53:36",
+      "event": "2026-10-27",
+      "statusId": 0,
+      "type": "all you can bowl",
+      "accountId": 12505,
+      "transactionId": 851123,
+      "title": "Valentine Onwudiwe",
+      "parentId": null,
+      "txnIds": [
+        851122,
+        851123
+      ]
     }
   ],
   "ledger": [
@@ -134012,6 +134090,90 @@
       "at": "2026-10-24T22:31:59",
       "amount": -153.47,
       "txnId": 850218
+    },
+    {
+      "id": 38258,
+      "accountId": 12504,
+      "at": "2026-10-25T10:47:31",
+      "amount": 153.47,
+      "txnId": 850752
+    },
+    {
+      "id": 38259,
+      "accountId": 12332,
+      "at": "2026-10-25T11:35:52",
+      "amount": -245.14,
+      "txnId": 840574
+    },
+    {
+      "id": 38260,
+      "accountId": 12358,
+      "at": "2026-10-25T12:03:28",
+      "amount": -245.14,
+      "txnId": 843260
+    },
+    {
+      "id": 38261,
+      "accountId": 12450,
+      "at": "2026-10-25T13:09:37",
+      "amount": -490.28,
+      "txnId": 848232
+    },
+    {
+      "id": 38262,
+      "accountId": 12499,
+      "at": "2026-10-25T15:36:09",
+      "amount": -122.57,
+      "txnId": 850040
+    },
+    {
+      "id": 38263,
+      "accountId": 12481,
+      "at": "2026-10-25T16:21:43",
+      "amount": -231.75,
+      "txnId": 849698
+    },
+    {
+      "id": 38264,
+      "accountId": 12249,
+      "at": "2026-10-25T17:03:29",
+      "amount": -166.86,
+      "txnId": 835961
+    },
+    {
+      "id": 38265,
+      "accountId": 12464,
+      "at": "2026-10-25T17:42:52",
+      "amount": -333.72,
+      "txnId": 848690
+    },
+    {
+      "id": 38266,
+      "accountId": 12484,
+      "at": "2026-10-25T18:07:53",
+      "amount": -245.14,
+      "txnId": 849744
+    },
+    {
+      "id": 38267,
+      "accountId": 12411,
+      "at": "2026-10-25T19:00:06",
+      "amount": -490.28,
+      "txnId": 845694
+    },
+    {
+      "id": 38268,
+      "accountId": 12480,
+      "at": "2026-10-25T20:17:20",
+      "amount": -245.14,
+      "txnId": 849696
+    },
+    {
+      "id": 38269,
+      "accountId": 12505,
+      "at": "2026-10-25T20:53:38",
+      "amount": 37.08,
+      "txnId": 851122
     }
   ],
   "accounts": [
@@ -175133,6 +175295,16 @@
     {
       "id": 12503,
       "name": "10/24/2026 Nicholas Hagan",
+      "collection": "Event"
+    },
+    {
+      "id": 12504,
+      "name": "10/31/2026 Timothy Duran",
+      "collection": "Event"
+    },
+    {
+      "id": 12505,
+      "name": "10/27/2026 Valentine Onwudiwe",
       "collection": "Event"
     }
   ]
