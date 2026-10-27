@@ -1,8 +1,8 @@
 {
-  "generatedAt": "2026-10-26T05:34:17",
+  "generatedAt": "2026-10-27T05:34:17",
   "dateRange": [
     "2023-05-26",
-    "2026-10-25"
+    "2026-10-26"
   ],
   "types": [
     "Weekday Lane",
@@ -11373,6 +11373,11 @@
       "date": "2026-10-25",
       "type": "Pair & Spare",
       "count": 1
+    },
+    {
+      "date": "2026-10-26",
+      "type": "Weekday Lane",
+      "count": 1
     }
   ],
   "dailyTabs": [
@@ -15867,11 +15872,15 @@
     {
       "date": "2026-10-25",
       "tabs": 10
+    },
+    {
+      "date": "2026-10-26",
+      "tabs": 1
     }
   ],
   "validation": {
-    "distinctTabs": 11242,
-    "cellSum": 11296,
+    "distinctTabs": 11243,
+    "cellSum": 11297,
     "delta": 54
   }
 }

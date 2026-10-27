@@ -1,6 +1,6 @@
 {
-  "generatedAt": "2026-10-26T05:35:01.321095",
-  "dataThrough": "2026-10-25",
+  "generatedAt": "2026-10-27T05:35:01.163741",
+  "dataThrough": "2026-10-26",
   "combined": [
     {
       "date": "2024-01-21",
@@ -16648,6 +16648,33 @@
       "quantity": 1.0,
       "payments": 1,
       "firstSlot": 37
+    },
+    {
+      "date": "2026-10-26",
+      "league": "Monday Night Out",
+      "kind": "prizeFund",
+      "revenue": 540.0,
+      "quantity": 60.0,
+      "payments": 47,
+      "firstSlot": 38
+    },
+    {
+      "date": "2026-10-26",
+      "league": "Monday Night Out",
+      "kind": "prizeFundGeneral",
+      "revenue": 98.0,
+      "quantity": 4.0,
+      "payments": 4,
+      "firstSlot": 38
+    },
+    {
+      "date": "2026-10-26",
+      "league": "Monday Night out",
+      "kind": "lineage",
+      "revenue": 1140.0,
+      "quantity": 60.0,
+      "payments": 47,
+      "firstSlot": 38
     }
   ],
   "voids": [

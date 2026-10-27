@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-26T05:34:04.042727",
+  "generatedAt": "2026-10-27T05:34:04.068246",
   "daypartHour": 17,
   "dates": {
     "2023-06-30": {
@@ -57061,6 +57061,51 @@
           "FRONTDESK2",
           "MPOS3",
           "MPOS4",
+          "MPOS8",
+          "System Terminal"
+        ]
+      }
+    },
+    "2026-10-26": {
+      "pre17": {
+        "Bar": {
+          "branda": 2.5,
+          "Ciera": 2.5,
+          "nicole": 2.5,
+          "Tony S.": 2.5
+        },
+        "Cafe": {
+          "Sasha": 3.0,
+          "Nathan": 8.2
+        },
+        "Other": {}
+      },
+      "post17": {
+        "Bar": {
+          "branda": 47.2,
+          "Ciera": 47.24,
+          "nicole": 47.24,
+          "Tony S.": 47.24,
+          "Christopher": 42.0
+        },
+        "Cafe": {
+          "Sasha": 37.26,
+          "Joseph": 15.26
+        },
+        "Other": {
+          "branda": 46.02,
+          "Ciera": 46.05,
+          "nicole": 46.05,
+          "Tony S.": 46.05
+        }
+      },
+      "meta": {
+        "lines": 256,
+        "zeroLines": 46,
+        "tipOut": 0.0,
+        "unknownTimes": 0,
+        "unmappedTerminals": [
+          "FRONTDESK1",
           "MPOS8",
           "System Terminal"
         ]
