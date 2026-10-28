@@ -1,6 +1,6 @@
 {
-  "generatedAt": "2026-10-27T05:35:01.163741",
-  "dataThrough": "2026-10-26",
+  "generatedAt": "2026-10-28T05:35:01.744937",
+  "dataThrough": "2026-10-27",
   "combined": [
     {
       "date": "2024-01-21",
@@ -16675,6 +16675,60 @@
       "quantity": 60.0,
       "payments": 47,
       "firstSlot": 38
+    },
+    {
+      "date": "2026-10-27",
+      "league": "Pins and Needles",
+      "kind": "lineage",
+      "revenue": 26.0,
+      "quantity": 2.0,
+      "payments": 2,
+      "firstSlot": 24
+    },
+    {
+      "date": "2026-10-27",
+      "league": "Pins and Needles",
+      "kind": "prizeFund",
+      "revenue": 14.0,
+      "quantity": 2.0,
+      "payments": 2,
+      "firstSlot": 24
+    },
+    {
+      "date": "2026-10-27",
+      "league": "Silver Striking Seniors",
+      "kind": "lineage",
+      "revenue": 52.0,
+      "quantity": 4.0,
+      "payments": 4,
+      "firstSlot": 24
+    },
+    {
+      "date": "2026-10-27",
+      "league": "Silver Striking Seniors",
+      "kind": "prizeFund",
+      "revenue": 32.0,
+      "quantity": 4.0,
+      "payments": 4,
+      "firstSlot": 24
+    },
+    {
+      "date": "2026-10-27",
+      "league": "Vegas or Bust",
+      "kind": "lineage",
+      "revenue": 912.0,
+      "quantity": 48.0,
+      "payments": 48,
+      "firstSlot": 36
+    },
+    {
+      "date": "2026-10-27",
+      "league": "Vegas or Bust",
+      "kind": "prizeFund",
+      "revenue": 624.0,
+      "quantity": 48.0,
+      "payments": 48,
+      "firstSlot": 36
     }
   ],
   "voids": [
@@ -18896,6 +18950,20 @@
       "kind": "prizeFund",
       "count": 2.0,
       "value": 22.0
+    },
+    {
+      "date": "2026-10-27",
+      "league": "Monday No Tap",
+      "kind": "lineage",
+      "count": 0.0,
+      "value": 34.0
+    },
+    {
+      "date": "2026-10-27",
+      "league": "Monday No Tap",
+      "kind": "prizeFund",
+      "count": 0.0,
+      "value": 20.0
     }
   ]
 }

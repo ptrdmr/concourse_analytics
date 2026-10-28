@@ -1,5 +1,5 @@
 {
-  "pulledAt": "2026-10-27T05:34:17",
+  "pulledAt": "2026-10-28T05:34:18",
   "reservations": [
     {
       "id": 37008,
@@ -20714,7 +20714,7 @@
       "id": 41995,
       "created": "2026-10-11T10:18:28",
       "event": "2026-10-31",
-      "statusId": 0,
+      "statusId": 2,
       "type": "Online Reservations",
       "accountId": 12385,
       "transactionId": 844355,
@@ -21716,7 +21716,7 @@
       "id": 42145,
       "created": "2026-10-15T10:26:29",
       "event": "2026-10-31",
-      "statusId": 0,
+      "statusId": 2,
       "type": "Online Reservations",
       "accountId": 12415,
       "transactionId": 846025,
@@ -21813,14 +21813,15 @@
       "created": "2026-10-15T19:24:35",
       "event": "2026-11-07",
       "statusId": 2,
-      "type": "Online Reservations",
+      "type": "Pair and Spair",
       "accountId": 12421,
       "transactionId": 846317,
       "title": "Janeva Maldonado",
       "parentId": null,
       "txnIds": [
         846316,
-        846317
+        846317,
+        851485
       ]
     },
     {
@@ -24370,7 +24371,7 @@
       "id": 42375,
       "created": "2026-10-25T20:53:36",
       "event": "2026-10-27",
-      "statusId": 0,
+      "statusId": 2,
       "type": "all you can bowl",
       "accountId": 12505,
       "transactionId": 851123,
@@ -24517,7 +24518,7 @@
       "id": 42386,
       "created": "2026-10-26T22:16:14",
       "event": "2026-10-31",
-      "statusId": 0,
+      "statusId": 2,
       "type": "Online Reservations",
       "accountId": 12511,
       "transactionId": 851430,
@@ -24526,6 +24527,246 @@
       "txnIds": [
         851429,
         851430
+      ]
+    },
+    {
+      "id": 42387,
+      "created": "2026-10-27T11:06:29",
+      "event": "2026-11-02",
+      "statusId": 0,
+      "type": "Online Reservations",
+      "accountId": 12512,
+      "transactionId": 851440,
+      "title": "Carmen Garcia",
+      "parentId": null,
+      "txnIds": [
+        851439,
+        851440
+      ]
+    },
+    {
+      "id": 42388,
+      "created": "2026-10-27T11:31:45",
+      "event": "2026-11-08",
+      "statusId": 2,
+      "type": "Special Event",
+      "accountId": 12513,
+      "transactionId": 851446,
+      "title": "Act Volleyball",
+      "parentId": null,
+      "txnIds": [
+        851445,
+        851446
+      ]
+    },
+    {
+      "id": 42389,
+      "created": "2026-10-27T12:39:30",
+      "event": "2026-11-05",
+      "statusId": 0,
+      "type": "Online Reservations",
+      "accountId": 12514,
+      "transactionId": 851465,
+      "title": "Amber Kraich",
+      "parentId": null,
+      "txnIds": [
+        851464,
+        851465
+      ]
+    },
+    {
+      "id": 42390,
+      "created": "2026-10-27T12:41:49",
+      "event": "2026-12-08",
+      "statusId": 2,
+      "type": "Strikezone 4 Lane Suite",
+      "accountId": 12515,
+      "transactionId": 851468,
+      "title": "Friar Tux",
+      "parentId": null,
+      "txnIds": [
+        851467,
+        851468
+      ]
+    },
+    {
+      "id": 42391,
+      "created": "2026-10-27T13:57:31",
+      "event": "2026-10-31",
+      "statusId": 2,
+      "type": "Online Reservations",
+      "accountId": 12516,
+      "transactionId": 851478,
+      "title": "Albert Ramos",
+      "parentId": null,
+      "txnIds": [
+        851477,
+        851478
+      ]
+    },
+    {
+      "id": 42392,
+      "created": "2026-10-27T14:27:31",
+      "event": "2026-10-31",
+      "statusId": 0,
+      "type": "Online Reservations",
+      "accountId": 12517,
+      "transactionId": 851487,
+      "title": "Carolina Contreras",
+      "parentId": null,
+      "txnIds": [
+        851486,
+        851487
+      ]
+    },
+    {
+      "id": 42393,
+      "created": "2026-10-27T14:49:31",
+      "event": "2026-10-28",
+      "statusId": 0,
+      "type": "Online Reservations",
+      "accountId": 12518,
+      "transactionId": 851493,
+      "title": "Michelle Gonzalez",
+      "parentId": null,
+      "txnIds": [
+        851492,
+        851493
+      ]
+    },
+    {
+      "id": 42394,
+      "created": "2026-10-27T15:09:32",
+      "event": "2026-10-31",
+      "statusId": 0,
+      "type": "Online Reservations",
+      "accountId": 12519,
+      "transactionId": 851503,
+      "title": "Natyeli Hatfield",
+      "parentId": null,
+      "txnIds": [
+        851502,
+        851503
+      ]
+    },
+    {
+      "id": 42395,
+      "created": "2026-10-27T15:10:32",
+      "event": "2026-10-27",
+      "statusId": 2,
+      "type": "all you can bowl",
+      "accountId": 12520,
+      "transactionId": 851506,
+      "title": "Christopher Camacho",
+      "parentId": null,
+      "txnIds": [
+        851505,
+        851506
+      ]
+    },
+    {
+      "id": 42396,
+      "created": "2026-10-27T15:27:32",
+      "event": "2026-10-31",
+      "statusId": 0,
+      "type": "Online Reservations",
+      "accountId": 12521,
+      "transactionId": 851509,
+      "title": "Maya Allen",
+      "parentId": null,
+      "txnIds": [
+        851508,
+        851509
+      ]
+    },
+    {
+      "id": 42397,
+      "created": "2026-10-27T15:35:00",
+      "event": "2026-12-11",
+      "statusId": 2,
+      "type": "Kingpin 8 Lane Suite",
+      "accountId": 12522,
+      "transactionId": 851514,
+      "title": "Fitzhauer Construction Inc.",
+      "parentId": null,
+      "txnIds": [
+        851512,
+        851514
+      ]
+    },
+    {
+      "id": 42398,
+      "created": "2026-10-27T16:29:32",
+      "event": "2026-10-27",
+      "statusId": 2,
+      "type": "Online Reservations",
+      "accountId": 12523,
+      "transactionId": 851528,
+      "title": "Javier Amador",
+      "parentId": null,
+      "txnIds": [
+        851527,
+        851528
+      ]
+    },
+    {
+      "id": 42399,
+      "created": "2026-10-27T17:20:34",
+      "event": "2026-11-13",
+      "statusId": 0,
+      "type": "Online Reservations",
+      "accountId": 12524,
+      "transactionId": 851554,
+      "title": "Tammy Kluver",
+      "parentId": null,
+      "txnIds": [
+        851553,
+        851554
+      ]
+    },
+    {
+      "id": 42400,
+      "created": "2026-10-27T20:34:35",
+      "event": "2026-10-29",
+      "statusId": 0,
+      "type": "all you can bowl",
+      "accountId": 12525,
+      "transactionId": 851749,
+      "title": "Jacob Bakke",
+      "parentId": null,
+      "txnIds": [
+        851748,
+        851749
+      ]
+    },
+    {
+      "id": 42401,
+      "created": "2026-10-27T22:11:35",
+      "event": "2026-11-01",
+      "statusId": 0,
+      "type": "Online Reservations",
+      "accountId": 12526,
+      "transactionId": 851783,
+      "title": "Nichola Ninke",
+      "parentId": null,
+      "txnIds": [
+        851782,
+        851783
+      ]
+    },
+    {
+      "id": 42402,
+      "created": "2026-10-28T01:53:37",
+      "event": "2026-10-29",
+      "statusId": 0,
+      "type": "all you can bowl",
+      "accountId": 12527,
+      "transactionId": 851798,
+      "title": "Daniel Miau",
+      "parentId": null,
+      "txnIds": [
+        851797,
+        851798
       ]
     }
   ],
@@ -134373,6 +134614,139 @@
       "at": "2026-10-26T22:16:15",
       "amount": 153.47,
       "txnId": 851429
+    },
+    {
+      "id": 38277,
+      "accountId": 12512,
+      "at": "2026-10-27T11:06:31",
+      "amount": 101.97,
+      "txnId": 851439
+    },
+    {
+      "id": 38278,
+      "accountId": 12513,
+      "at": "2026-10-27T11:32:27",
+      "amount": 231.75,
+      "txnId": 851445
+    },
+    {
+      "id": 38279,
+      "accountId": 12514,
+      "at": "2026-10-27T12:39:32",
+      "amount": 203.94,
+      "txnId": 851464
+    },
+    {
+      "id": 38280,
+      "accountId": 12515,
+      "at": "2026-10-27T12:42:44",
+      "amount": 900.0,
+      "txnId": 851467
+    },
+    {
+      "id": 38281,
+      "accountId": 12516,
+      "at": "2026-10-27T13:57:33",
+      "amount": 203.94,
+      "txnId": 851477
+    },
+    {
+      "id": 38282,
+      "accountId": 12421,
+      "at": "2026-10-27T14:25:23",
+      "amount": 234.84,
+      "txnId": 851485
+    },
+    {
+      "id": 38283,
+      "accountId": 12517,
+      "at": "2026-10-27T14:27:33",
+      "amount": 203.94,
+      "txnId": 851486
+    },
+    {
+      "id": 38284,
+      "accountId": 12518,
+      "at": "2026-10-27T14:49:33",
+      "amount": 305.91,
+      "txnId": 851492
+    },
+    {
+      "id": 38285,
+      "accountId": 12519,
+      "at": "2026-10-27T15:09:33",
+      "amount": 153.47,
+      "txnId": 851502
+    },
+    {
+      "id": 38286,
+      "accountId": 12520,
+      "at": "2026-10-27T15:10:34",
+      "amount": 18.54,
+      "txnId": 851505
+    },
+    {
+      "id": 38287,
+      "accountId": 12521,
+      "at": "2026-10-27T15:27:34",
+      "amount": 153.47,
+      "txnId": 851508
+    },
+    {
+      "id": 38288,
+      "accountId": 12522,
+      "at": "2026-10-27T15:37:46",
+      "amount": 2397.0,
+      "txnId": 851512
+    },
+    {
+      "id": 38289,
+      "accountId": 12523,
+      "at": "2026-10-27T16:29:34",
+      "amount": 203.94,
+      "txnId": 851527
+    },
+    {
+      "id": 38290,
+      "accountId": 12524,
+      "at": "2026-10-27T17:20:35",
+      "amount": 306.94,
+      "txnId": 851553
+    },
+    {
+      "id": 38291,
+      "accountId": 12505,
+      "at": "2026-10-27T20:01:44",
+      "amount": -37.08,
+      "txnId": 851123
+    },
+    {
+      "id": 38292,
+      "accountId": 12520,
+      "at": "2026-10-27T20:02:11",
+      "amount": -18.54,
+      "txnId": 851506
+    },
+    {
+      "id": 38293,
+      "accountId": 12525,
+      "at": "2026-10-27T20:34:36",
+      "amount": 37.08,
+      "txnId": 851748
+    },
+    {
+      "id": 38294,
+      "accountId": 12526,
+      "at": "2026-10-27T22:11:37",
+      "amount": 500.58,
+      "txnId": 851782
+    },
+    {
+      "id": 38295,
+      "accountId": 12527,
+      "at": "2026-10-28T01:53:39",
+      "amount": 37.08,
+      "txnId": 851797
     }
   ],
   "accounts": [
@@ -175534,6 +175908,86 @@
     {
       "id": 12511,
       "name": "10/31/2026 Morgan Sims",
+      "collection": "Event"
+    },
+    {
+      "id": 12512,
+      "name": "11/2/2026 Carmen Garcia",
+      "collection": "Event"
+    },
+    {
+      "id": 12513,
+      "name": "Act Volleyball 11-08-26",
+      "collection": "Sports Party"
+    },
+    {
+      "id": 12514,
+      "name": "11/5/2026 Amber Kraich",
+      "collection": "Event"
+    },
+    {
+      "id": 12515,
+      "name": "Friar Tux 12-08-26",
+      "collection": "VIP Suites"
+    },
+    {
+      "id": 12516,
+      "name": "10/31/2026 Albert Ramos",
+      "collection": "Event"
+    },
+    {
+      "id": 12517,
+      "name": "10/31/2026 Carolina Contreras",
+      "collection": "Event"
+    },
+    {
+      "id": 12518,
+      "name": "10/28/2026 Michelle Gonzalez",
+      "collection": "Event"
+    },
+    {
+      "id": 12519,
+      "name": "10/31/2026 Natyeli Hatfield",
+      "collection": "Event"
+    },
+    {
+      "id": 12520,
+      "name": "10/27/2026 Christopher Camacho",
+      "collection": "Event"
+    },
+    {
+      "id": 12521,
+      "name": "10/31/2026 Maya Allen",
+      "collection": "Event"
+    },
+    {
+      "id": 12522,
+      "name": "Fitzhauer Construction Inc. 12-11-26",
+      "collection": "VIP Suites"
+    },
+    {
+      "id": 12523,
+      "name": "10/27/2026 Javier Amador",
+      "collection": "Event"
+    },
+    {
+      "id": 12524,
+      "name": "11/13/2026 Tammy Kluver",
+      "collection": "Event"
+    },
+    {
+      "id": 12525,
+      "name": "10/29/2026 Jacob Bakke",
+      "collection": "Event"
+    },
+    {
+      "id": 12526,
+      "name": "11/1/2026 Nichola Ninke",
+      "collection": "Event"
+    },
+    {
+      "id": 12527,
+      "name": "10/29/2026 Daniel Miau",
       "collection": "Event"
     }
   ]
