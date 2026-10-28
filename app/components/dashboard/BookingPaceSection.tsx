@@ -1,6 +1,8 @@
 'use client';
 
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
+import { createPortal } from 'react-dom';
+import { X } from 'lucide-react';
 import {
   CartesianGrid,
   Legend,
@@ -68,6 +70,7 @@ function PaceChart({
   fullMonth,
   formatValue,
   formatAxis,
+  expanded = false,
 }: {
   title: string;
   data: PacePoint[];
@@ -82,37 +85,111 @@ function PaceChart({
   fullMonth: boolean;
   formatValue: (value: number) => string;
   formatAxis?: (value: number) => string;
+  expanded?: boolean;
 }) {
+  const tick = expanded ? 13 : 11;
   return (
-    <div className="card p-4 sm:p-5">
-      <h3 className="text-sm font-medium text-foreground mb-3">{title}</h3>
-      <div className="h-64">
+    <>
+      <h3 className={expanded ? 'text-lg font-semibold text-foreground' : 'text-sm font-medium text-foreground mb-3'}>{title}</h3>
+      <div className={expanded ? 'h-[calc(100vh-9rem)]' : 'h-64'}>
         <ResponsiveContainer width="100%" height="100%">
-          <LineChart data={data} margin={{ top: 8, right: 8, left: 0, bottom: 0 }}>
+          <LineChart data={data} margin={{ top: 8, right: expanded ? 24 : 8, left: 0, bottom: 0 }}>
             <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.06)" />
-            <XAxis dataKey="label" tick={{ fill: '#a3a3a3', fontSize: 11 }} interval="preserveStartEnd" />
-            <YAxis tick={{ fill: '#a3a3a3', fontSize: 11 }} width={44} tickFormatter={(v) => (formatAxis || formatValue)(Number(v))} />
+            <XAxis dataKey="label" tick={{ fill: '#a3a3a3', fontSize: tick }} interval={expanded ? 2 : 'preserveStartEnd'} />
+            <YAxis tick={{ fill: '#a3a3a3', fontSize: tick }} width={expanded ? 72 : 44} tickFormatter={(v) => (formatAxis || formatValue)(Number(v))} />
             <Tooltip
               formatter={(value, name) => [formatValue(Number(value ?? 0)), String(name)]}
               contentStyle={{ background: '#171717', border: '1px solid rgba(255,255,255,0.12)', borderRadius: 8 }}
               labelStyle={{ color: '#a3a3a3', fontSize: 12 }}
             />
             <Legend />
-            <Line type="monotone" dataKey={focusKey} name={focusName} stroke={THIS_YEAR} strokeWidth={2} dot={false} connectNulls={false} />
+            <Line type="monotone" dataKey={focusKey} name={focusName} stroke={THIS_YEAR} strokeWidth={expanded ? 2.5 : 2} dot={false} connectNulls={false} />
             {secondaryName && (
-              <Line type="monotone" dataKey={secondaryKey} name={secondaryName} stroke={PRIOR_YEAR} strokeWidth={1.5} dot={false} connectNulls={false} />
+              <Line type="monotone" dataKey={secondaryKey} name={secondaryName} stroke={PRIOR_YEAR} strokeWidth={expanded ? 2 : 1.5} dot={false} connectNulls={false} />
             )}
             {fullMonth && secondaryName && (
-              <Line type="monotone" dataKey={secondaryAheadKey} name={`${secondaryName} rest of month`} stroke={PRIOR_YEAR} strokeWidth={1.5} strokeDasharray="6 4" dot={false} connectNulls={false} />
+              <Line type="monotone" dataKey={secondaryAheadKey} name={`${secondaryName} rest of month`} stroke={PRIOR_YEAR} strokeWidth={expanded ? 2 : 1.5} strokeDasharray="6 4" dot={false} connectNulls={false} />
             )}
-            <Line type="monotone" dataKey={compareKey} name={compareName} stroke={LAST_YEAR} strokeWidth={2} dot={false} connectNulls={false} />
+            <Line type="monotone" dataKey={compareKey} name={compareName} stroke={LAST_YEAR} strokeWidth={expanded ? 2.5 : 2} dot={false} connectNulls={false} />
             {fullMonth && (
-              <Line type="monotone" dataKey={aheadKey} name={`${compareName} rest of month`} stroke={LAST_YEAR} strokeWidth={2} strokeDasharray="6 4" dot={false} connectNulls={false} />
+              <Line type="monotone" dataKey={aheadKey} name={`${compareName} rest of month`} stroke={LAST_YEAR} strokeWidth={expanded ? 2.5 : 2} strokeDasharray="6 4" dot={false} connectNulls={false} />
             )}
           </LineChart>
         </ResponsiveContainer>
       </div>
-    </div>
+    </>
+  );
+}
+
+function PaceChartCard(props: {
+  title: string;
+  data: PacePoint[];
+  focusKey: string;
+  compareKey: string;
+  aheadKey: string;
+  secondaryKey: string;
+  secondaryAheadKey: string;
+  focusName: string;
+  compareName: string;
+  secondaryName: string | null;
+  fullMonth: boolean;
+  formatValue: (value: number) => string;
+  formatAxis?: (value: number) => string;
+}) {
+  const [open, setOpen] = useState(false);
+
+  useEffect(() => {
+    if (!open) return;
+    const onKey = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') setOpen(false);
+    };
+    document.addEventListener('keydown', onKey);
+    const previous = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+    return () => {
+      document.removeEventListener('keydown', onKey);
+      document.body.style.overflow = previous;
+    };
+  }, [open]);
+
+  return (
+    <>
+      <div
+        className="card p-4 sm:p-5 text-left cursor-pointer hover:border-accent/40 transition-colors"
+        role="button"
+        tabIndex={0}
+        aria-label={`Enlarge ${props.title}`}
+        onClick={() => setOpen(true)}
+        onKeyDown={(event) => {
+          if (event.key === 'Enter' || event.key === ' ') {
+            event.preventDefault();
+            setOpen(true);
+          }
+        }}
+      >
+        <PaceChart {...props} />
+        <p className="text-xs text-muted mt-2">Click to enlarge</p>
+      </div>
+      {open && createPortal(
+        <div className="fixed inset-0 z-[110] p-3 sm:p-6" role="dialog" aria-modal="true" aria-label={props.title}>
+          <div className="absolute inset-0 bg-black/75" onClick={() => setOpen(false)} aria-hidden="true" />
+          <div className="relative h-full bg-[var(--color-card)] border border-[var(--color-border)] rounded-xl shadow-xl flex flex-col p-4 sm:p-6">
+            <button
+              type="button"
+              onClick={() => setOpen(false)}
+              className="absolute top-4 right-4 p-2 rounded-lg text-secondary hover:text-foreground hover:bg-overlay/5"
+              aria-label="Close"
+            >
+              <X className="w-5 h-5" />
+            </button>
+            <div className="pr-12 flex-1 min-h-0">
+              <PaceChart {...props} expanded />
+            </div>
+          </div>
+        </div>,
+        document.body,
+      )}
+    </>
   );
 }
 
@@ -333,7 +410,7 @@ export function BookingPaceSection() {
       )}
 
       <div className="grid grid-cols-1 xl:grid-cols-2 gap-4">
-        <PaceChart
+        <PaceChartCard
           title="Cumulative deposit dollars"
           data={view.series}
           focusKey="focusDollars"
@@ -348,7 +425,7 @@ export function BookingPaceSection() {
           formatValue={(value) => formatCurrency(value)}
           formatAxis={(value) => (value >= 1000 ? `$${Math.round(value / 1000)}k` : formatCurrency(value))}
         />
-        <PaceChart
+        <PaceChartCard
           title="Cumulative parties"
           data={view.series}
           focusKey="focusEvents"
