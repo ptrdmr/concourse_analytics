@@ -9,6 +9,10 @@ tab, not the party). A future party uses the booked date. A date typed into
 the account name, and config/event_date_overrides.json, are fallbacks. A
 deposit with no date is kept and counted under unknownEvent.
 
+config/deposit_history_*.json replaces the paid date for accounts whose money
+was taken earlier than the POS shows (2024 party deposits came in through
+17hats and were keyed in late). The replacement is marked paidSource.
+
 No database access in this file except the optional pull at the start of an export.
 The pull failing does not fail the nightly: the previous snapshot is used.
 
@@ -19,10 +23,12 @@ Usage:
 
 from __future__ import annotations
 
+import glob
 import json
 import os
 import re
 import sys
+import zlib
 from collections import defaultdict
 from datetime import date, datetime, timedelta
 
@@ -168,6 +174,143 @@ def load_overrides(path: str | None = None) -> tuple[dict, dict]:
         cleaned = _clean_party_name(key) or str(key)
         by_name[cleaned.casefold()] = value
     return by_txn, by_name
+
+
+def history_party_key(name: str | None) -> str:
+    """Account name with the typed date removed, so years can be told apart by event."""
+    text = _LEADING_DATE.sub(' ', str(name or ''))
+    text = _TRAILING_DATE.sub(' ', text)
+    text = re.sub(r'\d{1,2}[./-]\d{1,2}[./-]\d{2,4}', ' ', text)
+    return re.sub(r'[^a-z0-9]', '', text.casefold())
+
+
+def load_deposit_history(config_dir: str | None = None) -> tuple[list[dict], list[dict]]:
+    """Every config/deposit_history_*.json. Coverage is what the UI footnotes."""
+    folder = config_dir or os.path.join(_ROOT, 'config')
+    payments = []
+    coverage = []
+    for path in sorted(glob.glob(os.path.join(folder, 'deposit_history_*.json'))):
+        data = load_json(path, {})
+        rows = [row for row in (data.get('payments') or []) if row.get('account') and row.get('paid')]
+        if not rows:
+            continue
+        coverage.append({
+            'source': data.get('source') or 'history',
+            'from': data.get('from'),
+            'to': data.get('to'),
+        })
+        payments.extend(rows)
+    return payments, coverage
+
+
+def _events_align(left: str | None, right: str | None) -> bool:
+    if not left or not right:
+        return False
+    try:
+        span = date.fromisoformat(str(left)[:10]) - date.fromisoformat(str(right)[:10])
+    except ValueError:
+        return False
+    return abs(span.days) <= 21
+
+
+def _history_account_id(party_key: str, event: str) -> int:
+    digest = zlib.adler32(f'{party_key}|{event}'.encode()) or 1
+    return -int(digest)
+
+
+def _history_payment(entry: dict, template: dict | None, event: str | None, config: dict, today: str, index: int) -> dict:
+    amount = round(float(entry.get('amount') or 0), 2)
+    paid = str(entry['paid'])[:10]
+    invoice = entry.get('invoice') or 'gap'
+    if template:
+        account_id = template.get('accountId') or _history_account_id(history_party_key(entry.get('account')), event or '')
+        party = template.get('party')
+        resolved = template.get('event') or event
+        event_source = template.get('eventSource') or 'name'
+        conflict = bool(template.get('eventConflict'))
+        group = template.get('group')
+        party_type = template.get('type')
+        type_source = template.get('typeSource')
+        status = template.get('status') or _status(resolved, False, False, False, today)
+        reservation_id = template.get('reservationId')
+    else:
+        account_id = _history_account_id(history_party_key(entry.get('account')), event or '')
+        party = _clean_party_name(entry.get('account'))
+        resolved = event
+        event_source = 'name' if resolved else 'unknown'
+        conflict = False
+        party_type, group, type_source = resolve_type(
+            {'tenders': [entry.get('account') or '']}, None, None, None, config,
+        )
+        status = _status(resolved, False, False, False, today)
+        reservation_id = None
+    return {
+        'txnId': f'17hats-{invoice}-{paid}-{index}',
+        'paid': paid,
+        'amount': amount,
+        'accountId': account_id,
+        'party': party,
+        'isFirstPayment': True,
+        'event': resolved,
+        'eventSource': event_source,
+        'eventConflict': conflict,
+        'group': group,
+        'type': party_type,
+        'typeSource': type_source,
+        'status': status,
+        'reservationId': reservation_id,
+        'paidSource': entry.get('source') or '17hats',
+    }
+
+
+def apply_deposit_history(rows: list[dict], history: list[dict], config: dict, today: str) -> list[dict]:
+    """
+    Drop the late POS deposits for a history account and use the history paid
+    dates. A row matches only when the party name and the event date agree, so
+    the same client in another year is left alone.
+    """
+    if not history:
+        for row in rows:
+            row['paidSource'] = 'pos'
+        return rows
+
+    buckets: dict[tuple[str, str], list[dict]] = defaultdict(list)
+    for entry in history:
+        event = str(entry.get('event') or parse_name_date(entry.get('account')) or '')
+        key = history_party_key(entry.get('account'))
+        if key:
+            buckets[(key, event)].append(entry)
+
+    drop: set[int] = set()
+    templates: dict[tuple[str, str], dict] = {}
+    for index, row in enumerate(rows):
+        key = history_party_key(row.get('party'))
+        best: tuple[int, tuple[str, str]] | None = None
+        for bucket_key in buckets:
+            if bucket_key[0] != key:
+                continue
+            if not _events_align(row.get('event'), bucket_key[1]):
+                continue
+            span = abs((date.fromisoformat(str(row['event'])[:10]) - date.fromisoformat(bucket_key[1][:10])).days)
+            if best is None or span < best[0]:
+                best = (span, bucket_key)
+        if best is not None:
+            drop.add(index)
+            templates.setdefault(best[1], row)
+
+    kept = []
+    for index, row in enumerate(rows):
+        if index in drop:
+            continue
+        row['paidSource'] = 'pos'
+        kept.append(row)
+
+    added = []
+    for bucket_key, entries in buckets.items():
+        ordered = sorted(entries, key=lambda entry: (str(entry.get('paid')), str(entry.get('invoice') or '')))
+        for index, entry in enumerate(ordered):
+            added.append(_history_payment(entry, templates.get(bucket_key), bucket_key[1] or None, config, today, index))
+    return kept + added
 
 
 def _dates_conflict(dates) -> bool:
@@ -408,7 +551,7 @@ def _status(event, closed_later: bool, applied_early: bool, cancelled: bool, tod
     return 'unredeemed'
 
 
-def build_payments(by_month: dict, snapshot: dict, config: dict, overrides: tuple[dict, dict], today: str) -> list[dict]:
+def build_payments(by_month: dict, snapshot: dict, config: dict, overrides: tuple[dict, dict], today: str, history: list[dict] | None = None) -> list[dict]:
     by_txn, by_name = overrides
     tickets = index_tickets(by_month)
     by_txn_pos, by_acct_neg, by_acct_rsv, by_txn_rsv, accounts = _indexes(snapshot)
@@ -482,7 +625,10 @@ def build_payments(by_month: dict, snapshot: dict, config: dict, overrides: tupl
             'typeSource': type_source,
             'status': _status(event, bool(redeemed_on), applied_early, cancelled, today),
             'reservationId': reservation.get('id') if reservation else None,
+            'paidSource': 'pos',
         })
+
+    rows = apply_deposit_history(rows, history or [], config, today)
 
     groups = defaultdict(list)
     for row in rows:
@@ -497,8 +643,8 @@ def build_payments(by_month: dict, snapshot: dict, config: dict, overrides: tupl
     return rows
 
 
-def build_payload(by_month, snapshot, config, overrides, today, db_status) -> dict:
-    payments = build_payments(by_month, snapshot, config, overrides, today)
+def build_payload(by_month, snapshot, config, overrides, today, db_status, history=None, history_coverage=None) -> dict:
+    payments = build_payments(by_month, snapshot, config, overrides, today, history)
     unknown = [row for row in payments if row['eventSource'] == 'unknown']
     return {
         'generatedAt': datetime.now().strftime('%Y-%m-%dT%H:%M:%S'),
@@ -510,6 +656,7 @@ def build_payload(by_month, snapshot, config, overrides, today, db_status) -> di
             'amount': round(sum(row['amount'] for row in unknown), 2),
         },
         'conflicts': sum(1 for row in payments if row['eventConflict']),
+        'history': history_coverage or [],
         'payments': payments,
     }
 
@@ -538,6 +685,7 @@ def export_booking_pace(by_month, *, snapshot_path=None, output_path=None, overr
     today = today or date.today().isoformat()
     config = load_config(config_path)
     overrides = load_overrides(overrides_path)
+    history, history_coverage = load_deposit_history()
 
     if pull:
         db_status, snapshot = acquire_snapshot(
@@ -548,7 +696,9 @@ def export_booking_pace(by_month, *, snapshot_path=None, output_path=None, overr
         snapshot = pull_bookings.read_snapshot(snapshot_path) or pull_bookings.empty_snapshot()
         db_status = 'snapshot' if snapshot.get('pulledAt') else 'none'
 
-    payload = build_payload(by_month, snapshot, config, overrides, today, db_status)
+    payload = build_payload(
+        by_month, snapshot, config, overrides, today, db_status, history, history_coverage,
+    )
     if write:
         pull_bookings.atomic_write(output_path, payload)
         unknown = payload['unknownEvent']

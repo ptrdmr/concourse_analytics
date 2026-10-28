@@ -76,7 +76,7 @@ def account(aid, name, collection):
     return {'id': aid, 'name': name, 'collection': collection}
 
 
-def build(tickets, snap, overrides=None, today=TODAY):
+def build(tickets, snap, overrides=None, today=TODAY, history=None):
     by_month = {'2026-09': tickets}
     payload = booking_pace.build_payload(
         by_month,
@@ -85,6 +85,7 @@ def build(tickets, snap, overrides=None, today=TODAY):
         overrides or ({}, {}),
         today,
         'snapshot',
+        history,
     )
     return payload
 
@@ -392,6 +393,91 @@ class MatchTests(unittest.TestCase):
         self.assertEqual(missing, [])
         self.assertEqual(extra, [])
         self.assertTrue(all(ok for _n, _d, _row, ok in matched))
+
+
+class DepositHistoryTests(unittest.TestCase):
+    def test_history_replaces_the_late_pos_deposit(self):
+        tickets = [deposit_ticket(100, '2024-12-10', 'manheim', 10000, 'VIP Suite Payment')]
+        snap = snapshot(
+            ledger=[ledger(1, 5, '2024-12-10T12:00:00', 10000, 100)],
+            accounts=[account(5, 'manheim 12-13-24', 'VIP Suites')],
+        )
+        history = [{
+            'account': 'manheim 12-13-24', 'event': '2024-12-13',
+            'paid': '2024-09-26', 'amount': 10000, 'invoice': '159', 'source': '17hats',
+        }]
+        rows = build(tickets, snap, today='2024-12-20', history=history)['payments']
+        self.assertEqual(len(rows), 1)
+        self.assertEqual(rows[0]['paid'], '2024-09-26')
+        self.assertEqual(rows[0]['paidSource'], '17hats')
+        self.assertEqual(rows[0]['event'], '2024-12-13')
+        self.assertEqual(rows[0]['party'], 'manheim')
+        self.assertTrue(rows[0]['isFirstPayment'])
+        self.assertEqual(rows[0]['amount'], 10000)
+
+    def test_pre_window_gap_is_the_first_payment(self):
+        tickets = [deposit_ticket(100, '2024-12-03', 'KDC', 18193.69, 'VIP Suite Payment')]
+        snap = snapshot(
+            ledger=[ledger(1, 5, '2024-12-03T12:00:00', 18193.69, 100)],
+            accounts=[account(5, 'KDC 12-06-24', 'VIP Suites')],
+        )
+        history = [
+            {'account': 'KDC 12-06-24', 'event': '2024-12-06', 'paid': '2024-09-02',
+             'amount': 4500, 'invoice': '124', 'source': '17hats', 'note': 'paid before 17hats export'},
+            {'account': 'KDC 12-06-24', 'event': '2024-12-06', 'paid': '2024-12-03',
+             'amount': 13693.69, 'invoice': '124', 'source': '17hats'},
+        ]
+        rows = build(tickets, snap, today='2024-12-20', history=history)['payments']
+        self.assertEqual(len(rows), 2)
+        self.assertEqual([row['paid'] for row in rows], ['2024-09-02', '2024-12-03'])
+        self.assertEqual([row['isFirstPayment'] for row in rows], [True, False])
+        self.assertAlmostEqual(sum(row['amount'] for row in rows), 18193.69, places=2)
+
+    def test_history_without_a_pos_deposit_is_still_added(self):
+        history = [{
+            'account': 'Strike Zone - Infinity Solar', 'event': '2024-12-14',
+            'paid': '2024-10-29', 'amount': 980, 'invoice': '182', 'source': '17hats',
+        }]
+        rows = build([], snapshot(), today='2024-12-20', history=history)['payments']
+        self.assertEqual(len(rows), 1)
+        self.assertEqual(rows[0]['paid'], '2024-10-29')
+        self.assertEqual(rows[0]['event'], '2024-12-14')
+        self.assertEqual(rows[0]['type'], 'Strike Zone Suite')
+        self.assertEqual(rows[0]['group'], 'suites')
+        self.assertEqual(rows[0]['paidSource'], '17hats')
+
+    def test_same_name_in_another_year_is_kept(self):
+        tickets = [deposit_ticket(100, '2025-09-29', 'Serrano Water', 1800, 'VIP Suite Payment')]
+        snap = snapshot(
+            [reservation(1, '2025-12-11', 5, [100], 'Strikezone 4 Lane Suite', 'Serrano Water')],
+            [ledger(1, 5, '2025-09-29T12:00:00', 1800, 100)],
+            [account(5, 'Serrano Water', 'VIP Suites')],
+        )
+        history = [{
+            'account': 'serrano 12-12-24', 'event': '2024-12-12',
+            'paid': '2024-09-12', 'amount': 1260, 'invoice': '153', 'source': '17hats',
+        }]
+        rows = build(tickets, snap, today='2025-12-20', history=history)['payments']
+        kept = [row for row in rows if row['paidSource'] == 'pos']
+        added = [row for row in rows if row['paidSource'] == '17hats']
+        self.assertEqual(len(kept), 1)
+        self.assertEqual(kept[0]['event'], '2025-12-11')
+        self.assertEqual(len(added), 1)
+        self.assertEqual(added[0]['event'], '2024-12-12')
+
+    def test_no_history_leaves_pos_dates(self):
+        tickets = [deposit_ticket(100, '2024-12-10', 'manheim', 10000, 'VIP Suite Payment')]
+        snap = snapshot(
+            ledger=[ledger(1, 5, '2024-12-10T12:00:00', 10000, 100)],
+            accounts=[account(5, 'manheim 12-13-24', 'VIP Suites')],
+        )
+        plain = build(tickets, snap, today='2024-12-20')['payments']
+        empty = build(tickets, snap, today='2024-12-20', history=[])['payments']
+        self.assertEqual(plain[0]['paid'], '2024-12-10')
+        self.assertEqual(plain[0]['paidSource'], 'pos')
+        self.assertEqual(plain[0]['paid'], empty[0]['paid'])
+        self.assertEqual(plain[0]['amount'], empty[0]['amount'])
+        self.assertEqual(build(tickets, snap, today='2024-12-20')['history'], [])
 
 
 if __name__ == '__main__':
