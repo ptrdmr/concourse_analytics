@@ -13,6 +13,14 @@ export interface PacePayment {
   group: string | null;
   type: string;
   status: string;
+  /** pos, or 17hats when the paid date was rebuilt from the 2024 history file. */
+  paidSource?: string;
+}
+
+export interface HistoryCoverage {
+  source: string;
+  from: string | null;
+  to: string | null;
 }
 
 export interface BookingPaceFile {
@@ -22,6 +30,7 @@ export interface BookingPaceFile {
   dbAsOf: string | null;
   unknownEvent: { count: number; amount: number };
   conflicts: number;
+  history?: HistoryCoverage[];
   payments: PacePayment[];
 }
 
@@ -31,6 +40,29 @@ export interface PacePoint {
   focusDollars: number | null;
   compareEvents: number | null;
   compareDollars: number | null;
+  /** Comparison year after the same-point cutoff. Null up to that point, so a dashed line can start there. */
+  compareAheadEvents: number | null;
+  compareAheadDollars: number | null;
+  secondaryEvents: number | null;
+  secondaryDollars: number | null;
+  secondaryAheadEvents: number | null;
+  secondaryAheadDollars: number | null;
+}
+
+export interface PaceSeriesOptions {
+  fullMonth?: boolean;
+  secondaryRows?: PacePayment[];
+  secondaryYear?: number;
+  secondaryCutoff?: string;
+}
+
+export interface TargetGap {
+  year: number;
+  atPoint: PaceTotals;
+  atMonthStart: PaceTotals;
+  atMonthEnd: PaceTotals;
+  toMatchStart: PaceTotals;
+  toMatchEnd: PaceTotals;
 }
 
 export interface PaceTotals {
@@ -82,6 +114,11 @@ export function monthLabel(monthKey: string): string {
   const [year, month] = monthKey.split('-');
   const name = MONTH_NAMES[Number(month) - 1] || month;
   return `${name} ${year}`;
+}
+
+export function monthEnd(monthKey: string): string {
+  const [year, month] = monthKey.split('-').map(Number);
+  return formatDay(new Date(year, month, 0));
 }
 
 export function shortDate(iso: string): string {
@@ -148,6 +185,88 @@ function totalsAt(rows: PacePayment[], cutoff: string): PaceTotals {
   return paceTotals(rows.filter((row) => row.paid <= cutoff));
 }
 
+/** rebuilt when the compare month's lead-up is inside the history window, partial when it starts earlier. */
+export function historyCoverageFor(
+  coverage: HistoryCoverage[] | undefined,
+  compareYear: number,
+  focusMonth: string,
+): 'rebuilt' | 'partial' | null {
+  const window = (coverage || []).find((item) => (
+    item.from
+    && item.to
+    && item.from.slice(0, 4) <= String(compareYear)
+    && item.to.slice(0, 4) >= String(compareYear)
+  ));
+  if (!window?.from) return null;
+  const leadUp = addDays(`${compareYear}-${focusMonth.slice(5, 7)}-01`, -84);
+  return leadUp < window.from ? 'partial' : 'rebuilt';
+}
+
+export function targetGaps(
+  focus: PaceTotals,
+  compareRows: PacePayment[],
+  compareYear: number,
+  focusMonth: string,
+  cutoff: string,
+): TargetGap {
+  const month = focusMonth.slice(5, 7);
+  const start = `${compareYear}-${month}-01`;
+  const end = monthEnd(`${compareYear}-${month}`);
+  const atPoint = totalsAt(compareRows, cutoff);
+  const atMonthStart = totalsAt(compareRows, start);
+  const atMonthEnd = totalsAt(compareRows, end);
+  const gap = (target: PaceTotals): PaceTotals => ({
+    events: Math.max(0, target.events - focus.events),
+    dollars: Math.max(0, Math.round((target.dollars - focus.dollars) * 100) / 100),
+  });
+  return {
+    year: compareYear,
+    atPoint,
+    atMonthStart,
+    atMonthEnd,
+    toMatchStart: gap(atMonthStart),
+    toMatchEnd: gap(atMonthEnd),
+  };
+}
+
+function weekBefore(paid: string, start: string): number {
+  const days = daysBetween(paid, start);
+  return days > 0 ? Math.ceil(days / 7) : 0;
+}
+
+function sliceTotals(
+  rows: PacePayment[] | undefined,
+  cut: string,
+  cutoff: string,
+  fullMonth: boolean,
+): { toDate: PaceTotals | null; ahead: PaceTotals | null } {
+  if (!rows) return { toDate: null, ahead: null };
+  const toDate = cut <= cutoff ? totalsAt(rows, cut) : null;
+  const ahead = fullMonth && cut >= cutoff ? totalsAt(rows, cut) : null;
+  return { toDate, ahead };
+}
+
+function pacePoint(
+  label: string,
+  focus: PaceTotals | null,
+  compare: { toDate: PaceTotals | null; ahead: PaceTotals | null },
+  secondary: { toDate: PaceTotals | null; ahead: PaceTotals | null },
+): PacePoint {
+  return {
+    label,
+    focusEvents: focus?.events ?? null,
+    focusDollars: focus ? Math.round(focus.dollars) : null,
+    compareEvents: compare.toDate?.events ?? null,
+    compareDollars: compare.toDate ? Math.round(compare.toDate.dollars) : null,
+    compareAheadEvents: compare.ahead?.events ?? null,
+    compareAheadDollars: compare.ahead ? Math.round(compare.ahead.dollars) : null,
+    secondaryEvents: secondary.toDate?.events ?? null,
+    secondaryDollars: secondary.toDate ? Math.round(secondary.toDate.dollars) : null,
+    secondaryAheadEvents: secondary.ahead?.events ?? null,
+    secondaryAheadDollars: secondary.ahead ? Math.round(secondary.ahead.dollars) : null,
+  };
+}
+
 export function buildPaceSeries(
   focusRows: PacePayment[],
   compareRows: PacePayment[],
@@ -155,57 +274,85 @@ export function buildPaceSeries(
   compareYear: number,
   focusAsOf: string,
   compareCutoff: string,
+  options: PaceSeriesOptions = {},
 ): PacePoint[] {
+  const fullMonth = options.fullMonth === true;
   const focusStart = `${focusMonth}-01`;
   const compareStart = `${compareYear}-${focusMonth.slice(5, 7)}-01`;
-  const weekBefore = (paid: string, start: string) => {
-    const days = daysBetween(paid, start);
-    return days > 0 ? Math.ceil(days / 7) : 0;
-  };
+  const secondaryYear = options.secondaryYear;
+  const secondaryStart = secondaryYear != null
+    ? `${secondaryYear}-${focusMonth.slice(5, 7)}-01`
+    : null;
+  const secondaryCutoff = options.secondaryCutoff || null;
 
   let maxWeek = 0;
   for (const row of focusRows) maxWeek = Math.max(maxWeek, weekBefore(row.paid, focusStart));
   for (const row of compareRows) maxWeek = Math.max(maxWeek, weekBefore(row.paid, compareStart));
+  if (secondaryStart) {
+    for (const row of options.secondaryRows || []) maxWeek = Math.max(maxWeek, weekBefore(row.paid, secondaryStart));
+  }
   maxWeek = Math.min(Math.max(maxWeek, 4), 52);
 
   const lagDays = daysBetween(focusAsOf, focusStart);
-  const endWeek = lagDays > 0 ? Math.ceil(lagDays / 7) : -Math.min(8, Math.floor(-lagDays / 7));
+  const throughToday = lagDays > 0 ? Math.ceil(lagDays / 7) : -Math.min(8, Math.floor(-lagDays / 7));
+  const daysAfterStart = daysBetween(focusStart, monthEnd(focusMonth));
+  const fullMonthEnd = daysAfterStart > 0 ? -Math.ceil(daysAfterStart / 7) : 0;
+  const lastWeek = fullMonth ? fullMonthEnd : throughToday;
+
+  const at = (focusCut: string, compareCut: string, secondaryCut: string | null): PacePoint => {
+    const focus = focusCut <= focusAsOf ? totalsAt(focusRows, focusCut) : null;
+    return pacePoint(
+      '',
+      focus,
+      sliceTotals(compareRows, compareCut, compareCutoff, fullMonth),
+      secondaryCut && secondaryCutoff
+        ? sliceTotals(options.secondaryRows, secondaryCut, secondaryCutoff, fullMonth)
+        : { toDate: null, ahead: null },
+    );
+  };
 
   const points: PacePoint[] = [];
-  for (let week = maxWeek; week >= endWeek; week -= 1) {
+  let placedAsOf = false;
+  for (let week = maxWeek; week >= lastWeek; week -= 1) {
     const focusCut = addDays(focusStart, -7 * week);
+    if (fullMonth && !placedAsOf && focusCut > focusAsOf) {
+      const marker = at(focusAsOf, compareCutoff, secondaryCutoff);
+      marker.label = shortDate(focusAsOf);
+      points.push(marker);
+      placedAsOf = true;
+    }
     const compareCut = addDays(compareStart, -7 * week);
-    const focus = focusCut <= focusAsOf ? totalsAt(focusRows, focusCut) : null;
-    const compare = compareCut <= compareCutoff ? totalsAt(compareRows, compareCut) : null;
-    if (!focus && !compare) continue;
-    points.push({
-      label: week > 0 ? `${week}w` : week === 0 ? 'Start' : `+${-week}w`,
-      focusEvents: focus?.events ?? null,
-      focusDollars: focus ? Math.round(focus.dollars) : null,
-      compareEvents: compare?.events ?? null,
-      compareDollars: compare ? Math.round(compare.dollars) : null,
-    });
+    const secondaryCut = secondaryStart ? addDays(secondaryStart, -7 * week) : null;
+    const point = at(focusCut, compareCut, secondaryCut);
+    point.label = week > 0 ? `${week}w` : week === 0 ? 'Start' : `+${-week}w`;
+    const hasCompare = point.compareDollars != null || point.compareAheadDollars != null
+      || point.secondaryDollars != null || point.secondaryAheadDollars != null;
+    if (!point.focusDollars && point.focusDollars !== 0 && !hasCompare && point.focusEvents == null) continue;
+    if (point.focusEvents == null && point.compareEvents == null && point.compareAheadEvents == null
+      && point.secondaryEvents == null && point.secondaryAheadEvents == null) continue;
+    points.push(point);
   }
 
   while (
     points.length > 2
     && (points[0].focusDollars || 0) === 0
     && (points[0].compareDollars || 0) === 0
+    && (points[0].secondaryDollars || 0) === 0
   ) {
     points.shift();
   }
 
-  const lastCut = addDays(focusStart, -7 * endWeek);
-  if (focusAsOf !== lastCut) {
-    const focus = totalsAt(focusRows, focusAsOf);
-    const compare = totalsAt(compareRows, compareCutoff);
-    points.push({
-      label: shortDate(focusAsOf),
-      focusEvents: focus.events,
-      focusDollars: Math.round(focus.dollars),
-      compareEvents: compare.events,
-      compareDollars: Math.round(compare.dollars),
-    });
+  if (!fullMonth) {
+    const lastCut = addDays(focusStart, -7 * lastWeek);
+    if (focusAsOf !== lastCut) {
+      const marker = at(focusAsOf, compareCutoff, secondaryCutoff);
+      marker.label = shortDate(focusAsOf);
+      points.push(marker);
+    }
+  } else if (!placedAsOf) {
+    const marker = at(focusAsOf, compareCutoff, secondaryCutoff);
+    marker.label = shortDate(focusAsOf);
+    points.push(marker);
   }
   return points;
 }
