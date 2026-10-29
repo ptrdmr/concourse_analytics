@@ -1,6 +1,6 @@
 {
-  "generatedAt": "2026-10-28T05:35:01.744937",
-  "dataThrough": "2026-10-27",
+  "generatedAt": "2026-10-29T05:35:09.166650",
+  "dataThrough": "2026-10-28",
   "combined": [
     {
       "date": "2024-01-21",
@@ -16728,6 +16728,87 @@
       "revenue": 624.0,
       "quantity": 48.0,
       "payments": 48,
+      "firstSlot": 36
+    },
+    {
+      "date": "2026-10-28",
+      "league": "Alley Cats",
+      "kind": "lineage",
+      "revenue": 361.0,
+      "quantity": 19.0,
+      "payments": 19,
+      "firstSlot": 35
+    },
+    {
+      "date": "2026-10-28",
+      "league": "Alley Cats",
+      "kind": "prizeFund",
+      "revenue": 209.0,
+      "quantity": 19.0,
+      "payments": 19,
+      "firstSlot": 35
+    },
+    {
+      "date": "2026-10-28",
+      "league": "Renegades",
+      "kind": "lineage",
+      "revenue": 13.0,
+      "quantity": 1.0,
+      "payments": 1,
+      "firstSlot": 24
+    },
+    {
+      "date": "2026-10-28",
+      "league": "Renegades",
+      "kind": "prizeFund",
+      "revenue": 6.0,
+      "quantity": 1.0,
+      "payments": 1,
+      "firstSlot": 24
+    },
+    {
+      "date": "2026-10-28",
+      "league": "Super Sports",
+      "kind": "lineage",
+      "revenue": 729.0,
+      "quantity": 81.0,
+      "payments": 81,
+      "firstSlot": 30
+    },
+    {
+      "date": "2026-10-28",
+      "league": "Super Sports",
+      "kind": "prizeFund",
+      "revenue": 81.0,
+      "quantity": 81.0,
+      "payments": 81,
+      "firstSlot": 30
+    },
+    {
+      "date": "2026-10-28",
+      "league": "Vegas Bound",
+      "kind": "lineage",
+      "revenue": 950.0,
+      "quantity": 50.0,
+      "payments": 45,
+      "firstSlot": 36
+    },
+    {
+      "date": "2026-10-28",
+      "league": "Vegas Bound",
+      "kind": "prizeFund",
+      "revenue": 550.0,
+      "quantity": 50.0,
+      "payments": 45,
+      "firstSlot": 36
+    },
+    {
+      "date": "2026-10-28",
+      "league": "Vegas Bound",
+      "kind": "prizeFundGeneral",
+      "revenue": 74.0,
+      "quantity": 2.0,
+      "payments": 2,
       "firstSlot": 36
     }
   ],
