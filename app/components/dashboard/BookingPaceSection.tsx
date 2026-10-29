@@ -38,7 +38,6 @@ import { formatPctChange, pctChange, RESERVATION_GROUPS } from '@/lib/reservatio
 
 const THIS_YEAR = '#22c55e';
 const LAST_YEAR = '#94a3b8';
-const PRIOR_YEAR = '#cbd5e1';
 
 const GROUP_LABEL = new Map(RESERVATION_GROUPS.map((group) => [group.id, group.label]));
 const GROUP_COLOR = new Map(RESERVATION_GROUPS.map((group) => [group.id, group.color]));
@@ -62,11 +61,8 @@ function PaceChart({
   focusKey,
   compareKey,
   aheadKey,
-  secondaryKey,
-  secondaryAheadKey,
   focusName,
   compareName,
-  secondaryName,
   fullMonth,
   formatValue,
   formatAxis,
@@ -77,11 +73,8 @@ function PaceChart({
   focusKey: string;
   compareKey: string;
   aheadKey: string;
-  secondaryKey: string;
-  secondaryAheadKey: string;
   focusName: string;
   compareName: string;
-  secondaryName: string | null;
   fullMonth: boolean;
   formatValue: (value: number) => string;
   formatAxis?: (value: number) => string;
@@ -104,12 +97,6 @@ function PaceChart({
             />
             <Legend />
             <Line type="monotone" dataKey={focusKey} name={focusName} stroke={THIS_YEAR} strokeWidth={expanded ? 2.5 : 2} dot={false} connectNulls={false} />
-            {secondaryName && (
-              <Line type="monotone" dataKey={secondaryKey} name={secondaryName} stroke={PRIOR_YEAR} strokeWidth={expanded ? 2 : 1.5} dot={false} connectNulls={false} />
-            )}
-            {fullMonth && secondaryName && (
-              <Line type="monotone" dataKey={secondaryAheadKey} name={`${secondaryName} rest of month`} stroke={PRIOR_YEAR} strokeWidth={expanded ? 2 : 1.5} strokeDasharray="6 4" dot={false} connectNulls={false} />
-            )}
             <Line type="monotone" dataKey={compareKey} name={compareName} stroke={LAST_YEAR} strokeWidth={expanded ? 2.5 : 2} dot={false} connectNulls={false} />
             {fullMonth && (
               <Line type="monotone" dataKey={aheadKey} name={`${compareName} rest of month`} stroke={LAST_YEAR} strokeWidth={expanded ? 2.5 : 2} strokeDasharray="6 4" dot={false} connectNulls={false} />
@@ -127,11 +114,8 @@ function PaceChartCard(props: {
   focusKey: string;
   compareKey: string;
   aheadKey: string;
-  secondaryKey: string;
-  secondaryAheadKey: string;
   focusName: string;
   compareName: string;
-  secondaryName: string | null;
   fullMonth: boolean;
   formatValue: (value: number) => string;
   formatAxis?: (value: number) => string;
@@ -221,11 +205,6 @@ export function BookingPaceSection() {
       ? `${selectedCompare}-${focusMonth.slice(5, 7)}`
       : null;
     const cutoff = selectedCompare != null ? compareAsOf(asOf, focusMonth, selectedCompare) : null;
-    const secondaryYear = otherYears.find((year) => year !== selectedCompare) ?? null;
-    const secondaryMonth = secondaryYear != null
-      ? `${secondaryYear}-${focusMonth.slice(5, 7)}`
-      : null;
-    const secondaryCutoff = secondaryYear != null ? compareAsOf(asOf, focusMonth, secondaryYear) : null;
     const throughMonth = (year: number) => monthEnd(`${year}-${focusMonth.slice(5, 7)}`);
     const compareRows = compareMonth && cutoff
       ? paymentsForMonth(data.payments, compareMonth, cutoff)
@@ -233,29 +212,14 @@ export function BookingPaceSection() {
     const compareAll = compareMonth
       ? paymentsForMonth(data.payments, compareMonth, throughMonth(selectedCompare!))
       : [];
-    const secondaryAll = secondaryMonth && secondaryYear != null
-      ? paymentsForMonth(data.payments, secondaryMonth, throughMonth(secondaryYear))
-      : [];
     const focus = paceTotals(focusRows);
     const compare = paceTotals(compareRows);
     const series = selectedCompare != null && cutoff
-      ? buildPaceSeries(focusRows, compareAll, focusMonth, selectedCompare, asOf, cutoff, {
-          fullMonth,
-          secondaryRows: secondaryAll,
-          secondaryYear: secondaryYear ?? undefined,
-          secondaryCutoff: secondaryCutoff ?? undefined,
-        })
+      ? buildPaceSeries(focusRows, compareAll, focusMonth, selectedCompare, asOf, cutoff, { fullMonth })
       : buildPaceSeries(focusRows, [], focusMonth, focusYear, asOf, asOf, { fullMonth });
-    const targets = [selectedCompare, secondaryYear]
-      .filter((year): year is number => year != null)
-      .map((year) => targetGaps(
-        focus,
-        year === selectedCompare ? compareAll : secondaryAll,
-        year,
-        focusMonth,
-        year === selectedCompare ? cutoff! : secondaryCutoff!,
-      ))
-      .sort((a, b) => b.year - a.year);
+    const targets = selectedCompare != null && cutoff
+      ? [targetGaps(focus, compareAll, selectedCompare, focusMonth, cutoff)]
+      : [];
     const byGroup = new Map<string, { focus: PacePayment[]; compare: PacePayment[] }>();
     for (const row of focusRows) {
       const key = row.group || 'other';
@@ -290,10 +254,9 @@ export function BookingPaceSection() {
       series,
       groups,
       targets,
-      secondaryYear,
       list: listRows(focusRows),
     };
-  }, [data, focusMonth, focusYear, selectedCompare, otherYears, fullMonth]);
+  }, [data, focusMonth, focusYear, selectedCompare, fullMonth]);
 
   if (loading) {
     return (
@@ -380,7 +343,7 @@ export function BookingPaceSection() {
         <div className="card overflow-x-auto">
           <h3 className="text-sm font-medium text-foreground px-4 pt-4">Where we&apos;re aiming</h3>
           <p className="text-xs text-muted px-4 pt-1 pb-2">
-            Prior years, counted on the day the deposit was paid. To match is how far {focusName} still is from that year. This year is not projected.
+            {compareName}, counted on the day the deposit was paid. To match is how far {focusName} still is from that year. This year is not projected.
           </p>
           <table className="w-full text-sm">
             <thead>
@@ -416,11 +379,8 @@ export function BookingPaceSection() {
           focusKey="focusDollars"
           compareKey="compareDollars"
           aheadKey="compareAheadDollars"
-          secondaryKey="secondaryDollars"
-          secondaryAheadKey="secondaryAheadDollars"
           focusName={focusName}
           compareName={compareName}
-          secondaryName={view.secondaryYear != null ? String(view.secondaryYear) : null}
           fullMonth={fullMonth}
           formatValue={(value) => formatCurrency(value)}
           formatAxis={(value) => (value >= 1000 ? `$${Math.round(value / 1000)}k` : formatCurrency(value))}
@@ -431,11 +391,8 @@ export function BookingPaceSection() {
           focusKey="focusEvents"
           compareKey="compareEvents"
           aheadKey="compareAheadEvents"
-          secondaryKey="secondaryEvents"
-          secondaryAheadKey="secondaryAheadEvents"
           focusName={focusName}
           compareName={compareName}
-          secondaryName={view.secondaryYear != null ? String(view.secondaryYear) : null}
           fullMonth={fullMonth}
           formatValue={(value) => formatNumber(value)}
         />
@@ -444,7 +401,7 @@ export function BookingPaceSection() {
         {fullMonth
           ? `Solid lines stop at ${shortDate(view.asOf)}. Dashed lines are what that year still booked, by paid date, through the end of the month.`
           : `Weeks before the month starts. The last point is ${shortDate(view.asOf)}.`}
-        {' '}{historyFootnote(data.history, selectedCompare, view.secondaryYear, focusMonth)}
+        {' '}{historyFootnote(data.history, selectedCompare, focusMonth)}
       </p>
 
       <div className="card overflow-x-auto">
@@ -517,20 +474,17 @@ function AimCell({ totals }: { totals: TargetGap['atPoint'] }) {
 
 function historyFootnote(
   coverage: { source: string; from: string | null; to: string | null }[] | undefined,
-  primary: number | null,
-  secondary: number | null,
+  year: number | null,
   focusMonth: string,
 ): string {
-  const years = [primary, secondary].filter((year): year is number => year != null);
-  const notes = years.map((year) => ({ year, kind: historyCoverageFor(coverage, year, focusMonth) }));
-  const partial = notes.find((note) => note.kind === 'partial');
-  const rebuilt = notes.find((note) => note.kind === 'rebuilt');
-  if (partial) {
+  if (year == null) return '';
+  const kind = historyCoverageFor(coverage, year, focusMonth);
+  if (kind === 'partial') {
     const from = (coverage || []).find((item) => item.from)?.from;
-    return `${partial.year} before ${from ? shortDate(from) : 'the history window'} is only partly rebuilt, so that comparison is partial.`;
+    return `${year} before ${from ? shortDate(from) : 'the history window'} is only partly rebuilt, so that comparison is partial.`;
   }
-  if (rebuilt) {
-    return `${rebuilt.year} party deposits use 17hats paid dates matched to POS accounts.`;
+  if (kind === 'rebuilt') {
+    return `${year} party deposits use 17hats paid dates matched to POS accounts.`;
   }
   return '';
 }

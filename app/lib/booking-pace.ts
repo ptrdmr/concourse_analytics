@@ -43,17 +43,10 @@ export interface PacePoint {
   /** Comparison year after the same-point cutoff. Null up to that point, so a dashed line can start there. */
   compareAheadEvents: number | null;
   compareAheadDollars: number | null;
-  secondaryEvents: number | null;
-  secondaryDollars: number | null;
-  secondaryAheadEvents: number | null;
-  secondaryAheadDollars: number | null;
 }
 
 export interface PaceSeriesOptions {
   fullMonth?: boolean;
-  secondaryRows?: PacePayment[];
-  secondaryYear?: number;
-  secondaryCutoff?: string;
 }
 
 export interface TargetGap {
@@ -250,7 +243,6 @@ function pacePoint(
   label: string,
   focus: PaceTotals | null,
   compare: { toDate: PaceTotals | null; ahead: PaceTotals | null },
-  secondary: { toDate: PaceTotals | null; ahead: PaceTotals | null },
 ): PacePoint {
   return {
     label,
@@ -260,10 +252,6 @@ function pacePoint(
     compareDollars: compare.toDate ? Math.round(compare.toDate.dollars) : null,
     compareAheadEvents: compare.ahead?.events ?? null,
     compareAheadDollars: compare.ahead ? Math.round(compare.ahead.dollars) : null,
-    secondaryEvents: secondary.toDate?.events ?? null,
-    secondaryDollars: secondary.toDate ? Math.round(secondary.toDate.dollars) : null,
-    secondaryAheadEvents: secondary.ahead?.events ?? null,
-    secondaryAheadDollars: secondary.ahead ? Math.round(secondary.ahead.dollars) : null,
   };
 }
 
@@ -279,18 +267,10 @@ export function buildPaceSeries(
   const fullMonth = options.fullMonth === true;
   const focusStart = `${focusMonth}-01`;
   const compareStart = `${compareYear}-${focusMonth.slice(5, 7)}-01`;
-  const secondaryYear = options.secondaryYear;
-  const secondaryStart = secondaryYear != null
-    ? `${secondaryYear}-${focusMonth.slice(5, 7)}-01`
-    : null;
-  const secondaryCutoff = options.secondaryCutoff || null;
 
   let maxWeek = 0;
   for (const row of focusRows) maxWeek = Math.max(maxWeek, weekBefore(row.paid, focusStart));
   for (const row of compareRows) maxWeek = Math.max(maxWeek, weekBefore(row.paid, compareStart));
-  if (secondaryStart) {
-    for (const row of options.secondaryRows || []) maxWeek = Math.max(maxWeek, weekBefore(row.paid, secondaryStart));
-  }
   maxWeek = Math.min(Math.max(maxWeek, 4), 52);
 
   const lagDays = daysBetween(focusAsOf, focusStart);
@@ -299,15 +279,12 @@ export function buildPaceSeries(
   const fullMonthEnd = daysAfterStart > 0 ? -Math.ceil(daysAfterStart / 7) : 0;
   const lastWeek = fullMonth ? fullMonthEnd : throughToday;
 
-  const at = (focusCut: string, compareCut: string, secondaryCut: string | null): PacePoint => {
+  const at = (focusCut: string, compareCut: string): PacePoint => {
     const focus = focusCut <= focusAsOf ? totalsAt(focusRows, focusCut) : null;
     return pacePoint(
       '',
       focus,
       sliceTotals(compareRows, compareCut, compareCutoff, fullMonth),
-      secondaryCut && secondaryCutoff
-        ? sliceTotals(options.secondaryRows, secondaryCut, secondaryCutoff, fullMonth)
-        : { toDate: null, ahead: null },
     );
   };
 
@@ -316,20 +293,17 @@ export function buildPaceSeries(
   for (let week = maxWeek; week >= lastWeek; week -= 1) {
     const focusCut = addDays(focusStart, -7 * week);
     if (fullMonth && !placedAsOf && focusCut > focusAsOf) {
-      const marker = at(focusAsOf, compareCutoff, secondaryCutoff);
+      const marker = at(focusAsOf, compareCutoff);
       marker.label = shortDate(focusAsOf);
       points.push(marker);
       placedAsOf = true;
     }
     const compareCut = addDays(compareStart, -7 * week);
-    const secondaryCut = secondaryStart ? addDays(secondaryStart, -7 * week) : null;
-    const point = at(focusCut, compareCut, secondaryCut);
+    const point = at(focusCut, compareCut);
     point.label = week > 0 ? `${week}w` : week === 0 ? 'Start' : `+${-week}w`;
-    const hasCompare = point.compareDollars != null || point.compareAheadDollars != null
-      || point.secondaryDollars != null || point.secondaryAheadDollars != null;
+    const hasCompare = point.compareDollars != null || point.compareAheadDollars != null;
     if (!point.focusDollars && point.focusDollars !== 0 && !hasCompare && point.focusEvents == null) continue;
-    if (point.focusEvents == null && point.compareEvents == null && point.compareAheadEvents == null
-      && point.secondaryEvents == null && point.secondaryAheadEvents == null) continue;
+    if (point.focusEvents == null && point.compareEvents == null && point.compareAheadEvents == null) continue;
     points.push(point);
   }
 
@@ -337,7 +311,6 @@ export function buildPaceSeries(
     points.length > 2
     && (points[0].focusDollars || 0) === 0
     && (points[0].compareDollars || 0) === 0
-    && (points[0].secondaryDollars || 0) === 0
   ) {
     points.shift();
   }
@@ -345,12 +318,12 @@ export function buildPaceSeries(
   if (!fullMonth) {
     const lastCut = addDays(focusStart, -7 * lastWeek);
     if (focusAsOf !== lastCut) {
-      const marker = at(focusAsOf, compareCutoff, secondaryCutoff);
+      const marker = at(focusAsOf, compareCutoff);
       marker.label = shortDate(focusAsOf);
       points.push(marker);
     }
   } else if (!placedAsOf) {
-    const marker = at(focusAsOf, compareCutoff, secondaryCutoff);
+    const marker = at(focusAsOf, compareCutoff);
     marker.label = shortDate(focusAsOf);
     points.push(marker);
   }
