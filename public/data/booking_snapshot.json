@@ -1,5 +1,5 @@
 {
-  "pulledAt": "2026-10-29T05:34:25",
+  "pulledAt": "2026-10-30T05:34:20",
   "reservations": [
     {
       "id": 37008,
@@ -19174,7 +19174,8 @@
       "parentId": null,
       "txnIds": [
         839762,
-        839763
+        839763,
+        852420
       ]
     },
     {
@@ -22578,7 +22579,7 @@
       "id": 42218,
       "created": "2026-10-16T13:20:00",
       "event": "2026-11-01",
-      "statusId": 0,
+      "statusId": 2,
       "type": "Online Reservations",
       "accountId": 12429,
       "transactionId": 846531,
@@ -23188,7 +23189,7 @@
     {
       "id": 42284,
       "created": "2026-10-19T12:34:32",
-      "event": "2026-11-07",
+      "event": "2026-11-14",
       "statusId": 2,
       "type": "Online Reservations",
       "accountId": 12508,
@@ -24029,7 +24030,7 @@
       "id": 42347,
       "created": "2026-10-23T15:36:48",
       "event": "2026-10-29",
-      "statusId": 0,
+      "statusId": 2,
       "type": "Adult Party",
       "accountId": 12490,
       "transactionId": 849803,
@@ -24059,7 +24060,7 @@
       "id": 42349,
       "created": "2026-10-23T15:53:49",
       "event": "2026-10-29",
-      "statusId": 0,
+      "statusId": 2,
       "type": "Adult Party",
       "accountId": 12492,
       "transactionId": 849814,
@@ -24089,7 +24090,7 @@
       "id": 42351,
       "created": "2026-10-23T15:55:48",
       "event": "2026-10-29",
-      "statusId": 0,
+      "statusId": 2,
       "type": "Adult Party",
       "accountId": 12494,
       "transactionId": 849818,
@@ -24104,7 +24105,7 @@
       "id": 42352,
       "created": "2026-10-23T15:56:49",
       "event": "2026-10-29",
-      "statusId": 0,
+      "statusId": 2,
       "type": "Adult Party",
       "accountId": 12495,
       "transactionId": 849821,
@@ -24728,7 +24729,7 @@
       "id": 42400,
       "created": "2026-10-27T20:34:35",
       "event": "2026-10-29",
-      "statusId": 0,
+      "statusId": 2,
       "type": "all you can bowl",
       "accountId": 12525,
       "transactionId": 851749,
@@ -24758,7 +24759,7 @@
       "id": 42402,
       "created": "2026-10-28T01:53:37",
       "event": "2026-10-29",
-      "statusId": 0,
+      "statusId": 2,
       "type": "all you can bowl",
       "accountId": 12527,
       "transactionId": 851798,
@@ -24833,7 +24834,7 @@
       "id": 42407,
       "created": "2026-10-28T14:31:51",
       "event": "2026-10-29",
-      "statusId": 0,
+      "statusId": 2,
       "type": "Online Reservations",
       "accountId": 12532,
       "transactionId": 851861,
@@ -24890,7 +24891,8 @@
       "transactionId": null,
       "title": "New Reservation",
       "parentId": null,
-      "txnIds": []
+      "txnIds": [],
+      "goneAt": "2026-10-30"
     },
     {
       "id": 42416,
@@ -24947,7 +24949,7 @@
       "id": 42421,
       "created": "2026-10-28T18:21:54",
       "event": "2026-10-29",
-      "statusId": 0,
+      "statusId": 2,
       "type": "all you can bowl",
       "accountId": 12534,
       "transactionId": 852104,
@@ -25037,6 +25039,294 @@
       "txnIds": [
         852294,
         852295
+      ]
+    },
+    {
+      "id": 42428,
+      "created": "2026-10-29T10:17:05",
+      "event": "2026-10-30",
+      "statusId": 0,
+      "type": "Online Reservations",
+      "accountId": 12538,
+      "transactionId": 852303,
+      "title": "Daniel Ramirez",
+      "parentId": null,
+      "txnIds": [
+        852302,
+        852303
+      ]
+    },
+    {
+      "id": 42429,
+      "created": "2026-10-29T10:33:06",
+      "event": "2026-10-29",
+      "statusId": 2,
+      "type": "all you can bowl",
+      "accountId": 12539,
+      "transactionId": 852306,
+      "title": "Chandra Kiran",
+      "parentId": null,
+      "txnIds": [
+        852305,
+        852306
+      ]
+    },
+    {
+      "id": 42430,
+      "created": "2026-10-29T12:34:56",
+      "event": "2026-11-01",
+      "statusId": 2,
+      "type": "Special Event",
+      "accountId": 12540,
+      "transactionId": 852363,
+      "title": "ACT Volleyball",
+      "parentId": null,
+      "txnIds": [
+        852362,
+        852363
+      ]
+    },
+    {
+      "id": 42431,
+      "created": "2026-10-29T12:36:18",
+      "event": "2026-11-01",
+      "statusId": 2,
+      "type": "Undefined",
+      "accountId": null,
+      "transactionId": null,
+      "title": "New Reservation",
+      "parentId": null,
+      "txnIds": []
+    },
+    {
+      "id": 42432,
+      "created": "2026-10-29T12:36:26",
+      "event": "2026-11-01",
+      "statusId": 2,
+      "type": "Undefined",
+      "accountId": null,
+      "transactionId": null,
+      "title": "New Reservation",
+      "parentId": null,
+      "txnIds": []
+    },
+    {
+      "id": 42433,
+      "created": "2026-10-29T12:37:45",
+      "event": "2027-01-04",
+      "statusId": 2,
+      "type": "Strikezone 4 Lane Suite",
+      "accountId": 12541,
+      "transactionId": 852365,
+      "title": "Gurstel Law Firm",
+      "parentId": null,
+      "txnIds": [
+        852364,
+        852365
+      ]
+    },
+    {
+      "id": 42434,
+      "created": "2026-10-29T12:39:07",
+      "event": "2026-10-29",
+      "statusId": 2,
+      "type": "all you can bowl",
+      "accountId": 12542,
+      "transactionId": 852367,
+      "title": "Jacob Hutchison",
+      "parentId": null,
+      "txnIds": [
+        852366,
+        852367
+      ]
+    },
+    {
+      "id": 42435,
+      "created": "2026-10-29T13:38:07",
+      "event": "2026-10-29",
+      "statusId": 2,
+      "type": "all you can bowl",
+      "accountId": 12543,
+      "transactionId": 852380,
+      "title": "Danny Do",
+      "parentId": null,
+      "txnIds": [
+        852379,
+        852380
+      ]
+    },
+    {
+      "id": 42436,
+      "created": "2026-10-29T13:39:07",
+      "event": "2026-10-29",
+      "statusId": 2,
+      "type": "all you can bowl",
+      "accountId": 12544,
+      "transactionId": 852382,
+      "title": "Thomas Suk",
+      "parentId": null,
+      "txnIds": [
+        852381,
+        852382
+      ]
+    },
+    {
+      "id": 42437,
+      "created": "2026-10-29T13:40:31",
+      "event": "2026-10-29",
+      "statusId": 2,
+      "type": "Adult Party",
+      "accountId": null,
+      "transactionId": null,
+      "title": "Keep together",
+      "parentId": null,
+      "txnIds": []
+    },
+    {
+      "id": 42438,
+      "created": "2026-10-29T14:18:08",
+      "event": "2026-10-29",
+      "statusId": 2,
+      "type": "all you can bowl",
+      "accountId": 12545,
+      "transactionId": 852391,
+      "title": "Christopher Camacho",
+      "parentId": null,
+      "txnIds": [
+        852390,
+        852391
+      ]
+    },
+    {
+      "id": 42439,
+      "created": "2026-10-29T14:26:08",
+      "event": "2026-11-07",
+      "statusId": 0,
+      "type": "summer party builder",
+      "accountId": 12546,
+      "transactionId": 852393,
+      "title": "Shereen Youssef",
+      "parentId": null,
+      "txnIds": [
+        852392,
+        852393
+      ]
+    },
+    {
+      "id": 42440,
+      "created": "2026-10-29T16:13:10",
+      "event": "2026-11-14",
+      "statusId": 0,
+      "type": "Online Reservations",
+      "accountId": 12547,
+      "transactionId": 852417,
+      "title": "Anne Saldivar",
+      "parentId": null,
+      "txnIds": [
+        852416,
+        852417
+      ]
+    },
+    {
+      "id": 42441,
+      "created": "2026-10-29T16:14:40",
+      "event": "2026-10-29",
+      "statusId": 2,
+      "type": "Adult Party",
+      "accountId": null,
+      "transactionId": null,
+      "title": "Teri",
+      "parentId": null,
+      "txnIds": []
+    },
+    {
+      "id": 42442,
+      "created": "2026-10-29T16:48:09",
+      "event": "2026-11-01",
+      "statusId": 0,
+      "type": "family fun pack",
+      "accountId": 12548,
+      "transactionId": 852437,
+      "title": "Nina Lee",
+      "parentId": null,
+      "txnIds": [
+        852436,
+        852437
+      ]
+    },
+    {
+      "id": 42443,
+      "created": "2026-10-29T17:16:10",
+      "event": "2026-10-29",
+      "statusId": 2,
+      "type": "all you can bowl",
+      "accountId": 12549,
+      "transactionId": 852447,
+      "title": "Kenis Arias",
+      "parentId": null,
+      "txnIds": [
+        852446,
+        852447
+      ]
+    },
+    {
+      "id": 42444,
+      "created": "2026-10-29T17:19:10",
+      "event": "2026-10-31",
+      "statusId": 0,
+      "type": "Online Reservations",
+      "accountId": 12550,
+      "transactionId": 852449,
+      "title": "Daniel Miller",
+      "parentId": null,
+      "txnIds": [
+        852448,
+        852449
+      ]
+    },
+    {
+      "id": 42445,
+      "created": "2026-10-29T22:46:13",
+      "event": "2026-11-01",
+      "statusId": 0,
+      "type": "family fun pack",
+      "accountId": 12551,
+      "transactionId": 852719,
+      "title": "Julia Kim",
+      "parentId": null,
+      "txnIds": [
+        852718,
+        852719
+      ]
+    },
+    {
+      "id": 42446,
+      "created": "2026-10-29T22:49:13",
+      "event": "2026-11-01",
+      "statusId": 0,
+      "type": "family fun pack",
+      "accountId": 12552,
+      "transactionId": 852722,
+      "title": "Julia Kim",
+      "parentId": null,
+      "txnIds": [
+        852721,
+        852722
+      ]
+    },
+    {
+      "id": 42447,
+      "created": "2026-10-29T22:51:13",
+      "event": "2026-11-01",
+      "statusId": 0,
+      "type": "family fun pack",
+      "accountId": 12553,
+      "transactionId": 852724,
+      "title": "Julia Kim",
+      "parentId": null,
+      "txnIds": [
+        852723,
+        852724
       ]
     }
   ],
@@ -135108,6 +135398,216 @@
       "at": "2026-10-28T22:57:58",
       "amount": 153.47,
       "txnId": 852294
+    },
+    {
+      "id": 38309,
+      "accountId": 12538,
+      "at": "2026-10-29T10:17:07",
+      "amount": 153.47,
+      "txnId": 852302
+    },
+    {
+      "id": 38310,
+      "accountId": 12539,
+      "at": "2026-10-29T10:33:07",
+      "amount": 129.78,
+      "txnId": 852305
+    },
+    {
+      "id": 38311,
+      "accountId": 12490,
+      "at": "2026-10-29T11:22:58",
+      "amount": -57.68,
+      "txnId": 849803
+    },
+    {
+      "id": 38312,
+      "accountId": 12492,
+      "at": "2026-10-29T11:23:58",
+      "amount": -57.68,
+      "txnId": 849814
+    },
+    {
+      "id": 38313,
+      "accountId": 12494,
+      "at": "2026-10-29T11:24:17",
+      "amount": -57.68,
+      "txnId": 849818
+    },
+    {
+      "id": 38314,
+      "accountId": 12495,
+      "at": "2026-10-29T11:24:36",
+      "amount": -57.68,
+      "txnId": 849821
+    },
+    {
+      "id": 38315,
+      "accountId": 12540,
+      "at": "2026-10-29T12:35:26",
+      "amount": 347.63,
+      "txnId": 852362
+    },
+    {
+      "id": 38316,
+      "accountId": 12541,
+      "at": "2026-10-29T12:38:33",
+      "amount": 1350.0,
+      "txnId": 852364
+    },
+    {
+      "id": 38317,
+      "accountId": 12542,
+      "at": "2026-10-29T12:39:08",
+      "amount": 37.08,
+      "txnId": 852366
+    },
+    {
+      "id": 38318,
+      "accountId": 12543,
+      "at": "2026-10-29T13:38:09",
+      "amount": 74.16,
+      "txnId": 852379
+    },
+    {
+      "id": 38319,
+      "accountId": 12544,
+      "at": "2026-10-29T13:39:09",
+      "amount": 55.62,
+      "txnId": 852381
+    },
+    {
+      "id": 38320,
+      "accountId": 12545,
+      "at": "2026-10-29T14:18:10",
+      "amount": 18.54,
+      "txnId": 852390
+    },
+    {
+      "id": 38321,
+      "accountId": 12546,
+      "at": "2026-10-29T14:26:09",
+      "amount": 803.4,
+      "txnId": 852392
+    },
+    {
+      "id": 38322,
+      "accountId": 12547,
+      "at": "2026-10-29T16:13:11",
+      "amount": 203.94,
+      "txnId": 852416
+    },
+    {
+      "id": 38323,
+      "accountId": 12316,
+      "at": "2026-10-29T16:22:07",
+      "amount": 7255.86,
+      "txnId": 852420
+    },
+    {
+      "id": 38324,
+      "accountId": 12548,
+      "at": "2026-10-29T16:48:11",
+      "amount": 104.24,
+      "txnId": 852436
+    },
+    {
+      "id": 38325,
+      "accountId": 12549,
+      "at": "2026-10-29T17:16:11",
+      "amount": 37.08,
+      "txnId": 852446
+    },
+    {
+      "id": 38326,
+      "accountId": 12550,
+      "at": "2026-10-29T17:19:12",
+      "amount": 153.47,
+      "txnId": 852448
+    },
+    {
+      "id": 38327,
+      "accountId": 12525,
+      "at": "2026-10-29T20:02:05",
+      "amount": -37.08,
+      "txnId": 851749
+    },
+    {
+      "id": 38328,
+      "accountId": 12545,
+      "at": "2026-10-29T20:02:25",
+      "amount": -18.54,
+      "txnId": 852391
+    },
+    {
+      "id": 38329,
+      "accountId": 12532,
+      "at": "2026-10-29T20:03:08",
+      "amount": -101.97,
+      "txnId": 851861
+    },
+    {
+      "id": 38330,
+      "accountId": 12544,
+      "at": "2026-10-29T20:04:17",
+      "amount": -55.62,
+      "txnId": 852382
+    },
+    {
+      "id": 38331,
+      "accountId": 12543,
+      "at": "2026-10-29T20:04:35",
+      "amount": -74.16,
+      "txnId": 852380
+    },
+    {
+      "id": 38332,
+      "accountId": 12549,
+      "at": "2026-10-29T20:18:00",
+      "amount": -37.08,
+      "txnId": 852447
+    },
+    {
+      "id": 38333,
+      "accountId": 12527,
+      "at": "2026-10-29T20:28:08",
+      "amount": -37.08,
+      "txnId": 851798
+    },
+    {
+      "id": 38334,
+      "accountId": 12539,
+      "at": "2026-10-29T20:59:43",
+      "amount": -129.78,
+      "txnId": 852306
+    },
+    {
+      "id": 38335,
+      "accountId": 12534,
+      "at": "2026-10-29T21:17:58",
+      "amount": -37.08,
+      "txnId": 852104
+    },
+    {
+      "id": 38336,
+      "accountId": 12551,
+      "at": "2026-10-29T22:46:15",
+      "amount": 121.24,
+      "txnId": 852718
+    },
+    {
+      "id": 38337,
+      "accountId": 12552,
+      "at": "2026-10-29T22:49:15",
+      "amount": 121.24,
+      "txnId": 852721
+    },
+    {
+      "id": 38338,
+      "accountId": 12553,
+      "at": "2026-10-29T22:51:15",
+      "amount": 121.24,
+      "txnId": 852723
     }
   ],
   "accounts": [
@@ -176399,6 +176899,86 @@
     {
       "id": 12537,
       "name": "10/31/2026 Andrew Hofacre",
+      "collection": "Event"
+    },
+    {
+      "id": 12538,
+      "name": "10/30/2026 Daniel Ramirez",
+      "collection": "Event"
+    },
+    {
+      "id": 12539,
+      "name": "10/29/2026 Chandra Kiran",
+      "collection": "Event"
+    },
+    {
+      "id": 12540,
+      "name": "ACT Volleyball 11-01-26",
+      "collection": "Sports Party"
+    },
+    {
+      "id": 12541,
+      "name": "Gurstel Law Firm - 01-04-27",
+      "collection": "VIP Suites"
+    },
+    {
+      "id": 12542,
+      "name": "10/29/2026 Jacob Hutchison",
+      "collection": "Event"
+    },
+    {
+      "id": 12543,
+      "name": "10/29/2026 Danny Do",
+      "collection": "Event"
+    },
+    {
+      "id": 12544,
+      "name": "10/29/2026 Thomas Suk",
+      "collection": "Event"
+    },
+    {
+      "id": 12545,
+      "name": "10/29/2026 Christopher Camacho",
+      "collection": "Event"
+    },
+    {
+      "id": 12546,
+      "name": "11/7/2026 Shereen Youssef",
+      "collection": "Event"
+    },
+    {
+      "id": 12547,
+      "name": "11/14/2026 Anne Saldivar",
+      "collection": "Event"
+    },
+    {
+      "id": 12548,
+      "name": "11/1/2026 Nina Lee",
+      "collection": "Event"
+    },
+    {
+      "id": 12549,
+      "name": "10/29/2026 Kenis Arias",
+      "collection": "Event"
+    },
+    {
+      "id": 12550,
+      "name": "10/31/2026 Daniel Miller",
+      "collection": "Event"
+    },
+    {
+      "id": 12551,
+      "name": "11/1/2026 Julia Kim",
+      "collection": "Event"
+    },
+    {
+      "id": 12552,
+      "name": "11/1/2026 Julia Kim (1)",
+      "collection": "Event"
+    },
+    {
+      "id": 12553,
+      "name": "11/1/2026 Julia Kim (2)",
       "collection": "Event"
     }
   ]

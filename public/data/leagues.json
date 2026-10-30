@@ -1,6 +1,6 @@
 {
-  "generatedAt": "2026-10-29T05:35:09.166650",
-  "dataThrough": "2026-10-28",
+  "generatedAt": "2026-10-30T05:35:04.624738",
+  "dataThrough": "2026-10-29",
   "combined": [
     {
       "date": "2024-01-21",
@@ -16810,6 +16810,60 @@
       "quantity": 2.0,
       "payments": 2,
       "firstSlot": 36
+    },
+    {
+      "date": "2026-10-29",
+      "league": "River Magic",
+      "kind": "lineage",
+      "revenue": 1672.0,
+      "quantity": 88.0,
+      "payments": 88,
+      "firstSlot": 36
+    },
+    {
+      "date": "2026-10-29",
+      "league": "River Magic",
+      "kind": "prizeFund",
+      "revenue": 968.0,
+      "quantity": 88.0,
+      "payments": 88,
+      "firstSlot": 36
+    },
+    {
+      "date": "2026-10-29",
+      "league": "River Magic",
+      "kind": "prizeFundGeneral",
+      "revenue": 11.0,
+      "quantity": 2.0,
+      "payments": 2,
+      "firstSlot": 37
+    },
+    {
+      "date": "2026-10-29",
+      "league": "Silver & Gold",
+      "kind": "lineage",
+      "revenue": 260.0,
+      "quantity": 20.0,
+      "payments": 20,
+      "firstSlot": 22
+    },
+    {
+      "date": "2026-10-29",
+      "league": "Silver & Gold",
+      "kind": "prizeFund",
+      "revenue": 160.0,
+      "quantity": 20.0,
+      "payments": 20,
+      "firstSlot": 22
+    },
+    {
+      "date": "2026-10-29",
+      "league": "Silver & Gold",
+      "kind": "prizeFundGeneral",
+      "revenue": 32.0,
+      "quantity": 1.0,
+      "payments": 1,
+      "firstSlot": 22
     }
   ],
   "voids": [
@@ -19045,6 +19099,20 @@
       "kind": "prizeFund",
       "count": 0.0,
       "value": 20.0
+    },
+    {
+      "date": "2026-10-29",
+      "league": "River Magic",
+      "kind": "lineage",
+      "count": 4.0,
+      "value": 76.0
+    },
+    {
+      "date": "2026-10-29",
+      "league": "River Magic",
+      "kind": "prizeFund",
+      "count": 4.0,
+      "value": 44.0
     }
   ]
 }
