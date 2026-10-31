@@ -1,5 +1,5 @@
 {
-  "pulledAt": "2026-10-30T05:34:20",
+  "pulledAt": "2026-10-31T05:34:18",
   "reservations": [
     {
       "id": 37008,
@@ -14861,7 +14861,8 @@
       "transactionId": null,
       "title": "New Reservation",
       "parentId": 41279,
-      "txnIds": []
+      "txnIds": [],
+      "goneAt": "2026-10-31"
     },
     {
       "id": 41282,
@@ -14873,7 +14874,8 @@
       "transactionId": null,
       "title": "New Reservation",
       "parentId": 41279,
-      "txnIds": []
+      "txnIds": [],
+      "goneAt": "2026-10-31"
     },
     {
       "id": 41283,
@@ -14885,7 +14887,8 @@
       "transactionId": null,
       "title": "New Reservation",
       "parentId": 41279,
-      "txnIds": []
+      "txnIds": [],
+      "goneAt": "2026-10-31"
     },
     {
       "id": 41284,
@@ -23232,7 +23235,7 @@
       "id": 42288,
       "created": "2026-10-19T16:17:22",
       "event": "2026-10-30",
-      "statusId": 0,
+      "statusId": 2,
       "type": "Online Reservations",
       "accountId": 12447,
       "transactionId": 848011,
@@ -23610,7 +23613,7 @@
       "id": 42316,
       "created": "2026-10-21T19:08:04",
       "event": "2026-11-06",
-      "statusId": 0,
+      "statusId": 2,
       "type": "summer party builder",
       "accountId": 12466,
       "transactionId": 848991,
@@ -24698,7 +24701,7 @@
     {
       "id": 42398,
       "created": "2026-10-27T16:29:32",
-      "event": "2026-10-27",
+      "event": "2026-10-30",
       "statusId": 2,
       "type": "Online Reservations",
       "accountId": 12523,
@@ -24774,7 +24777,7 @@
       "id": 42403,
       "created": "2026-10-28T08:35:47",
       "event": "2026-10-30",
-      "statusId": 0,
+      "statusId": 2,
       "type": "Adult Party",
       "accountId": 12528,
       "transactionId": 851800,
@@ -24819,7 +24822,7 @@
       "id": 42406,
       "created": "2026-10-28T13:43:51",
       "event": "2026-10-30",
-      "statusId": 0,
+      "statusId": 2,
       "type": "Online Reservations",
       "accountId": 12531,
       "transactionId": 851844,
@@ -24934,7 +24937,7 @@
       "id": 42420,
       "created": "2026-10-28T16:47:53",
       "event": "2026-10-30",
-      "statusId": 0,
+      "statusId": 2,
       "type": "Online Reservations",
       "accountId": 12533,
       "transactionId": 852016,
@@ -25045,7 +25048,7 @@
       "id": 42428,
       "created": "2026-10-29T10:17:05",
       "event": "2026-10-30",
-      "statusId": 0,
+      "statusId": 2,
       "type": "Online Reservations",
       "accountId": 12538,
       "transactionId": 852303,
@@ -25216,7 +25219,7 @@
       "id": 42440,
       "created": "2026-10-29T16:13:10",
       "event": "2026-11-14",
-      "statusId": 0,
+      "statusId": 2,
       "type": "Online Reservations",
       "accountId": 12547,
       "transactionId": 852417,
@@ -25288,7 +25291,7 @@
       "id": 42445,
       "created": "2026-10-29T22:46:13",
       "event": "2026-11-01",
-      "statusId": 0,
+      "statusId": 2,
       "type": "family fun pack",
       "accountId": 12551,
       "transactionId": 852719,
@@ -25303,7 +25306,7 @@
       "id": 42446,
       "created": "2026-10-29T22:49:13",
       "event": "2026-11-01",
-      "statusId": 0,
+      "statusId": 2,
       "type": "family fun pack",
       "accountId": 12552,
       "transactionId": 852722,
@@ -25318,7 +25321,7 @@
       "id": 42447,
       "created": "2026-10-29T22:51:13",
       "event": "2026-11-01",
-      "statusId": 0,
+      "statusId": 2,
       "type": "family fun pack",
       "accountId": 12553,
       "transactionId": 852724,
@@ -25327,6 +25330,234 @@
       "txnIds": [
         852723,
         852724
+      ]
+    },
+    {
+      "id": 42448,
+      "created": "2026-10-30T10:32:58",
+      "event": "2026-11-07",
+      "statusId": 2,
+      "type": "Undefined",
+      "accountId": null,
+      "transactionId": null,
+      "title": "New Reservation",
+      "parentId": null,
+      "txnIds": []
+    },
+    {
+      "id": 42449,
+      "created": "2026-10-30T10:33:07",
+      "event": "2026-11-07",
+      "statusId": 2,
+      "type": "Undefined",
+      "accountId": null,
+      "transactionId": null,
+      "title": "New Reservation",
+      "parentId": null,
+      "txnIds": []
+    },
+    {
+      "id": 42450,
+      "created": "2026-10-30T10:33:49",
+      "event": "2026-11-07",
+      "statusId": 2,
+      "type": "Online Reservations",
+      "accountId": 12554,
+      "transactionId": 852740,
+      "title": "The 17th Door",
+      "parentId": null,
+      "txnIds": [
+        852739,
+        852740
+      ]
+    },
+    {
+      "id": 42451,
+      "created": "2026-10-30T10:44:15",
+      "event": "2026-11-06",
+      "statusId": 0,
+      "type": "Online Reservations",
+      "accountId": 12555,
+      "transactionId": 852742,
+      "title": "Jaime Harrison",
+      "parentId": null,
+      "txnIds": [
+        852741,
+        852742
+      ]
+    },
+    {
+      "id": 42452,
+      "created": "2026-10-30T10:47:28",
+      "event": "2027-01-20",
+      "statusId": 2,
+      "type": "Undefined",
+      "accountId": null,
+      "transactionId": null,
+      "title": "Diana Petersen",
+      "parentId": null,
+      "txnIds": []
+    },
+    {
+      "id": 42453,
+      "created": "2026-10-30T11:51:15",
+      "event": "2026-11-04",
+      "statusId": 0,
+      "type": "summer party builder",
+      "accountId": 12556,
+      "transactionId": 852766,
+      "title": "Hua Qiang Gong",
+      "parentId": null,
+      "txnIds": [
+        852765,
+        852766
+      ]
+    },
+    {
+      "id": 42454,
+      "created": "2026-10-30T11:55:07",
+      "event": "2026-11-01",
+      "statusId": 2,
+      "type": "Adult Party",
+      "accountId": null,
+      "transactionId": null,
+      "title": "MIGHT ADD LANES",
+      "parentId": null,
+      "txnIds": []
+    },
+    {
+      "id": 42455,
+      "created": "2026-10-30T11:55:28",
+      "event": "2026-11-01",
+      "statusId": 2,
+      "type": "Adult Party",
+      "accountId": null,
+      "transactionId": null,
+      "title": "AND TIME",
+      "parentId": null,
+      "txnIds": []
+    },
+    {
+      "id": 42456,
+      "created": "2026-10-30T12:52:15",
+      "event": "2026-11-06",
+      "statusId": 0,
+      "type": "Online Reservations",
+      "accountId": 12557,
+      "transactionId": 852804,
+      "title": "Julia Montes",
+      "parentId": null,
+      "txnIds": [
+        852803,
+        852804
+      ]
+    },
+    {
+      "id": 42457,
+      "created": "2026-10-30T15:26:17",
+      "event": "2026-10-31",
+      "statusId": 0,
+      "type": "Online Reservations",
+      "accountId": 12558,
+      "transactionId": 852867,
+      "title": "Stephen Gardner",
+      "parentId": null,
+      "txnIds": [
+        852866,
+        852867
+      ]
+    },
+    {
+      "id": 42458,
+      "created": "2026-10-30T16:02:23",
+      "event": "2026-12-13",
+      "statusId": 2,
+      "type": "Undefined",
+      "accountId": null,
+      "transactionId": null,
+      "title": "New Reservation",
+      "parentId": 41280,
+      "txnIds": []
+    },
+    {
+      "id": 42459,
+      "created": "2026-10-30T16:02:23",
+      "event": "2027-01-10",
+      "statusId": 2,
+      "type": "Undefined",
+      "accountId": null,
+      "transactionId": null,
+      "title": "New Reservation",
+      "parentId": 41280,
+      "txnIds": []
+    },
+    {
+      "id": 42460,
+      "created": "2026-10-30T16:02:23",
+      "event": "2027-02-14",
+      "statusId": 2,
+      "type": "Undefined",
+      "accountId": null,
+      "transactionId": null,
+      "title": "New Reservation",
+      "parentId": 41280,
+      "txnIds": []
+    },
+    {
+      "id": 42461,
+      "created": "2026-10-30T16:32:02",
+      "event": "2026-11-06",
+      "statusId": 2,
+      "type": "Undefined",
+      "accountId": null,
+      "transactionId": null,
+      "title": "Heartwell",
+      "parentId": null,
+      "txnIds": []
+    },
+    {
+      "id": 42462,
+      "created": "2026-10-30T16:53:18",
+      "event": "2026-10-31",
+      "statusId": 2,
+      "type": "Online Reservations",
+      "accountId": 12559,
+      "transactionId": 852943,
+      "title": "Jenny Ly",
+      "parentId": null,
+      "txnIds": [
+        852942,
+        852943
+      ]
+    },
+    {
+      "id": 42463,
+      "created": "2026-10-30T20:14:20",
+      "event": "2026-10-31",
+      "statusId": 0,
+      "type": "Online Reservations",
+      "accountId": 12560,
+      "transactionId": 853080,
+      "title": "Jp Ducros",
+      "parentId": null,
+      "txnIds": [
+        853079,
+        853080
+      ]
+    },
+    {
+      "id": 42464,
+      "created": "2026-10-30T20:47:20",
+      "event": "2026-11-01",
+      "statusId": 0,
+      "type": "Online Reservations",
+      "accountId": 12561,
+      "transactionId": 853102,
+      "title": "Brian Russell",
+      "parentId": null,
+      "txnIds": [
+        853101,
+        853102
       ]
     }
   ],
@@ -135608,6 +135839,118 @@
       "at": "2026-10-29T22:51:15",
       "amount": 121.24,
       "txnId": 852723
+    },
+    {
+      "id": 38339,
+      "accountId": 12554,
+      "at": "2026-10-30T10:34:45",
+      "amount": 3470.93,
+      "txnId": 852739
+    },
+    {
+      "id": 38340,
+      "accountId": 12555,
+      "at": "2026-10-30T10:44:17",
+      "amount": 613.88,
+      "txnId": 852741
+    },
+    {
+      "id": 38341,
+      "accountId": 12556,
+      "at": "2026-10-30T11:51:16",
+      "amount": 556.2,
+      "txnId": 852765
+    },
+    {
+      "id": 38342,
+      "accountId": 12557,
+      "at": "2026-10-30T12:52:17",
+      "amount": 153.47,
+      "txnId": 852803
+    },
+    {
+      "id": 38343,
+      "accountId": 12528,
+      "at": "2026-10-30T14:55:22",
+      "amount": -28.84,
+      "txnId": 851800
+    },
+    {
+      "id": 38344,
+      "accountId": 12558,
+      "at": "2026-10-30T15:26:19",
+      "amount": 153.47,
+      "txnId": 852866
+    },
+    {
+      "id": 38345,
+      "accountId": 12559,
+      "at": "2026-10-30T16:53:19",
+      "amount": 153.47,
+      "txnId": 852942
+    },
+    {
+      "id": 38346,
+      "accountId": 12334,
+      "at": "2026-10-30T16:57:13",
+      "amount": -401.7,
+      "txnId": 840946
+    },
+    {
+      "id": 38347,
+      "accountId": 12533,
+      "at": "2026-10-30T18:40:35",
+      "amount": -306.94,
+      "txnId": 852016
+    },
+    {
+      "id": 38348,
+      "accountId": 12523,
+      "at": "2026-10-30T19:19:26",
+      "amount": -203.94,
+      "txnId": 851528
+    },
+    {
+      "id": 38349,
+      "accountId": 12531,
+      "at": "2026-10-30T19:37:56",
+      "amount": -306.94,
+      "txnId": 851844
+    },
+    {
+      "id": 38350,
+      "accountId": 12560,
+      "at": "2026-10-30T20:14:21",
+      "amount": 153.47,
+      "txnId": 853079
+    },
+    {
+      "id": 38351,
+      "accountId": 12561,
+      "at": "2026-10-30T20:47:22",
+      "amount": 245.14,
+      "txnId": 853101
+    },
+    {
+      "id": 38352,
+      "accountId": 12447,
+      "at": "2026-10-30T20:52:22",
+      "amount": -153.47,
+      "txnId": 848011
+    },
+    {
+      "id": 38353,
+      "accountId": 12538,
+      "at": "2026-10-30T21:48:11",
+      "amount": -153.47,
+      "txnId": 852303
+    },
+    {
+      "id": 38354,
+      "accountId": 1,
+      "at": "2026-10-31T03:53:14",
+      "amount": -9.16,
+      "txnId": 852834
     }
   ],
   "accounts": [
@@ -176979,6 +177322,46 @@
     {
       "id": 12553,
       "name": "11/1/2026 Julia Kim (2)",
+      "collection": "Event"
+    },
+    {
+      "id": 12554,
+      "name": "The 17th Door 11-07-26",
+      "collection": "Event"
+    },
+    {
+      "id": 12555,
+      "name": "11/6/2026 Jaime Harrison",
+      "collection": "Event"
+    },
+    {
+      "id": 12556,
+      "name": "11/4/2026 Hua Qiang Gong",
+      "collection": "Event"
+    },
+    {
+      "id": 12557,
+      "name": "11/6/2026 Julia Montes",
+      "collection": "Event"
+    },
+    {
+      "id": 12558,
+      "name": "10/31/2026 Stephen Gardner",
+      "collection": "Event"
+    },
+    {
+      "id": 12559,
+      "name": "10/31/2026 Jenny Ly",
+      "collection": "Event"
+    },
+    {
+      "id": 12560,
+      "name": "10/31/2026 Jp Ducros",
+      "collection": "Event"
+    },
+    {
+      "id": 12561,
+      "name": "11/1/2026 Brian Russell",
       "collection": "Event"
     }
   ]

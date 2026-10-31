@@ -1,9 +1,9 @@
 {
-  "generatedAt": "2026-10-30T05:35:28.395207-07:00",
+  "generatedAt": "2026-10-31T05:35:25.883311-07:00",
   "timezone": "America/Los_Angeles",
   "dateRange": [
-    "2025-10-31",
-    "2026-10-30"
+    "2025-11-01",
+    "2026-10-31"
   ],
   "roles": {
     "1918014": "Maintenace",
@@ -837,6 +837,20 @@
               "laborCost": 30.5
             }
           }
+        },
+        "2026-10-30": {
+          "hours": 7.95,
+          "laborCost": 238.5,
+          "punches": 1,
+          "scheduledShifts": 0,
+          "lateMinutes": 0,
+          "noShow": 0,
+          "byRole": {
+            "Manager": {
+              "hours": 7.95,
+              "laborCost": 238.5
+            }
+          }
         }
       }
     },
@@ -857,20 +871,6 @@
       "hiredAt": "2024-01-22T21:40:12+00:00",
       "active": false,
       "days": {
-        "2025-10-31": {
-          "hours": 7.87,
-          "laborCost": 236.0,
-          "punches": 1,
-          "scheduledShifts": 0,
-          "lateMinutes": 0,
-          "noShow": 0,
-          "byRole": {
-            "Role 0": {
-              "hours": 7.87,
-              "laborCost": 236.0
-            }
-          }
-        },
         "2025-11-01": {
           "hours": 6.17,
           "laborCost": 185.0,
@@ -3928,6 +3928,20 @@
             "League Support": {
               "hours": 4.2,
               "laborCost": 96.6
+            }
+          }
+        },
+        "2026-10-30": {
+          "hours": 7.88,
+          "laborCost": 181.32,
+          "punches": 1,
+          "scheduledShifts": 0,
+          "lateMinutes": 0,
+          "noShow": 0,
+          "byRole": {
+            "Front Desk": {
+              "hours": 7.88,
+              "laborCost": 181.32
             }
           }
         }
@@ -6997,6 +7011,20 @@
               "laborCost": 101.33
             }
           }
+        },
+        "2026-10-30": {
+          "hours": 4.93,
+          "laborCost": 93.73,
+          "punches": 1,
+          "scheduledShifts": 0,
+          "lateMinutes": 0,
+          "noShow": 0,
+          "byRole": {
+            "Front Desk": {
+              "hours": 4.93,
+              "laborCost": 93.73
+            }
+          }
         }
       }
     },
@@ -7705,6 +7733,20 @@
             "Server": {
               "hours": 6.0,
               "laborCost": 101.4
+            }
+          }
+        },
+        "2026-10-30": {
+          "hours": 6.93,
+          "laborCost": 117.17,
+          "punches": 1,
+          "scheduledShifts": 0,
+          "lateMinutes": 0,
+          "noShow": 0,
+          "byRole": {
+            "Bartender": {
+              "hours": 6.93,
+              "laborCost": 117.17
             }
           }
         }
@@ -8627,6 +8669,20 @@
               "laborCost": 136.0
             }
           }
+        },
+        "2026-10-30": {
+          "hours": 5.93,
+          "laborCost": 142.4,
+          "punches": 1,
+          "scheduledShifts": 0,
+          "lateMinutes": 0,
+          "noShow": 0,
+          "byRole": {
+            "Prep/Pizza": {
+              "hours": 5.93,
+              "laborCost": 142.4
+            }
+          }
         }
       }
     },
@@ -9528,6 +9584,20 @@
               "laborCost": 227.0
             }
           }
+        },
+        "2026-10-30": {
+          "hours": 8.57,
+          "laborCost": 257.0,
+          "punches": 1,
+          "scheduledShifts": 0,
+          "lateMinutes": 0,
+          "noShow": 0,
+          "byRole": {
+            "Kitchen Manager": {
+              "hours": 8.57,
+              "laborCost": 257.0
+            }
+          }
         }
       }
     },
@@ -10338,6 +10408,20 @@
               "laborCost": 226.8
             }
           }
+        },
+        "2026-10-30": {
+          "hours": 6.65,
+          "laborCost": 159.6,
+          "punches": 1,
+          "scheduledShifts": 0,
+          "lateMinutes": 0,
+          "noShow": 0,
+          "byRole": {
+            "Prep/Pizza": {
+              "hours": 6.65,
+              "laborCost": 159.6
+            }
+          }
         }
       }
     },
@@ -11145,6 +11229,20 @@
             "Line": {
               "hours": 5.1,
               "laborCost": 122.4
+            }
+          }
+        },
+        "2026-10-30": {
+          "hours": 5.57,
+          "laborCost": 133.6,
+          "punches": 1,
+          "scheduledShifts": 0,
+          "lateMinutes": 0,
+          "noShow": 0,
+          "byRole": {
+            "Line": {
+              "hours": 5.57,
+              "laborCost": 133.6
             }
           }
         }
@@ -13929,6 +14027,20 @@
             "Mechanic": {
               "hours": 5.57,
               "laborCost": 122.47
+            }
+          }
+        },
+        "2026-10-30": {
+          "hours": 7.5,
+          "laborCost": 165.0,
+          "punches": 1,
+          "scheduledShifts": 0,
+          "lateMinutes": 0,
+          "noShow": 0,
+          "byRole": {
+            "Mechanic": {
+              "hours": 7.5,
+              "laborCost": 165.0
             }
           }
         }
@@ -16858,20 +16970,6 @@
       "hiredAt": "2024-01-22T21:40:24+00:00",
       "active": true,
       "days": {
-        "2025-10-31": {
-          "hours": 8.03,
-          "laborCost": 281.17,
-          "punches": 1,
-          "scheduledShifts": 0,
-          "lateMinutes": 0,
-          "noShow": 0,
-          "byRole": {
-            "Maintenace": {
-              "hours": 8.03,
-              "laborCost": 281.17
-            }
-          }
-        },
         "2025-11-03": {
           "hours": 8.12,
           "laborCost": 284.08,
@@ -20483,6 +20581,20 @@
               "laborCost": 288.17
             }
           }
+        },
+        "2026-10-30": {
+          "hours": 8.03,
+          "laborCost": 281.17,
+          "punches": 1,
+          "scheduledShifts": 0,
+          "lateMinutes": 0,
+          "noShow": 0,
+          "byRole": {
+            "Mechanic": {
+              "hours": 8.03,
+              "laborCost": 281.17
+            }
+          }
         }
       }
     },
@@ -20495,20 +20607,6 @@
       "hiredAt": "2024-01-22T21:40:24+00:00",
       "active": false,
       "days": {
-        "2025-10-31": {
-          "hours": 6.82,
-          "laborCost": 143.15,
-          "punches": 1,
-          "scheduledShifts": 0,
-          "lateMinutes": 0,
-          "noShow": 0,
-          "byRole": {
-            "Maintenace": {
-              "hours": 6.82,
-              "laborCost": 143.15
-            }
-          }
-        },
         "2025-11-01": {
           "hours": 5.93,
           "laborCost": 124.6,
@@ -25112,20 +25210,6 @@
       "hiredAt": "2024-01-22T21:40:25+00:00",
       "active": true,
       "days": {
-        "2025-10-31": {
-          "hours": 7.85,
-          "laborCost": 172.7,
-          "punches": 1,
-          "scheduledShifts": 0,
-          "lateMinutes": 0,
-          "noShow": 0,
-          "byRole": {
-            "Maintenace": {
-              "hours": 7.85,
-              "laborCost": 172.7
-            }
-          }
-        },
         "2025-11-02": {
           "hours": 8.12,
           "laborCost": 178.57,
@@ -28331,6 +28415,20 @@
               "laborCost": 177.47
             }
           }
+        },
+        "2026-10-30": {
+          "hours": 7.53,
+          "laborCost": 165.73,
+          "punches": 1,
+          "scheduledShifts": 0,
+          "lateMinutes": 0,
+          "noShow": 0,
+          "byRole": {
+            "Mechanic": {
+              "hours": 7.53,
+              "laborCost": 165.73
+            }
+          }
         }
       }
     },
@@ -29385,6 +29483,20 @@
               "laborCost": 89.57
             }
           }
+        },
+        "2026-10-30": {
+          "hours": 6.58,
+          "laborCost": 111.26,
+          "punches": 1,
+          "scheduledShifts": 0,
+          "lateMinutes": 0,
+          "noShow": 0,
+          "byRole": {
+            "Bartender": {
+              "hours": 6.58,
+              "laborCost": 111.26
+            }
+          }
         }
       }
     },
@@ -29898,20 +30010,6 @@
       "hiredAt": "2024-11-09T18:26:23+00:00",
       "active": true,
       "days": {
-        "2025-10-31": {
-          "hours": 5.22,
-          "laborCost": 104.33,
-          "punches": 1,
-          "scheduledShifts": 0,
-          "lateMinutes": 0,
-          "noShow": 0,
-          "byRole": {
-            "Maintenace": {
-              "hours": 5.22,
-              "laborCost": 104.33
-            }
-          }
-        },
         "2025-11-01": {
           "hours": 8.03,
           "laborCost": 160.67,
@@ -32135,6 +32233,20 @@
               "laborCost": 105.77
             }
           }
+        },
+        "2026-10-30": {
+          "hours": 6.4,
+          "laborCost": 121.6,
+          "punches": 1,
+          "scheduledShifts": 0,
+          "lateMinutes": 0,
+          "noShow": 0,
+          "byRole": {
+            "Front Desk": {
+              "hours": 6.4,
+              "laborCost": 121.6
+            }
+          }
         }
       }
     },
@@ -33121,6 +33233,20 @@
               "laborCost": 108.0
             }
           }
+        },
+        "2026-10-30": {
+          "hours": 3.15,
+          "laborCost": 56.7,
+          "punches": 1,
+          "scheduledShifts": 0,
+          "lateMinutes": 0,
+          "noShow": 0,
+          "byRole": {
+            "Scoretech": {
+              "hours": 3.15,
+              "laborCost": 56.7
+            }
+          }
         }
       }
     },
@@ -33437,6 +33563,20 @@
             "Cafe Front": {
               "hours": 6.48,
               "laborCost": 109.57
+            }
+          }
+        },
+        "2026-10-30": {
+          "hours": 4.83,
+          "laborCost": 81.68,
+          "punches": 1,
+          "scheduledShifts": 0,
+          "lateMinutes": 0,
+          "noShow": 0,
+          "byRole": {
+            "Cafe Front": {
+              "hours": 4.83,
+              "laborCost": 81.68
             }
           }
         }
@@ -33840,6 +33980,20 @@
             "Scoretech": {
               "hours": 6.43,
               "laborCost": 115.8
+            }
+          }
+        },
+        "2026-10-30": {
+          "hours": 6.2,
+          "laborCost": 111.6,
+          "punches": 1,
+          "scheduledShifts": 0,
+          "lateMinutes": 0,
+          "noShow": 0,
+          "byRole": {
+            "Scoretech": {
+              "hours": 6.2,
+              "laborCost": 111.6
             }
           }
         }
@@ -35112,6 +35266,20 @@
             "Scoretech": {
               "hours": 6.83,
               "laborCost": 136.67
+            }
+          }
+        },
+        "2026-10-30": {
+          "hours": 3.5,
+          "laborCost": 70.0,
+          "punches": 1,
+          "scheduledShifts": 0,
+          "lateMinutes": 0,
+          "noShow": 0,
+          "byRole": {
+            "Scoretech": {
+              "hours": 3.5,
+              "laborCost": 70.0
             }
           }
         }
@@ -37948,6 +38116,20 @@
               "laborCost": 137.08
             }
           }
+        },
+        "2026-10-30": {
+          "hours": 6.0,
+          "laborCost": 141.0,
+          "punches": 1,
+          "scheduledShifts": 0,
+          "lateMinutes": 0,
+          "noShow": 0,
+          "byRole": {
+            "Janitorial": {
+              "hours": 6.0,
+              "laborCost": 141.0
+            }
+          }
         }
       }
     },
@@ -38702,6 +38884,20 @@
             "Bartender": {
               "hours": 5.85,
               "laborCost": 98.86
+            }
+          }
+        },
+        "2026-10-30": {
+          "hours": 7.38,
+          "laborCost": 124.78,
+          "punches": 1,
+          "scheduledShifts": 0,
+          "lateMinutes": 0,
+          "noShow": 0,
+          "byRole": {
+            "Bartender": {
+              "hours": 7.38,
+              "laborCost": 124.78
             }
           }
         }
@@ -41029,6 +41225,20 @@
               "laborCost": 84.78
             }
           }
+        },
+        "2026-10-30": {
+          "hours": 5.48,
+          "laborCost": 92.67,
+          "punches": 1,
+          "scheduledShifts": 0,
+          "lateMinutes": 0,
+          "noShow": 0,
+          "byRole": {
+            "Scoretech": {
+              "hours": 5.48,
+              "laborCost": 92.67
+            }
+          }
         }
       }
     },
@@ -42134,6 +42344,20 @@
               "laborCost": 71.26
             }
           }
+        },
+        "2026-10-30": {
+          "hours": 5.3,
+          "laborCost": 89.57,
+          "punches": 1,
+          "scheduledShifts": 0,
+          "lateMinutes": 0,
+          "noShow": 0,
+          "byRole": {
+            "Cafe Front": {
+              "hours": 5.3,
+              "laborCost": 89.57
+            }
+          }
         }
       }
     },
@@ -42325,6 +42549,20 @@
             "Dish/Prep": {
               "hours": 6.0,
               "laborCost": 101.4
+            }
+          }
+        },
+        "2026-10-30": {
+          "hours": 6.5,
+          "laborCost": 109.85,
+          "punches": 1,
+          "scheduledShifts": 0,
+          "lateMinutes": 0,
+          "noShow": 0,
+          "byRole": {
+            "Dish/Prep": {
+              "hours": 6.5,
+              "laborCost": 109.85
             }
           }
         }
