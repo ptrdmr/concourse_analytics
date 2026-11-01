@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-31T05:34:06.145699",
+  "generatedAt": "2026-11-01T04:34:06.966123",
   "tabs": [
     {
       "date": "2023-06-01",
@@ -13316,6 +13316,28 @@
       "gratuity": 100.0,
       "tabTotal": 2024.74,
       "accountApplied": 1398.0
+    },
+    {
+      "date": "2026-10-31",
+      "time": "13:26",
+      "txnId": "853225",
+      "party": "Mitra Dixon",
+      "accountNames": [
+        "10/31/2026 Mitra Dixon"
+      ],
+      "partyTypes": [
+        "Supercharge"
+      ],
+      "chargeType": "Party Service Charge",
+      "server": "Gabbi",
+      "terminal": "MPOS8",
+      "charges": {
+        "Party Service Charge": 108.7
+      },
+      "serviceCharge": 108.7,
+      "gratuity": 0.0,
+      "tabTotal": 688.14,
+      "accountApplied": 552.7
     }
   ],
   "meta": {

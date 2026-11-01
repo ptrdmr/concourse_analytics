@@ -1,5 +1,5 @@
 {
-  "pulledAt": "2026-10-31T05:34:18",
+  "pulledAt": "2026-11-01T04:34:19",
   "reservations": [
     {
       "id": 37008,
@@ -16318,7 +16318,7 @@
       "id": 41406,
       "created": "2026-09-19T08:30:34",
       "event": "2026-10-31",
-      "statusId": 0,
+      "statusId": 2,
       "type": "Supercharge",
       "accountId": 12228,
       "transactionId": 834499,
@@ -17266,7 +17266,7 @@
       "id": 41493,
       "created": "2026-09-26T13:26:17",
       "event": "2026-10-31",
-      "statusId": 0,
+      "statusId": 2,
       "type": "Online Reservations",
       "accountId": 12274,
       "transactionId": 837359,
@@ -25018,7 +25018,7 @@
       "id": 42426,
       "created": "2026-10-28T21:15:56",
       "event": "2026-10-31",
-      "statusId": 0,
+      "statusId": 2,
       "type": "Online Reservations",
       "accountId": 12536,
       "transactionId": 852260,
@@ -25033,7 +25033,7 @@
       "id": 42427,
       "created": "2026-10-28T22:57:57",
       "event": "2026-10-31",
-      "statusId": 0,
+      "statusId": 2,
       "type": "Online Reservations",
       "accountId": 12537,
       "transactionId": 852295,
@@ -25276,7 +25276,7 @@
       "id": 42444,
       "created": "2026-10-29T17:19:10",
       "event": "2026-10-31",
-      "statusId": 0,
+      "statusId": 2,
       "type": "Online Reservations",
       "accountId": 12550,
       "transactionId": 852449,
@@ -25456,7 +25456,7 @@
       "id": 42457,
       "created": "2026-10-30T15:26:17",
       "event": "2026-10-31",
-      "statusId": 0,
+      "statusId": 2,
       "type": "Online Reservations",
       "accountId": 12558,
       "transactionId": 852867,
@@ -25534,7 +25534,7 @@
       "id": 42463,
       "created": "2026-10-30T20:14:20",
       "event": "2026-10-31",
-      "statusId": 0,
+      "statusId": 2,
       "type": "Online Reservations",
       "accountId": 12560,
       "transactionId": 853080,
@@ -25559,6 +25559,174 @@
         853101,
         853102
       ]
+    },
+    {
+      "id": 42465,
+      "created": "2026-10-31T11:01:36",
+      "event": "2026-10-31",
+      "statusId": 2,
+      "type": "Online Reservations",
+      "accountId": 12562,
+      "transactionId": 853188,
+      "title": "Anthony Morales",
+      "parentId": null,
+      "txnIds": [
+        853187,
+        853188
+      ]
+    },
+    {
+      "id": 42467,
+      "created": "2026-10-31T12:50:37",
+      "event": "2026-10-31",
+      "statusId": 2,
+      "type": "Online Reservations",
+      "accountId": 12563,
+      "transactionId": 853205,
+      "title": "Lesley Adams",
+      "parentId": null,
+      "txnIds": [
+        853204,
+        853205
+      ]
+    },
+    {
+      "id": 42469,
+      "created": "2026-10-31T13:54:09",
+      "event": "2026-10-31",
+      "statusId": 2,
+      "type": "Adult Party",
+      "accountId": null,
+      "transactionId": null,
+      "title": "Robyn p.",
+      "parentId": null,
+      "txnIds": []
+    },
+    {
+      "id": 42470,
+      "created": "2026-10-31T14:47:39",
+      "event": "2026-10-31",
+      "statusId": 2,
+      "type": "Online Reservations",
+      "accountId": 12564,
+      "transactionId": 853266,
+      "title": "Whitney Forbes",
+      "parentId": null,
+      "txnIds": [
+        853265,
+        853266
+      ]
+    },
+    {
+      "id": 42471,
+      "created": "2026-10-31T15:08:20",
+      "event": "2026-10-31",
+      "statusId": 2,
+      "type": "Adult Party",
+      "accountId": null,
+      "transactionId": null,
+      "title": "New Reservation",
+      "parentId": null,
+      "txnIds": []
+    },
+    {
+      "id": 42472,
+      "created": "2026-10-31T15:27:20",
+      "event": "2026-10-31",
+      "statusId": 2,
+      "type": "Adult Party",
+      "accountId": null,
+      "transactionId": null,
+      "title": "New Reservation",
+      "parentId": null,
+      "txnIds": []
+    },
+    {
+      "id": 42474,
+      "created": "2026-10-31T15:27:28",
+      "event": "2026-10-31",
+      "statusId": 2,
+      "type": "Adult Party",
+      "accountId": null,
+      "transactionId": null,
+      "title": "New Reservation",
+      "parentId": null,
+      "txnIds": []
+    },
+    {
+      "id": 42475,
+      "created": "2026-10-31T16:32:21",
+      "event": "2026-10-31",
+      "statusId": 2,
+      "type": "Adult Party",
+      "accountId": null,
+      "transactionId": null,
+      "title": "hOLD",
+      "parentId": null,
+      "txnIds": []
+    },
+    {
+      "id": 42476,
+      "created": "2026-10-31T17:00:21",
+      "event": "2026-10-31",
+      "statusId": 2,
+      "type": "Adult Party",
+      "accountId": null,
+      "transactionId": null,
+      "title": "New Reservation",
+      "parentId": null,
+      "txnIds": []
+    },
+    {
+      "id": 42477,
+      "created": "2026-10-31T17:11:42",
+      "event": "2026-11-01",
+      "statusId": 2,
+      "type": "Online Reservations",
+      "accountId": 12565,
+      "transactionId": 853344,
+      "title": "James Matthews",
+      "parentId": null,
+      "txnIds": [
+        853343,
+        853344
+      ]
+    },
+    {
+      "id": 42478,
+      "created": "2026-10-31T17:39:31",
+      "event": "2026-10-31",
+      "statusId": 2,
+      "type": "Adult Party",
+      "accountId": null,
+      "transactionId": null,
+      "title": "",
+      "parentId": null,
+      "txnIds": []
+    },
+    {
+      "id": 42479,
+      "created": "2026-10-31T18:13:41",
+      "event": "2026-10-31",
+      "statusId": 2,
+      "type": "Adult Party",
+      "accountId": null,
+      "transactionId": null,
+      "title": "New Reservation",
+      "parentId": null,
+      "txnIds": []
+    },
+    {
+      "id": 42480,
+      "created": "2026-10-31T21:22:34",
+      "event": "2026-11-01",
+      "statusId": 2,
+      "type": "Adult Party",
+      "accountId": null,
+      "transactionId": null,
+      "title": "New Reservation",
+      "parentId": null,
+      "txnIds": []
     }
   ],
   "ledger": [
@@ -135951,6 +136119,258 @@
       "at": "2026-10-31T03:53:14",
       "amount": -9.16,
       "txnId": 852834
+    },
+    {
+      "id": 38355,
+      "accountId": 12562,
+      "at": "2026-10-31T11:01:38",
+      "amount": 122.57,
+      "txnId": 853187
+    },
+    {
+      "id": 38356,
+      "accountId": 12228,
+      "at": "2026-10-31T11:05:37",
+      "amount": -552.7,
+      "txnId": 853225
+    },
+    {
+      "id": 38357,
+      "accountId": 12563,
+      "at": "2026-10-31T12:50:39",
+      "amount": 153.47,
+      "txnId": 853204
+    },
+    {
+      "id": 38358,
+      "accountId": 12564,
+      "at": "2026-10-31T14:47:40",
+      "amount": 153.47,
+      "txnId": 853265
+    },
+    {
+      "id": 38359,
+      "accountId": 12507,
+      "at": "2026-10-31T15:46:18",
+      "amount": -122.57,
+      "txnId": 851195
+    },
+    {
+      "id": 38360,
+      "accountId": 12562,
+      "at": "2026-10-31T16:25:40",
+      "amount": -122.57,
+      "txnId": 853188
+    },
+    {
+      "id": 38361,
+      "accountId": 12424,
+      "at": "2026-10-31T17:01:33",
+      "amount": -153.47,
+      "txnId": 846440
+    },
+    {
+      "id": 38362,
+      "accountId": 12511,
+      "at": "2026-10-31T17:02:00",
+      "amount": -153.47,
+      "txnId": 851430
+    },
+    {
+      "id": 38363,
+      "accountId": 12297,
+      "at": "2026-10-31T17:03:11",
+      "amount": -203.94,
+      "txnId": 838792
+    },
+    {
+      "id": 38364,
+      "accountId": 12550,
+      "at": "2026-10-31T17:04:44",
+      "amount": -153.47,
+      "txnId": 852449
+    },
+    {
+      "id": 38365,
+      "accountId": 12565,
+      "at": "2026-10-31T17:11:44",
+      "amount": 122.57,
+      "txnId": 853343
+    },
+    {
+      "id": 38366,
+      "accountId": 12279,
+      "at": "2026-10-31T17:23:59",
+      "amount": -153.47,
+      "txnId": 837556
+    },
+    {
+      "id": 38367,
+      "accountId": 12293,
+      "at": "2026-10-31T17:28:45",
+      "amount": -153.47,
+      "txnId": 838715
+    },
+    {
+      "id": 38368,
+      "accountId": 12276,
+      "at": "2026-10-31T17:32:02",
+      "amount": -203.94,
+      "txnId": 837473
+    },
+    {
+      "id": 38369,
+      "accountId": 12510,
+      "at": "2026-10-31T17:32:54",
+      "amount": -203.94,
+      "txnId": 851388
+    },
+    {
+      "id": 38370,
+      "accountId": 12521,
+      "at": "2026-10-31T17:33:23",
+      "amount": -153.47,
+      "txnId": 851509
+    },
+    {
+      "id": 38371,
+      "accountId": 12385,
+      "at": "2026-10-31T17:37:20",
+      "amount": -153.47,
+      "txnId": 844355
+    },
+    {
+      "id": 38372,
+      "accountId": 12415,
+      "at": "2026-10-31T17:41:30",
+      "amount": -153.47,
+      "txnId": 846025
+    },
+    {
+      "id": 38373,
+      "accountId": 12517,
+      "at": "2026-10-31T17:52:49",
+      "amount": -203.94,
+      "txnId": 851487
+    },
+    {
+      "id": 38374,
+      "accountId": 12274,
+      "at": "2026-10-31T17:53:37",
+      "amount": -613.88,
+      "txnId": 837359
+    },
+    {
+      "id": 38375,
+      "accountId": 12335,
+      "at": "2026-10-31T17:57:26",
+      "amount": -815.76,
+      "txnId": 841156
+    },
+    {
+      "id": 38376,
+      "accountId": 12284,
+      "at": "2026-10-31T17:57:51",
+      "amount": -203.94,
+      "txnId": 838419
+    },
+    {
+      "id": 38377,
+      "accountId": 12289,
+      "at": "2026-10-31T17:58:19",
+      "amount": -153.47,
+      "txnId": 838663
+    },
+    {
+      "id": 38378,
+      "accountId": 12373,
+      "at": "2026-10-31T17:58:45",
+      "amount": -153.47,
+      "txnId": 843713
+    },
+    {
+      "id": 38379,
+      "accountId": 12504,
+      "at": "2026-10-31T17:59:28",
+      "amount": -153.47,
+      "txnId": 850753
+    },
+    {
+      "id": 38380,
+      "accountId": 12460,
+      "at": "2026-10-31T18:00:09",
+      "amount": -203.94,
+      "txnId": 848637
+    },
+    {
+      "id": 38381,
+      "accountId": 12519,
+      "at": "2026-10-31T18:03:54",
+      "amount": -153.47,
+      "txnId": 851503
+    },
+    {
+      "id": 38382,
+      "accountId": 12563,
+      "at": "2026-10-31T18:05:03",
+      "amount": -153.47,
+      "txnId": 853205
+    },
+    {
+      "id": 38383,
+      "accountId": 12286,
+      "at": "2026-10-31T18:05:38",
+      "amount": -153.47,
+      "txnId": 838423
+    },
+    {
+      "id": 38384,
+      "accountId": 12558,
+      "at": "2026-10-31T18:06:03",
+      "amount": -153.47,
+      "txnId": 852867
+    },
+    {
+      "id": 38385,
+      "accountId": 12564,
+      "at": "2026-10-31T18:39:50",
+      "amount": -153.47,
+      "txnId": 853266
+    },
+    {
+      "id": 38386,
+      "accountId": 12536,
+      "at": "2026-10-31T19:18:12",
+      "amount": -203.94,
+      "txnId": 852260
+    },
+    {
+      "id": 38387,
+      "accountId": 12559,
+      "at": "2026-10-31T19:44:36",
+      "amount": -153.47,
+      "txnId": 852943
+    },
+    {
+      "id": 38388,
+      "accountId": 12560,
+      "at": "2026-10-31T19:44:58",
+      "amount": -153.47,
+      "txnId": 853080
+    },
+    {
+      "id": 38389,
+      "accountId": 12516,
+      "at": "2026-10-31T20:06:20",
+      "amount": -203.94,
+      "txnId": 851478
+    },
+    {
+      "id": 38390,
+      "accountId": 12537,
+      "at": "2026-10-31T21:13:19",
+      "amount": -153.47,
+      "txnId": 852295
     }
   ],
   "accounts": [
@@ -177362,6 +177782,26 @@
     {
       "id": 12561,
       "name": "11/1/2026 Brian Russell",
+      "collection": "Event"
+    },
+    {
+      "id": 12562,
+      "name": "10/31/2026 Anthony Morales",
+      "collection": "Event"
+    },
+    {
+      "id": 12563,
+      "name": "10/31/2026 Lesley Adams (1)",
+      "collection": "Event"
+    },
+    {
+      "id": 12564,
+      "name": "10/31/2026 Whitney Forbes",
+      "collection": "Event"
+    },
+    {
+      "id": 12565,
+      "name": "11/1/2026 James Matthews",
       "collection": "Event"
     }
   ]
