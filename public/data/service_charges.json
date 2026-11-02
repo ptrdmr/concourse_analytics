@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-01T04:34:06.966123",
+  "generatedAt": "2026-11-02T04:34:05.925910",
   "tabs": [
     {
       "date": "2023-06-01",
@@ -13338,6 +13338,28 @@
       "gratuity": 0.0,
       "tabTotal": 688.14,
       "accountApplied": 552.7
+    },
+    {
+      "date": "2026-11-01",
+      "time": "13:07",
+      "txnId": "815117",
+      "party": "Sandy Padilla",
+      "accountNames": [
+        "Sandy Padilla 11.01.26"
+      ],
+      "partyTypes": [
+        "Strike Zone Suite"
+      ],
+      "chargeType": "VIP Service Charge",
+      "server": "Allyssa",
+      "terminal": "MPOS3",
+      "charges": {
+        "VIP Service Charge": 195.2
+      },
+      "serviceCharge": 195.2,
+      "gratuity": 0.0,
+      "tabTotal": 1306.84,
+      "accountApplied": 1100.0
     }
   ],
   "meta": {

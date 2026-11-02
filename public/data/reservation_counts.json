@@ -1,8 +1,8 @@
 {
-  "generatedAt": "2026-11-01T04:34:19",
+  "generatedAt": "2026-11-02T04:34:18",
   "dateRange": [
     "2023-05-26",
-    "2026-10-31"
+    "2026-11-01"
   ],
   "types": [
     "Weekday Lane",
@@ -11418,6 +11418,26 @@
       "date": "2026-10-31",
       "type": "General Lane Reservation",
       "count": 31
+    },
+    {
+      "date": "2026-11-01",
+      "type": "Sunday Lane",
+      "count": 8
+    },
+    {
+      "date": "2026-11-01",
+      "type": "Strike Zone Suite",
+      "count": 1
+    },
+    {
+      "date": "2026-11-01",
+      "type": "Sports Party",
+      "count": 1
+    },
+    {
+      "date": "2026-11-01",
+      "type": "General Lane Reservation",
+      "count": 3
     }
   ],
   "dailyTabs": [
@@ -15932,11 +15952,15 @@
     {
       "date": "2026-10-31",
       "tabs": 32
+    },
+    {
+      "date": "2026-11-01",
+      "tabs": 13
     }
   ],
   "validation": {
-    "distinctTabs": 11292,
-    "cellSum": 11346,
+    "distinctTabs": 11305,
+    "cellSum": 11359,
     "delta": 54
   }
 }
