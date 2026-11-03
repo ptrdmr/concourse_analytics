@@ -1,5 +1,5 @@
 {
-  "pulledAt": "2026-11-02T04:34:18",
+  "pulledAt": "2026-11-03T04:34:18",
   "reservations": [
     {
       "id": 37008,
@@ -8562,7 +8562,8 @@
       "transactionId": null,
       "title": "VB4D (practice 6:15p)",
       "parentId": 39728,
-      "txnIds": []
+      "txnIds": [],
+      "goneAt": "2026-11-03"
     },
     {
       "id": 40717,
@@ -8574,7 +8575,8 @@
       "transactionId": null,
       "title": "VB4D (practice 6:15p)",
       "parentId": 39728,
-      "txnIds": []
+      "txnIds": [],
+      "goneAt": "2026-11-03"
     },
     {
       "id": 40718,
@@ -17000,7 +17002,7 @@
       "type": "Online Reservations",
       "accountId": null,
       "transactionId": null,
-      "title": "Felipe Zambrano",
+      "title": "Ivanne Paz",
       "parentId": null,
       "txnIds": []
     },
@@ -21579,7 +21581,8 @@
       "transactionId": null,
       "title": "Monday Night Out (6:30PM PRACTICE, 6:45 START)",
       "parentId": 42018,
-      "txnIds": []
+      "txnIds": [],
+      "goneAt": "2026-11-03"
     },
     {
       "id": 42134,
@@ -21591,7 +21594,8 @@
       "transactionId": null,
       "title": "Monday Night Out (6:30PM PRACTICE, 6:45 START)",
       "parentId": 42018,
-      "txnIds": []
+      "txnIds": [],
+      "goneAt": "2026-11-03"
     },
     {
       "id": 42135,
@@ -24537,7 +24541,7 @@
       "id": 42387,
       "created": "2026-10-27T11:06:29",
       "event": "2026-11-02",
-      "statusId": 0,
+      "statusId": 2,
       "type": "Online Reservations",
       "accountId": 12512,
       "transactionId": 851440,
@@ -25375,7 +25379,7 @@
       "id": 42451,
       "created": "2026-10-30T10:44:15",
       "event": "2026-11-06",
-      "statusId": 0,
+      "statusId": 2,
       "type": "Online Reservations",
       "accountId": 12555,
       "transactionId": 852742,
@@ -25391,12 +25395,15 @@
       "created": "2026-10-30T10:47:28",
       "event": "2027-01-20",
       "statusId": 2,
-      "type": "Undefined",
-      "accountId": null,
-      "transactionId": null,
+      "type": "Strikezone 4 Lane Suite",
+      "accountId": 12572,
+      "transactionId": 854233,
       "title": "Diana Petersen",
       "parentId": null,
-      "txnIds": []
+      "txnIds": [
+        854232,
+        854233
+      ]
     },
     {
       "id": 42453,
@@ -25441,7 +25448,7 @@
       "id": 42456,
       "created": "2026-10-30T12:52:15",
       "event": "2026-11-06",
-      "statusId": 0,
+      "statusId": 2,
       "type": "Online Reservations",
       "accountId": 12557,
       "transactionId": 852804,
@@ -25508,12 +25515,15 @@
       "created": "2026-10-30T16:32:02",
       "event": "2026-11-06",
       "statusId": 2,
-      "type": "Undefined",
-      "accountId": null,
-      "transactionId": null,
-      "title": "Heartwell",
+      "type": "Special Event",
+      "accountId": 12574,
+      "transactionId": 854237,
+      "title": "Hartwell",
       "parentId": null,
-      "txnIds": []
+      "txnIds": [
+        854236,
+        854237
+      ]
     },
     {
       "id": 42462,
@@ -25820,6 +25830,210 @@
       "title": "New Reservation",
       "parentId": null,
       "txnIds": []
+    },
+    {
+      "id": 42488,
+      "created": "2026-11-02T10:30:50",
+      "event": "2026-11-08",
+      "statusId": 0,
+      "type": "Online Reservations",
+      "accountId": 12569,
+      "transactionId": 854226,
+      "title": "Peter Han",
+      "parentId": null,
+      "txnIds": [
+        854225,
+        854226
+      ]
+    },
+    {
+      "id": 42489,
+      "created": "2026-11-02T11:55:39",
+      "event": "2026-12-18",
+      "statusId": 2,
+      "type": "Strikezone 4 Lane Suite",
+      "accountId": 12570,
+      "transactionId": 854228,
+      "title": "Compass USA",
+      "parentId": null,
+      "txnIds": [
+        854227,
+        854228
+      ]
+    },
+    {
+      "id": 42490,
+      "created": "2026-11-02T12:00:51",
+      "event": "2026-11-07",
+      "statusId": 0,
+      "type": "Online Reservations",
+      "accountId": 12571,
+      "transactionId": 854230,
+      "title": "Carlos Montalvo",
+      "parentId": null,
+      "txnIds": [
+        854229,
+        854230
+      ]
+    },
+    {
+      "id": 42491,
+      "created": "2026-11-02T12:18:07",
+      "event": "2026-11-28",
+      "statusId": 2,
+      "type": "Online Reservations",
+      "accountId": null,
+      "transactionId": null,
+      "title": "Ericka Juarez",
+      "parentId": null,
+      "txnIds": []
+    },
+    {
+      "id": 42492,
+      "created": "2026-11-02T13:30:36",
+      "event": "2026-11-08",
+      "statusId": 2,
+      "type": "Special Event",
+      "accountId": 12573,
+      "transactionId": 854235,
+      "title": "Black Buffalos",
+      "parentId": null,
+      "txnIds": [
+        854234,
+        854235
+      ]
+    },
+    {
+      "id": 42493,
+      "created": "2026-11-02T15:30:32",
+      "event": "2026-11-06",
+      "statusId": 2,
+      "type": "Special Event",
+      "accountId": 12575,
+      "transactionId": 854241,
+      "title": "Marissa Martinez",
+      "parentId": null,
+      "txnIds": [
+        854240,
+        854241
+      ]
+    },
+    {
+      "id": 42494,
+      "created": "2026-11-02T15:52:54",
+      "event": "2026-11-02",
+      "statusId": 2,
+      "type": "Online Reservations",
+      "accountId": 12576,
+      "transactionId": 854243,
+      "title": "Andrew Viaes",
+      "parentId": null,
+      "txnIds": [
+        854242,
+        854243
+      ]
+    },
+    {
+      "id": 42495,
+      "created": "2026-11-02T16:05:55",
+      "event": "2026-11-10",
+      "statusId": 0,
+      "type": "summer party builder",
+      "accountId": 12577,
+      "transactionId": 854260,
+      "title": "Julia Meier",
+      "parentId": null,
+      "txnIds": [
+        854259,
+        854260
+      ]
+    },
+    {
+      "id": 42496,
+      "created": "2026-11-02T16:35:54",
+      "event": "2026-11-05",
+      "statusId": 0,
+      "type": "Online Reservations",
+      "accountId": 12578,
+      "transactionId": 854280,
+      "title": "Samantha Britt",
+      "parentId": null,
+      "txnIds": [
+        854279,
+        854280
+      ]
+    },
+    {
+      "id": 42497,
+      "created": "2026-11-02T17:49:55",
+      "event": "2026-11-07",
+      "statusId": 0,
+      "type": "summer party builder",
+      "accountId": 12579,
+      "transactionId": 854306,
+      "title": "Candace Mullins",
+      "parentId": null,
+      "txnIds": [
+        854305,
+        854306
+      ]
+    },
+    {
+      "id": 42498,
+      "created": "2026-11-02T17:48:37",
+      "event": "2026-11-17",
+      "statusId": 2,
+      "type": "Make-up/Pre-Bowl",
+      "accountId": null,
+      "transactionId": null,
+      "title": "Jess Dodge TM15 & TM3 Big Ballers",
+      "parentId": null,
+      "txnIds": []
+    },
+    {
+      "id": 42499,
+      "created": "2026-11-02T17:50:55",
+      "event": "2026-11-07",
+      "statusId": 0,
+      "type": "Online Reservations",
+      "accountId": 12580,
+      "transactionId": 854309,
+      "title": "Namrata Singh",
+      "parentId": null,
+      "txnIds": [
+        854308,
+        854309
+      ]
+    },
+    {
+      "id": 42500,
+      "created": "2026-11-02T19:23:56",
+      "event": "2026-11-06",
+      "statusId": 0,
+      "type": "Online Reservations",
+      "accountId": 12581,
+      "transactionId": 854396,
+      "title": "Miriam Rico",
+      "parentId": null,
+      "txnIds": [
+        854395,
+        854396
+      ]
+    },
+    {
+      "id": 42501,
+      "created": "2026-11-02T19:31:56",
+      "event": "2026-11-03",
+      "statusId": 0,
+      "type": "Online Reservations",
+      "accountId": 12582,
+      "transactionId": 854403,
+      "title": "Amanda Wood",
+      "parentId": null,
+      "txnIds": [
+        854402,
+        854403
+      ]
     }
   ],
   "ledger": [
@@ -136590,6 +136804,125 @@
       "at": "2026-11-02T03:52:51",
       "amount": -4.31,
       "txnId": 853805
+    },
+    {
+      "id": 38409,
+      "accountId": 12569,
+      "at": "2026-11-02T10:30:52",
+      "amount": 367.71,
+      "txnId": 854225
+    },
+    {
+      "id": 38410,
+      "accountId": 12570,
+      "at": "2026-11-02T11:56:29",
+      "amount": 1100.0,
+      "txnId": 854227
+    },
+    {
+      "id": 38411,
+      "accountId": 12571,
+      "at": "2026-11-02T12:00:53",
+      "amount": 407.88,
+      "txnId": 854229
+    },
+    {
+      "id": 38412,
+      "accountId": 9942,
+      "at": "2026-11-02T12:18:56",
+      "amount": -166.86,
+      "txnId": 854231
+    },
+    {
+      "id": 38413,
+      "accountId": 12572,
+      "at": "2026-11-02T13:20:16",
+      "amount": 3345.88,
+      "txnId": 854232
+    },
+    {
+      "id": 38414,
+      "accountId": 12573,
+      "at": "2026-11-02T13:31:10",
+      "amount": 231.75,
+      "txnId": 854234
+    },
+    {
+      "id": 38415,
+      "accountId": 12574,
+      "at": "2026-11-02T13:43:07",
+      "amount": 980.56,
+      "txnId": 854236
+    },
+    {
+      "id": 38416,
+      "accountId": 12575,
+      "at": "2026-11-02T15:30:59",
+      "amount": 231.75,
+      "txnId": 854240
+    },
+    {
+      "id": 38417,
+      "accountId": 12576,
+      "at": "2026-11-02T15:52:56",
+      "amount": 139.05,
+      "txnId": 854242
+    },
+    {
+      "id": 38418,
+      "accountId": 12577,
+      "at": "2026-11-02T16:05:57",
+      "amount": 556.2,
+      "txnId": 854259
+    },
+    {
+      "id": 38419,
+      "accountId": 12578,
+      "at": "2026-11-02T16:35:55",
+      "amount": 305.91,
+      "txnId": 854279
+    },
+    {
+      "id": 38420,
+      "accountId": 12579,
+      "at": "2026-11-02T17:49:56",
+      "amount": 401.7,
+      "txnId": 854305
+    },
+    {
+      "id": 38421,
+      "accountId": 12580,
+      "at": "2026-11-02T17:50:56",
+      "amount": 122.57,
+      "txnId": 854308
+    },
+    {
+      "id": 38422,
+      "accountId": 12576,
+      "at": "2026-11-02T18:48:05",
+      "amount": -139.05,
+      "txnId": 854243
+    },
+    {
+      "id": 38423,
+      "accountId": 12512,
+      "at": "2026-11-02T18:48:12",
+      "amount": -101.97,
+      "txnId": 851440
+    },
+    {
+      "id": 38424,
+      "accountId": 12581,
+      "at": "2026-11-02T19:23:57",
+      "amount": 306.94,
+      "txnId": 854395
+    },
+    {
+      "id": 38425,
+      "accountId": 12582,
+      "at": "2026-11-02T19:31:57",
+      "amount": 139.05,
+      "txnId": 854402
     }
   ],
   "accounts": [
@@ -178036,6 +178369,76 @@
     {
       "id": 12568,
       "name": "11/1/2026 Erik Aguilar",
+      "collection": "Event"
+    },
+    {
+      "id": 12569,
+      "name": "11/8/2026 Peter Han",
+      "collection": "Event"
+    },
+    {
+      "id": 12570,
+      "name": "Compass USA 12-18-26",
+      "collection": "VIP Suites"
+    },
+    {
+      "id": 12571,
+      "name": "11/7/2026 Carlos Montalvo",
+      "collection": "Event"
+    },
+    {
+      "id": 12572,
+      "name": "Red Pointe Roofing 01-20-27",
+      "collection": "VIP Suites"
+    },
+    {
+      "id": 12573,
+      "name": "Black Buffalos 11-08-26",
+      "collection": "Sports Party"
+    },
+    {
+      "id": 12574,
+      "name": "Hartwell 11-06-26",
+      "collection": "Event"
+    },
+    {
+      "id": 12575,
+      "name": "Marissa Martinez - 11-06-26",
+      "collection": "Sports Party"
+    },
+    {
+      "id": 12576,
+      "name": "11/2/2026 Andrew Viaes",
+      "collection": "Event"
+    },
+    {
+      "id": 12577,
+      "name": "11/10/2026 Julia Meier",
+      "collection": "Event"
+    },
+    {
+      "id": 12578,
+      "name": "11/5/2026 Samantha Britt",
+      "collection": "Event"
+    },
+    {
+      "id": 12579,
+      "name": "11/7/2026 Candace Mullins",
+      "collection": "Event"
+    },
+    {
+      "id": 12580,
+      "name": "11/7/2026 Namrata Singh",
+      "collection": "Event"
+    },
+    {
+      "id": 12581,
+      "name": "11/6/2026 Miriam Rico",
+      "collection": "Event"
+    },
+    {
+      "id": 12582,
+      "name": "11/3/2026 Amanda Wood",
       "collection": "Event"
     }
   ]
