@@ -1,6 +1,6 @@
 {
-  "generatedAt": "2026-11-03T04:35:24.703679",
-  "dataThrough": "2026-11-02",
+  "generatedAt": "2026-11-04T04:35:27.472933",
+  "dataThrough": "2026-11-03",
   "combined": [
     {
       "date": "2024-01-21",
@@ -16945,6 +16945,60 @@
       "quantity": 240.0,
       "payments": 132,
       "firstSlot": 37
+    },
+    {
+      "date": "2026-11-03",
+      "league": "Pins and Needles",
+      "kind": "lineage",
+      "revenue": 1183.0,
+      "quantity": 91.0,
+      "payments": 91,
+      "firstSlot": 22
+    },
+    {
+      "date": "2026-11-03",
+      "league": "Pins and Needles",
+      "kind": "prizeFund",
+      "revenue": 637.0,
+      "quantity": 91.0,
+      "payments": 91,
+      "firstSlot": 22
+    },
+    {
+      "date": "2026-11-03",
+      "league": "Silver Striking Seniors",
+      "kind": "lineage",
+      "revenue": 1950.0,
+      "quantity": 150.0,
+      "payments": 150,
+      "firstSlot": 22
+    },
+    {
+      "date": "2026-11-03",
+      "league": "Silver Striking Seniors",
+      "kind": "prizeFund",
+      "revenue": 1200.0,
+      "quantity": 150.0,
+      "payments": 150,
+      "firstSlot": 22
+    },
+    {
+      "date": "2026-11-03",
+      "league": "Vegas or Bust",
+      "kind": "lineage",
+      "revenue": 4940.0,
+      "quantity": 260.0,
+      "payments": 260,
+      "firstSlot": 36
+    },
+    {
+      "date": "2026-11-03",
+      "league": "Vegas or Bust",
+      "kind": "prizeFund",
+      "revenue": 3380.0,
+      "quantity": 260.0,
+      "payments": 260,
+      "firstSlot": 36
     }
   ],
   "voids": [
@@ -19194,6 +19248,34 @@
       "kind": "prizeFund",
       "count": 4.0,
       "value": 44.0
+    },
+    {
+      "date": "2026-11-03",
+      "league": "Bowling 4 $'s",
+      "kind": "lineage",
+      "count": 0.0,
+      "value": 38.0
+    },
+    {
+      "date": "2026-11-03",
+      "league": "Bowling 4 $'s",
+      "kind": "prizeFund",
+      "count": 0.0,
+      "value": 30.0
+    },
+    {
+      "date": "2026-11-03",
+      "league": "Pins and Needles",
+      "kind": "lineage",
+      "count": 2.0,
+      "value": 78.0
+    },
+    {
+      "date": "2026-11-03",
+      "league": "Pins and Needles",
+      "kind": "prizeFund",
+      "count": 2.0,
+      "value": 42.0
     }
   ]
 }
