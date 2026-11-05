@@ -1,5 +1,5 @@
 {
-  "pulledAt": "2026-11-04T04:34:19",
+  "pulledAt": "2026-11-05T04:34:19",
   "reservations": [
     {
       "id": 37008,
@@ -9884,7 +9884,8 @@
       "transactionId": null,
       "title": "LANE BUMPER",
       "parentId": 40802,
-      "txnIds": []
+      "txnIds": [],
+      "goneAt": "2026-11-05"
     },
     {
       "id": 40847,
@@ -14284,7 +14285,8 @@
       "transactionId": null,
       "title": "Super Sports",
       "parentId": 41225,
-      "txnIds": []
+      "txnIds": [],
+      "goneAt": "2026-11-05"
     },
     {
       "id": 41234,
@@ -20894,7 +20896,7 @@
       "id": 42010,
       "created": "2026-10-12T12:06:57",
       "event": "2026-11-04",
-      "statusId": 0,
+      "statusId": 2,
       "type": "Online Reservations",
       "accountId": 12390,
       "transactionId": 844889,
@@ -25409,7 +25411,7 @@
       "id": 42453,
       "created": "2026-10-30T11:51:15",
       "event": "2026-11-04",
-      "statusId": 0,
+      "statusId": 2,
       "type": "summer party builder",
       "accountId": 12556,
       "transactionId": 852766,
@@ -26129,7 +26131,7 @@
       "id": 42509,
       "created": "2026-11-03T13:04:19",
       "event": "2026-11-04",
-      "statusId": 0,
+      "statusId": 2,
       "type": "Adult Party",
       "accountId": 12589,
       "transactionId": 854623,
@@ -26271,6 +26273,210 @@
         854873,
         854874
       ]
+    },
+    {
+      "id": 42520,
+      "created": "2026-11-04T07:16:52",
+      "event": "2026-11-07",
+      "statusId": 0,
+      "type": "Online Reservations",
+      "accountId": 12595,
+      "transactionId": 855004,
+      "title": "Bryan Clark",
+      "parentId": null,
+      "txnIds": [
+        855003,
+        855004
+      ]
+    },
+    {
+      "id": 42521,
+      "created": "2026-11-04T08:36:53",
+      "event": "2026-11-11",
+      "statusId": 0,
+      "type": "Online Reservations",
+      "accountId": 12596,
+      "transactionId": 855006,
+      "title": "Katherine Smith",
+      "parentId": null,
+      "txnIds": [
+        855005,
+        855006
+      ]
+    },
+    {
+      "id": 42522,
+      "created": "2026-11-04T12:27:58",
+      "event": "2026-11-11",
+      "statusId": 2,
+      "type": "Adult Party",
+      "accountId": null,
+      "transactionId": null,
+      "title": "TEMP BLOCK",
+      "parentId": null,
+      "txnIds": []
+    },
+    {
+      "id": 42523,
+      "created": "2026-11-04T12:58:57",
+      "event": "2026-11-14",
+      "statusId": 0,
+      "type": "Online Reservations",
+      "accountId": 12597,
+      "transactionId": 855047,
+      "title": "Eva Rodriguez",
+      "parentId": null,
+      "txnIds": [
+        855046,
+        855047
+      ]
+    },
+    {
+      "id": 42524,
+      "created": "2026-11-04T13:52:57",
+      "event": "2026-11-12",
+      "statusId": 0,
+      "type": "Online Reservations",
+      "accountId": 12598,
+      "transactionId": 855060,
+      "title": "John Armendariz",
+      "parentId": null,
+      "txnIds": [
+        855059,
+        855060
+      ]
+    },
+    {
+      "id": 42525,
+      "created": "2026-11-04T15:08:02",
+      "event": "2026-12-10",
+      "statusId": 2,
+      "type": "Strikezone 4 Lane Suite",
+      "accountId": 12599,
+      "transactionId": 855093,
+      "title": "PCT",
+      "parentId": null,
+      "txnIds": [
+        855091,
+        855093
+      ]
+    },
+    {
+      "id": 42526,
+      "created": "2026-11-04T15:35:58",
+      "event": "2026-11-05",
+      "statusId": 0,
+      "type": "Online Reservations",
+      "accountId": 12600,
+      "transactionId": 855110,
+      "title": "Dora Vega",
+      "parentId": null,
+      "txnIds": [
+        855109,
+        855110
+      ]
+    },
+    {
+      "id": 42527,
+      "created": "2026-11-04T16:23:20",
+      "event": "2026-11-07",
+      "statusId": 2,
+      "type": "Adult Party",
+      "accountId": null,
+      "transactionId": null,
+      "title": "New Reservation",
+      "parentId": null,
+      "txnIds": []
+    },
+    {
+      "id": 42528,
+      "created": "2026-11-04T16:23:25",
+      "event": "2026-11-07",
+      "statusId": 2,
+      "type": "Adult Party",
+      "accountId": null,
+      "transactionId": null,
+      "title": "New Reservation",
+      "parentId": null,
+      "txnIds": []
+    },
+    {
+      "id": 42529,
+      "created": "2026-11-04T16:23:57",
+      "event": "2026-11-07",
+      "statusId": 2,
+      "type": "Adult Party",
+      "accountId": null,
+      "transactionId": null,
+      "title": "New Reservation",
+      "parentId": null,
+      "txnIds": []
+    },
+    {
+      "id": 42530,
+      "created": "2026-11-04T16:24:02",
+      "event": "2026-11-07",
+      "statusId": 2,
+      "type": "Adult Party",
+      "accountId": null,
+      "transactionId": null,
+      "title": "New Reservation",
+      "parentId": null,
+      "txnIds": []
+    },
+    {
+      "id": 42531,
+      "created": "2026-11-04T16:24:05",
+      "event": "2026-11-07",
+      "statusId": 2,
+      "type": "Adult Party",
+      "accountId": null,
+      "transactionId": null,
+      "title": "New Reservation",
+      "parentId": null,
+      "txnIds": []
+    },
+    {
+      "id": 42532,
+      "created": "2026-11-04T16:32:58",
+      "event": "2026-11-04",
+      "statusId": 2,
+      "type": "all you can bowl",
+      "accountId": 12601,
+      "transactionId": 855219,
+      "title": "Raquel Duran",
+      "parentId": null,
+      "txnIds": [
+        855218,
+        855219
+      ]
+    },
+    {
+      "id": 42533,
+      "created": "2026-11-04T16:46:59",
+      "event": "2026-11-06",
+      "statusId": 2,
+      "type": "Adult Party",
+      "accountId": 12602,
+      "transactionId": 855224,
+      "title": "Sharon Landua",
+      "parentId": null,
+      "txnIds": [
+        855223,
+        855224
+      ]
+    },
+    {
+      "id": 42536,
+      "created": "2026-11-04T21:21:10",
+      "event": "2026-11-04",
+      "statusId": 2,
+      "type": "Adult Party",
+      "accountId": null,
+      "transactionId": null,
+      "title": "reschedule",
+      "parentId": null,
+      "txnIds": []
     }
   ],
   "ledger": [
@@ -137272,6 +137478,83 @@
       "at": "2026-11-03T19:04:56",
       "amount": -611.82,
       "txnId": 851192
+    },
+    {
+      "id": 38442,
+      "accountId": 12595,
+      "at": "2026-11-04T07:16:54",
+      "amount": 245.14,
+      "txnId": 855003
+    },
+    {
+      "id": 38443,
+      "accountId": 12596,
+      "at": "2026-11-04T08:36:54",
+      "amount": 305.91,
+      "txnId": 855005
+    },
+    {
+      "id": 38444,
+      "accountId": 12589,
+      "at": "2026-11-04T11:27:30",
+      "amount": -144.2,
+      "txnId": 854623
+    },
+    {
+      "id": 38445,
+      "accountId": 12597,
+      "at": "2026-11-04T12:58:58",
+      "amount": 122.57,
+      "txnId": 855046
+    },
+    {
+      "id": 38446,
+      "accountId": 12598,
+      "at": "2026-11-04T13:52:58",
+      "amount": 611.82,
+      "txnId": 855059
+    },
+    {
+      "id": 38447,
+      "accountId": 12556,
+      "at": "2026-11-04T13:56:45",
+      "amount": -556.2,
+      "txnId": 852766
+    },
+    {
+      "id": 38448,
+      "accountId": 12599,
+      "at": "2026-11-04T15:09:07",
+      "amount": 1350.0,
+      "txnId": 855091
+    },
+    {
+      "id": 38449,
+      "accountId": 12600,
+      "at": "2026-11-04T15:35:59",
+      "amount": 203.94,
+      "txnId": 855109
+    },
+    {
+      "id": 38450,
+      "accountId": 12601,
+      "at": "2026-11-04T16:33:00",
+      "amount": 37.08,
+      "txnId": 855218
+    },
+    {
+      "id": 38451,
+      "accountId": 12602,
+      "at": "2026-11-04T16:47:00",
+      "amount": 72.1,
+      "txnId": 855223
+    },
+    {
+      "id": 38452,
+      "accountId": 12601,
+      "at": "2026-11-04T21:03:32",
+      "amount": -37.08,
+      "txnId": 855219
     }
   ],
   "accounts": [
@@ -178848,6 +179131,46 @@
     {
       "id": 12594,
       "name": "11/11/2026 Ben Bailey",
+      "collection": "Event"
+    },
+    {
+      "id": 12595,
+      "name": "11/7/2026 Bryan Clark",
+      "collection": "Event"
+    },
+    {
+      "id": 12596,
+      "name": "11/11/2026 Katherine Smith",
+      "collection": "Event"
+    },
+    {
+      "id": 12597,
+      "name": "11/14/2026 Eva Rodriguez",
+      "collection": "Event"
+    },
+    {
+      "id": 12598,
+      "name": "11/12/2026 John Armendariz",
+      "collection": "Event"
+    },
+    {
+      "id": 12599,
+      "name": "PCT 12-10-26",
+      "collection": "VIP Suites"
+    },
+    {
+      "id": 12600,
+      "name": "11/5/2026 Dora Vega",
+      "collection": "Event"
+    },
+    {
+      "id": 12601,
+      "name": "11/4/2026 Raquel Duran",
+      "collection": "Event"
+    },
+    {
+      "id": 12602,
+      "name": "11/6/2026 Sharon Landua",
       "collection": "Event"
     }
   ]
