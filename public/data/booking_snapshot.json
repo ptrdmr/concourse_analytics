@@ -1,5 +1,5 @@
 {
-  "pulledAt": "2026-11-05T04:34:19",
+  "pulledAt": "2026-11-06T04:34:22",
   "reservations": [
     {
       "id": 37008,
@@ -24573,7 +24573,7 @@
       "id": 42389,
       "created": "2026-10-27T12:39:30",
       "event": "2026-11-05",
-      "statusId": 0,
+      "statusId": 2,
       "type": "Online Reservations",
       "accountId": 12514,
       "transactionId": 851465,
@@ -25954,7 +25954,7 @@
       "id": 42496,
       "created": "2026-11-02T16:35:54",
       "event": "2026-11-05",
-      "statusId": 0,
+      "statusId": 2,
       "type": "Online Reservations",
       "accountId": 12578,
       "transactionId": 854280,
@@ -26314,7 +26314,8 @@
       "transactionId": null,
       "title": "TEMP BLOCK",
       "parentId": null,
-      "txnIds": []
+      "txnIds": [],
+      "goneAt": "2026-11-06"
     },
     {
       "id": 42523,
@@ -26365,7 +26366,7 @@
       "id": 42526,
       "created": "2026-11-04T15:35:58",
       "event": "2026-11-05",
-      "statusId": 0,
+      "statusId": 2,
       "type": "Online Reservations",
       "accountId": 12600,
       "transactionId": 855110,
@@ -26477,6 +26478,225 @@
       "title": "reschedule",
       "parentId": null,
       "txnIds": []
+    },
+    {
+      "id": 42537,
+      "created": "2026-11-05T08:42:18",
+      "event": "2026-11-07",
+      "statusId": 0,
+      "type": "Online Reservations",
+      "accountId": 12603,
+      "transactionId": 855556,
+      "title": "Leticia Degracia",
+      "parentId": null,
+      "txnIds": [
+        855555,
+        855556
+      ]
+    },
+    {
+      "id": 42538,
+      "created": "2026-11-05T10:43:04",
+      "event": "2026-11-07",
+      "statusId": 2,
+      "type": "Adult Party",
+      "accountId": null,
+      "transactionId": null,
+      "title": "New Reservation",
+      "parentId": null,
+      "txnIds": []
+    },
+    {
+      "id": 42539,
+      "created": "2026-11-05T10:43:41",
+      "event": "2026-11-08",
+      "statusId": 2,
+      "type": "Adult Party",
+      "accountId": null,
+      "transactionId": null,
+      "title": "New Reservation",
+      "parentId": null,
+      "txnIds": []
+    },
+    {
+      "id": 42540,
+      "created": "2026-11-05T10:43:44",
+      "event": "2026-11-08",
+      "statusId": 2,
+      "type": "Adult Party",
+      "accountId": null,
+      "transactionId": null,
+      "title": "New Reservation",
+      "parentId": null,
+      "txnIds": []
+    },
+    {
+      "id": 42541,
+      "created": "2026-11-05T10:43:49",
+      "event": "2026-11-08",
+      "statusId": 2,
+      "type": "Adult Party",
+      "accountId": null,
+      "transactionId": null,
+      "title": "New Reservation",
+      "parentId": null,
+      "txnIds": []
+    },
+    {
+      "id": 42542,
+      "created": "2026-11-05T10:43:53",
+      "event": "2026-11-08",
+      "statusId": 2,
+      "type": "Adult Party",
+      "accountId": null,
+      "transactionId": null,
+      "title": "New Reservation",
+      "parentId": null,
+      "txnIds": []
+    },
+    {
+      "id": 42543,
+      "created": "2026-11-05T10:44:01",
+      "event": "2026-11-22",
+      "statusId": 2,
+      "type": "Special Event",
+      "accountId": 12604,
+      "transactionId": 855564,
+      "title": "Tustin Girls Softball - Sizzle",
+      "parentId": null,
+      "txnIds": [
+        855563,
+        855564
+      ]
+    },
+    {
+      "id": 42544,
+      "created": "2026-11-05T11:25:38",
+      "event": "2026-11-17",
+      "statusId": 2,
+      "type": "Make-up/Pre-Bowl",
+      "accountId": null,
+      "transactionId": null,
+      "title": "Craig Roberts - BB - T10",
+      "parentId": null,
+      "txnIds": []
+    },
+    {
+      "id": 42545,
+      "created": "2026-11-05T11:32:20",
+      "event": "2026-11-05",
+      "statusId": 2,
+      "type": "Online Reservations",
+      "accountId": 12605,
+      "transactionId": 855602,
+      "title": "Antonio Juarez",
+      "parentId": null,
+      "txnIds": [
+        855601,
+        855602
+      ]
+    },
+    {
+      "id": 42546,
+      "created": "2026-11-05T12:56:24",
+      "event": "2026-11-05",
+      "statusId": 2,
+      "type": "Online Reservations",
+      "accountId": 12606,
+      "transactionId": 855658,
+      "title": "Jc Velez",
+      "parentId": null,
+      "txnIds": [
+        855657,
+        855658
+      ]
+    },
+    {
+      "id": 42547,
+      "created": "2026-11-05T13:22:55",
+      "event": "2026-11-14",
+      "statusId": 2,
+      "type": "Make-up/Pre-Bowl",
+      "accountId": 12607,
+      "transactionId": 855667,
+      "title": "Rudy Privitelli",
+      "parentId": null,
+      "txnIds": [
+        855666,
+        855667
+      ]
+    },
+    {
+      "id": 42548,
+      "created": "2026-11-05T15:07:22",
+      "event": "2026-11-14",
+      "statusId": 0,
+      "type": "summer party builder",
+      "accountId": 12608,
+      "transactionId": 855694,
+      "title": "Loraine Samonte",
+      "parentId": null,
+      "txnIds": [
+        855693,
+        855694
+      ]
+    },
+    {
+      "id": 42549,
+      "created": "2026-11-05T16:10:24",
+      "event": "2026-11-05",
+      "statusId": 2,
+      "type": "Online Reservations",
+      "accountId": 12609,
+      "transactionId": 855709,
+      "title": "Mike Carvale",
+      "parentId": null,
+      "txnIds": [
+        855708,
+        855709
+      ]
+    },
+    {
+      "id": 42550,
+      "created": "2026-11-05T16:45:41",
+      "event": "2026-11-23",
+      "statusId": 2,
+      "type": "Adult Party",
+      "accountId": null,
+      "transactionId": null,
+      "title": "New Reservation",
+      "parentId": null,
+      "txnIds": []
+    },
+    {
+      "id": 42551,
+      "created": "2026-11-05T19:31:26",
+      "event": "2026-11-20",
+      "statusId": 0,
+      "type": "Online Reservations",
+      "accountId": 12610,
+      "transactionId": 855924,
+      "title": "Bruce Glick",
+      "parentId": null,
+      "txnIds": [
+        855923,
+        855924
+      ]
+    },
+    {
+      "id": 42552,
+      "created": "2026-11-05T22:02:27",
+      "event": "2026-11-07",
+      "statusId": 0,
+      "type": "Online Reservations",
+      "accountId": 12611,
+      "transactionId": 856025,
+      "title": "Madalyn Sullivan",
+      "parentId": null,
+      "txnIds": [
+        856024,
+        856025
+      ]
     }
   ],
   "ledger": [
@@ -137555,6 +137775,118 @@
       "at": "2026-11-04T21:03:32",
       "amount": -37.08,
       "txnId": 855219
+    },
+    {
+      "id": 38453,
+      "accountId": 12603,
+      "at": "2026-11-05T08:42:20",
+      "amount": 203.94,
+      "txnId": 855555
+    },
+    {
+      "id": 38454,
+      "accountId": 12604,
+      "at": "2026-11-05T10:44:24",
+      "amount": 231.75,
+      "txnId": 855563
+    },
+    {
+      "id": 38455,
+      "accountId": 12605,
+      "at": "2026-11-05T11:32:21",
+      "amount": 139.05,
+      "txnId": 855601
+    },
+    {
+      "id": 38456,
+      "accountId": 12606,
+      "at": "2026-11-05T12:56:25",
+      "amount": 101.97,
+      "txnId": 855657
+    },
+    {
+      "id": 38457,
+      "accountId": 12607,
+      "at": "2026-11-05T13:25:58",
+      "amount": 298.0,
+      "txnId": 855666
+    },
+    {
+      "id": 38458,
+      "accountId": 12578,
+      "at": "2026-11-05T14:31:42",
+      "amount": -305.91,
+      "txnId": 854280
+    },
+    {
+      "id": 38459,
+      "accountId": 12608,
+      "at": "2026-11-05T15:07:24",
+      "amount": 646.85,
+      "txnId": 855693
+    },
+    {
+      "id": 38460,
+      "accountId": 12609,
+      "at": "2026-11-05T16:10:25",
+      "amount": 101.97,
+      "txnId": 855708
+    },
+    {
+      "id": 38461,
+      "accountId": 12394,
+      "at": "2026-11-05T16:51:26",
+      "amount": -203.94,
+      "txnId": 845127
+    },
+    {
+      "id": 38462,
+      "accountId": 12606,
+      "at": "2026-11-05T17:55:41",
+      "amount": -101.97,
+      "txnId": 855658
+    },
+    {
+      "id": 38463,
+      "accountId": 12514,
+      "at": "2026-11-05T18:06:29",
+      "amount": -203.94,
+      "txnId": 851465
+    },
+    {
+      "id": 38464,
+      "accountId": 12605,
+      "at": "2026-11-05T18:52:06",
+      "amount": -139.05,
+      "txnId": 855602
+    },
+    {
+      "id": 38465,
+      "accountId": 12600,
+      "at": "2026-11-05T18:54:07",
+      "amount": -203.94,
+      "txnId": 855110
+    },
+    {
+      "id": 38466,
+      "accountId": 12609,
+      "at": "2026-11-05T18:57:46",
+      "amount": -101.97,
+      "txnId": 855709
+    },
+    {
+      "id": 38467,
+      "accountId": 12610,
+      "at": "2026-11-05T19:31:27",
+      "amount": 407.88,
+      "txnId": 855923
+    },
+    {
+      "id": 38468,
+      "accountId": 12611,
+      "at": "2026-11-05T22:02:29",
+      "amount": 203.94,
+      "txnId": 856024
     }
   ],
   "accounts": [
@@ -179171,6 +179503,51 @@
     {
       "id": 12602,
       "name": "11/6/2026 Sharon Landua",
+      "collection": "Event"
+    },
+    {
+      "id": 12603,
+      "name": "11/7/2026 Leticia Degracia",
+      "collection": "Event"
+    },
+    {
+      "id": 12604,
+      "name": "Tustin Girls Softball - Sizzle 11-22-26",
+      "collection": "Sports Party"
+    },
+    {
+      "id": 12605,
+      "name": "11/5/2026 Antonio Juarez",
+      "collection": "Event"
+    },
+    {
+      "id": 12606,
+      "name": "11/5/2026 Jc Velez",
+      "collection": "Event"
+    },
+    {
+      "id": 12607,
+      "name": "11-14-26 Rudy Privitelli",
+      "collection": "Event"
+    },
+    {
+      "id": 12608,
+      "name": "11/14/2026 Loraine Samonte",
+      "collection": "Event"
+    },
+    {
+      "id": 12609,
+      "name": "11/5/2026 Mike Carvale",
+      "collection": "Event"
+    },
+    {
+      "id": 12610,
+      "name": "11/20/2026 Bruce Glick",
+      "collection": "Event"
+    },
+    {
+      "id": 12611,
+      "name": "11/7/2026 Madalyn Sullivan",
       "collection": "Event"
     }
   ]
