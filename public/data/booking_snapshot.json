@@ -1,5 +1,5 @@
 {
-  "pulledAt": "2026-11-06T04:34:22",
+  "pulledAt": "2026-11-07T04:34:21",
   "reservations": [
     {
       "id": 37008,
@@ -15455,7 +15455,8 @@
       "parentId": null,
       "txnIds": [
         832417,
-        832418
+        832418,
+        856103
       ]
     },
     {
@@ -22645,7 +22646,8 @@
       "transactionId": null,
       "title": "HOLD",
       "parentId": 41888,
-      "txnIds": []
+      "txnIds": [],
+      "goneAt": "2026-11-07"
     },
     {
       "id": 42224,
@@ -22657,7 +22659,8 @@
       "transactionId": null,
       "title": "HOLD",
       "parentId": 41888,
-      "txnIds": []
+      "txnIds": [],
+      "goneAt": "2026-11-07"
     },
     {
       "id": 42225,
@@ -22669,7 +22672,8 @@
       "transactionId": null,
       "title": "HOLD",
       "parentId": 41888,
-      "txnIds": []
+      "txnIds": [],
+      "goneAt": "2026-11-07"
     },
     {
       "id": 42230,
@@ -23230,12 +23234,15 @@
       "created": "2026-10-19T15:51:28",
       "event": "2026-11-13",
       "statusId": 2,
-      "type": "Undefined",
-      "accountId": null,
-      "transactionId": null,
+      "type": "Special Event",
+      "accountId": 12625,
+      "transactionId": 856278,
       "title": "Cerra Villa",
       "parentId": null,
-      "txnIds": []
+      "txnIds": [
+        856277,
+        856278
+      ]
     },
     {
       "id": 42288,
@@ -23256,7 +23263,7 @@
       "id": 42289,
       "created": "2026-10-20T08:27:27",
       "event": "2026-11-15",
-      "statusId": 0,
+      "statusId": 2,
       "type": "family fun pack",
       "accountId": 12448,
       "transactionId": 848228,
@@ -23336,7 +23343,8 @@
       "parentId": null,
       "txnIds": [
         848252,
-        848253
+        848253,
+        856229
       ]
     },
     {
@@ -23439,7 +23447,8 @@
       "transactionId": null,
       "title": "Kayla Huynh",
       "parentId": null,
-      "txnIds": []
+      "txnIds": [],
+      "goneAt": "2026-11-07"
     },
     {
       "id": 42304,
@@ -23550,7 +23559,7 @@
       "id": 42311,
       "created": "2026-10-21T13:47:00",
       "event": "2026-11-14",
-      "statusId": 0,
+      "statusId": 2,
       "type": "summer party builder",
       "accountId": 12463,
       "transactionId": 848682,
@@ -24054,7 +24063,7 @@
       "id": 42348,
       "created": "2026-10-23T15:48:49",
       "event": "2026-11-14",
-      "statusId": 0,
+      "statusId": 2,
       "type": "summer party builder",
       "accountId": 12491,
       "transactionId": 849810,
@@ -24802,7 +24811,7 @@
       "type": "Supercharge",
       "accountId": 12529,
       "transactionId": 851807,
-      "title": "Shannon Cardinale",
+      "title": "Lucas' 13th Birthday!",
       "parentId": null,
       "txnIds": [
         851806,
@@ -25837,7 +25846,7 @@
       "id": 42488,
       "created": "2026-11-02T10:30:50",
       "event": "2026-11-08",
-      "statusId": 0,
+      "statusId": 2,
       "type": "Online Reservations",
       "accountId": 12569,
       "transactionId": 854226,
@@ -26696,6 +26705,408 @@
       "txnIds": [
         856024,
         856025
+      ]
+    },
+    {
+      "id": 42553,
+      "created": "2026-11-06T08:54:43",
+      "event": "2026-11-07",
+      "statusId": 2,
+      "type": "Online Reservations",
+      "accountId": 12612,
+      "transactionId": 856042,
+      "title": "Veronica Ledezma",
+      "parentId": null,
+      "txnIds": [
+        856041,
+        856042
+      ]
+    },
+    {
+      "id": 42554,
+      "created": "2026-11-06T09:07:43",
+      "event": "2026-11-08",
+      "statusId": 2,
+      "type": "Online Reservations",
+      "accountId": 12613,
+      "transactionId": 856044,
+      "title": "Miguel Scala",
+      "parentId": null,
+      "txnIds": [
+        856043,
+        856044
+      ]
+    },
+    {
+      "id": 42555,
+      "created": "2026-11-06T09:45:43",
+      "event": "2026-11-12",
+      "statusId": 0,
+      "type": "Online Reservations",
+      "accountId": 12614,
+      "transactionId": 856046,
+      "title": "Jennifer Aguilar",
+      "parentId": null,
+      "txnIds": [
+        856045,
+        856046
+      ]
+    },
+    {
+      "id": 42556,
+      "created": "2026-11-06T09:48:43",
+      "event": "2026-11-20",
+      "statusId": 0,
+      "type": "Adult Party",
+      "accountId": 12615,
+      "transactionId": 856048,
+      "title": "Alejandra Mancini",
+      "parentId": null,
+      "txnIds": [
+        856047,
+        856048
+      ]
+    },
+    {
+      "id": 42557,
+      "created": "2026-11-06T09:58:43",
+      "event": "2026-11-06",
+      "statusId": 2,
+      "type": "Adult Party",
+      "accountId": 12616,
+      "transactionId": 856050,
+      "title": "Stephan Valdez",
+      "parentId": null,
+      "txnIds": [
+        856049,
+        856050
+      ]
+    },
+    {
+      "id": 42558,
+      "created": "2026-11-06T10:26:20",
+      "event": "2026-11-06",
+      "statusId": 2,
+      "type": "Adult Party",
+      "accountId": null,
+      "transactionId": null,
+      "title": "New Reservation",
+      "parentId": null,
+      "txnIds": []
+    },
+    {
+      "id": 42559,
+      "created": "2026-11-06T10:48:18",
+      "event": "2026-11-08",
+      "statusId": 2,
+      "type": "Special Event",
+      "accountId": 12617,
+      "transactionId": 856060,
+      "title": "Noah Corral",
+      "parentId": null,
+      "txnIds": [
+        856059,
+        856060
+      ]
+    },
+    {
+      "id": 42560,
+      "created": "2026-11-06T10:50:00",
+      "event": "2026-11-09",
+      "statusId": 2,
+      "type": "Special Event",
+      "accountId": 12618,
+      "transactionId": 856062,
+      "title": "Flaming Tigers",
+      "parentId": null,
+      "txnIds": [
+        856061,
+        856062
+      ]
+    },
+    {
+      "id": 42561,
+      "created": "2026-11-06T10:51:54",
+      "event": "2026-11-14",
+      "statusId": 2,
+      "type": "Pair and Spair",
+      "accountId": 12619,
+      "transactionId": 856066,
+      "title": "Ryan Worth",
+      "parentId": null,
+      "txnIds": [
+        856065,
+        856066
+      ]
+    },
+    {
+      "id": 42562,
+      "created": "2026-11-06T11:15:44",
+      "event": "2026-11-07",
+      "statusId": 0,
+      "type": "Online Reservations",
+      "accountId": 12620,
+      "transactionId": 856078,
+      "title": "Taylor Pendray",
+      "parentId": null,
+      "txnIds": [
+        856077,
+        856078
+      ]
+    },
+    {
+      "id": 42563,
+      "created": "2026-11-06T11:29:21",
+      "event": "2026-11-08",
+      "statusId": 2,
+      "type": "Undefined",
+      "accountId": null,
+      "transactionId": null,
+      "title": "New Reservation",
+      "parentId": null,
+      "txnIds": []
+    },
+    {
+      "id": 42564,
+      "created": "2026-11-06T12:26:57",
+      "event": "2026-11-17",
+      "statusId": 2,
+      "type": "Special Event",
+      "accountId": 12621,
+      "transactionId": 856107,
+      "title": "OC Sharks",
+      "parentId": null,
+      "txnIds": [
+        856106,
+        856107
+      ]
+    },
+    {
+      "id": 42565,
+      "created": "2026-11-06T12:31:49",
+      "event": "2026-11-17",
+      "statusId": 2,
+      "type": "Special Event",
+      "accountId": 12622,
+      "transactionId": 856115,
+      "title": "Emerald Dragons",
+      "parentId": null,
+      "txnIds": [
+        856114,
+        856115
+      ]
+    },
+    {
+      "id": 42566,
+      "created": "2026-11-06T13:30:46",
+      "event": "2026-11-10",
+      "statusId": 0,
+      "type": "all you can bowl",
+      "accountId": 12623,
+      "transactionId": 856142,
+      "title": "Sofia Graniello",
+      "parentId": null,
+      "txnIds": [
+        856141,
+        856142
+      ]
+    },
+    {
+      "id": 42567,
+      "created": "2026-11-06T14:49:47",
+      "event": "2026-11-07",
+      "statusId": 0,
+      "type": "Online Reservations",
+      "accountId": 12624,
+      "transactionId": 856189,
+      "title": "Curtis Arellanez",
+      "parentId": null,
+      "txnIds": [
+        856188,
+        856189
+      ]
+    },
+    {
+      "id": 42568,
+      "created": "2026-11-06T16:03:21",
+      "event": "2026-11-08",
+      "statusId": 2,
+      "type": "Adult Party",
+      "accountId": null,
+      "transactionId": null,
+      "title": "Add on lane",
+      "parentId": null,
+      "txnIds": []
+    },
+    {
+      "id": 42569,
+      "created": "2026-11-06T16:41:17",
+      "event": "2026-11-11",
+      "statusId": 2,
+      "type": "Undefined",
+      "accountId": null,
+      "transactionId": null,
+      "title": "Robyn Eppstein",
+      "parentId": null,
+      "txnIds": []
+    },
+    {
+      "id": 42570,
+      "created": "2026-11-06T16:42:28",
+      "event": "2026-11-13",
+      "statusId": 2,
+      "type": "Undefined",
+      "accountId": null,
+      "transactionId": null,
+      "title": "Eldordado Girls Soccer",
+      "parentId": null,
+      "txnIds": []
+    },
+    {
+      "id": 42571,
+      "created": "2026-11-06T16:44:01",
+      "event": "2026-11-14",
+      "statusId": 2,
+      "type": "Undefined",
+      "accountId": null,
+      "transactionId": null,
+      "title": "Ivan's 16th Birthday",
+      "parentId": null,
+      "txnIds": []
+    },
+    {
+      "id": 42572,
+      "created": "2026-11-06T16:52:44",
+      "event": "2026-12-04",
+      "statusId": 2,
+      "type": "Undefined",
+      "accountId": null,
+      "transactionId": null,
+      "title": "Alyssa Arce",
+      "parentId": null,
+      "txnIds": []
+    },
+    {
+      "id": 42573,
+      "created": "2026-11-06T16:54:52",
+      "event": "2026-12-04",
+      "statusId": 2,
+      "type": "Undefined",
+      "accountId": null,
+      "transactionId": null,
+      "title": "Amanda Ezzell",
+      "parentId": null,
+      "txnIds": []
+    },
+    {
+      "id": 42574,
+      "created": "2026-11-06T16:57:41",
+      "event": "2026-12-05",
+      "statusId": 2,
+      "type": "Undefined",
+      "accountId": null,
+      "transactionId": null,
+      "title": "Rochelle Thompson",
+      "parentId": null,
+      "txnIds": []
+    },
+    {
+      "id": 42575,
+      "created": "2026-11-06T16:59:01",
+      "event": "2026-12-05",
+      "statusId": 2,
+      "type": "Undefined",
+      "accountId": null,
+      "transactionId": null,
+      "title": "Scott Monson",
+      "parentId": null,
+      "txnIds": []
+    },
+    {
+      "id": 42576,
+      "created": "2026-11-06T17:00:15",
+      "event": "2026-12-05",
+      "statusId": 2,
+      "type": "Undefined",
+      "accountId": null,
+      "transactionId": null,
+      "title": "Luis Sanchez",
+      "parentId": null,
+      "txnIds": []
+    },
+    {
+      "id": 42577,
+      "created": "2026-11-06T17:02:03",
+      "event": "2026-12-05",
+      "statusId": 2,
+      "type": "Undefined",
+      "accountId": null,
+      "transactionId": null,
+      "title": "Alejandra Gonzalez",
+      "parentId": null,
+      "txnIds": []
+    },
+    {
+      "id": 42578,
+      "created": "2026-11-06T17:04:12",
+      "event": "2026-12-09",
+      "statusId": 2,
+      "type": "Undefined",
+      "accountId": null,
+      "transactionId": null,
+      "title": "Jill Shaffer",
+      "parentId": null,
+      "txnIds": []
+    },
+    {
+      "id": 42579,
+      "created": "2026-11-06T17:22:49",
+      "event": "2026-11-07",
+      "statusId": 2,
+      "type": "Adult Party",
+      "accountId": null,
+      "transactionId": null,
+      "title": "New Reservation",
+      "parentId": null,
+      "txnIds": []
+    },
+    {
+      "id": 42580,
+      "created": "2026-11-06T17:43:29",
+      "event": "2026-11-07",
+      "statusId": 2,
+      "type": "Adult Party",
+      "accountId": null,
+      "transactionId": null,
+      "title": "New Reservation",
+      "parentId": null,
+      "txnIds": []
+    },
+    {
+      "id": 42581,
+      "created": "2026-11-06T17:43:57",
+      "event": "2026-12-17",
+      "statusId": 2,
+      "type": "Undefined",
+      "accountId": null,
+      "transactionId": null,
+      "title": "Symantha Mccomb",
+      "parentId": null,
+      "txnIds": []
+    },
+    {
+      "id": 42582,
+      "created": "2026-11-06T20:16:49",
+      "event": "2026-11-07",
+      "statusId": 0,
+      "type": "Online Reservations",
+      "accountId": 12626,
+      "transactionId": 856526,
+      "title": "Brianna Mendoza",
+      "parentId": null,
+      "txnIds": [
+        856525,
+        856526
       ]
     }
   ],
@@ -137887,6 +138298,202 @@
       "at": "2026-11-05T22:02:29",
       "amount": 203.94,
       "txnId": 856024
+    },
+    {
+      "id": 38469,
+      "accountId": 12612,
+      "at": "2026-11-06T08:54:44",
+      "amount": 203.94,
+      "txnId": 856041
+    },
+    {
+      "id": 38470,
+      "accountId": 12613,
+      "at": "2026-11-06T09:07:44",
+      "amount": 306.94,
+      "txnId": 856043
+    },
+    {
+      "id": 38471,
+      "accountId": 12614,
+      "at": "2026-11-06T09:45:44",
+      "amount": 203.94,
+      "txnId": 856045
+    },
+    {
+      "id": 38472,
+      "accountId": 12615,
+      "at": "2026-11-06T09:48:44",
+      "amount": 28.84,
+      "txnId": 856047
+    },
+    {
+      "id": 38473,
+      "accountId": 12616,
+      "at": "2026-11-06T09:58:44",
+      "amount": 28.84,
+      "txnId": 856049
+    },
+    {
+      "id": 38474,
+      "accountId": 12574,
+      "at": "2026-11-06T10:25:17",
+      "amount": -980.56,
+      "txnId": 854237
+    },
+    {
+      "id": 38475,
+      "accountId": 12617,
+      "at": "2026-11-06T10:48:57",
+      "amount": 231.75,
+      "txnId": 856059
+    },
+    {
+      "id": 38476,
+      "accountId": 12618,
+      "at": "2026-11-06T10:50:39",
+      "amount": 231.75,
+      "txnId": 856061
+    },
+    {
+      "id": 38477,
+      "accountId": 12619,
+      "at": "2026-11-06T10:52:25",
+      "amount": 401.7,
+      "txnId": 856065
+    },
+    {
+      "id": 38478,
+      "accountId": 12620,
+      "at": "2026-11-06T11:15:45",
+      "amount": 306.94,
+      "txnId": 856077
+    },
+    {
+      "id": 38479,
+      "accountId": 12180,
+      "at": "2026-11-06T12:22:39",
+      "amount": 558.44,
+      "txnId": 856103
+    },
+    {
+      "id": 38480,
+      "accountId": 12621,
+      "at": "2026-11-06T12:27:37",
+      "amount": 283.98,
+      "txnId": 856106
+    },
+    {
+      "id": 38481,
+      "accountId": 12622,
+      "at": "2026-11-06T12:37:18",
+      "amount": 231.75,
+      "txnId": 856114
+    },
+    {
+      "id": 38482,
+      "accountId": 12616,
+      "at": "2026-11-06T12:59:07",
+      "amount": -28.84,
+      "txnId": 856050
+    },
+    {
+      "id": 38483,
+      "accountId": 12602,
+      "at": "2026-11-06T13:03:37",
+      "amount": -72.1,
+      "txnId": 855224
+    },
+    {
+      "id": 38484,
+      "accountId": 12623,
+      "at": "2026-11-06T13:30:48",
+      "amount": 148.32,
+      "txnId": 856141
+    },
+    {
+      "id": 38485,
+      "accountId": 12624,
+      "at": "2026-11-06T14:49:48",
+      "amount": 122.57,
+      "txnId": 856188
+    },
+    {
+      "id": 38486,
+      "accountId": 12453,
+      "at": "2026-11-06T15:32:20",
+      "amount": 1994.25,
+      "txnId": 856229
+    },
+    {
+      "id": 38487,
+      "accountId": 12593,
+      "at": "2026-11-06T15:34:23",
+      "amount": -601.73,
+      "txnId": 854736
+    },
+    {
+      "id": 38488,
+      "accountId": 12625,
+      "at": "2026-11-06T16:49:46",
+      "amount": 721.0,
+      "txnId": 856277
+    },
+    {
+      "id": 38489,
+      "accountId": 12592,
+      "at": "2026-11-06T17:11:06",
+      "amount": -231.75,
+      "txnId": 854241
+    },
+    {
+      "id": 38490,
+      "accountId": 12557,
+      "at": "2026-11-06T17:13:41",
+      "amount": -153.47,
+      "txnId": 852804
+    },
+    {
+      "id": 38491,
+      "accountId": 12374,
+      "at": "2026-11-06T17:22:07",
+      "amount": -401.7,
+      "txnId": 843803
+    },
+    {
+      "id": 38492,
+      "accountId": 12555,
+      "at": "2026-11-06T18:01:46",
+      "amount": -613.88,
+      "txnId": 852742
+    },
+    {
+      "id": 38493,
+      "accountId": 12466,
+      "at": "2026-11-06T18:30:49",
+      "amount": -493.06,
+      "txnId": 848991
+    },
+    {
+      "id": 38494,
+      "accountId": 12588,
+      "at": "2026-11-06T18:58:03",
+      "amount": -306.94,
+      "txnId": 854614
+    },
+    {
+      "id": 38495,
+      "accountId": 12581,
+      "at": "2026-11-06T19:00:51",
+      "amount": -306.94,
+      "txnId": 854396
+    },
+    {
+      "id": 38496,
+      "accountId": 12626,
+      "at": "2026-11-06T20:16:51",
+      "amount": 306.94,
+      "txnId": 856525
     }
   ],
   "accounts": [
@@ -179548,6 +180155,81 @@
     {
       "id": 12611,
       "name": "11/7/2026 Madalyn Sullivan",
+      "collection": "Event"
+    },
+    {
+      "id": 12612,
+      "name": "11/6/2026 Veronica Ledezma",
+      "collection": "Event"
+    },
+    {
+      "id": 12613,
+      "name": "11/6/2026 Miguel Scala",
+      "collection": "Event"
+    },
+    {
+      "id": 12614,
+      "name": "11/12/2026 Jennifer Aguilar (1)",
+      "collection": "Event"
+    },
+    {
+      "id": 12615,
+      "name": "11/20/2026 Alejandra Mancini",
+      "collection": "Event"
+    },
+    {
+      "id": 12616,
+      "name": "11/6/2026 Stephan Valdez",
+      "collection": "Event"
+    },
+    {
+      "id": 12617,
+      "name": "Noah Corral 11-08-26",
+      "collection": "Sports Party"
+    },
+    {
+      "id": 12618,
+      "name": "Flaming Tigers 11-09-26",
+      "collection": "Sports Party"
+    },
+    {
+      "id": 12619,
+      "name": "Ryan Worth 11-14-26",
+      "collection": "Pair & Spare"
+    },
+    {
+      "id": 12620,
+      "name": "11/7/2026 Taylor Pendray",
+      "collection": "Event"
+    },
+    {
+      "id": 12621,
+      "name": "OC Sharks 11-17-26",
+      "collection": "Sports Party"
+    },
+    {
+      "id": 12622,
+      "name": "Emerald Dragons 11-17-26",
+      "collection": "Sports Party"
+    },
+    {
+      "id": 12623,
+      "name": "11/10/2026 Sofia Graniello",
+      "collection": "Event"
+    },
+    {
+      "id": 12624,
+      "name": "11/7/2026 Curtis Arellanez",
+      "collection": "Event"
+    },
+    {
+      "id": 12625,
+      "name": "Cerra VIlla - 11-13-26",
+      "collection": "Summer Special"
+    },
+    {
+      "id": 12626,
+      "name": "11/7/2026 Brianna Mendoza",
       "collection": "Event"
     }
   ]
