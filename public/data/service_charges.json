@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-09T04:34:34.809651",
+  "generatedAt": "2026-11-09T11:35:52.962282",
   "tabs": [
     {
       "date": "2023-06-01",
@@ -13382,6 +13382,72 @@
       "gratuity": 100.0,
       "tabTotal": 1507.7,
       "accountApplied": 601.73
+    },
+    {
+      "date": "2026-11-07",
+      "time": "14:59",
+      "txnId": "851807",
+      "party": "Shannon Cardinale",
+      "accountNames": [
+        "11/7/2026 Shannon Cardinale"
+      ],
+      "partyTypes": [
+        "Supercharge"
+      ],
+      "chargeType": "Party Service Charge",
+      "server": "Nathan",
+      "terminal": "MPOS8",
+      "charges": {
+        "Party Service Charge": 98.8
+      },
+      "serviceCharge": 98.8,
+      "gratuity": 0.0,
+      "tabTotal": 639.26,
+      "accountApplied": 480.25
+    },
+    {
+      "date": "2026-11-07",
+      "time": "16:02",
+      "txnId": "848253",
+      "party": "KImberly Hilburn",
+      "accountNames": [
+        "KImberly Hilburn 11.07.26"
+      ],
+      "partyTypes": [
+        "Strike Zone Suite"
+      ],
+      "chargeType": "VIP Service Charge",
+      "server": "Sasha",
+      "terminal": "MPOS6",
+      "charges": {
+        "VIP Service Charge": 427.8
+      },
+      "serviceCharge": 427.8,
+      "gratuity": 0.0,
+      "tabTotal": 1363.22,
+      "accountApplied": 3094.25
+    },
+    {
+      "date": "2026-11-07",
+      "time": "16:35",
+      "txnId": "856924",
+      "party": "Kathy Harrell",
+      "accountNames": [
+        "Kathy Harrell 11.07.26"
+      ],
+      "partyTypes": [
+        "Supercharge"
+      ],
+      "chargeType": "Party Service Charge",
+      "server": "Sasha",
+      "terminal": "MPOS6",
+      "charges": {
+        "Party Service Charge": 95.1
+      },
+      "serviceCharge": 95.1,
+      "gratuity": 100.0,
+      "tabTotal": 698.71,
+      "accountApplied": 480.25
     }
   ],
   "meta": {

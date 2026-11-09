@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-09T04:36:16.970229-08:00",
+  "generatedAt": "2026-11-09T11:37:09.548376-08:00",
   "timezone": "America/Los_Angeles",
   "source": "punches+report",
   "slotResolution": 30,
@@ -195,6 +195,11 @@
         "factor": 0.4029,
         "rawCost": 794.88,
         "targetCost": 320.26
+      },
+      {
+        "date": "2026-11-09",
+        "reason": "report_cost_no_punches",
+        "targetCost": 5771.74
       }
     ],
     "mean": 1.6497,
