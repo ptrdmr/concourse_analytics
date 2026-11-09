@@ -1,6 +1,6 @@
 {
-  "generatedAt": "2026-11-08T04:35:27.278892",
-  "dataThrough": "2026-11-06",
+  "generatedAt": "2026-11-09T04:35:58.030425",
+  "dataThrough": "2026-11-08",
   "combined": [
     {
       "date": "2024-01-21",
@@ -17206,6 +17206,51 @@
       "quantity": 1.0,
       "payments": 1,
       "firstSlot": 22
+    },
+    {
+      "date": "2026-11-08",
+      "league": "Big Ballers",
+      "kind": "lineage",
+      "revenue": 1482.0,
+      "quantity": 78.0,
+      "payments": 78,
+      "firstSlot": 36
+    },
+    {
+      "date": "2026-11-08",
+      "league": "Big Ballers",
+      "kind": "prizeFund",
+      "revenue": 1638.0,
+      "quantity": 78.0,
+      "payments": 78,
+      "firstSlot": 36
+    },
+    {
+      "date": "2026-11-08",
+      "league": "Bowling 4 $'s",
+      "kind": "lineage",
+      "revenue": 475.0,
+      "quantity": 25.0,
+      "payments": 25,
+      "firstSlot": 37
+    },
+    {
+      "date": "2026-11-08",
+      "league": "Bowling 4 $'s",
+      "kind": "prizeFund",
+      "revenue": 375.0,
+      "quantity": 25.0,
+      "payments": 25,
+      "firstSlot": 37
+    },
+    {
+      "date": "2026-11-08",
+      "league": "Bowling 4 $'s",
+      "kind": "prizeFundGeneral",
+      "revenue": 136.0,
+      "quantity": 3.0,
+      "payments": 3,
+      "firstSlot": 37
     }
   ],
   "voids": [
@@ -19504,6 +19549,27 @@
       "kind": "prizeFundGeneral",
       "count": 0.0,
       "value": 217.6
+    },
+    {
+      "date": "2026-11-08",
+      "league": "Bowling 4 $'s",
+      "kind": "lineage",
+      "count": 4.0,
+      "value": 190.0
+    },
+    {
+      "date": "2026-11-08",
+      "league": "Bowling 4 $'s",
+      "kind": "prizeFund",
+      "count": 4.0,
+      "value": 150.0
+    },
+    {
+      "date": "2026-11-08",
+      "league": "Bowling 4 $'s",
+      "kind": "prizeFundGeneral",
+      "count": 2.0,
+      "value": 128.0
     }
   ]
 }
