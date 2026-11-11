@@ -1,5 +1,5 @@
 {
-  "pulledAt": "2026-11-10T04:34:23",
+  "pulledAt": "2026-11-11T04:34:21",
   "reservations": [
     {
       "id": 37008,
@@ -23242,7 +23242,8 @@
       "parentId": null,
       "txnIds": [
         856277,
-        856278
+        856278,
+        858220
       ]
     },
     {
@@ -25952,7 +25953,7 @@
       "id": 42495,
       "created": "2026-11-02T16:05:55",
       "event": "2026-11-10",
-      "statusId": 0,
+      "statusId": 2,
       "type": "summer party builder",
       "accountId": 12577,
       "transactionId": 854260,
@@ -26069,7 +26070,7 @@
       "id": 42504,
       "created": "2026-11-03T10:56:18",
       "event": "2026-11-15",
-      "statusId": 0,
+      "statusId": 2,
       "type": "Online Reservations",
       "accountId": 12584,
       "transactionId": 854534,
@@ -26210,7 +26211,7 @@
       "id": 42514,
       "created": "2026-11-03T17:11:22",
       "event": "2026-11-21",
-      "statusId": 0,
+      "statusId": 2,
       "type": "Online Reservations",
       "accountId": 12591,
       "transactionId": 854694,
@@ -26306,7 +26307,7 @@
       "id": 42521,
       "created": "2026-11-04T08:36:53",
       "event": "2026-11-11",
-      "statusId": 0,
+      "statusId": 2,
       "type": "Online Reservations",
       "accountId": 12596,
       "transactionId": 855006,
@@ -26334,7 +26335,7 @@
       "id": 42523,
       "created": "2026-11-04T12:58:57",
       "event": "2026-11-14",
-      "statusId": 0,
+      "statusId": 2,
       "type": "Online Reservations",
       "accountId": 12597,
       "transactionId": 855047,
@@ -26629,7 +26630,7 @@
       "created": "2026-11-05T13:22:55",
       "event": "2026-11-14",
       "statusId": 2,
-      "type": "Make-up/Pre-Bowl",
+      "type": "Online Reservations",
       "accountId": 12607,
       "transactionId": 855667,
       "title": "Rudy Privitelli",
@@ -26904,7 +26905,7 @@
       "id": 42566,
       "created": "2026-11-06T13:30:46",
       "event": "2026-11-10",
-      "statusId": 0,
+      "statusId": 2,
       "type": "all you can bowl",
       "accountId": 12623,
       "transactionId": 856142,
@@ -26965,7 +26966,7 @@
       "type": "Undefined",
       "accountId": null,
       "transactionId": null,
-      "title": "Eldordado Girls Soccer",
+      "title": "Eldorado Girls Soccer",
       "parentId": null,
       "txnIds": []
     },
@@ -27549,7 +27550,7 @@
       "id": 42629,
       "created": "2026-11-09T11:18:19",
       "event": "2026-11-10",
-      "statusId": 0,
+      "statusId": 2,
       "type": "all you can bowl",
       "accountId": 12636,
       "transactionId": 857855,
@@ -27765,7 +27766,7 @@
       "id": 42644,
       "created": "2026-11-09T16:05:22",
       "event": "2026-11-10",
-      "statusId": 0,
+      "statusId": 2,
       "type": "Online Reservations",
       "accountId": 12651,
       "transactionId": 857897,
@@ -27807,7 +27808,7 @@
       "id": 42647,
       "created": "2026-11-09T18:51:23",
       "event": "2026-11-10",
-      "statusId": 0,
+      "statusId": 2,
       "type": "Online Reservations",
       "accountId": 12654,
       "transactionId": 858020,
@@ -27846,6 +27847,270 @@
       "txnIds": [
         858128,
         858129
+      ]
+    },
+    {
+      "id": 42650,
+      "created": "2026-11-10T09:06:41",
+      "event": "2026-11-10",
+      "statusId": 2,
+      "type": "Adult Party",
+      "accountId": 12657,
+      "transactionId": 858143,
+      "title": "Corrine Jones",
+      "parentId": null,
+      "txnIds": [
+        858142,
+        858143
+      ]
+    },
+    {
+      "id": 42651,
+      "created": "2026-11-10T10:37:08",
+      "event": "2026-11-10",
+      "statusId": 2,
+      "type": "Adult Party",
+      "accountId": null,
+      "transactionId": null,
+      "title": "Buff",
+      "parentId": null,
+      "txnIds": []
+    },
+    {
+      "id": 42652,
+      "created": "2026-11-10T11:09:04",
+      "event": "2026-11-15",
+      "statusId": 2,
+      "type": "Special Event",
+      "accountId": 12658,
+      "transactionId": 858153,
+      "title": "8U - Dynamite",
+      "parentId": null,
+      "txnIds": [
+        858152,
+        858153
+      ]
+    },
+    {
+      "id": 42653,
+      "created": "2026-11-10T11:10:44",
+      "event": "2026-11-21",
+      "statusId": 2,
+      "type": "Strikezone 4 Lane Suite",
+      "accountId": 12659,
+      "transactionId": 858156,
+      "title": "Duo Sculpt",
+      "parentId": null,
+      "txnIds": [
+        858155,
+        858156
+      ]
+    },
+    {
+      "id": 42654,
+      "created": "2026-11-10T11:11:53",
+      "event": "2026-11-21",
+      "statusId": 2,
+      "type": "Undefined",
+      "accountId": null,
+      "transactionId": null,
+      "title": "New Reservation",
+      "parentId": null,
+      "txnIds": []
+    },
+    {
+      "id": 42655,
+      "created": "2026-11-10T11:12:06",
+      "event": "2026-11-21",
+      "statusId": 2,
+      "type": "Undefined",
+      "accountId": null,
+      "transactionId": null,
+      "title": "New Reservation",
+      "parentId": null,
+      "txnIds": []
+    },
+    {
+      "id": 42656,
+      "created": "2026-11-10T11:25:42",
+      "event": "2026-11-15",
+      "statusId": 0,
+      "type": "Online Reservations",
+      "accountId": 12660,
+      "transactionId": 858161,
+      "title": "Stacy Smith",
+      "parentId": null,
+      "txnIds": [
+        858160,
+        858161
+      ]
+    },
+    {
+      "id": 42657,
+      "created": "2026-11-10T11:27:36",
+      "event": "2026-11-18",
+      "statusId": 2,
+      "type": "Make-up/Pre-Bowl",
+      "accountId": null,
+      "transactionId": null,
+      "title": "Diana Robles VB4$: Team #1",
+      "parentId": null,
+      "txnIds": []
+    },
+    {
+      "id": 42658,
+      "created": "2026-11-10T11:47:42",
+      "event": "2026-11-10",
+      "statusId": 2,
+      "type": "Online Reservations",
+      "accountId": 12661,
+      "transactionId": 858169,
+      "title": "Glenn Partee",
+      "parentId": null,
+      "txnIds": [
+        858168,
+        858169
+      ]
+    },
+    {
+      "id": 42659,
+      "created": "2026-11-10T11:47:37",
+      "event": "2026-11-11",
+      "statusId": 2,
+      "type": "Special Event",
+      "accountId": null,
+      "transactionId": null,
+      "title": "Jill Stockstill",
+      "parentId": null,
+      "txnIds": []
+    },
+    {
+      "id": 42660,
+      "created": "2026-11-10T11:48:59",
+      "event": "2026-11-11",
+      "statusId": 2,
+      "type": "Special Event",
+      "accountId": 12662,
+      "transactionId": 858172,
+      "title": "Team Hernandez",
+      "parentId": null,
+      "txnIds": [
+        858171,
+        858172
+      ]
+    },
+    {
+      "id": 42661,
+      "created": "2026-11-10T11:56:42",
+      "event": "2026-11-15",
+      "statusId": 2,
+      "type": "Special Event",
+      "accountId": 12663,
+      "transactionId": 858175,
+      "title": "AU- Lopez-Diamond Divas",
+      "parentId": null,
+      "txnIds": [
+        858174,
+        858175
+      ]
+    },
+    {
+      "id": 42662,
+      "created": "2026-11-10T12:33:11",
+      "event": "2026-11-10",
+      "statusId": 2,
+      "type": "Make-up/Pre-Bowl",
+      "accountId": null,
+      "transactionId": null,
+      "title": "Mike Qualls VB4$: Team #2",
+      "parentId": null,
+      "txnIds": []
+    },
+    {
+      "id": 42663,
+      "created": "2026-11-10T12:46:02",
+      "event": "2026-11-22",
+      "statusId": 2,
+      "type": "Special Event",
+      "accountId": 12664,
+      "transactionId": 858198,
+      "title": "The Cardinals- Placentia Pony",
+      "parentId": null,
+      "txnIds": [
+        858197,
+        858198
+      ]
+    },
+    {
+      "id": 42664,
+      "created": "2026-11-10T13:07:34",
+      "event": "2026-11-10",
+      "statusId": 2,
+      "type": "Adult Party",
+      "accountId": null,
+      "transactionId": null,
+      "title": "New Reservation",
+      "parentId": null,
+      "txnIds": []
+    },
+    {
+      "id": 42665,
+      "created": "2026-11-10T13:35:57",
+      "event": "2026-11-19",
+      "statusId": 2,
+      "type": "Special Event",
+      "accountId": 12665,
+      "transactionId": 858208,
+      "title": "The Heartbreakers",
+      "parentId": null,
+      "txnIds": [
+        858207,
+        858208
+      ]
+    },
+    {
+      "id": 42666,
+      "created": "2026-11-10T16:51:46",
+      "event": "2026-11-10",
+      "statusId": 2,
+      "type": "all you can bowl",
+      "accountId": 12666,
+      "transactionId": 858239,
+      "title": "Cristina Hyneman",
+      "parentId": null,
+      "txnIds": [
+        858238,
+        858239
+      ]
+    },
+    {
+      "id": 42667,
+      "created": "2026-11-10T19:18:47",
+      "event": "2026-11-11",
+      "statusId": 0,
+      "type": "Online Reservations",
+      "accountId": 12667,
+      "transactionId": 858417,
+      "title": "Stephanie Fiorito",
+      "parentId": null,
+      "txnIds": [
+        858416,
+        858417
+      ]
+    },
+    {
+      "id": 42668,
+      "created": "2026-11-10T22:10:48",
+      "event": "2026-11-11",
+      "statusId": 0,
+      "type": "Online Reservations",
+      "accountId": 12668,
+      "transactionId": 858512,
+      "title": "Wendy Holmes",
+      "parentId": null,
+      "txnIds": [
+        858511,
+        858512
       ]
     }
   ],
@@ -139695,6 +139960,202 @@
       "at": "2026-11-09T21:08:26",
       "amount": 367.71,
       "txnId": 858128
+    },
+    {
+      "id": 38563,
+      "accountId": 12657,
+      "at": "2026-11-10T09:06:42",
+      "amount": 28.84,
+      "txnId": 858142
+    },
+    {
+      "id": 38564,
+      "accountId": 20,
+      "at": "2026-11-10T09:30:50",
+      "amount": 147.0,
+      "txnId": 858145
+    },
+    {
+      "id": 38565,
+      "accountId": 12657,
+      "at": "2026-11-10T11:01:31",
+      "amount": -28.84,
+      "txnId": 858143
+    },
+    {
+      "id": 38566,
+      "accountId": 12658,
+      "at": "2026-11-10T11:09:57",
+      "amount": 231.75,
+      "txnId": 858152
+    },
+    {
+      "id": 38567,
+      "accountId": 12659,
+      "at": "2026-11-10T11:11:31",
+      "amount": 1100.0,
+      "txnId": 858155
+    },
+    {
+      "id": 38568,
+      "accountId": 12660,
+      "at": "2026-11-10T11:25:43",
+      "amount": 245.14,
+      "txnId": 858160
+    },
+    {
+      "id": 38569,
+      "accountId": 12661,
+      "at": "2026-11-10T11:47:43",
+      "amount": 203.94,
+      "txnId": 858168
+    },
+    {
+      "id": 38570,
+      "accountId": 12662,
+      "at": "2026-11-10T11:50:10",
+      "amount": 231.75,
+      "txnId": 858171
+    },
+    {
+      "id": 38571,
+      "accountId": 12663,
+      "at": "2026-11-10T11:58:04",
+      "amount": 276.04,
+      "txnId": 858174
+    },
+    {
+      "id": 38572,
+      "accountId": 12664,
+      "at": "2026-11-10T12:47:15",
+      "amount": 463.5,
+      "txnId": 858197
+    },
+    {
+      "id": 38573,
+      "accountId": 12665,
+      "at": "2026-11-10T13:36:56",
+      "amount": 129.78,
+      "txnId": 858207
+    },
+    {
+      "id": 38574,
+      "accountId": 12625,
+      "at": "2026-11-10T15:19:11",
+      "amount": 329.6,
+      "txnId": 858220
+    },
+    {
+      "id": 38575,
+      "accountId": 20,
+      "at": "2026-11-10T15:47:26",
+      "amount": -147.0,
+      "txnId": 858145
+    },
+    {
+      "id": 38576,
+      "accountId": 12666,
+      "at": "2026-11-10T16:51:47",
+      "amount": 92.7,
+      "txnId": 858238
+    },
+    {
+      "id": 38577,
+      "accountId": 12644,
+      "at": "2026-11-10T18:02:57",
+      "amount": -231.75,
+      "txnId": 857871
+    },
+    {
+      "id": 38578,
+      "accountId": 12577,
+      "at": "2026-11-10T18:21:59",
+      "amount": -556.2,
+      "txnId": 854260
+    },
+    {
+      "id": 38579,
+      "accountId": 12654,
+      "at": "2026-11-10T18:37:24",
+      "amount": -139.05,
+      "txnId": 858020
+    },
+    {
+      "id": 38580,
+      "accountId": 12661,
+      "at": "2026-11-10T18:55:31",
+      "amount": -203.94,
+      "txnId": 858169
+    },
+    {
+      "id": 38581,
+      "accountId": 12651,
+      "at": "2026-11-10T19:00:08",
+      "amount": -203.94,
+      "txnId": 857897
+    },
+    {
+      "id": 38582,
+      "accountId": 12667,
+      "at": "2026-11-10T19:18:48",
+      "amount": 122.57,
+      "txnId": 858416
+    },
+    {
+      "id": 38583,
+      "accountId": 12623,
+      "at": "2026-11-10T20:51:33",
+      "amount": -148.32,
+      "txnId": 856142
+    },
+    {
+      "id": 38584,
+      "accountId": 12666,
+      "at": "2026-11-10T20:52:23",
+      "amount": -92.7,
+      "txnId": 858239
+    },
+    {
+      "id": 38585,
+      "accountId": 12636,
+      "at": "2026-11-10T21:04:38",
+      "amount": -37.08,
+      "txnId": 857855
+    },
+    {
+      "id": 38586,
+      "accountId": 12668,
+      "at": "2026-11-10T22:10:50",
+      "amount": 245.14,
+      "txnId": 858511
+    },
+    {
+      "id": 38587,
+      "accountId": 1,
+      "at": "2026-11-11T03:52:58",
+      "amount": -13.68,
+      "txnId": 856142
+    },
+    {
+      "id": 38588,
+      "accountId": 1,
+      "at": "2026-11-11T03:52:58",
+      "amount": -8.62,
+      "txnId": 858309
+    },
+    {
+      "id": 38589,
+      "accountId": 1,
+      "at": "2026-11-11T03:52:59",
+      "amount": -32.0,
+      "txnId": 858405
+    },
+    {
+      "id": 38590,
+      "accountId": 1,
+      "at": "2026-11-11T03:52:59",
+      "amount": -12.93,
+      "txnId": 858488
     }
   ],
   "accounts": [
@@ -181581,6 +182042,66 @@
     {
       "id": 12656,
       "name": "11/29/2026 Shannon Webb",
+      "collection": "Event"
+    },
+    {
+      "id": 12657,
+      "name": "11/10/2026 Corrine Jones",
+      "collection": "Event"
+    },
+    {
+      "id": 12658,
+      "name": "8U- Dynamite",
+      "collection": "Sports Party"
+    },
+    {
+      "id": 12659,
+      "name": "Duo Sculpt 11-21-26",
+      "collection": "VIP Suites"
+    },
+    {
+      "id": 12660,
+      "name": "11/15/2026 Stacy Smith",
+      "collection": "Event"
+    },
+    {
+      "id": 12661,
+      "name": "11/10/2026 Glenn Partee",
+      "collection": "Event"
+    },
+    {
+      "id": 12662,
+      "name": "Team Hernandez 11-11-26",
+      "collection": "Sports Party"
+    },
+    {
+      "id": 12663,
+      "name": "Au-Lopez-Diamond Divas",
+      "collection": "Sports Party"
+    },
+    {
+      "id": 12664,
+      "name": "The Cardinals- Placentia Pony 11-22-26",
+      "collection": "Sports Party"
+    },
+    {
+      "id": 12665,
+      "name": "The Heartbreakers 11-19-26",
+      "collection": "Sports Party"
+    },
+    {
+      "id": 12666,
+      "name": "11/10/2026 Cristina Hyneman",
+      "collection": "Event"
+    },
+    {
+      "id": 12667,
+      "name": "11/11/2026 Stephanie Fiorito (1)",
+      "collection": "Event"
+    },
+    {
+      "id": 12668,
+      "name": "11/11/2026 Wendy Holmes",
       "collection": "Event"
     }
   ]
