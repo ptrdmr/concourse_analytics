@@ -1,5 +1,5 @@
 {
-  "pulledAt": "2026-11-11T04:34:21",
+  "pulledAt": "2026-11-12T04:34:27",
   "reservations": [
     {
       "id": 37008,
@@ -25773,7 +25773,7 @@
       "id": 42482,
       "created": "2026-11-01T08:37:38",
       "event": "2026-11-11",
-      "statusId": 0,
+      "statusId": 2,
       "type": "Online Reservations",
       "accountId": 12567,
       "transactionId": 853754,
@@ -27697,7 +27697,7 @@
       "id": 42639,
       "created": "2026-11-09T14:20:21",
       "event": "2026-11-14",
-      "statusId": 0,
+      "statusId": 2,
       "type": "Online Reservations",
       "accountId": 12648,
       "transactionId": 857880,
@@ -27823,7 +27823,7 @@
       "id": 42648,
       "created": "2026-11-09T20:58:24",
       "event": "2026-11-14",
-      "statusId": 0,
+      "statusId": 2,
       "type": "Online Reservations",
       "accountId": 12655,
       "transactionId": 858124,
@@ -28087,7 +28087,7 @@
       "id": 42667,
       "created": "2026-11-10T19:18:47",
       "event": "2026-11-11",
-      "statusId": 0,
+      "statusId": 2,
       "type": "Online Reservations",
       "accountId": 12667,
       "transactionId": 858417,
@@ -28102,7 +28102,7 @@
       "id": 42668,
       "created": "2026-11-10T22:10:48",
       "event": "2026-11-11",
-      "statusId": 0,
+      "statusId": 2,
       "type": "Online Reservations",
       "accountId": 12668,
       "transactionId": 858512,
@@ -28111,6 +28111,300 @@
       "txnIds": [
         858511,
         858512
+      ]
+    },
+    {
+      "id": 42669,
+      "created": "2026-11-11T09:39:03",
+      "event": "2026-11-12",
+      "statusId": 0,
+      "type": "Online Reservations",
+      "accountId": 12669,
+      "transactionId": 858527,
+      "title": "Kirthi Marasinghe",
+      "parentId": null,
+      "txnIds": [
+        858526,
+        858527
+      ]
+    },
+    {
+      "id": 42670,
+      "created": "2026-11-11T10:18:04",
+      "event": "2026-11-15",
+      "statusId": 0,
+      "type": "Online Reservations",
+      "accountId": 12670,
+      "transactionId": 858533,
+      "title": "Junghwan Suh",
+      "parentId": null,
+      "txnIds": [
+        858532,
+        858533
+      ]
+    },
+    {
+      "id": 42671,
+      "created": "2026-11-11T10:49:26",
+      "event": "2026-11-14",
+      "statusId": 2,
+      "type": "Special Event",
+      "accountId": 12671,
+      "transactionId": 858536,
+      "title": "Dolphins",
+      "parentId": null,
+      "txnIds": [
+        858535,
+        858536
+      ]
+    },
+    {
+      "id": 42673,
+      "created": "2026-11-11T11:24:38",
+      "event": "2026-11-15",
+      "statusId": 2,
+      "type": "Special Event",
+      "accountId": 12672,
+      "transactionId": 858550,
+      "title": "The Cardinals",
+      "parentId": null,
+      "txnIds": [
+        858549,
+        858550
+      ]
+    },
+    {
+      "id": 42674,
+      "created": "2026-11-11T12:17:06",
+      "event": "2026-11-11",
+      "statusId": 2,
+      "type": "Online Reservations",
+      "accountId": 12673,
+      "transactionId": 858585,
+      "title": "Kareem Attia",
+      "parentId": null,
+      "txnIds": [
+        858584,
+        858585
+      ]
+    },
+    {
+      "id": 42675,
+      "created": "2026-11-11T12:29:05",
+      "event": "2026-11-14",
+      "statusId": 0,
+      "type": "Online Reservations",
+      "accountId": 12674,
+      "transactionId": 858595,
+      "title": "Pj Garcha",
+      "parentId": null,
+      "txnIds": [
+        858594,
+        858595
+      ]
+    },
+    {
+      "id": 42676,
+      "created": "2026-11-11T12:45:19",
+      "event": "2026-11-13",
+      "statusId": 2,
+      "type": "Online Reservations",
+      "accountId": 12675,
+      "transactionId": 858606,
+      "title": "Martha Grady",
+      "parentId": null,
+      "txnIds": [
+        858605,
+        858606
+      ]
+    },
+    {
+      "id": 42677,
+      "created": "2026-11-11T13:05:05",
+      "event": "2026-11-13",
+      "statusId": 0,
+      "type": "Online Reservations",
+      "accountId": 12676,
+      "transactionId": 858617,
+      "title": "Estefania Castro",
+      "parentId": null,
+      "txnIds": [
+        858616,
+        858617
+      ]
+    },
+    {
+      "id": 42678,
+      "created": "2026-11-11T13:58:06",
+      "event": "2026-11-12",
+      "statusId": 0,
+      "type": "all you can bowl",
+      "accountId": 12677,
+      "transactionId": 858659,
+      "title": "Andrew Odell",
+      "parentId": null,
+      "txnIds": [
+        858658,
+        858659
+      ]
+    },
+    {
+      "id": 42679,
+      "created": "2026-11-11T15:10:58",
+      "event": "2026-11-17",
+      "statusId": 2,
+      "type": "Special Event",
+      "accountId": 12678,
+      "transactionId": 858724,
+      "title": "The Warriors & Berry Blasters",
+      "parentId": null,
+      "txnIds": [
+        858723,
+        858724
+      ]
+    },
+    {
+      "id": 42680,
+      "created": "2026-11-11T15:25:22",
+      "event": "2026-11-11",
+      "statusId": 2,
+      "type": "Adult Party",
+      "accountId": null,
+      "transactionId": null,
+      "title": "New Reservation",
+      "parentId": null,
+      "txnIds": []
+    },
+    {
+      "id": 42681,
+      "created": "2026-11-11T15:25:25",
+      "event": "2026-11-11",
+      "statusId": 2,
+      "type": "Adult Party",
+      "accountId": null,
+      "transactionId": null,
+      "title": "New Reservation",
+      "parentId": null,
+      "txnIds": []
+    },
+    {
+      "id": 42682,
+      "created": "2026-11-11T16:33:13",
+      "event": "2026-11-14",
+      "statusId": 2,
+      "type": "Adult Party",
+      "accountId": null,
+      "transactionId": null,
+      "title": "New Reservation",
+      "parentId": null,
+      "txnIds": []
+    },
+    {
+      "id": 42683,
+      "created": "2026-11-11T16:33:17",
+      "event": "2026-11-14",
+      "statusId": 2,
+      "type": "Adult Party",
+      "accountId": null,
+      "transactionId": null,
+      "title": "New Reservation",
+      "parentId": null,
+      "txnIds": []
+    },
+    {
+      "id": 42684,
+      "created": "2026-11-11T16:33:25",
+      "event": "2026-11-14",
+      "statusId": 2,
+      "type": "Adult Party",
+      "accountId": null,
+      "transactionId": null,
+      "title": "New Reservation",
+      "parentId": null,
+      "txnIds": []
+    },
+    {
+      "id": 42685,
+      "created": "2026-11-11T16:33:28",
+      "event": "2026-11-14",
+      "statusId": 2,
+      "type": "Adult Party",
+      "accountId": null,
+      "transactionId": null,
+      "title": "New Reservation",
+      "parentId": null,
+      "txnIds": []
+    },
+    {
+      "id": 42686,
+      "created": "2026-11-11T16:55:38",
+      "event": "2026-11-12",
+      "statusId": 2,
+      "type": "Make-up/Pre-Bowl",
+      "accountId": null,
+      "transactionId": null,
+      "title": "Inez Garibay MB4$: Team #2",
+      "parentId": null,
+      "txnIds": []
+    },
+    {
+      "id": 42687,
+      "created": "2026-11-11T16:59:07",
+      "event": "2026-11-15",
+      "statusId": 2,
+      "type": "Pair and Spair",
+      "accountId": 12679,
+      "transactionId": 858782,
+      "title": "Tahmina Waheed",
+      "parentId": null,
+      "txnIds": [
+        858781,
+        858782
+      ]
+    },
+    {
+      "id": 42688,
+      "created": "2026-11-11T17:54:09",
+      "event": "2026-11-12",
+      "statusId": 0,
+      "type": "Online Reservations",
+      "accountId": 12680,
+      "transactionId": 858833,
+      "title": "Kathlyn Urias",
+      "parentId": null,
+      "txnIds": [
+        858832,
+        858833
+      ]
+    },
+    {
+      "id": 42689,
+      "created": "2026-11-11T18:10:09",
+      "event": "2026-11-14",
+      "statusId": 0,
+      "type": "Online Reservations",
+      "accountId": 12681,
+      "transactionId": 858859,
+      "title": "Alexus Dees",
+      "parentId": null,
+      "txnIds": [
+        858858,
+        858859
+      ]
+    },
+    {
+      "id": 42690,
+      "created": "2026-11-11T22:41:12",
+      "event": "2026-11-18",
+      "statusId": 0,
+      "type": "Online Reservations",
+      "accountId": 12682,
+      "transactionId": 859057,
+      "title": "Raresh Isai",
+      "parentId": null,
+      "txnIds": [
+        859056,
+        859057
       ]
     }
   ],
@@ -140156,6 +140450,167 @@
       "at": "2026-11-11T03:52:59",
       "amount": -12.93,
       "txnId": 858488
+    },
+    {
+      "id": 38591,
+      "accountId": 12669,
+      "at": "2026-11-11T09:39:05",
+      "amount": 101.97,
+      "txnId": 858526
+    },
+    {
+      "id": 38592,
+      "accountId": 12670,
+      "at": "2026-11-11T10:18:05",
+      "amount": 245.14,
+      "txnId": 858532
+    },
+    {
+      "id": 38593,
+      "accountId": 12671,
+      "at": "2026-11-11T10:50:14",
+      "amount": 347.63,
+      "txnId": 858535
+    },
+    {
+      "id": 38594,
+      "accountId": 12672,
+      "at": "2026-11-11T11:26:19",
+      "amount": 231.75,
+      "txnId": 858549
+    },
+    {
+      "id": 38595,
+      "accountId": 12567,
+      "at": "2026-11-11T11:26:20",
+      "amount": -305.91,
+      "txnId": 853754
+    },
+    {
+      "id": 38596,
+      "accountId": 12667,
+      "at": "2026-11-11T11:26:45",
+      "amount": -122.57,
+      "txnId": 858417
+    },
+    {
+      "id": 38597,
+      "accountId": 12596,
+      "at": "2026-11-11T12:01:34",
+      "amount": -305.91,
+      "txnId": 855006
+    },
+    {
+      "id": 38598,
+      "accountId": 12673,
+      "at": "2026-11-11T12:17:07",
+      "amount": 333.72,
+      "txnId": 858584
+    },
+    {
+      "id": 38599,
+      "accountId": 12674,
+      "at": "2026-11-11T12:29:06",
+      "amount": 306.94,
+      "txnId": 858594
+    },
+    {
+      "id": 38600,
+      "accountId": 12675,
+      "at": "2026-11-11T12:46:02",
+      "amount": 414.09,
+      "txnId": 858605
+    },
+    {
+      "id": 38601,
+      "accountId": 12676,
+      "at": "2026-11-11T13:05:07",
+      "amount": 407.88,
+      "txnId": 858616
+    },
+    {
+      "id": 38602,
+      "accountId": 12677,
+      "at": "2026-11-11T13:58:07",
+      "amount": 37.08,
+      "txnId": 858658
+    },
+    {
+      "id": 38603,
+      "accountId": 12668,
+      "at": "2026-11-11T14:32:34",
+      "amount": -245.14,
+      "txnId": 858512
+    },
+    {
+      "id": 38604,
+      "accountId": 12594,
+      "at": "2026-11-11T14:48:36",
+      "amount": -100.94,
+      "txnId": 854874
+    },
+    {
+      "id": 38605,
+      "accountId": 12678,
+      "at": "2026-11-11T15:12:01",
+      "amount": 463.5,
+      "txnId": 858723
+    },
+    {
+      "id": 38606,
+      "accountId": 12638,
+      "at": "2026-11-11T16:45:39",
+      "amount": -231.75,
+      "txnId": 857859
+    },
+    {
+      "id": 38607,
+      "accountId": 12679,
+      "at": "2026-11-11T17:01:11",
+      "amount": 803.4,
+      "txnId": 858781
+    },
+    {
+      "id": 38608,
+      "accountId": 12680,
+      "at": "2026-11-11T17:54:10",
+      "amount": 203.94,
+      "txnId": 858832
+    },
+    {
+      "id": 38609,
+      "accountId": 12681,
+      "at": "2026-11-11T18:10:10",
+      "amount": 153.47,
+      "txnId": 858858
+    },
+    {
+      "id": 38610,
+      "accountId": 12662,
+      "at": "2026-11-11T18:29:03",
+      "amount": -231.75,
+      "txnId": 858172
+    },
+    {
+      "id": 38611,
+      "accountId": 12673,
+      "at": "2026-11-11T19:28:53",
+      "amount": -333.72,
+      "txnId": 858585
+    },
+    {
+      "id": 38612,
+      "accountId": 12682,
+      "at": "2026-11-11T22:41:13",
+      "amount": 139.05,
+      "txnId": 859056
+    },
+    {
+      "id": 38613,
+      "accountId": 1,
+      "at": "2026-11-12T03:53:02",
+      "amount": -7.54,
+      "txnId": 858776
     }
   ],
   "accounts": [
@@ -182102,6 +182557,76 @@
     {
       "id": 12668,
       "name": "11/11/2026 Wendy Holmes",
+      "collection": "Event"
+    },
+    {
+      "id": 12669,
+      "name": "11/12/2026 Kirthi Marasinghe",
+      "collection": "Event"
+    },
+    {
+      "id": 12670,
+      "name": "11/15/2026 Junghwan Suh",
+      "collection": "Event"
+    },
+    {
+      "id": 12671,
+      "name": "Dolphins 11-14-26",
+      "collection": "Sports Party"
+    },
+    {
+      "id": 12672,
+      "name": "The Cardinals 11-15-26",
+      "collection": "Sports Party"
+    },
+    {
+      "id": 12673,
+      "name": "11/11/2026 Kareem Attia",
+      "collection": "Event"
+    },
+    {
+      "id": 12674,
+      "name": "11/14/2026 Pj Garcha",
+      "collection": "Event"
+    },
+    {
+      "id": 12675,
+      "name": "Martha Grady",
+      "collection": "Event"
+    },
+    {
+      "id": 12676,
+      "name": "11/13/2026 Estefania Castro",
+      "collection": "Event"
+    },
+    {
+      "id": 12677,
+      "name": "11/12/2026 Andrew Odell",
+      "collection": "Event"
+    },
+    {
+      "id": 12678,
+      "name": "warriors/berry blasters 11-17-26",
+      "collection": "Sports Party"
+    },
+    {
+      "id": 12679,
+      "name": "Tahmina Waheed 11-15-26",
+      "collection": "Pair & Spare"
+    },
+    {
+      "id": 12680,
+      "name": "11/12/2026 Kathlyn Urias",
+      "collection": "Event"
+    },
+    {
+      "id": 12681,
+      "name": "11/14/2026 Alexus Dees",
+      "collection": "Event"
+    },
+    {
+      "id": 12682,
+      "name": "11/18/2026 Raresh Isai",
       "collection": "Event"
     }
   ]
