@@ -1,6 +1,6 @@
 {
-  "generatedAt": "2026-11-12T04:35:35.998356",
-  "dataThrough": "2026-11-11",
+  "generatedAt": "2026-11-17T10:16:31.101294",
+  "dataThrough": "2026-11-16",
   "combined": [
     {
       "date": "2024-01-21",
@@ -17395,6 +17395,150 @@
       "quantity": 13.0,
       "payments": 13,
       "firstSlot": 37
+    },
+    {
+      "date": "2026-11-12",
+      "league": "River Magic",
+      "kind": "lineage",
+      "revenue": 1558.0,
+      "quantity": 82.0,
+      "payments": 82,
+      "firstSlot": 36
+    },
+    {
+      "date": "2026-11-12",
+      "league": "River Magic",
+      "kind": "prizeFund",
+      "revenue": 902.0,
+      "quantity": 82.0,
+      "payments": 82,
+      "firstSlot": 36
+    },
+    {
+      "date": "2026-11-12",
+      "league": "River Magic",
+      "kind": "prizeFundGeneral",
+      "revenue": 380.0,
+      "quantity": 13.0,
+      "payments": 13,
+      "firstSlot": 36
+    },
+    {
+      "date": "2026-11-12",
+      "league": "Silver & Gold",
+      "kind": "lineage",
+      "revenue": 416.0,
+      "quantity": 32.0,
+      "payments": 32,
+      "firstSlot": 24
+    },
+    {
+      "date": "2026-11-12",
+      "league": "Silver & Gold",
+      "kind": "prizeFund",
+      "revenue": 256.0,
+      "quantity": 32.0,
+      "payments": 32,
+      "firstSlot": 24
+    },
+    {
+      "date": "2026-11-12",
+      "league": "Silver & Gold",
+      "kind": "prizeFundGeneral",
+      "revenue": 145.0,
+      "quantity": 2.0,
+      "payments": 2,
+      "firstSlot": 24
+    },
+    {
+      "date": "2026-11-13",
+      "league": "Lucky Ladies & Gents",
+      "kind": "lineage",
+      "revenue": 338.0,
+      "quantity": 26.0,
+      "payments": 19,
+      "firstSlot": 24
+    },
+    {
+      "date": "2026-11-13",
+      "league": "Lucky Ladies & Gents",
+      "kind": "prizeFund",
+      "revenue": 390.0,
+      "quantity": 26.0,
+      "payments": 19,
+      "firstSlot": 24
+    },
+    {
+      "date": "2026-11-13",
+      "league": "Lucky Ladies & Gents",
+      "kind": "prizeFundGeneral",
+      "revenue": 10.0,
+      "quantity": 1.0,
+      "payments": 1,
+      "firstSlot": 23
+    },
+    {
+      "date": "2026-11-15",
+      "league": "Bowling 4 $'s",
+      "kind": "lineage",
+      "revenue": 741.0,
+      "quantity": 39.0,
+      "payments": 39,
+      "firstSlot": 37
+    },
+    {
+      "date": "2026-11-15",
+      "league": "Bowling 4 $'s",
+      "kind": "prizeFund",
+      "revenue": 585.0,
+      "quantity": 39.0,
+      "payments": 39,
+      "firstSlot": 37
+    },
+    {
+      "date": "2026-11-15",
+      "league": "Bowling 4 $'s",
+      "kind": "prizeFundGeneral",
+      "revenue": 176.0,
+      "quantity": 4.0,
+      "payments": 4,
+      "firstSlot": 38
+    },
+    {
+      "date": "2026-11-15",
+      "league": "Lucky Ladies & Gents",
+      "kind": "prizeFundGeneral",
+      "revenue": 34.0,
+      "quantity": 1.0,
+      "payments": 1,
+      "firstSlot": 38
+    },
+    {
+      "date": "2026-11-16",
+      "league": "Monday Night Out",
+      "kind": "prizeFund",
+      "revenue": 477.0,
+      "quantity": 53.0,
+      "payments": 49,
+      "firstSlot": 38
+    },
+    {
+      "date": "2026-11-16",
+      "league": "Monday Night Out",
+      "kind": "prizeFundGeneral",
+      "revenue": 34.0,
+      "quantity": 1.0,
+      "payments": 1,
+      "firstSlot": 41
+    },
+    {
+      "date": "2026-11-16",
+      "league": "Monday Night out",
+      "kind": "lineage",
+      "revenue": 1007.0,
+      "quantity": 53.0,
+      "payments": 49,
+      "firstSlot": 38
     }
   ],
   "voids": [
@@ -19714,6 +19858,34 @@
       "kind": "prizeFundGeneral",
       "count": 2.0,
       "value": 128.0
+    },
+    {
+      "date": "2026-11-12",
+      "league": "River Magic",
+      "kind": "lineage",
+      "count": 0.0,
+      "value": 152.0
+    },
+    {
+      "date": "2026-11-12",
+      "league": "River Magic",
+      "kind": "prizeFund",
+      "count": 0.0,
+      "value": 88.0
+    },
+    {
+      "date": "2026-11-15",
+      "league": "Bowling 4 $'s",
+      "kind": "lineage",
+      "count": 16.0,
+      "value": 342.0
+    },
+    {
+      "date": "2026-11-15",
+      "league": "Bowling 4 $'s",
+      "kind": "prizeFund",
+      "count": 16.0,
+      "value": 270.0
     }
   ]
 }

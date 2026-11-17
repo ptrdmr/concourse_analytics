@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-12T04:34:12.736342",
+  "generatedAt": "2026-11-17T10:15:33.137243",
   "tabs": [
     {
       "date": "2023-06-01",
@@ -13448,6 +13448,72 @@
       "gratuity": 100.0,
       "tabTotal": 698.71,
       "accountApplied": 480.25
+    },
+    {
+      "date": "2026-11-13",
+      "time": "11:37",
+      "txnId": "849174",
+      "party": "PCR",
+      "accountNames": [
+        "PCR 11-13-26"
+      ],
+      "partyTypes": [
+        "Pair & Spare"
+      ],
+      "chargeType": "Party Service Charge",
+      "server": "Sasha",
+      "terminal": "MPOS6",
+      "charges": {
+        "Party Service Charge": 280.0
+      },
+      "serviceCharge": 280.0,
+      "gratuity": 100.0,
+      "tabTotal": 382.6,
+      "accountApplied": 2892.8
+    },
+    {
+      "date": "2026-11-14",
+      "time": "11:19",
+      "txnId": "842834",
+      "party": "Jess Frigo",
+      "accountNames": [
+        "11/14/2026 Jess Frigo"
+      ],
+      "partyTypes": [
+        "Supercharge"
+      ],
+      "chargeType": "Party Service Charge",
+      "server": "Gabbi",
+      "terminal": "FRONTDESK1",
+      "charges": {
+        "Party Service Charge": 132.2
+      },
+      "serviceCharge": 132.2,
+      "gratuity": 0.0,
+      "tabTotal": 1002.71,
+      "accountApplied": 480.25
+    },
+    {
+      "date": "2026-11-14",
+      "time": "16:24",
+      "txnId": "857861",
+      "party": "Cecilia Vasquez",
+      "accountNames": [
+        "Cecilia Vasquez 11-14-26"
+      ],
+      "partyTypes": [
+        "Supercharge"
+      ],
+      "chargeType": "Party Service Charge",
+      "server": "Brianna",
+      "terminal": "MPOS8",
+      "charges": {
+        "Party Service Charge": 109.25
+      },
+      "serviceCharge": 109.25,
+      "gratuity": 0.0,
+      "tabTotal": 282.75,
+      "accountApplied": 960.5
     }
   ],
   "meta": {
