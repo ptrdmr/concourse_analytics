@@ -1,5 +1,5 @@
 {
-  "pulledAt": "2026-11-17T10:15:46",
+  "pulledAt": "2026-11-18T04:34:22",
   "reservations": [
     {
       "id": 37008,
@@ -27069,12 +27069,15 @@
       "created": "2026-11-06T17:00:15",
       "event": "2026-12-05",
       "statusId": 2,
-      "type": "Undefined",
-      "accountId": null,
-      "transactionId": null,
-      "title": "Luis Sanchez",
+      "type": "Strikezone 4 Lane Suite",
+      "accountId": 12740,
+      "transactionId": 861969,
+      "title": "Berger",
       "parentId": null,
-      "txnIds": []
+      "txnIds": [
+        861968,
+        861969
+      ]
     },
     {
       "id": 42577,
@@ -29679,7 +29682,7 @@
       "id": 42816,
       "created": "2026-11-16T13:07:13",
       "event": "2026-11-20",
-      "statusId": 0,
+      "statusId": 2,
       "type": "summer party builder",
       "accountId": 12721,
       "transactionId": 861552,
@@ -29751,7 +29754,7 @@
       "id": 42821,
       "created": "2026-11-16T15:30:15",
       "event": "2026-11-24",
-      "statusId": 0,
+      "statusId": 2,
       "type": "Online Reservations",
       "accountId": 12725,
       "transactionId": 861565,
@@ -29955,6 +29958,192 @@
       "txnIds": [
         861837,
         861838
+      ]
+    },
+    {
+      "id": 42837,
+      "created": "2026-11-17T10:59:41",
+      "event": "2026-11-20",
+      "statusId": 2,
+      "type": "Adult Party",
+      "accountId": null,
+      "transactionId": null,
+      "title": "New Reservation",
+      "parentId": null,
+      "txnIds": []
+    },
+    {
+      "id": 42838,
+      "created": "2026-11-17T10:59:45",
+      "event": "2026-11-20",
+      "statusId": 2,
+      "type": "Adult Party",
+      "accountId": null,
+      "transactionId": null,
+      "title": "New Reservation",
+      "parentId": null,
+      "txnIds": []
+    },
+    {
+      "id": 42839,
+      "created": "2026-11-17T14:00:25",
+      "event": "2026-11-20",
+      "statusId": 0,
+      "type": "Online Reservations",
+      "accountId": 12732,
+      "transactionId": 861883,
+      "title": "Janki Khedkar",
+      "parentId": null,
+      "txnIds": [
+        861882,
+        861883
+      ]
+    },
+    {
+      "id": 42840,
+      "created": "2026-11-17T14:18:22",
+      "event": "2026-11-21",
+      "statusId": 2,
+      "type": "Online Reservations",
+      "accountId": 12733,
+      "transactionId": 861888,
+      "title": "Andre Jones",
+      "parentId": null,
+      "txnIds": [
+        861887,
+        861888
+      ]
+    },
+    {
+      "id": 42841,
+      "created": "2026-11-17T16:01:27",
+      "event": "2026-11-21",
+      "statusId": 0,
+      "type": "Online Reservations",
+      "accountId": 12734,
+      "transactionId": 861910,
+      "title": "Catherine Hergenreter",
+      "parentId": null,
+      "txnIds": [
+        861909,
+        861910
+      ]
+    },
+    {
+      "id": 42842,
+      "created": "2026-11-17T17:05:00",
+      "event": "2026-11-19",
+      "statusId": 2,
+      "type": "Special Event",
+      "accountId": 12735,
+      "transactionId": 861931,
+      "title": "Jeffrey Martinez",
+      "parentId": null,
+      "txnIds": [
+        861930,
+        861931
+      ]
+    },
+    {
+      "id": 42843,
+      "created": "2026-11-17T17:08:28",
+      "event": "2026-11-18",
+      "statusId": 0,
+      "type": "Adult Party",
+      "accountId": 12736,
+      "transactionId": 861939,
+      "title": "Thomas Dodd",
+      "parentId": null,
+      "txnIds": [
+        861938,
+        861939
+      ]
+    },
+    {
+      "id": 42844,
+      "created": "2026-11-17T17:18:28",
+      "event": "2026-11-21",
+      "statusId": 2,
+      "type": "Special Event",
+      "accountId": 12737,
+      "transactionId": 861951,
+      "title": "Sharknado",
+      "parentId": null,
+      "txnIds": [
+        861950,
+        861951
+      ]
+    },
+    {
+      "id": 42845,
+      "created": "2026-11-17T17:27:12",
+      "event": "2026-11-19",
+      "statusId": 2,
+      "type": "Special Event",
+      "accountId": 12738,
+      "transactionId": 861959,
+      "title": "The East Hills Baseball",
+      "parentId": null,
+      "txnIds": [
+        861958,
+        861959
+      ]
+    },
+    {
+      "id": 42846,
+      "created": "2026-11-17T17:30:32",
+      "event": "2026-12-11",
+      "statusId": 2,
+      "type": "Pair and Spair",
+      "accountId": 12739,
+      "transactionId": 861966,
+      "title": "CH Solutions",
+      "parentId": null,
+      "txnIds": [
+        861965,
+        861966
+      ]
+    },
+    {
+      "id": 42847,
+      "created": "2026-11-17T17:51:13",
+      "event": "2026-11-24",
+      "statusId": 2,
+      "type": "Make-up/Pre-Bowl",
+      "accountId": null,
+      "transactionId": null,
+      "title": "Christina Flynn River Magic - T12",
+      "parentId": null,
+      "txnIds": []
+    },
+    {
+      "id": 42848,
+      "created": "2026-11-17T21:57:30",
+      "event": "2026-11-19",
+      "statusId": 0,
+      "type": "Online Reservations",
+      "accountId": 12741,
+      "transactionId": 862235,
+      "title": "Roberta Tovar",
+      "parentId": null,
+      "txnIds": [
+        862234,
+        862235
+      ]
+    },
+    {
+      "id": 42849,
+      "created": "2026-11-17T22:42:31",
+      "event": "2026-11-25",
+      "statusId": 0,
+      "type": "Online Reservations",
+      "accountId": 12742,
+      "transactionId": 862246,
+      "title": "Kel Duran",
+      "parentId": null,
+      "txnIds": [
+        862245,
+        862246
       ]
     }
   ],
@@ -143078,6 +143267,132 @@
       "at": "2026-11-16T22:26:20",
       "amount": 122.57,
       "txnId": 861837
+    },
+    {
+      "id": 38745,
+      "accountId": 12397,
+      "at": "2026-11-17T11:01:58",
+      "amount": -1648.0,
+      "txnId": 845186
+    },
+    {
+      "id": 38746,
+      "accountId": 12732,
+      "at": "2026-11-17T14:00:26",
+      "amount": 153.47,
+      "txnId": 861882
+    },
+    {
+      "id": 38747,
+      "accountId": 12733,
+      "at": "2026-11-17T14:19:58",
+      "amount": 447.0,
+      "txnId": 861887
+    },
+    {
+      "id": 38748,
+      "accountId": 12734,
+      "at": "2026-11-17T16:01:28",
+      "amount": 245.14,
+      "txnId": 861909
+    },
+    {
+      "id": 38749,
+      "accountId": 12497,
+      "at": "2026-11-17T17:01:30",
+      "amount": -231.75,
+      "txnId": 849860
+    },
+    {
+      "id": 38750,
+      "accountId": 12735,
+      "at": "2026-11-17T17:05:26",
+      "amount": 231.75,
+      "txnId": 861930
+    },
+    {
+      "id": 38751,
+      "accountId": 12736,
+      "at": "2026-11-17T17:08:29",
+      "amount": 28.84,
+      "txnId": 861938
+    },
+    {
+      "id": 38752,
+      "accountId": 12737,
+      "at": "2026-11-17T17:19:04",
+      "amount": 231.75,
+      "txnId": 861950
+    },
+    {
+      "id": 38753,
+      "accountId": 12738,
+      "at": "2026-11-17T17:27:48",
+      "amount": 231.75,
+      "txnId": 861958
+    },
+    {
+      "id": 38754,
+      "accountId": 12739,
+      "at": "2026-11-17T17:31:45",
+      "amount": 1384.25,
+      "txnId": 861965
+    },
+    {
+      "id": 38755,
+      "accountId": 12740,
+      "at": "2026-11-17T17:35:56",
+      "amount": 1650.0,
+      "txnId": 861968
+    },
+    {
+      "id": 38756,
+      "accountId": 12684,
+      "at": "2026-11-17T17:55:07",
+      "amount": -231.75,
+      "txnId": 859085
+    },
+    {
+      "id": 38757,
+      "accountId": 12621,
+      "at": "2026-11-17T17:56:23",
+      "amount": -283.98,
+      "txnId": 856107
+    },
+    {
+      "id": 38758,
+      "accountId": 12678,
+      "at": "2026-11-17T18:06:28",
+      "amount": -463.5,
+      "txnId": 858724
+    },
+    {
+      "id": 38759,
+      "accountId": 12622,
+      "at": "2026-11-17T18:12:52",
+      "amount": -231.75,
+      "txnId": 856115
+    },
+    {
+      "id": 38760,
+      "accountId": 12741,
+      "at": "2026-11-17T21:57:32",
+      "amount": 305.91,
+      "txnId": 862234
+    },
+    {
+      "id": 38761,
+      "accountId": 12742,
+      "at": "2026-11-17T22:42:32",
+      "amount": 278.1,
+      "txnId": 862245
+    },
+    {
+      "id": 38762,
+      "accountId": 1,
+      "at": "2026-11-18T03:53:24",
+      "amount": -6.73,
+      "txnId": 862175
     }
   ],
   "accounts": [
@@ -185339,6 +185654,61 @@
     {
       "id": 12731,
       "name": "11/22/2026 Dawn Olsgaard",
+      "collection": "Event"
+    },
+    {
+      "id": 12732,
+      "name": "11/20/2026 Janki Khedkar",
+      "collection": "Event"
+    },
+    {
+      "id": 12733,
+      "name": "11-21-26 Andre Jones",
+      "collection": "Event"
+    },
+    {
+      "id": 12734,
+      "name": "11/21/2026 Catherine Hergenreter",
+      "collection": "Event"
+    },
+    {
+      "id": 12735,
+      "name": "Jeffrey Martinez 11-19-26",
+      "collection": "Sports Party"
+    },
+    {
+      "id": 12736,
+      "name": "11/18/2026 Thomas Dodd",
+      "collection": "Event"
+    },
+    {
+      "id": 12737,
+      "name": "Sharknado 11-21-26",
+      "collection": "Sports Party"
+    },
+    {
+      "id": 12738,
+      "name": "The East Hills Baseball 11-19-26",
+      "collection": "Sports Party"
+    },
+    {
+      "id": 12739,
+      "name": "CH Solutions 12-11-26",
+      "collection": "Pair & Spare"
+    },
+    {
+      "id": 12740,
+      "name": "Berger 12-05-26",
+      "collection": "VIP Suites"
+    },
+    {
+      "id": 12741,
+      "name": "11/19/2026 Roberta Tovar",
+      "collection": "Event"
+    },
+    {
+      "id": 12742,
+      "name": "11/25/2026 Kel Duran",
       "collection": "Event"
     }
   ]
