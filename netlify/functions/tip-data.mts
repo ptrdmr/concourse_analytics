@@ -1,17 +1,8 @@
-import { readFile } from "node:fs/promises";
-import { join } from "node:path";
+import { getDeployStore } from "@netlify/blobs";
 import type { Context } from "@netlify/functions";
 import { json, passcodeError } from "./lib/passcode.mts";
 
 const MONTH = /^\d{4}-\d{2}$/;
-const FILES = {
-  gratuity: "gratuity.json",
-  service_charges: "service_charges.json",
-} as const;
-
-function dataPath(...parts: string[]): string {
-  return join(process.cwd(), "public", "data", ...parts);
-}
 
 function fileResponse(text: string): Response {
   return new Response(text, {
@@ -33,21 +24,21 @@ export default async function handler(req: Request, _context: Context): Promise<
 
   const month = url.searchParams.get("month") || "";
   const file = url.searchParams.get("file") || "";
-  let target = "";
+  let key = "";
   if (month) {
     if (!MONTH.test(month)) return json(400, { error: "month must be YYYY-MM" });
-    target = dataPath("tips", `${month}.json`);
+    key = `tips/${month}.json`;
   } else if (file === "gratuity" || file === "service_charges") {
-    target = dataPath(FILES[file]);
+    key = `${file}.json`;
   } else {
     return json(400, { error: "month, file, or check is required" });
   }
 
   try {
-    return fileResponse(await readFile(target, "utf8"));
-  } catch (err) {
-    const code = err && typeof err === "object" && "code" in err ? String(err.code) : "";
-    if (code === "ENOENT") return json(404, { error: "Not found" });
+    const text = await getDeployStore().get(key, { type: "text", consistency: "strong" });
+    if (text == null) return json(404, { error: "Not found" });
+    return fileResponse(text);
+  } catch {
     return json(500, { error: "Could not read tip data" });
   }
 }
