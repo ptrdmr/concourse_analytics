@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-18T04:35:55.609521-08:00",
+  "generatedAt": "2026-11-18T15:50:27.061462-08:00",
   "timezone": "America/Los_Angeles",
   "dateRange": [
     "2025-11-19",
@@ -7089,6 +7089,20 @@
               "laborCost": 97.67
             }
           }
+        },
+        "2026-11-18": {
+          "hours": 5.17,
+          "laborCost": 103.33,
+          "punches": 1,
+          "scheduledShifts": 0,
+          "lateMinutes": 0,
+          "noShow": 0,
+          "byRole": {
+            "Front Desk": {
+              "hours": 5.17,
+              "laborCost": 103.33
+            }
+          }
         }
       }
     },
@@ -9913,6 +9927,20 @@
             "Line": {
               "hours": 6.35,
               "laborCost": 152.4
+            }
+          }
+        },
+        "2026-11-18": {
+          "hours": 5.63,
+          "laborCost": 135.2,
+          "punches": 1,
+          "scheduledShifts": 0,
+          "lateMinutes": 0,
+          "noShow": 0,
+          "byRole": {
+            "Line": {
+              "hours": 5.63,
+              "laborCost": 135.2
             }
           }
         }
@@ -41321,6 +41349,20 @@
             "Janitorial": {
               "hours": 5.97,
               "laborCost": 140.22
+            }
+          }
+        },
+        "2026-11-18": {
+          "hours": 6.0,
+          "laborCost": 141.0,
+          "punches": 1,
+          "scheduledShifts": 0,
+          "lateMinutes": 0,
+          "noShow": 0,
+          "byRole": {
+            "Janitorial": {
+              "hours": 6.0,
+              "laborCost": 141.0
             }
           }
         }

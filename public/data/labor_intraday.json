@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-18T04:35:50.394305-08:00",
+  "generatedAt": "2026-11-18T15:50:21.791713-08:00",
   "timezone": "America/Los_Angeles",
   "source": "punches+report",
   "slotResolution": 30,
@@ -212,15 +212,17 @@
       },
       {
         "date": "2026-11-18",
-        "reason": "report_cost_no_punches",
-        "targetCost": 1429.81
+        "reason": "factor_out_of_range",
+        "factor": 6.8082,
+        "rawCost": 379.53,
+        "targetCost": 2583.93
       }
     ],
-    "mean": 1.6586,
+    "mean": 1.6728,
     "min": 0.2655,
-    "max": 4.9699,
-    "stddev": 0.7429,
-    "dayCount": 363
+    "max": 6.8082,
+    "stddev": 0.7893,
+    "dayCount": 364
   },
   "roles": {
     "1918014": "Maintenace",
@@ -52913,6 +52915,91 @@
         "46": {
           "cost": 32.02,
           "headcount": 6
+        }
+      }
+    },
+    "2026-11-18": {
+      "factor": 6.8082,
+      "slots": {
+        "12": {
+          "cost": 69.33,
+          "headcount": 1
+        },
+        "13": {
+          "cost": 80.0,
+          "headcount": 1
+        },
+        "14": {
+          "cost": 80.0,
+          "headcount": 1
+        },
+        "15": {
+          "cost": 80.0,
+          "headcount": 1
+        },
+        "16": {
+          "cost": 80.0,
+          "headcount": 1
+        },
+        "17": {
+          "cost": 80.0,
+          "headcount": 1
+        },
+        "18": {
+          "cost": 150.8,
+          "headcount": 2
+        },
+        "19": {
+          "cost": 163.96,
+          "headcount": 3
+        },
+        "20": {
+          "cost": 229.78,
+          "headcount": 3
+        },
+        "21": {
+          "cost": 229.78,
+          "headcount": 3
+        },
+        "22": {
+          "cost": 229.78,
+          "headcount": 3
+        },
+        "23": {
+          "cost": 229.78,
+          "headcount": 3
+        },
+        "24": {
+          "cost": 160.45,
+          "headcount": 3
+        },
+        "25": {
+          "cost": 149.78,
+          "headcount": 2
+        },
+        "26": {
+          "cost": 149.78,
+          "headcount": 2
+        },
+        "27": {
+          "cost": 32.23,
+          "headcount": 2
+        },
+        "28": {
+          "cost": 101.67,
+          "headcount": 2
+        },
+        "29": {
+          "cost": 149.78,
+          "headcount": 2
+        },
+        "30": {
+          "cost": 100.76,
+          "headcount": 2
+        },
+        "31": {
+          "cost": 36.31,
+          "headcount": 1
         }
       }
     }

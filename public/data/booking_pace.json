@@ -1,13 +1,13 @@
 {
-  "generatedAt": "2026-11-18T04:34:25",
+  "generatedAt": "2026-11-18T15:49:16",
   "dataThrough": "2026-11-17",
   "dbStatus": "live",
-  "dbAsOf": "2026-11-18T04:34:22",
+  "dbAsOf": "2026-11-18T15:49:14",
   "unknownEvent": {
     "count": 14,
     "amount": 2727.6
   },
-  "conflicts": 106,
+  "conflicts": 107,
   "history": [
     {
       "source": "17hats",
@@ -205536,13 +205536,13 @@
       "accountId": 12716,
       "party": "Beatriz Gillespie",
       "isFirstPayment": true,
-      "event": "2026-11-15",
+      "event": "2026-11-18",
       "eventSource": "db",
-      "eventConflict": false,
+      "eventConflict": true,
       "group": "lanes",
       "type": "General Lane Reservation",
       "typeSource": "tender",
-      "status": "unredeemed",
+      "status": "booked",
       "reservationId": 42799,
       "paidSource": "pos"
     },
@@ -205860,12 +205860,12 @@
       "party": "Thomas Dodd",
       "isFirstPayment": true,
       "event": "2026-11-18",
-      "eventSource": "db",
+      "eventSource": "redeemed",
       "eventConflict": false,
       "group": "pair",
       "type": "Adult Party",
       "typeSource": "rsv",
-      "status": "booked",
+      "status": "completed",
       "reservationId": 42843,
       "paidSource": "pos"
     },

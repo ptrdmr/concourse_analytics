@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-18T04:35:56.266525",
+  "generatedAt": "2026-11-18T15:50:28.909434",
   "dateRange": [
     "2023-01-01",
     "2026-11-18"
@@ -72243,6 +72243,26 @@
             "Front Desk": {
               "hours": 4.88,
               "laborCost": 97.67
+            }
+          }
+        },
+        "2026-11-18": {
+          "sales": 0.0,
+          "tickets": 0,
+          "gratuity": 0.0,
+          "serviceChargeVip": 0.0,
+          "serviceChargeParty": 0.0,
+          "serviceChargeOther": 0.0,
+          "nonRevenueCollected": 0.0,
+          "hours": 5.17,
+          "laborCost": 103.33,
+          "scheduledShifts": 0,
+          "lateMinutes": 0,
+          "noShow": 0,
+          "byRole": {
+            "Front Desk": {
+              "hours": 5.17,
+              "laborCost": 103.33
             }
           }
         }
@@ -274826,6 +274846,26 @@
               "laborCost": 140.22
             }
           }
+        },
+        "2026-11-18": {
+          "sales": 0.0,
+          "tickets": 0,
+          "gratuity": 0.0,
+          "serviceChargeVip": 0.0,
+          "serviceChargeParty": 0.0,
+          "serviceChargeOther": 0.0,
+          "nonRevenueCollected": 0.0,
+          "hours": 6.0,
+          "laborCost": 141.0,
+          "scheduledShifts": 0,
+          "lateMinutes": 0,
+          "noShow": 0,
+          "byRole": {
+            "Janitorial": {
+              "hours": 6.0,
+              "laborCost": 141.0
+            }
+          }
         }
       },
       "deptMix": {},
@@ -283018,6 +283058,26 @@
             "Line": {
               "hours": 6.35,
               "laborCost": 152.4
+            }
+          }
+        },
+        "2026-11-18": {
+          "sales": 0.0,
+          "tickets": 0,
+          "gratuity": 0.0,
+          "serviceChargeVip": 0.0,
+          "serviceChargeParty": 0.0,
+          "serviceChargeOther": 0.0,
+          "nonRevenueCollected": 0.0,
+          "hours": 5.63,
+          "laborCost": 135.2,
+          "scheduledShifts": 0,
+          "lateMinutes": 0,
+          "noShow": 0,
+          "byRole": {
+            "Line": {
+              "hours": 5.63,
+              "laborCost": 135.2
             }
           }
         }
