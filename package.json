@@ -4,16 +4,18 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "build": "next build && node scripts/strip_private_data.mjs",
     "start": "next start",
     "lint": "next lint",
     "etl": "python scripts/export_dashboards.py",
     "labor": "python scripts/pull_7shifts_labor.py",
     "employees": "python scripts/build_employees.py",
     "refresh": "python scripts/refresh_dashboard.py",
-    "specialty": "python scripts/generate_specialty_cocktails_json.py"
+    "specialty": "python scripts/generate_specialty_cocktails_json.py",
+    "test:tips": "node --experimental-strip-types --test app/lib/tips/engine.test.ts"
   },
   "dependencies": {
+    "@netlify/blobs": "^10.0.11",
     "next": "^15.3.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",

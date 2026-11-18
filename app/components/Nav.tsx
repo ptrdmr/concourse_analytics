@@ -69,7 +69,7 @@ const NAV_GROUPS: { label: string; color: string; links: NavItem[] }[] = [
     color: 'staff',
     links: [
       { href: '/employees', label: 'Employees', desc: 'Per-employee sales, tips, hours & wage', icon: Users },
-      { href: '/gratuity', label: 'Gratuity', desc: 'Tips by daypart and terminal house', icon: HandCoins },
+      { href: '/gratuity', label: 'Gratuity', desc: 'Daily tip worksheet and payroll', icon: HandCoins },
     ],
   },
   {

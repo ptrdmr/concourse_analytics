@@ -5,22 +5,29 @@ import type { GratuityData } from '@/types';
 
 const LOAD_TIMEOUT_MS = 15000;
 
-function fetchWithTimeout(url: string, timeout = LOAD_TIMEOUT_MS): Promise<Response> {
+function fetchWithTimeout(url: string, timeout = LOAD_TIMEOUT_MS, passcode?: string): Promise<Response> {
   return Promise.race([
-    fetch(url),
+    fetch(url, passcode ? { headers: { 'x-tip-passcode': passcode } } : undefined),
     new Promise<never>((_, reject) =>
       setTimeout(() => reject(new Error('Load timeout')), timeout),
     ),
   ]);
 }
 
-export function useGratuity() {
+export function useGratuity(passcode: string) {
   const [data, setData] = useState<GratuityData | null>(null);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(Boolean(passcode));
   const [available, setAvailable] = useState(false);
 
   useEffect(() => {
-    fetchWithTimeout('/data/gratuity.json')
+    if (!passcode) {
+      setData(null);
+      setLoading(false);
+      setAvailable(false);
+      return;
+    }
+    const dev = process.env.NODE_ENV === 'development';
+    fetchWithTimeout(dev ? '/data/gratuity.json' : '/api/tip-data?file=gratuity', LOAD_TIMEOUT_MS, dev ? undefined : passcode)
       .then((res) => {
         if (res.status === 404) {
           setAvailable(false);
@@ -41,7 +48,7 @@ export function useGratuity() {
         setAvailable(false);
         setLoading(false);
       });
-  }, []);
+  }, [passcode]);
 
   const dates = useMemo(() => Object.keys(data?.dates ?? {}).sort(), [data]);
 

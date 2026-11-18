@@ -52,6 +52,7 @@ _ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 OUTPUT_PATH = os.path.join(_ROOT, 'public', 'data', 'labor.json')
 INTRADAY_OUTPUT_PATH = os.path.join(_ROOT, 'public', 'data', 'labor_intraday.json')
 EMPLOYEES_LABOR_OUTPUT_PATH = os.path.join(_ROOT, 'public', 'data', '_employees_labor.json')
+PUNCHES_OUTPUT_PATH = os.path.join(_ROOT, 'public', 'data', 'punches.json')
 EMPLOYEE_MAP_PATH = os.path.join(_ROOT, 'config', 'employee_map.json')
 API_BASE = 'https://api.7shifts.com/v2'
 BUSINESS_DAY_CUTOFF_HOUR = 4
@@ -991,10 +992,88 @@ def default_date_range(days: int) -> tuple[str, str]:
     return start.isoformat(), end.isoformat()
 
 
+def _person_name(user: dict) -> str:
+    first = (user.get('first_name') or '').strip()
+    last = (user.get('last_name') or '').strip()
+    full = f'{first} {last}'.strip()
+    return full or str(user.get('id') or '')
+
+
+def punch_records(punches: list[dict], users: list[dict], roles: dict[str, str], tz: ZoneInfo) -> list[dict]:
+    """Work intervals with unpaid breaks removed, in local time."""
+    names = {int(user['id']): _person_name(user) for user in users if user.get('id') is not None}
+    records = []
+    for punch in punches:
+        if punch.get('deleted'):
+            continue
+        clocked_in = punch.get('clocked_in')
+        user_id = punch.get('user_id')
+        if not clocked_in or user_id is None:
+            continue
+        intervals = punch_work_intervals(punch, tz)
+        if not intervals:
+            continue
+        role_id = punch.get('role_id')
+        role = roles.get(str(role_id), 'Unassigned') if role_id is not None else 'Unassigned'
+        clock_in = parse_iso(clocked_in).astimezone(tz).isoformat(timespec='seconds')
+        for start, end in intervals:
+            records.append({
+                'userId': int(user_id),
+                'name': names.get(int(user_id)) or f'User {user_id}',
+                'role': role,
+                'clockIn': clock_in,
+                'in': start.isoformat(timespec='seconds'),
+                'out': end.isoformat(timespec='seconds'),
+            })
+    records.sort(key=lambda row: (row['in'], row['userId'], row['role']))
+    return records
+
+
+def write_punch_file(records: list[dict], tz: ZoneInfo, replace_from: str, replace_to: str) -> None:
+    """Replace punches whose clock-in falls in [replace_from, replace_to). Keep the rest.
+
+    Bounds are local timestamps without an offset, `YYYY-MM-DDTHH:MM:SS`.
+    """
+    existing: list[dict] = []
+    if os.path.isfile(PUNCHES_OUTPUT_PATH):
+        with open(PUNCHES_OUTPUT_PATH, encoding='utf-8') as handle:
+            payload = json.load(handle)
+        existing = list((payload or {}).get('punches') or [])
+    kept = []
+    for row in existing:
+        clock = (row.get('clockIn') or row.get('in') or '')[:19]
+        if clock and replace_from <= clock < replace_to:
+            continue
+        kept.append(row)
+    merged = kept + records
+    merged.sort(key=lambda row: (row.get('in') or '', row.get('userId') or 0))
+    os.makedirs(os.path.dirname(PUNCHES_OUTPUT_PATH), exist_ok=True)
+    with open(PUNCHES_OUTPUT_PATH, 'w', encoding='utf-8') as handle:
+        json.dump({
+            'generatedAt': datetime.now(tz).isoformat(),
+            'timezone': str(tz),
+            'dateRange': [replace_from, replace_to],
+            'punches': merged,
+        }, handle, indent=2)
+        handle.write('\n')
+    print(f'Wrote {PUNCHES_OUTPUT_PATH} ({len(records)} new intervals, {len(merged)} stored)')
+
+
+def refresh_tip_punches() -> None:
+    try:
+        sys.path.insert(0, os.path.join(_ROOT, 'scripts'))
+        from export_tips import restamp_tip_punches
+        restamp_tip_punches()
+    except Exception as exc:
+        print(f'  tip punch restamp skipped ({exc})')
+
+
 def main() -> None:
     parser = argparse.ArgumentParser(description='Pull 7shifts labor data into public/data/labor.json')
     parser.add_argument('--days', type=int, default=int(os.getenv('SEVENSHIFTS_PULL_DAYS', DEFAULT_PULL_DAYS)),
                         help=f'Number of calendar days to pull (default {DEFAULT_PULL_DAYS})')
+    parser.add_argument('--punches-only', action='store_true',
+                        help='Write punches.json only. Does not rewrite labor totals.')
     args = parser.parse_args()
 
     load_env()
@@ -1015,6 +1094,18 @@ def main() -> None:
     client = SevenShiftsClient(token, company_id, company_guid)
     print('Verifying token...')
     client.verify()
+
+    if args.punches_only:
+        print('Fetching time punches...')
+        punches = client.list_time_punches(business_start, business_end)
+        print(f'  received {len(punches)} punches')
+        users = list_users(client)
+        roles = fetch_roles(client)
+        records = punch_records(punches, users, roles, tz)
+        end_bound = (date.fromisoformat(business_end) + timedelta(days=1)).isoformat()
+        write_punch_file(records, tz, f'{business_start}T04:00:00', f'{end_bound}T04:00:00')
+        refresh_tip_punches()
+        return
 
     days: dict[str, dict] | None = None
     source = 'report'
@@ -1083,6 +1174,16 @@ def main() -> None:
         f.write('\n')
     print(f'Wrote {EMPLOYEES_LABOR_OUTPUT_PATH}')
     print(f'  {len(employees_labor["users"])} employee(s)')
+
+    users = [
+        {'id': int(uid), 'first_name': profile.get('name') or '', 'last_name': ''}
+        for uid, profile in (employees_labor.get('users') or {}).items()
+    ]
+    roles = employees_labor.get('roles') or fetch_roles(client)
+    records = punch_records(punches, users, roles, tz)
+    end_bound = (date.fromisoformat(business_end) + timedelta(days=1)).isoformat()
+    write_punch_file(records, tz, f'{business_start}T04:00:00', f'{end_bound}T04:00:00')
+    refresh_tip_punches()
 
 
 if __name__ == '__main__':

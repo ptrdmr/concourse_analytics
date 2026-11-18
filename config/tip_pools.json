@@ -1,0 +1,19 @@
+{
+  "daypartHour": 17,
+  "businessDayCutoffHour": 4,
+  "floorPercent": 10,
+  "kitchenPercent": 10,
+  "coordinatorPercent": 60,
+  "bartenderSalesPercent": 10,
+  "payPeriodStart": "2026-10-19",
+  "payPeriodDays": 14,
+  "tagPattern": "^Server\\s*-\\s+(.+)$",
+  "pools": {
+    "bar": ["Bartender", "Server"],
+    "cafe": ["Cafe Front"],
+    "coordinator": ["Party Server"],
+    "floor": ["Front Desk", "Scoretech"],
+    "kitchen": ["Dish/Prep", "Line", "Prep/Pizza"]
+  },
+  "partyBartenderRoles": ["Bartender"]
+}

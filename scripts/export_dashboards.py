@@ -338,10 +338,12 @@ def read_all_csvs(csv_files):
                     dupes += 1
                     continue
                 seen.add(key)
-                total_rows += 1
-
                 name = row[idx['Name']].strip()
                 name = NAME_MERGE.get(name, name)
+                # "Server - Name" is a $0 tag the party server rings. It is not a sale.
+                if name.startswith('Server -') or name.startswith('Server  -'):
+                    continue
+                total_rows += 1
 
                 qty = float(row[idx['Quantity']] or 0)
                 unit_price = float(row[idx['Unit Amount']] or 0)
@@ -2472,6 +2474,15 @@ def main():
         export_reservation_counts(by_month)
         print('\nBooking pace...')
         _export_booking_pace(by_month)
+        print('\nTip worksheet facts (from published tickets)...')
+        try:
+            _scripts = os.path.join(_ROOT, 'scripts')
+            if _scripts not in sys.path:
+                sys.path.insert(0, _scripts)
+            from export_tips import export_tip_facts
+            export_tip_facts(tickets_by_month=by_month)
+        except Exception as exc:
+            print(f'  SKIP: tip facts failed ({exc})')
         return 0
 
     print('=' * 60)
@@ -2534,6 +2545,16 @@ def main():
     print('\n[8b2/13] Service charges (party tabs)...')
     sc_payload = export_service_charges(by_month)
     warn_if_service_charge_totals_differ(emp_payload, sc_payload)
+
+    print('\n[8b3/14] Tip worksheet facts...')
+    try:
+        _scripts = os.path.join(_ROOT, 'scripts')
+        if _scripts not in sys.path:
+            sys.path.insert(0, _scripts)
+        from export_tips import export_tip_facts
+        export_tip_facts(csv_files=csv_files)
+    except Exception as exc:
+        print(f'  SKIP: tip facts failed ({exc})')
 
     print('\n[8c/14] Reservation counts...')
     try:

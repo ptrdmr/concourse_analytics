@@ -41,6 +41,13 @@ required = [
     'scripts/db.py', 'scripts/pull_journal.py', 'scripts/reconcile_pull.py',
     'scripts/derive_enums.py', 'scripts/export_dashboards.py',
     'scripts/generate_specialty_cocktails_json.py',
+    'config/tip_pools.json',
+    'scripts/export_tips.py',
+    'app/lib/tips/engine.ts',
+    'netlify/functions/tip-worksheet.mts',
+    'netlify/functions/tip-data.mts',
+    'netlify/functions/lib/passcode.mts',
+    'scripts/strip_private_data.mjs',
     'data/.gitkeep', 'logs/.gitkeep', 'public/data/.gitkeep', 'output/.gitkeep',
 ]
 for rel in required:
