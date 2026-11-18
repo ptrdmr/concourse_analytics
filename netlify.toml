@@ -4,7 +4,12 @@
 
 [functions]
   directory = "netlify/functions"
-  included_files = ["public/data/tips/**", "public/data/gratuity.json", "public/data/service_charges.json"]
+  node_bundler = "esbuild"
+
+# Only the tip reader gets the private JSON. A global included_files list
+# attaches it to every function, and that package exceeds Netlify's 250 MB limit.
+[functions."tip-data"]
+  included_files = ["public/data/tips/*.json", "public/data/gratuity.json", "public/data/service_charges.json"]
 
 [[redirects]]
   from = "/api/*"
