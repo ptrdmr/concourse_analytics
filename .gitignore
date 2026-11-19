@@ -67,3 +67,6 @@ venv/
 
 # Local Netlify folder
 .netlify
+
+# Compressed private tip data, packed at build time for the tip-data function
+/netlify/tip-data/
