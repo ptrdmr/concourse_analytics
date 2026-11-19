@@ -4,7 +4,7 @@ import { getDeployStore } from '@netlify/blobs';
 
 // Netlify does not upload a staged .netlify/blobs folder for this site, so the
 // files are written to the deploy store directly. The store only exists inside a
-// Netlify build; a local `npm run build` has nowhere to put them.
+// Netlify build, so a local `npm run build` has nowhere to put them.
 if (process.env.NETLIFY !== 'true') {
   console.log('Not a Netlify build - tip files were not published to deploy storage.');
   process.exit(0);
@@ -22,7 +22,14 @@ const months = files.length;
 files.push({ key: 'gratuity.json', path: join(root, 'public', 'data', 'gratuity.json') });
 files.push({ key: 'service_charges.json', path: join(root, 'public', 'data', 'service_charges.json') });
 
-const store = getDeployStore();
+// The build command gets the site and token from Netlify's Blobs context, but not
+// the deploy, so name it from the build's own DEPLOY_ID.
+const deployID = process.env.DEPLOY_ID;
+if (!deployID) {
+  console.error('DEPLOY_ID is not set, so tip files cannot be published to this deploy.');
+  process.exit(1);
+}
+const store = getDeployStore({ deployID });
 for (const file of files) {
   await store.set(file.key, await readFile(file.path, 'utf8'));
 }
