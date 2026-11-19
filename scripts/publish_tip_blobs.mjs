@@ -2,7 +2,7 @@ import { cp, mkdir, readdir } from 'node:fs/promises';
 import { join } from 'node:path';
 
 const root = process.cwd();
-const dest = join(root, '.netlify', 'blobs', 'deploy');
+const dest = join(root, '.netlify', 'v1', 'blobs', 'deploy');
 const tipsDir = join(root, 'public', 'data', 'tips');
 
 await mkdir(join(dest, 'tips'), { recursive: true });

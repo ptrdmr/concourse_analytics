@@ -77,6 +77,13 @@ export function TipWorksheet({
   }, [dirty, onDirty]);
 
   if (month.loading || remote.loading) return <p className="text-secondary">Loading the day…</p>;
+  if (month.failed) {
+    return (
+      <p className="text-amber-300">
+        Could not load this month&apos;s tip data ({month.failed}). The file may exist but the site could not read it.
+      </p>
+    );
+  }
   if (month.missing || !month.data || !worksheet) {
     return (
       <p className="text-secondary">
