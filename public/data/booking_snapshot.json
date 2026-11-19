@@ -1,5 +1,5 @@
 {
-  "pulledAt": "2026-11-18T15:49:14",
+  "pulledAt": "2026-11-19T04:35:55",
   "reservations": [
     {
       "id": 37008,
@@ -18773,7 +18773,8 @@
       "transactionId": null,
       "title": "LEAGUE BUMPER",
       "parentId": 41721,
-      "txnIds": []
+      "txnIds": [],
+      "goneAt": "2026-11-19"
     },
     {
       "id": 41733,
@@ -18785,7 +18786,8 @@
       "transactionId": null,
       "title": "LEAGUE BUMPER",
       "parentId": 41721,
-      "txnIds": []
+      "txnIds": [],
+      "goneAt": "2026-11-19"
     },
     {
       "id": 41734,
@@ -22258,7 +22260,8 @@
       "transactionId": null,
       "title": "BUMPER",
       "parentId": 41904,
-      "txnIds": []
+      "txnIds": [],
+      "goneAt": "2026-11-19"
     },
     {
       "id": 42190,
@@ -22306,7 +22309,8 @@
       "transactionId": null,
       "title": "BUMPER",
       "parentId": 41904,
-      "txnIds": []
+      "txnIds": [],
+      "goneAt": "2026-11-19"
     },
     {
       "id": 42194,
@@ -22318,7 +22322,8 @@
       "transactionId": null,
       "title": "BUMPER",
       "parentId": 41904,
-      "txnIds": []
+      "txnIds": [],
+      "goneAt": "2026-11-19"
     },
     {
       "id": 42195,
@@ -27062,7 +27067,8 @@
       "transactionId": null,
       "title": "Scott Monson",
       "parentId": null,
-      "txnIds": []
+      "txnIds": [],
+      "goneAt": "2026-11-19"
     },
     {
       "id": 42576,
@@ -29541,7 +29547,7 @@
       "id": 42805,
       "created": "2026-11-15T11:10:08",
       "event": "2026-11-19",
-      "statusId": 0,
+      "statusId": 2,
       "type": "summer party builder",
       "accountId": 12717,
       "transactionId": 861086,
@@ -29994,7 +30000,7 @@
       "id": 42839,
       "created": "2026-11-17T14:00:25",
       "event": "2026-11-20",
-      "statusId": 0,
+      "statusId": 2,
       "type": "Online Reservations",
       "accountId": 12732,
       "transactionId": 861883,
@@ -30126,7 +30132,7 @@
       "id": 42848,
       "created": "2026-11-17T21:57:30",
       "event": "2026-11-19",
-      "statusId": 0,
+      "statusId": 2,
       "type": "Online Reservations",
       "accountId": 12741,
       "transactionId": 862235,
@@ -30186,7 +30192,7 @@
       "id": 42852,
       "created": "2026-11-18T09:53:44",
       "event": "2026-11-19",
-      "statusId": 0,
+      "statusId": 2,
       "type": "Online Reservations",
       "accountId": 12745,
       "transactionId": 862262,
@@ -30240,7 +30246,8 @@
       "txnIds": [
         862269,
         862270
-      ]
+      ],
+      "goneAt": "2026-11-19"
     },
     {
       "id": 42856,
@@ -30576,7 +30583,7 @@
       "id": 42883,
       "created": "2026-11-18T15:40:48",
       "event": "2026-11-19",
-      "statusId": 0,
+      "statusId": 2,
       "type": "all you can bowl",
       "accountId": 12753,
       "transactionId": 862382,
@@ -30585,6 +30592,120 @@
       "txnIds": [
         862381,
         862382
+      ]
+    },
+    {
+      "id": 42884,
+      "created": "2026-11-18T17:05:28",
+      "event": "2026-12-13",
+      "statusId": 2,
+      "type": "Undefined",
+      "accountId": null,
+      "transactionId": null,
+      "title": "Kingpin - Danielle Graniello",
+      "parentId": null,
+      "txnIds": []
+    },
+    {
+      "id": 42885,
+      "created": "2026-11-18T18:31:46",
+      "event": "2026-11-19",
+      "statusId": 2,
+      "type": "Adult Party",
+      "accountId": null,
+      "transactionId": null,
+      "title": "Hold for Arsenal",
+      "parentId": null,
+      "txnIds": []
+    },
+    {
+      "id": 42888,
+      "created": "2026-11-18T19:42:57",
+      "event": "2100-06-01",
+      "statusId": 2,
+      "type": "Adult Party",
+      "accountId": null,
+      "transactionId": null,
+      "title": "\ud83e\udd28shhh",
+      "parentId": null,
+      "txnIds": []
+    },
+    {
+      "id": 42889,
+      "created": "2026-11-18T20:24:01",
+      "event": "2026-11-30",
+      "statusId": 2,
+      "type": "Make-up/Pre-Bowl",
+      "accountId": null,
+      "transactionId": null,
+      "title": "TM 14 VEGAS BOUND SAVY DURAZO",
+      "parentId": null,
+      "txnIds": []
+    },
+    {
+      "id": 42890,
+      "created": "2026-11-18T21:02:51",
+      "event": "2026-11-19",
+      "statusId": 0,
+      "type": "Online Reservations",
+      "accountId": 12754,
+      "transactionId": 862684,
+      "title": "Brian Adrian",
+      "parentId": null,
+      "txnIds": [
+        862683,
+        862684
+      ]
+    },
+    {
+      "id": 42891,
+      "created": "2026-11-18T21:19:52",
+      "event": "2026-11-19",
+      "statusId": 2,
+      "type": "Adult Party",
+      "accountId": null,
+      "transactionId": null,
+      "title": "New Reservation",
+      "parentId": null,
+      "txnIds": []
+    },
+    {
+      "id": 42892,
+      "created": "2026-11-18T21:20:06",
+      "event": "2026-11-19",
+      "statusId": 2,
+      "type": "Adult Party",
+      "accountId": null,
+      "transactionId": null,
+      "title": "New Reservation",
+      "parentId": null,
+      "txnIds": []
+    },
+    {
+      "id": 42893,
+      "created": "2026-11-18T21:20:26",
+      "event": "2026-11-19",
+      "statusId": 2,
+      "type": "Adult Party",
+      "accountId": null,
+      "transactionId": null,
+      "title": "New Reservation",
+      "parentId": null,
+      "txnIds": []
+    },
+    {
+      "id": 42894,
+      "created": "2026-11-18T21:21:52",
+      "event": "2026-11-21",
+      "statusId": 0,
+      "type": "Online Reservations",
+      "accountId": 12755,
+      "transactionId": 862693,
+      "title": "Mario Nava",
+      "parentId": null,
+      "txnIds": [
+        862692,
+        862693
       ]
     }
   ],
@@ -143925,6 +144046,62 @@
       "at": "2026-11-18T15:40:49",
       "amount": 37.08,
       "txnId": 862381
+    },
+    {
+      "id": 38776,
+      "accountId": 12646,
+      "at": "2026-11-18T16:48:34",
+      "amount": -231.75,
+      "txnId": 857876
+    },
+    {
+      "id": 38777,
+      "accountId": 12647,
+      "at": "2026-11-18T17:02:37",
+      "amount": -231.75,
+      "txnId": 857878
+    },
+    {
+      "id": 38778,
+      "accountId": 12716,
+      "at": "2026-11-18T17:03:27",
+      "amount": -122.57,
+      "txnId": 861072
+    },
+    {
+      "id": 38779,
+      "accountId": 12635,
+      "at": "2026-11-18T18:00:39",
+      "amount": -278.1,
+      "txnId": 857853
+    },
+    {
+      "id": 38780,
+      "accountId": 12682,
+      "at": "2026-11-18T18:30:45",
+      "amount": -139.05,
+      "txnId": 859057
+    },
+    {
+      "id": 38781,
+      "accountId": 12743,
+      "at": "2026-11-18T19:02:54",
+      "amount": -203.94,
+      "txnId": 862258
+    },
+    {
+      "id": 38782,
+      "accountId": 12754,
+      "at": "2026-11-18T21:02:53",
+      "amount": 101.97,
+      "txnId": 862683
+    },
+    {
+      "id": 38783,
+      "accountId": 12755,
+      "at": "2026-11-18T21:21:53",
+      "amount": 203.94,
+      "txnId": 862692
     }
   ],
   "accounts": [
@@ -186296,6 +186473,16 @@
     {
       "id": 12753,
       "name": "11/19/2026 Daniel Washington",
+      "collection": "Event"
+    },
+    {
+      "id": 12754,
+      "name": "11/19/2026 Brian Adrian",
+      "collection": "Event"
+    },
+    {
+      "id": 12755,
+      "name": "11/21/2026 Mario Nava",
       "collection": "Event"
     }
   ]

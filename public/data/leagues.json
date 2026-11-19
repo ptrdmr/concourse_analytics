@@ -1,6 +1,6 @@
 {
-  "generatedAt": "2026-11-18T15:50:01.554923",
-  "dataThrough": "2026-11-17",
+  "generatedAt": "2026-11-19T04:37:04.123794",
+  "dataThrough": "2026-11-18",
   "combined": [
     {
       "date": "2024-01-21",
@@ -17602,6 +17602,105 @@
       "quantity": 3.0,
       "payments": 3,
       "firstSlot": 37
+    },
+    {
+      "date": "2026-11-18",
+      "league": "Alley Cats",
+      "kind": "lineage",
+      "revenue": 266.0,
+      "quantity": 14.0,
+      "payments": 14,
+      "firstSlot": 37
+    },
+    {
+      "date": "2026-11-18",
+      "league": "Alley Cats",
+      "kind": "prizeFund",
+      "revenue": 154.0,
+      "quantity": 14.0,
+      "payments": 14,
+      "firstSlot": 37
+    },
+    {
+      "date": "2026-11-18",
+      "league": "Alley Cats",
+      "kind": "prizeFundGeneral",
+      "revenue": 6.0,
+      "quantity": 1.0,
+      "payments": 1,
+      "firstSlot": 38
+    },
+    {
+      "date": "2026-11-18",
+      "league": "Cerra Villa",
+      "kind": "lineage",
+      "revenue": 52.0,
+      "quantity": 4.0,
+      "payments": 4,
+      "firstSlot": 24
+    },
+    {
+      "date": "2026-11-18",
+      "league": "Cerra Villa",
+      "kind": "prizeFund",
+      "revenue": 28.0,
+      "quantity": 4.0,
+      "payments": 4,
+      "firstSlot": 24
+    },
+    {
+      "date": "2026-11-18",
+      "league": "Cerra Villa",
+      "kind": "prizeFundGeneral",
+      "revenue": 56.0,
+      "quantity": 1.0,
+      "payments": 1,
+      "firstSlot": 24
+    },
+    {
+      "date": "2026-11-18",
+      "league": "Super Sports",
+      "kind": "lineage",
+      "revenue": 684.0,
+      "quantity": 76.0,
+      "payments": 76,
+      "firstSlot": 29
+    },
+    {
+      "date": "2026-11-18",
+      "league": "Super Sports",
+      "kind": "prizeFund",
+      "revenue": 76.0,
+      "quantity": 76.0,
+      "payments": 76,
+      "firstSlot": 29
+    },
+    {
+      "date": "2026-11-18",
+      "league": "Vegas Bound",
+      "kind": "lineage",
+      "revenue": 1102.0,
+      "quantity": 58.0,
+      "payments": 58,
+      "firstSlot": 38
+    },
+    {
+      "date": "2026-11-18",
+      "league": "Vegas Bound",
+      "kind": "prizeFund",
+      "revenue": 638.0,
+      "quantity": 58.0,
+      "payments": 58,
+      "firstSlot": 38
+    },
+    {
+      "date": "2026-11-18",
+      "league": "Vegas Bound",
+      "kind": "prizeFundGeneral",
+      "revenue": 261.0,
+      "quantity": 9.0,
+      "payments": 9,
+      "firstSlot": 38
     }
   ],
   "voids": [
@@ -19949,6 +20048,27 @@
       "kind": "prizeFund",
       "count": 16.0,
       "value": 270.0
+    },
+    {
+      "date": "2026-11-18",
+      "league": "Cerra Villa",
+      "kind": "lineage",
+      "count": 4.0,
+      "value": 52.0
+    },
+    {
+      "date": "2026-11-18",
+      "league": "Cerra Villa",
+      "kind": "prizeFund",
+      "count": 4.0,
+      "value": 28.0
+    },
+    {
+      "date": "2026-11-18",
+      "league": "Cerra Villa",
+      "kind": "prizeFundGeneral",
+      "count": 1.0,
+      "value": 56.0
     }
   ]
 }
