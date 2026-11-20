@@ -1,5 +1,5 @@
 {
-  "pulledAt": "2026-11-19T04:35:55",
+  "pulledAt": "2026-11-20T04:35:50",
   "reservations": [
     {
       "id": 37008,
@@ -18725,7 +18725,8 @@
       "transactionId": null,
       "title": "LEAGUE BUMPER",
       "parentId": 41721,
-      "txnIds": []
+      "txnIds": [],
+      "goneAt": "2026-11-20"
     },
     {
       "id": 41729,
@@ -27095,19 +27096,23 @@
       "transactionId": null,
       "title": "Alejandra Gonzalez",
       "parentId": null,
-      "txnIds": []
+      "txnIds": [],
+      "goneAt": "2026-11-20"
     },
     {
       "id": 42578,
       "created": "2026-11-06T17:04:12",
       "event": "2026-12-09",
       "statusId": 2,
-      "type": "Undefined",
-      "accountId": null,
-      "transactionId": null,
+      "type": "Supercharge",
+      "accountId": 12761,
+      "transactionId": 862824,
       "title": "Jill Shaffer",
       "parentId": null,
-      "txnIds": []
+      "txnIds": [
+        862823,
+        862824
+      ]
     },
     {
       "id": 42579,
@@ -29179,12 +29184,15 @@
       "created": "2026-11-13T17:10:51",
       "event": "2026-12-18",
       "statusId": 2,
-      "type": "Undefined",
-      "accountId": null,
-      "transactionId": null,
-      "title": "Kingpin - Laura Pina",
+      "type": "Kingpin 8 Lane Suite",
+      "accountId": 12758,
+      "transactionId": 862808,
+      "title": "Simplified Technologies",
       "parentId": null,
-      "txnIds": []
+      "txnIds": [
+        862807,
+        862808
+      ]
     },
     {
       "id": 42765,
@@ -29626,7 +29634,7 @@
       "type": "Adult Party",
       "accountId": null,
       "transactionId": null,
-      "title": "Jenny Padilla (charge walk-in rates) per traver",
+      "title": "(charge walk-in rates) per traver and keep here",
       "parentId": null,
       "txnIds": []
     },
@@ -29634,7 +29642,7 @@
       "id": 42812,
       "created": "2026-11-15T23:36:15",
       "event": "2026-11-19",
-      "statusId": 0,
+      "statusId": 2,
       "type": "all you can bowl",
       "accountId": 12718,
       "transactionId": 861546,
@@ -30389,12 +30397,15 @@
       "created": "2026-11-18T14:55:47",
       "event": "2026-12-12",
       "statusId": 2,
-      "type": "Undefined",
-      "accountId": null,
-      "transactionId": null,
-      "title": "Pair & Spare - Francine Villareal",
+      "type": "Pair and Spair",
+      "accountId": 12760,
+      "transactionId": 862821,
+      "title": "Francine Villareal",
       "parentId": null,
-      "txnIds": []
+      "txnIds": [
+        862820,
+        862821
+      ]
     },
     {
       "id": 42868,
@@ -30464,7 +30475,7 @@
       "type": "Undefined",
       "accountId": null,
       "transactionId": null,
-      "title": "Strike Zone - Kelly Wilson-Schou",
+      "title": "Strike Zone - Monica Navarro",
       "parentId": null,
       "txnIds": []
     },
@@ -30646,7 +30657,7 @@
       "id": 42890,
       "created": "2026-11-18T21:02:51",
       "event": "2026-11-19",
-      "statusId": 0,
+      "statusId": 2,
       "type": "Online Reservations",
       "accountId": 12754,
       "transactionId": 862684,
@@ -30707,6 +30718,213 @@
         862692,
         862693
       ]
+    },
+    {
+      "id": 42895,
+      "created": "2026-11-19T09:26:10",
+      "event": "2026-11-25",
+      "statusId": 0,
+      "type": "Online Reservations",
+      "accountId": 12756,
+      "transactionId": 862719,
+      "title": "Frank Duddridge",
+      "parentId": null,
+      "txnIds": [
+        862718,
+        862719
+      ]
+    },
+    {
+      "id": 42896,
+      "created": "2026-11-19T13:39:13",
+      "event": "2026-11-25",
+      "statusId": 0,
+      "type": "Online Reservations",
+      "accountId": 12757,
+      "transactionId": 862770,
+      "title": "Henry Wonderlick",
+      "parentId": null,
+      "txnIds": [
+        862769,
+        862770
+      ]
+    },
+    {
+      "id": 42897,
+      "created": "2026-11-19T15:12:14",
+      "event": "2026-11-28",
+      "statusId": 0,
+      "type": "Online Reservations",
+      "accountId": 12759,
+      "transactionId": 862816,
+      "title": "Teresa Watanabe",
+      "parentId": null,
+      "txnIds": [
+        862815,
+        862816
+      ]
+    },
+    {
+      "id": 42898,
+      "created": "2026-11-19T15:33:26",
+      "event": "2026-12-05",
+      "statusId": 2,
+      "type": "Pair and Spair",
+      "accountId": 12762,
+      "transactionId": 862828,
+      "title": "Enrique Felix",
+      "parentId": null,
+      "txnIds": [
+        862827,
+        862828
+      ]
+    },
+    {
+      "id": 42899,
+      "created": "2026-11-19T15:54:14",
+      "event": "2026-11-19",
+      "statusId": 2,
+      "type": "all you can bowl",
+      "accountId": 12763,
+      "transactionId": 862838,
+      "title": "Ricky Chhith",
+      "parentId": null,
+      "txnIds": [
+        862837,
+        862838
+      ]
+    },
+    {
+      "id": 42900,
+      "created": "2026-11-19T16:41:15",
+      "event": "2026-11-19",
+      "statusId": 2,
+      "type": "all you can bowl",
+      "accountId": 12764,
+      "transactionId": 862874,
+      "title": "Carson Needle",
+      "parentId": null,
+      "txnIds": [
+        862873,
+        862874
+      ]
+    },
+    {
+      "id": 42901,
+      "created": "2026-11-19T17:01:47",
+      "event": "2026-11-20",
+      "statusId": 2,
+      "type": "Undefined",
+      "accountId": null,
+      "transactionId": null,
+      "title": "Shruthi - confirm if needed.",
+      "parentId": null,
+      "txnIds": []
+    },
+    {
+      "id": 42902,
+      "created": "2026-11-19T17:42:30",
+      "event": "2026-11-20",
+      "statusId": 2,
+      "type": "Adult Party",
+      "accountId": null,
+      "transactionId": null,
+      "title": "Shruthi HOLD EXTRA LANE",
+      "parentId": null,
+      "txnIds": []
+    },
+    {
+      "id": 42903,
+      "created": "2026-11-19T17:51:09",
+      "event": "2026-11-20",
+      "statusId": 2,
+      "type": "Adult Party",
+      "accountId": null,
+      "transactionId": null,
+      "title": "New Reservation",
+      "parentId": null,
+      "txnIds": []
+    },
+    {
+      "id": 42904,
+      "created": "2026-11-19T17:51:13",
+      "event": "2026-11-20",
+      "statusId": 2,
+      "type": "Adult Party",
+      "accountId": null,
+      "transactionId": null,
+      "title": "New Reservation",
+      "parentId": null,
+      "txnIds": []
+    },
+    {
+      "id": 42905,
+      "created": "2026-11-19T17:51:17",
+      "event": "2026-11-20",
+      "statusId": 2,
+      "type": "Adult Party",
+      "accountId": null,
+      "transactionId": null,
+      "title": "New Reservation",
+      "parentId": null,
+      "txnIds": []
+    },
+    {
+      "id": 42906,
+      "created": "2026-11-19T18:09:16",
+      "event": "2026-11-28",
+      "statusId": 0,
+      "type": "Online Reservations",
+      "accountId": 12765,
+      "transactionId": 863013,
+      "title": "Arthur Cano",
+      "parentId": null,
+      "txnIds": [
+        863012,
+        863013
+      ]
+    },
+    {
+      "id": 42907,
+      "created": "2026-11-19T20:02:17",
+      "event": "2026-11-21",
+      "statusId": 0,
+      "type": "Online Reservations",
+      "accountId": 12766,
+      "transactionId": 863173,
+      "title": "Nikki Pyke",
+      "parentId": null,
+      "txnIds": [
+        863172,
+        863173
+      ]
+    },
+    {
+      "id": 42908,
+      "created": "2026-11-19T21:12:18",
+      "event": "2026-11-21",
+      "statusId": 0,
+      "type": "Online Reservations",
+      "accountId": 12767,
+      "transactionId": 863213,
+      "title": "Alexa Griego",
+      "parentId": null,
+      "txnIds": [
+        863212,
+        863213
+      ]
+    },
+    {
+      "id": 42909,
+      "created": "2026-11-19T21:34:25",
+      "event": "2026-11-19",
+      "statusId": 2,
+      "type": "Adult Party",
+      "accountId": null,
+      "transactionId": null,
+      "title": "no call no show",
+      "parentId": null,
+      "txnIds": []
     }
   ],
   "ledger": [
@@ -144102,6 +144320,195 @@
       "at": "2026-11-18T21:21:53",
       "amount": 203.94,
       "txnId": 862692
+    },
+    {
+      "id": 38784,
+      "accountId": 12756,
+      "at": "2026-11-19T09:26:12",
+      "amount": 139.05,
+      "txnId": 862718
+    },
+    {
+      "id": 38785,
+      "accountId": 12757,
+      "at": "2026-11-19T13:39:14",
+      "amount": 101.97,
+      "txnId": 862769
+    },
+    {
+      "id": 38786,
+      "accountId": 12758,
+      "at": "2026-11-19T14:58:51",
+      "amount": 2397.0,
+      "txnId": 862807
+    },
+    {
+      "id": 38787,
+      "accountId": 12759,
+      "at": "2026-11-19T15:12:15",
+      "amount": 166.86,
+      "txnId": 862815
+    },
+    {
+      "id": 38788,
+      "accountId": 12760,
+      "at": "2026-11-19T15:28:19",
+      "amount": 602.55,
+      "txnId": 862820
+    },
+    {
+      "id": 38789,
+      "accountId": 12761,
+      "at": "2026-11-19T15:29:58",
+      "amount": 960.5,
+      "txnId": 862823
+    },
+    {
+      "id": 38790,
+      "accountId": 12762,
+      "at": "2026-11-19T15:34:06",
+      "amount": 602.55,
+      "txnId": 862827
+    },
+    {
+      "id": 38791,
+      "accountId": 12717,
+      "at": "2026-11-19T15:40:53",
+      "amount": -741.6,
+      "txnId": 861086
+    },
+    {
+      "id": 38792,
+      "accountId": 12763,
+      "at": "2026-11-19T15:54:15",
+      "amount": 37.08,
+      "txnId": 862837
+    },
+    {
+      "id": 38793,
+      "accountId": 12643,
+      "at": "2026-11-19T16:17:23",
+      "amount": -355.35,
+      "txnId": 857869
+    },
+    {
+      "id": 38794,
+      "accountId": 12764,
+      "at": "2026-11-19T16:41:16",
+      "amount": 37.08,
+      "txnId": 862873
+    },
+    {
+      "id": 38795,
+      "accountId": 12738,
+      "at": "2026-11-19T16:48:14",
+      "amount": -231.75,
+      "txnId": 861959
+    },
+    {
+      "id": 38796,
+      "accountId": 12754,
+      "at": "2026-11-19T17:00:54",
+      "amount": -101.97,
+      "txnId": 862684
+    },
+    {
+      "id": 38797,
+      "accountId": 12735,
+      "at": "2026-11-19T17:17:07",
+      "amount": -231.75,
+      "txnId": 861931
+    },
+    {
+      "id": 38798,
+      "accountId": 12728,
+      "at": "2026-11-19T17:55:46",
+      "amount": -231.75,
+      "txnId": 861598
+    },
+    {
+      "id": 38799,
+      "accountId": 12730,
+      "at": "2026-11-19T18:01:11",
+      "amount": -231.75,
+      "txnId": 861602
+    },
+    {
+      "id": 38800,
+      "accountId": 12765,
+      "at": "2026-11-19T18:09:17",
+      "amount": 245.14,
+      "txnId": 863012
+    },
+    {
+      "id": 38801,
+      "accountId": 12665,
+      "at": "2026-11-19T18:21:30",
+      "amount": -129.78,
+      "txnId": 858208
+    },
+    {
+      "id": 38802,
+      "accountId": 12741,
+      "at": "2026-11-19T18:32:04",
+      "amount": -305.91,
+      "txnId": 862235
+    },
+    {
+      "id": 38803,
+      "accountId": 12766,
+      "at": "2026-11-19T20:02:18",
+      "amount": 245.14,
+      "txnId": 863172
+    },
+    {
+      "id": 38804,
+      "accountId": 12745,
+      "at": "2026-11-19T20:03:41",
+      "amount": -101.97,
+      "txnId": 862262
+    },
+    {
+      "id": 38805,
+      "accountId": 12763,
+      "at": "2026-11-19T20:10:42",
+      "amount": -37.08,
+      "txnId": 862838
+    },
+    {
+      "id": 38806,
+      "accountId": 12753,
+      "at": "2026-11-19T20:55:45",
+      "amount": -37.08,
+      "txnId": 862382
+    },
+    {
+      "id": 38807,
+      "accountId": 12764,
+      "at": "2026-11-19T21:08:42",
+      "amount": -37.08,
+      "txnId": 862874
+    },
+    {
+      "id": 38808,
+      "accountId": 12718,
+      "at": "2026-11-19T21:09:48",
+      "amount": -37.08,
+      "txnId": 861546
+    },
+    {
+      "id": 38809,
+      "accountId": 12767,
+      "at": "2026-11-19T21:12:19",
+      "amount": 306.94,
+      "txnId": 863212
+    },
+    {
+      "id": 38810,
+      "accountId": 1,
+      "at": "2026-11-20T03:53:19",
+      "amount": -5.39,
+      "txnId": 862803
     }
   ],
   "accounts": [
@@ -186483,6 +186890,66 @@
     {
       "id": 12755,
       "name": "11/21/2026 Mario Nava",
+      "collection": "Event"
+    },
+    {
+      "id": 12756,
+      "name": "11/25/2026 Frank Duddridge",
+      "collection": "Event"
+    },
+    {
+      "id": 12757,
+      "name": "11/25/2026 Henry Wonderlick",
+      "collection": "Event"
+    },
+    {
+      "id": 12758,
+      "name": "Simplified Technologies 12-18-26",
+      "collection": "VIP Suites"
+    },
+    {
+      "id": 12759,
+      "name": "11/28/2026 Teresa Watanabe",
+      "collection": "Event"
+    },
+    {
+      "id": 12760,
+      "name": "Francine Villareal - 12-12-26",
+      "collection": "Pair & Spare"
+    },
+    {
+      "id": 12761,
+      "name": "Jill Shafer 12-09-26",
+      "collection": "Supercharge"
+    },
+    {
+      "id": 12762,
+      "name": "Enrique Felix - 12-05-26",
+      "collection": "Pair & Spare"
+    },
+    {
+      "id": 12763,
+      "name": "11/19/2026 Ricky Chhith",
+      "collection": "Event"
+    },
+    {
+      "id": 12764,
+      "name": "11/19/2026 Carson Needle",
+      "collection": "Event"
+    },
+    {
+      "id": 12765,
+      "name": "11/28/2026 Arthur Cano",
+      "collection": "Event"
+    },
+    {
+      "id": 12766,
+      "name": "11/21/2026 Nikki Pyke",
+      "collection": "Event"
+    },
+    {
+      "id": 12767,
+      "name": "11/21/2026 Alexa Griego",
       "collection": "Event"
     }
   ]
