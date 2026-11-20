@@ -1,5 +1,5 @@
 {
-  "pulledAt": "2026-11-20T04:35:50",
+  "pulledAt": "2026-11-20T10:10:53",
   "reservations": [
     {
       "id": 37008,
@@ -30925,6 +30925,21 @@
       "title": "no call no show",
       "parentId": null,
       "txnIds": []
+    },
+    {
+      "id": 42910,
+      "created": "2026-11-20T07:52:25",
+      "event": "2027-01-09",
+      "statusId": 0,
+      "type": "Online Reservations",
+      "accountId": 12768,
+      "transactionId": 863259,
+      "title": "Patricia Nava",
+      "parentId": null,
+      "txnIds": [
+        863258,
+        863259
+      ]
     }
   ],
   "ledger": [
@@ -144509,6 +144524,13 @@
       "at": "2026-11-20T03:53:19",
       "amount": -5.39,
       "txnId": 862803
+    },
+    {
+      "id": 38811,
+      "accountId": 12768,
+      "at": "2026-11-20T07:52:27",
+      "amount": 333.72,
+      "txnId": 863258
     }
   ],
   "accounts": [
@@ -186950,6 +186972,11 @@
     {
       "id": 12767,
       "name": "11/21/2026 Alexa Griego",
+      "collection": "Event"
+    },
+    {
+      "id": 12768,
+      "name": "1/9/2027 Patricia Nava",
       "collection": "Event"
     }
   ]
