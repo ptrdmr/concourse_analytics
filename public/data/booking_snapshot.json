@@ -1,5 +1,5 @@
 {
-  "pulledAt": "2026-11-20T11:10:39",
+  "pulledAt": "2026-11-21T04:36:00",
   "reservations": [
     {
       "id": 37008,
@@ -23430,7 +23430,7 @@
       "id": 42300,
       "created": "2026-10-20T13:46:30",
       "event": "2026-11-21",
-      "statusId": 0,
+      "statusId": 2,
       "type": "summer party builder",
       "accountId": 12454,
       "transactionId": 848303,
@@ -26189,11 +26189,11 @@
       "id": 42510,
       "created": "2026-11-03T13:59:19",
       "event": "2026-11-20",
-      "statusId": 0,
+      "statusId": 2,
       "type": "Supercharge",
       "accountId": 12590,
       "transactionId": 854632,
-      "title": "Shruthi Sill",
+      "title": "Happy Birthday Wesley, Edward, Sebastian, & Nathan",
       "parentId": null,
       "txnIds": [
         854631,
@@ -30038,7 +30038,7 @@
       "id": 42841,
       "created": "2026-11-17T16:01:27",
       "event": "2026-11-21",
-      "statusId": 0,
+      "statusId": 2,
       "type": "Online Reservations",
       "accountId": 12734,
       "transactionId": 861910,
@@ -30185,7 +30185,7 @@
       "id": 42851,
       "created": "2026-11-18T08:50:44",
       "event": "2026-11-20",
-      "statusId": 0,
+      "statusId": 2,
       "type": "Online Reservations",
       "accountId": 12744,
       "transactionId": 862260,
@@ -30274,12 +30274,15 @@
       "created": "2026-11-18T12:23:53",
       "event": "2026-12-03",
       "statusId": 2,
-      "type": "Undefined",
-      "accountId": null,
-      "transactionId": null,
-      "title": "Pair & Spare Traceena Peterson",
+      "type": "Pair and Spair",
+      "accountId": 12770,
+      "transactionId": 863293,
+      "title": "Your Reformer",
       "parentId": null,
-      "txnIds": []
+      "txnIds": [
+        863292,
+        863293
+      ]
     },
     {
       "id": 42858,
@@ -30298,12 +30301,15 @@
       "created": "2026-11-18T12:26:09",
       "event": "2026-12-04",
       "statusId": 2,
-      "type": "Undefined",
-      "accountId": null,
-      "transactionId": null,
-      "title": "Pair & Spare - Yasmira Cabrera",
+      "type": "Pair and Spair",
+      "accountId": 12774,
+      "transactionId": 863381,
+      "title": "Westmont Elementary",
       "parentId": null,
-      "txnIds": []
+      "txnIds": [
+        863380,
+        863381
+      ]
     },
     {
       "id": 42860,
@@ -30472,12 +30478,15 @@
       "created": "2026-11-18T15:14:49",
       "event": "2026-12-18",
       "statusId": 2,
-      "type": "Undefined",
-      "accountId": null,
-      "transactionId": null,
-      "title": "Strike Zone - Monica Navarro",
+      "type": "Strikezone 4 Lane Suite",
+      "accountId": 12772,
+      "transactionId": 863352,
+      "title": "Robert's Precision Engineering",
       "parentId": null,
-      "txnIds": []
+      "txnIds": [
+        863351,
+        863352
+      ]
     },
     {
       "id": 42874,
@@ -30708,7 +30717,7 @@
       "id": 42894,
       "created": "2026-11-18T21:21:52",
       "event": "2026-11-21",
-      "statusId": 0,
+      "statusId": 2,
       "type": "Online Reservations",
       "accountId": 12755,
       "transactionId": 862693,
@@ -30888,7 +30897,7 @@
       "id": 42907,
       "created": "2026-11-19T20:02:17",
       "event": "2026-11-21",
-      "statusId": 0,
+      "statusId": 2,
       "type": "Online Reservations",
       "accountId": 12766,
       "transactionId": 863173,
@@ -30903,7 +30912,7 @@
       "id": 42908,
       "created": "2026-11-19T21:12:18",
       "event": "2026-11-21",
-      "statusId": 0,
+      "statusId": 2,
       "type": "Online Reservations",
       "accountId": 12767,
       "transactionId": 863213,
@@ -30954,6 +30963,231 @@
       "txnIds": [
         863264,
         863265
+      ]
+    },
+    {
+      "id": 42913,
+      "created": "2026-11-20T11:47:19",
+      "event": "2026-11-21",
+      "statusId": 2,
+      "type": "Adult Party",
+      "accountId": null,
+      "transactionId": null,
+      "title": "New Reservation",
+      "parentId": null,
+      "txnIds": []
+    },
+    {
+      "id": 42914,
+      "created": "2026-11-20T11:48:14",
+      "event": "2026-11-21",
+      "statusId": 2,
+      "type": "Adult Party",
+      "accountId": null,
+      "transactionId": null,
+      "title": "New Reservation",
+      "parentId": null,
+      "txnIds": []
+    },
+    {
+      "id": 42915,
+      "created": "2026-11-20T11:48:18",
+      "event": "2026-11-21",
+      "statusId": 2,
+      "type": "Adult Party",
+      "accountId": null,
+      "transactionId": null,
+      "title": "New Reservation",
+      "parentId": null,
+      "txnIds": []
+    },
+    {
+      "id": 42916,
+      "created": "2026-11-20T11:49:06",
+      "event": "2026-11-21",
+      "statusId": 2,
+      "type": "Adult Party",
+      "accountId": null,
+      "transactionId": null,
+      "title": "New Reservation",
+      "parentId": null,
+      "txnIds": []
+    },
+    {
+      "id": 42917,
+      "created": "2026-11-20T11:49:37",
+      "event": "2026-11-21",
+      "statusId": 2,
+      "type": "Adult Party",
+      "accountId": null,
+      "transactionId": null,
+      "title": "New Reservation",
+      "parentId": null,
+      "txnIds": []
+    },
+    {
+      "id": 42918,
+      "created": "2026-11-20T11:53:19",
+      "event": "2026-11-21",
+      "statusId": 2,
+      "type": "Adult Party",
+      "accountId": null,
+      "transactionId": null,
+      "title": "New Reservation",
+      "parentId": null,
+      "txnIds": []
+    },
+    {
+      "id": 42919,
+      "created": "2026-11-20T11:53:24",
+      "event": "2026-11-21",
+      "statusId": 2,
+      "type": "Adult Party",
+      "accountId": null,
+      "transactionId": null,
+      "title": "New Reservation",
+      "parentId": null,
+      "txnIds": []
+    },
+    {
+      "id": 42920,
+      "created": "2026-11-20T11:59:25",
+      "event": "2026-11-28",
+      "statusId": 2,
+      "type": "Special Event",
+      "accountId": null,
+      "transactionId": null,
+      "title": "Happy 11th Birthday Weston!",
+      "parentId": null,
+      "txnIds": []
+    },
+    {
+      "id": 42921,
+      "created": "2026-11-20T12:20:01",
+      "event": "2026-11-20",
+      "statusId": 2,
+      "type": "Online Reservations",
+      "accountId": 12771,
+      "transactionId": 863311,
+      "title": "Megan Nieto",
+      "parentId": null,
+      "txnIds": [
+        863310,
+        863311
+      ]
+    },
+    {
+      "id": 42922,
+      "created": "2026-11-20T13:55:41",
+      "event": "2026-12-17",
+      "statusId": 2,
+      "type": "Undefined",
+      "accountId": null,
+      "transactionId": null,
+      "title": "Strike Zone - Christina Negrete",
+      "parentId": null,
+      "txnIds": []
+    },
+    {
+      "id": 42923,
+      "created": "2026-11-20T14:33:01",
+      "event": "2026-11-20",
+      "statusId": 2,
+      "type": "Online Reservations",
+      "accountId": 12773,
+      "transactionId": 863361,
+      "title": "Ayumi Hood",
+      "parentId": null,
+      "txnIds": [
+        863360,
+        863361
+      ]
+    },
+    {
+      "id": 42924,
+      "created": "2026-11-20T15:06:52",
+      "event": "2026-11-20",
+      "statusId": 2,
+      "type": "Adult Party",
+      "accountId": null,
+      "transactionId": null,
+      "title": "Samantha Villa",
+      "parentId": null,
+      "txnIds": []
+    },
+    {
+      "id": 42925,
+      "created": "2026-11-20T16:12:02",
+      "event": "2026-11-22",
+      "statusId": 0,
+      "type": "Online Reservations",
+      "accountId": 12775,
+      "transactionId": 863431,
+      "title": "Elizabeth Schroeder",
+      "parentId": null,
+      "txnIds": [
+        863430,
+        863431
+      ]
+    },
+    {
+      "id": 42926,
+      "created": "2026-11-20T16:32:02",
+      "event": "2026-11-20",
+      "statusId": 2,
+      "type": "Online Reservations",
+      "accountId": 12776,
+      "transactionId": 863450,
+      "title": "Oscar Tejada",
+      "parentId": null,
+      "txnIds": [
+        863449,
+        863450
+      ]
+    },
+    {
+      "id": 42927,
+      "created": "2026-11-20T17:12:15",
+      "event": "2026-11-21",
+      "statusId": 2,
+      "type": "Special Event",
+      "accountId": 12777,
+      "transactionId": 863496,
+      "title": "Twll Rebels",
+      "parentId": null,
+      "txnIds": [
+        863495,
+        863496
+      ]
+    },
+    {
+      "id": 42928,
+      "created": "2026-11-20T17:19:03",
+      "event": "2026-11-20",
+      "statusId": 2,
+      "type": "Online Reservations",
+      "accountId": 12778,
+      "transactionId": 863508,
+      "title": "Ali Saad",
+      "parentId": null,
+      "txnIds": [
+        863507,
+        863508
+      ]
+    },
+    {
+      "id": 42929,
+      "created": "2026-11-20T19:30:05",
+      "event": "2026-11-22",
+      "statusId": 0,
+      "type": "Online Reservations",
+      "accountId": 12779,
+      "transactionId": 863641,
+      "title": "Sergio Gamez",
+      "parentId": null,
+      "txnIds": [
+        863640,
+        863641
       ]
     }
   ],
@@ -144567,6 +144801,174 @@
       "at": "2026-11-20T11:00:49",
       "amount": -13.45,
       "txnId": 863269
+    },
+    {
+      "id": 38815,
+      "accountId": 12770,
+      "at": "2026-11-20T11:47:41",
+      "amount": 1151.38,
+      "txnId": 863292
+    },
+    {
+      "id": 38816,
+      "accountId": 12771,
+      "at": "2026-11-20T12:20:03",
+      "amount": 153.47,
+      "txnId": 863310
+    },
+    {
+      "id": 38817,
+      "accountId": 12530,
+      "at": "2026-11-20T12:46:04",
+      "amount": -529.76,
+      "txnId": 851811
+    },
+    {
+      "id": 38818,
+      "accountId": 12772,
+      "at": "2026-11-20T14:02:56",
+      "amount": 1100.0,
+      "txnId": 863351
+    },
+    {
+      "id": 38819,
+      "accountId": 12773,
+      "at": "2026-11-20T14:33:03",
+      "amount": 153.47,
+      "txnId": 863360
+    },
+    {
+      "id": 38820,
+      "accountId": 12590,
+      "at": "2026-11-20T14:31:50",
+      "amount": -539.42,
+      "txnId": 854632
+    },
+    {
+      "id": 38821,
+      "accountId": 12721,
+      "at": "2026-11-20T14:43:18",
+      "amount": -991.68,
+      "txnId": 861552
+    },
+    {
+      "id": 38822,
+      "accountId": 12774,
+      "at": "2026-11-20T14:53:14",
+      "amount": 1205.1,
+      "txnId": 863380
+    },
+    {
+      "id": 38823,
+      "accountId": 12615,
+      "at": "2026-11-20T15:01:33",
+      "amount": -28.84,
+      "txnId": 856048
+    },
+    {
+      "id": 38824,
+      "accountId": 12653,
+      "at": "2026-11-20T16:03:18",
+      "amount": -401.7,
+      "txnId": 858008
+    },
+    {
+      "id": 38825,
+      "accountId": 12775,
+      "at": "2026-11-20T16:12:04",
+      "amount": 122.57,
+      "txnId": 863430
+    },
+    {
+      "id": 38826,
+      "accountId": 12776,
+      "at": "2026-11-20T16:32:04",
+      "amount": 407.88,
+      "txnId": 863449
+    },
+    {
+      "id": 38827,
+      "accountId": 12468,
+      "at": "2026-11-20T16:48:01",
+      "amount": -960.5,
+      "txnId": 849160
+    },
+    {
+      "id": 38828,
+      "accountId": 12777,
+      "at": "2026-11-20T17:12:42",
+      "amount": 418.75,
+      "txnId": 863495
+    },
+    {
+      "id": 38829,
+      "accountId": 12778,
+      "at": "2026-11-20T17:19:04",
+      "amount": 153.47,
+      "txnId": 863507
+    },
+    {
+      "id": 38830,
+      "accountId": 12732,
+      "at": "2026-11-20T18:35:12",
+      "amount": -153.47,
+      "txnId": 861883
+    },
+    {
+      "id": 38831,
+      "accountId": 12779,
+      "at": "2026-11-20T19:30:06",
+      "amount": 166.86,
+      "txnId": 863640
+    },
+    {
+      "id": 38832,
+      "accountId": 12771,
+      "at": "2026-11-20T19:39:48",
+      "amount": -153.47,
+      "txnId": 863311
+    },
+    {
+      "id": 38833,
+      "accountId": 12610,
+      "at": "2026-11-20T19:51:14",
+      "amount": -407.88,
+      "txnId": 855924
+    },
+    {
+      "id": 38834,
+      "accountId": 12776,
+      "at": "2026-11-20T20:14:03",
+      "amount": -407.88,
+      "txnId": 863450
+    },
+    {
+      "id": 38835,
+      "accountId": 12778,
+      "at": "2026-11-20T20:18:09",
+      "amount": -153.47,
+      "txnId": 863508
+    },
+    {
+      "id": 38836,
+      "accountId": 12773,
+      "at": "2026-11-20T20:27:54",
+      "amount": -153.47,
+      "txnId": 863361
+    },
+    {
+      "id": 38837,
+      "accountId": 12744,
+      "at": "2026-11-20T21:15:40",
+      "amount": -203.94,
+      "txnId": 862260
+    },
+    {
+      "id": 38838,
+      "accountId": 1,
+      "at": "2026-11-21T03:53:18",
+      "amount": -11.04,
+      "txnId": 863580
     }
   ],
   "accounts": [
@@ -187019,6 +187421,56 @@
       "id": 12769,
       "name": "Tustin Wolverines 11-22-26",
       "collection": "Sports Party"
+    },
+    {
+      "id": 12770,
+      "name": "Traceena Peterson 12-03-26",
+      "collection": "Pair & Spare"
+    },
+    {
+      "id": 12771,
+      "name": "11/20/2026 Megan Nieto",
+      "collection": "Event"
+    },
+    {
+      "id": 12772,
+      "name": "Robert's Precision Engineering 12-18-26",
+      "collection": "VIP Suites"
+    },
+    {
+      "id": 12773,
+      "name": "11/20/2026 Ayumi Hood",
+      "collection": "Event"
+    },
+    {
+      "id": 12774,
+      "name": "Yasmira Cabrera 12-04-26",
+      "collection": "Pair & Spare"
+    },
+    {
+      "id": 12775,
+      "name": "11/22/2026 Elizabeth Schroeder",
+      "collection": "Event"
+    },
+    {
+      "id": 12776,
+      "name": "11/20/2026 Oscar Tejada",
+      "collection": "Event"
+    },
+    {
+      "id": 12777,
+      "name": "Twll Rebels 11-21-26",
+      "collection": "Sports Party"
+    },
+    {
+      "id": 12778,
+      "name": "11/20/2026 Ali Saad",
+      "collection": "Event"
+    },
+    {
+      "id": 12779,
+      "name": "11/22/2026 Sergio Gamez",
+      "collection": "Event"
     }
   ]
 }

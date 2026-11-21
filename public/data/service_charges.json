@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-20T11:09:11.790537",
+  "generatedAt": "2026-11-21T04:34:17.727985",
   "tabs": [
     {
       "date": "2023-06-01",
@@ -13513,6 +13513,72 @@
       "serviceCharge": 109.25,
       "gratuity": 0.0,
       "tabTotal": 282.75,
+      "accountApplied": 960.5
+    },
+    {
+      "date": "2026-11-20",
+      "time": "12:46",
+      "txnId": "851811",
+      "party": "Diana Feilteau",
+      "accountNames": [
+        "11/20/2026 Diana Feilteau"
+      ],
+      "partyTypes": [
+        "Supercharge"
+      ],
+      "chargeType": "Party Service Charge",
+      "server": "Gabbi",
+      "terminal": "MPOS8",
+      "charges": {
+        "Party Service Charge": 96.7
+      },
+      "serviceCharge": 96.7,
+      "gratuity": 100.0,
+      "tabTotal": 670.97,
+      "accountApplied": 529.76
+    },
+    {
+      "date": "2026-11-20",
+      "time": "14:31",
+      "txnId": "854632",
+      "party": "Shruthi Sill",
+      "accountNames": [
+        "11/20/2026 Shruthi Sill"
+      ],
+      "partyTypes": [
+        "Supercharge"
+      ],
+      "chargeType": "Party Service Charge",
+      "server": "Brianna",
+      "terminal": "MPOS2",
+      "charges": {
+        "Party Service Charge": 170.0
+      },
+      "serviceCharge": 170.0,
+      "gratuity": 0.0,
+      "tabTotal": 1359.02,
+      "accountApplied": 539.42
+    },
+    {
+      "date": "2026-11-20",
+      "time": "16:48",
+      "txnId": "849160",
+      "party": "YLPW",
+      "accountNames": [
+        "YLPW 11-20-26"
+      ],
+      "partyTypes": [
+        "Supercharge"
+      ],
+      "chargeType": "Party Service Charge",
+      "server": "Sasha",
+      "terminal": "MPOS3",
+      "charges": {
+        "Party Service Charge": 180.55
+      },
+      "serviceCharge": 180.55,
+      "gratuity": 300.0,
+      "tabTotal": 1384.73,
       "accountApplied": 960.5
     }
   ],
