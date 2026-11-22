@@ -1,5 +1,5 @@
 {
-  "pulledAt": "2026-11-21T04:36:00",
+  "pulledAt": "2026-11-22T04:35:53",
   "reservations": [
     {
       "id": 37008,
@@ -19966,7 +19966,7 @@
       "id": 41878,
       "created": "2026-10-06T14:09:10",
       "event": "2026-11-21",
-      "statusId": 0,
+      "statusId": 2,
       "type": "Supercharge",
       "accountId": 12347,
       "transactionId": 841807,
@@ -29969,7 +29969,7 @@
       "id": 42836,
       "created": "2026-11-16T22:26:19",
       "event": "2026-11-22",
-      "statusId": 0,
+      "statusId": 2,
       "type": "Online Reservations",
       "accountId": 12731,
       "transactionId": 861838,
@@ -30939,7 +30939,7 @@
       "id": 42910,
       "created": "2026-11-20T07:52:25",
       "event": "2027-01-09",
-      "statusId": 0,
+      "statusId": 2,
       "type": "Online Reservations",
       "accountId": 12768,
       "transactionId": 863259,
@@ -31188,6 +31188,36 @@
       "txnIds": [
         863640,
         863641
+      ]
+    },
+    {
+      "id": 42932,
+      "created": "2026-11-21T13:39:55",
+      "event": "2026-11-21",
+      "statusId": 2,
+      "type": "Online Reservations",
+      "accountId": 12780,
+      "transactionId": 863915,
+      "title": "Bailey Nguyen",
+      "parentId": null,
+      "txnIds": [
+        863914,
+        863915
+      ]
+    },
+    {
+      "id": 42933,
+      "created": "2026-11-21T16:49:56",
+      "event": "2026-11-22",
+      "statusId": 0,
+      "type": "Online Reservations",
+      "accountId": 12781,
+      "transactionId": 864051,
+      "title": "Kristin Stefansson",
+      "parentId": null,
+      "txnIds": [
+        864050,
+        864051
       ]
     }
   ],
@@ -144969,6 +144999,146 @@
       "at": "2026-11-21T03:53:18",
       "amount": -11.04,
       "txnId": 863580
+    },
+    {
+      "id": 38839,
+      "accountId": 12737,
+      "at": "2026-11-21T09:30:51",
+      "amount": -231.75,
+      "txnId": 861951
+    },
+    {
+      "id": 38840,
+      "accountId": 12734,
+      "at": "2026-11-21T11:59:37",
+      "amount": -245.14,
+      "txnId": 861910
+    },
+    {
+      "id": 38841,
+      "accountId": 12586,
+      "at": "2026-11-21T12:00:19",
+      "amount": -367.71,
+      "txnId": 854548
+    },
+    {
+      "id": 38842,
+      "accountId": 12702,
+      "at": "2026-11-21T12:01:27",
+      "amount": -122.57,
+      "txnId": 859718
+    },
+    {
+      "id": 38843,
+      "accountId": 12780,
+      "at": "2026-11-21T13:39:56",
+      "amount": 306.94,
+      "txnId": 863914
+    },
+    {
+      "id": 38844,
+      "accountId": 12454,
+      "at": "2026-11-21T13:49:02",
+      "amount": -448.77,
+      "txnId": 848303
+    },
+    {
+      "id": 38845,
+      "accountId": 12777,
+      "at": "2026-11-21T14:08:28",
+      "amount": -418.75,
+      "txnId": 863496
+    },
+    {
+      "id": 38846,
+      "accountId": 12746,
+      "at": "2026-11-21T14:14:32",
+      "amount": -231.75,
+      "txnId": 862264
+    },
+    {
+      "id": 38847,
+      "accountId": 12722,
+      "at": "2026-11-21T15:19:42",
+      "amount": -231.75,
+      "txnId": 861554
+    },
+    {
+      "id": 38848,
+      "accountId": 12766,
+      "at": "2026-11-21T15:26:54",
+      "amount": -245.14,
+      "txnId": 863173
+    },
+    {
+      "id": 38849,
+      "accountId": 12347,
+      "at": "2026-11-21T15:55:51",
+      "amount": -480.25,
+      "txnId": 864154
+    },
+    {
+      "id": 38850,
+      "accountId": 12781,
+      "at": "2026-11-21T16:49:57",
+      "amount": 122.57,
+      "txnId": 864050
+    },
+    {
+      "id": 38851,
+      "accountId": 12733,
+      "at": "2026-11-21T17:14:39",
+      "amount": -447.0,
+      "txnId": 861888
+    },
+    {
+      "id": 38852,
+      "accountId": 12690,
+      "at": "2026-11-21T17:37:25",
+      "amount": -367.71,
+      "txnId": 859553
+    },
+    {
+      "id": 38853,
+      "accountId": 12780,
+      "at": "2026-11-21T17:57:35",
+      "amount": -306.94,
+      "txnId": 863915
+    },
+    {
+      "id": 38854,
+      "accountId": 12755,
+      "at": "2026-11-21T18:34:48",
+      "amount": -203.94,
+      "txnId": 862693
+    },
+    {
+      "id": 38855,
+      "accountId": 12659,
+      "at": "2026-11-21T18:40:37",
+      "amount": -1100.0,
+      "txnId": 858156
+    },
+    {
+      "id": 38856,
+      "accountId": 12591,
+      "at": "2026-11-21T19:18:49",
+      "amount": -306.94,
+      "txnId": 854694
+    },
+    {
+      "id": 38857,
+      "accountId": 12767,
+      "at": "2026-11-21T19:43:50",
+      "amount": -306.94,
+      "txnId": 863213
+    },
+    {
+      "id": 38858,
+      "accountId": 1,
+      "at": "2026-11-22T03:53:20",
+      "amount": -21.55,
+      "txnId": 864401
     }
   ],
   "accounts": [
@@ -187470,6 +187640,16 @@
     {
       "id": 12779,
       "name": "11/22/2026 Sergio Gamez",
+      "collection": "Event"
+    },
+    {
+      "id": 12780,
+      "name": "11/21/2026 Bailey Nguyen",
+      "collection": "Event"
+    },
+    {
+      "id": 12781,
+      "name": "11/22/2026 Kristin Stefansson",
       "collection": "Event"
     }
   ]

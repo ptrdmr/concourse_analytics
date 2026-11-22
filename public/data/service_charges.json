@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-21T04:34:17.727985",
+  "generatedAt": "2026-11-22T04:34:12.460791",
   "tabs": [
     {
       "date": "2023-06-01",
@@ -13580,6 +13580,50 @@
       "gratuity": 300.0,
       "tabTotal": 1384.73,
       "accountApplied": 960.5
+    },
+    {
+      "date": "2026-11-21",
+      "time": "18:40",
+      "txnId": "858156",
+      "party": "Duo Sculpt",
+      "accountNames": [
+        "Duo Sculpt 11-21-26"
+      ],
+      "partyTypes": [
+        "Strike Zone Suite"
+      ],
+      "chargeType": "VIP Service Charge",
+      "server": "Sasha",
+      "terminal": "CAFE1",
+      "charges": {
+        "VIP Service Charge": 184.0
+      },
+      "serviceCharge": 184.0,
+      "gratuity": 100.0,
+      "tabTotal": 1330.52,
+      "accountApplied": 1100.0
+    },
+    {
+      "date": "2026-11-21",
+      "time": "18:41",
+      "txnId": "864154",
+      "party": "Jenae Decker",
+      "accountNames": [
+        "11/21/2026 Jenae Decker"
+      ],
+      "partyTypes": [
+        "Supercharge"
+      ],
+      "chargeType": "Party Service Charge",
+      "server": "Brianna",
+      "terminal": "MPOS2",
+      "charges": {
+        "Party Service Charge": 99.0
+      },
+      "serviceCharge": 99.0,
+      "gratuity": 20.0,
+      "tabTotal": 660.45,
+      "accountApplied": 480.25
     }
   ],
   "meta": {
