@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-22T04:34:12.460791",
+  "generatedAt": "2026-11-23T04:34:12.473710",
   "tabs": [
     {
       "date": "2023-06-01",
@@ -13623,6 +13623,28 @@
       "serviceCharge": 99.0,
       "gratuity": 20.0,
       "tabTotal": 660.45,
+      "accountApplied": 480.25
+    },
+    {
+      "date": "2026-11-22",
+      "time": "15:48",
+      "txnId": "864682",
+      "party": "Brenda Rendon",
+      "accountNames": [
+        "Brenda Rendon 11-22-26"
+      ],
+      "partyTypes": [
+        "Supercharge"
+      ],
+      "chargeType": "Party Service Charge",
+      "server": "Brianna",
+      "terminal": "MPOS6",
+      "charges": {
+        "Party Service Charge": 124.1
+      },
+      "serviceCharge": 124.1,
+      "gratuity": 100.0,
+      "tabTotal": 1040.65,
       "accountApplied": 480.25
     }
   ],

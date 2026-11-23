@@ -1,5 +1,5 @@
 {
-  "pulledAt": "2026-11-22T04:35:53",
+  "pulledAt": "2026-11-23T04:35:54",
   "reservations": [
     {
       "id": 37008,
@@ -31119,7 +31119,7 @@
       "id": 42925,
       "created": "2026-11-20T16:12:02",
       "event": "2026-11-22",
-      "statusId": 0,
+      "statusId": 2,
       "type": "Online Reservations",
       "accountId": 12775,
       "transactionId": 863431,
@@ -31179,7 +31179,7 @@
       "id": 42929,
       "created": "2026-11-20T19:30:05",
       "event": "2026-11-22",
-      "statusId": 0,
+      "statusId": 2,
       "type": "Online Reservations",
       "accountId": 12779,
       "transactionId": 863641,
@@ -31209,7 +31209,7 @@
       "id": 42933,
       "created": "2026-11-21T16:49:56",
       "event": "2026-11-22",
-      "statusId": 0,
+      "statusId": 2,
       "type": "Online Reservations",
       "accountId": 12781,
       "transactionId": 864051,
@@ -31218,6 +31218,63 @@
       "txnIds": [
         864050,
         864051
+      ]
+    },
+    {
+      "id": 42934,
+      "created": "2026-11-22T11:02:42",
+      "event": "2026-11-25",
+      "statusId": 0,
+      "type": "Online Reservations",
+      "accountId": 12782,
+      "transactionId": 864477,
+      "title": "Briana Solis",
+      "parentId": null,
+      "txnIds": [
+        864476,
+        864477
+      ]
+    },
+    {
+      "id": 42936,
+      "created": "2026-11-22T16:31:14",
+      "event": "2026-11-22",
+      "statusId": 2,
+      "type": "Make-up/Pre-Bowl",
+      "accountId": null,
+      "transactionId": null,
+      "title": "AMY",
+      "parentId": null,
+      "txnIds": []
+    },
+    {
+      "id": 42937,
+      "created": "2026-11-22T16:57:45",
+      "event": "2026-11-25",
+      "statusId": 0,
+      "type": "Online Reservations",
+      "accountId": 12783,
+      "transactionId": 864735,
+      "title": "Abel Zavalza",
+      "parentId": null,
+      "txnIds": [
+        864734,
+        864735
+      ]
+    },
+    {
+      "id": 42938,
+      "created": "2026-11-22T21:50:48",
+      "event": "2026-11-24",
+      "statusId": 0,
+      "type": "Online Reservations",
+      "accountId": 12784,
+      "transactionId": 864946,
+      "title": "Brenda Lopez",
+      "parentId": null,
+      "txnIds": [
+        864945,
+        864946
       ]
     }
   ],
@@ -145139,6 +145196,125 @@
       "at": "2026-11-22T03:53:20",
       "amount": -21.55,
       "txnId": 864401
+    },
+    {
+      "id": 38859,
+      "accountId": 12782,
+      "at": "2026-11-22T11:02:44",
+      "amount": 278.1,
+      "txnId": 864476
+    },
+    {
+      "id": 38860,
+      "accountId": 12726,
+      "at": "2026-11-22T12:19:05",
+      "amount": -500.58,
+      "txnId": 861568
+    },
+    {
+      "id": 38861,
+      "accountId": 12779,
+      "at": "2026-11-22T12:29:40",
+      "amount": -166.86,
+      "txnId": 863641
+    },
+    {
+      "id": 38862,
+      "accountId": 12604,
+      "at": "2026-11-22T12:38:53",
+      "amount": -231.75,
+      "txnId": 855564
+    },
+    {
+      "id": 38863,
+      "accountId": 12769,
+      "at": "2026-11-22T12:46:14",
+      "amount": -231.75,
+      "txnId": 863265
+    },
+    {
+      "id": 38864,
+      "accountId": 12727,
+      "at": "2026-11-22T13:02:07",
+      "amount": -367.71,
+      "txnId": 861596
+    },
+    {
+      "id": 38865,
+      "accountId": 12750,
+      "at": "2026-11-22T13:27:26",
+      "amount": -347.63,
+      "txnId": 862301
+    },
+    {
+      "id": 38866,
+      "accountId": 12775,
+      "at": "2026-11-22T13:41:10",
+      "amount": -122.57,
+      "txnId": 863431
+    },
+    {
+      "id": 38867,
+      "accountId": 12747,
+      "at": "2026-11-22T14:19:21",
+      "amount": -480.25,
+      "txnId": 864682
+    },
+    {
+      "id": 38868,
+      "accountId": 12723,
+      "at": "2026-11-22T14:37:03",
+      "amount": -166.86,
+      "txnId": 861556
+    },
+    {
+      "id": 38869,
+      "accountId": 12192,
+      "at": "2026-11-22T14:37:37",
+      "amount": -203.94,
+      "txnId": 832998
+    },
+    {
+      "id": 38870,
+      "accountId": 12692,
+      "at": "2026-11-22T15:12:15",
+      "amount": -245.14,
+      "txnId": 859561
+    },
+    {
+      "id": 38871,
+      "accountId": 12664,
+      "at": "2026-11-22T15:39:51",
+      "amount": -463.5,
+      "txnId": 858198
+    },
+    {
+      "id": 38872,
+      "accountId": 12731,
+      "at": "2026-11-22T16:31:11",
+      "amount": -122.57,
+      "txnId": 861838
+    },
+    {
+      "id": 38873,
+      "accountId": 12783,
+      "at": "2026-11-22T16:57:46",
+      "amount": 203.94,
+      "txnId": 864734
+    },
+    {
+      "id": 38874,
+      "accountId": 12781,
+      "at": "2026-11-22T19:38:49",
+      "amount": -122.57,
+      "txnId": 864051
+    },
+    {
+      "id": 38875,
+      "accountId": 12784,
+      "at": "2026-11-22T21:50:49",
+      "amount": 101.97,
+      "txnId": 864945
     }
   ],
   "accounts": [
@@ -187650,6 +187826,21 @@
     {
       "id": 12781,
       "name": "11/22/2026 Kristin Stefansson",
+      "collection": "Event"
+    },
+    {
+      "id": 12782,
+      "name": "11/25/2026 Briana Solis",
+      "collection": "Event"
+    },
+    {
+      "id": 12783,
+      "name": "11/25/2026 Abel Zavalza",
+      "collection": "Event"
+    },
+    {
+      "id": 12784,
+      "name": "11/24/2026 Brenda Lopez",
       "collection": "Event"
     }
   ]
