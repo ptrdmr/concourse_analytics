@@ -1,8 +1,8 @@
 {
-  "generatedAt": "2026-11-23T04:35:54",
+  "generatedAt": "2026-11-24T04:35:59",
   "dateRange": [
     "2023-05-26",
-    "2026-11-22"
+    "2026-11-23"
   ],
   "types": [
     "Weekday Lane",
@@ -11753,6 +11753,16 @@
       "date": "2026-11-22",
       "type": "Sports Party",
       "count": 4
+    },
+    {
+      "date": "2026-11-23",
+      "type": "Weekday Lane",
+      "count": 1
+    },
+    {
+      "date": "2026-11-23",
+      "type": "Sports Party",
+      "count": 1
     }
   ],
   "dailyTabs": [
@@ -16355,11 +16365,15 @@
     {
       "date": "2026-11-22",
       "tabs": 14
+    },
+    {
+      "date": "2026-11-23",
+      "tabs": 2
     }
   ],
   "validation": {
-    "distinctTabs": 11518,
-    "cellSum": 11576,
+    "distinctTabs": 11520,
+    "cellSum": 11578,
     "delta": 58
   }
 }
