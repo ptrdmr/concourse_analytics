@@ -1,5 +1,5 @@
 {
-  "pulledAt": "2026-11-24T04:36:00",
+  "pulledAt": "2026-11-25T04:35:54",
   "reservations": [
     {
       "id": 37008,
@@ -28522,7 +28522,7 @@
       "id": 42694,
       "created": "2026-11-12T11:35:20",
       "event": "2026-11-24",
-      "statusId": 0,
+      "statusId": 2,
       "type": "Online Reservations",
       "accountId": 12685,
       "transactionId": 859093,
@@ -30526,7 +30526,8 @@
       "transactionId": null,
       "title": "Strike Zone - Janelle Maetani",
       "parentId": null,
-      "txnIds": []
+      "txnIds": [],
+      "goneAt": "2026-11-25"
     },
     {
       "id": 42875,
@@ -31296,7 +31297,7 @@
       "id": 42938,
       "created": "2026-11-22T21:50:48",
       "event": "2026-11-24",
-      "statusId": 0,
+      "statusId": 2,
       "type": "Online Reservations",
       "accountId": 12784,
       "transactionId": 864946,
@@ -31441,7 +31442,7 @@
       "id": 42949,
       "created": "2026-11-23T13:12:54",
       "event": "2026-11-24",
-      "statusId": 0,
+      "statusId": 2,
       "type": "Online Reservations",
       "accountId": 12792,
       "transactionId": 865007,
@@ -31516,7 +31517,7 @@
       "id": 42954,
       "created": "2026-11-23T14:26:56",
       "event": "2026-11-24",
-      "statusId": 0,
+      "statusId": 2,
       "type": "Online Reservations",
       "accountId": 12798,
       "transactionId": 865035,
@@ -31592,6 +31593,153 @@
       "title": "Patrick Ortiz river magic",
       "parentId": null,
       "txnIds": []
+    },
+    {
+      "id": 42961,
+      "created": "2026-11-24T05:34:00",
+      "event": "2026-11-27",
+      "statusId": 2,
+      "type": "Online Reservations",
+      "accountId": 12801,
+      "transactionId": 865357,
+      "title": "Joe Gonzalez",
+      "parentId": null,
+      "txnIds": [
+        865356,
+        865357
+      ]
+    },
+    {
+      "id": 42962,
+      "created": "2026-11-24T11:23:04",
+      "event": "2026-11-24",
+      "statusId": 2,
+      "type": "Online Reservations",
+      "accountId": 12802,
+      "transactionId": 865370,
+      "title": "Lisa Heethuis",
+      "parentId": null,
+      "txnIds": [
+        865369,
+        865370
+      ]
+    },
+    {
+      "id": 42963,
+      "created": "2026-11-24T11:45:04",
+      "event": "2026-11-24",
+      "statusId": 2,
+      "type": "all you can bowl",
+      "accountId": 12803,
+      "transactionId": 865379,
+      "title": "Stephanie Duff",
+      "parentId": null,
+      "txnIds": [
+        865378,
+        865379
+      ]
+    },
+    {
+      "id": 42964,
+      "created": "2026-11-24T12:03:04",
+      "event": "2026-11-24",
+      "statusId": 2,
+      "type": "all you can bowl",
+      "accountId": 12804,
+      "transactionId": 865384,
+      "title": "Kiana Ota",
+      "parentId": null,
+      "txnIds": [
+        865383,
+        865384
+      ]
+    },
+    {
+      "id": 42965,
+      "created": "2026-11-24T12:12:04",
+      "event": "2027-01-03",
+      "statusId": 2,
+      "type": "Online Reservations",
+      "accountId": null,
+      "transactionId": null,
+      "title": "Mallory White",
+      "parentId": null,
+      "txnIds": []
+    },
+    {
+      "id": 42966,
+      "created": "2026-11-24T13:32:05",
+      "event": "2026-11-25",
+      "statusId": 0,
+      "type": "Online Reservations",
+      "accountId": 12805,
+      "transactionId": 865429,
+      "title": "Moises Romero",
+      "parentId": null,
+      "txnIds": [
+        865428,
+        865429
+      ]
+    },
+    {
+      "id": 42967,
+      "created": "2026-11-24T14:08:05",
+      "event": "2026-11-27",
+      "statusId": 0,
+      "type": "Online Reservations",
+      "accountId": 12806,
+      "transactionId": 865451,
+      "title": "Lori Trotter",
+      "parentId": null,
+      "txnIds": [
+        865450,
+        865451
+      ]
+    },
+    {
+      "id": 42968,
+      "created": "2026-11-24T14:18:06",
+      "event": "2026-11-24",
+      "statusId": 2,
+      "type": "all you can bowl",
+      "accountId": 12807,
+      "transactionId": 865460,
+      "title": "Thomas Wheelock",
+      "parentId": null,
+      "txnIds": [
+        865459,
+        865460
+      ]
+    },
+    {
+      "id": 42969,
+      "created": "2026-11-24T17:11:08",
+      "event": "2026-11-24",
+      "statusId": 2,
+      "type": "all you can bowl",
+      "accountId": 12808,
+      "transactionId": 865528,
+      "title": "Rebecca Duckins",
+      "parentId": null,
+      "txnIds": [
+        865527,
+        865528
+      ]
+    },
+    {
+      "id": 42970,
+      "created": "2026-11-24T21:04:10",
+      "event": "2026-11-25",
+      "statusId": 0,
+      "type": "Online Reservations",
+      "accountId": 12809,
+      "transactionId": 865727,
+      "title": "Ana Flores",
+      "parentId": null,
+      "txnIds": [
+        865726,
+        865727
+      ]
     }
   ],
   "ledger": [
@@ -145764,6 +145912,146 @@
       "at": "2026-11-23T19:25:23",
       "amount": -122.57,
       "txnId": 865015
+    },
+    {
+      "id": 38895,
+      "accountId": 12801,
+      "at": "2026-11-24T05:34:02",
+      "amount": 153.47,
+      "txnId": 865356
+    },
+    {
+      "id": 38896,
+      "accountId": 12802,
+      "at": "2026-11-24T11:23:05",
+      "amount": 203.94,
+      "txnId": 865369
+    },
+    {
+      "id": 38897,
+      "accountId": 12792,
+      "at": "2026-11-24T11:24:49",
+      "amount": -203.94,
+      "txnId": 865007
+    },
+    {
+      "id": 38898,
+      "accountId": 12803,
+      "at": "2026-11-24T11:45:05",
+      "amount": 129.78,
+      "txnId": 865378
+    },
+    {
+      "id": 38899,
+      "accountId": 12804,
+      "at": "2026-11-24T12:03:05",
+      "amount": 18.54,
+      "txnId": 865383
+    },
+    {
+      "id": 38900,
+      "accountId": 12805,
+      "at": "2026-11-24T13:32:06",
+      "amount": 203.94,
+      "txnId": 865428
+    },
+    {
+      "id": 38901,
+      "accountId": 12806,
+      "at": "2026-11-24T14:08:07",
+      "amount": 306.94,
+      "txnId": 865450
+    },
+    {
+      "id": 38902,
+      "accountId": 12807,
+      "at": "2026-11-24T14:18:07",
+      "amount": 18.54,
+      "txnId": 865459
+    },
+    {
+      "id": 38903,
+      "accountId": 12802,
+      "at": "2026-11-24T16:39:02",
+      "amount": -203.94,
+      "txnId": 865370
+    },
+    {
+      "id": 38904,
+      "accountId": 12808,
+      "at": "2026-11-24T17:11:09",
+      "amount": 92.7,
+      "txnId": 865527
+    },
+    {
+      "id": 38905,
+      "accountId": 12798,
+      "at": "2026-11-24T18:30:36",
+      "amount": -101.97,
+      "txnId": 865035
+    },
+    {
+      "id": 38906,
+      "accountId": 12808,
+      "at": "2026-11-24T20:47:30",
+      "amount": -92.7,
+      "txnId": 865528
+    },
+    {
+      "id": 38907,
+      "accountId": 12807,
+      "at": "2026-11-24T21:02:36",
+      "amount": -18.54,
+      "txnId": 865460
+    },
+    {
+      "id": 38908,
+      "accountId": 12685,
+      "at": "2026-11-24T21:02:25",
+      "amount": -305.91,
+      "txnId": 859093
+    },
+    {
+      "id": 38909,
+      "accountId": 12725,
+      "at": "2026-11-24T21:03:22",
+      "amount": -101.97,
+      "txnId": 861565
+    },
+    {
+      "id": 38910,
+      "accountId": 12809,
+      "at": "2026-11-24T21:04:11",
+      "amount": 101.97,
+      "txnId": 865726
+    },
+    {
+      "id": 38911,
+      "accountId": 12803,
+      "at": "2026-11-24T21:16:18",
+      "amount": -129.78,
+      "txnId": 865379
+    },
+    {
+      "id": 38912,
+      "accountId": 12804,
+      "at": "2026-11-24T21:25:40",
+      "amount": -18.54,
+      "txnId": 865384
+    },
+    {
+      "id": 38913,
+      "accountId": 1,
+      "at": "2026-11-25T03:53:08",
+      "amount": -7.81,
+      "txnId": 865691
+    },
+    {
+      "id": 38914,
+      "accountId": 1,
+      "at": "2026-11-25T03:53:08",
+      "amount": -10.78,
+      "txnId": 865769
     }
   ],
   "accounts": [
@@ -188370,6 +188658,51 @@
     {
       "id": 12800,
       "name": "11/28/2026 George Semaan",
+      "collection": "Event"
+    },
+    {
+      "id": 12801,
+      "name": "11/27/2026 Joe Gonzalez",
+      "collection": "Event"
+    },
+    {
+      "id": 12802,
+      "name": "11/24/2026 Lisa Heethuis",
+      "collection": "Event"
+    },
+    {
+      "id": 12803,
+      "name": "11/24/2026 Stephanie Duff",
+      "collection": "Event"
+    },
+    {
+      "id": 12804,
+      "name": "11/24/2026 Kiana Ota",
+      "collection": "Event"
+    },
+    {
+      "id": 12805,
+      "name": "11/25/2026 Moises Romero",
+      "collection": "Event"
+    },
+    {
+      "id": 12806,
+      "name": "11/27/2026 Lori Trotter",
+      "collection": "Event"
+    },
+    {
+      "id": 12807,
+      "name": "11/24/2026 Thomas Wheelock",
+      "collection": "Event"
+    },
+    {
+      "id": 12808,
+      "name": "11/24/2026 Rebecca Duckins",
+      "collection": "Event"
+    },
+    {
+      "id": 12809,
+      "name": "11/25/2026 Ana Flores",
       "collection": "Event"
     }
   ]
