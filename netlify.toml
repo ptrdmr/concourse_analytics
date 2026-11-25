@@ -6,6 +6,12 @@
   directory = "netlify/functions"
   node_bundler = "esbuild"
 
+# Only the tip reader gets the private tip data, compressed at build time by
+# scripts/pack_tip_data.mjs. Attaching it to every function, or bundling it
+# uncompressed, runs into Netlify's function size limit.
+[functions."tip-data"]
+  included_files = ["netlify/tip-data/**"]
+
 [[redirects]]
   from = "/api/*"
   to = "/.netlify/functions/:splat"

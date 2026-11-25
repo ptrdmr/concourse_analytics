@@ -8,6 +8,7 @@ import { emptyDecisions, payoutTotal } from '@/lib/tips/types';
 import { saveTipDecisions, useTipDecisions, useTipMonth } from '@/hooks/useTipFacts';
 import { OnTheClock } from './OnTheClock';
 import { StaffPicker } from './StaffPicker';
+import { TipRulesGuide } from './TipRulesGuide';
 
 function money(cents: number): string {
   return new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(cents / 100);
@@ -43,6 +44,7 @@ export function TipWorksheet({
   const [pending, setPending] = useState<'save' | 'close' | null>(null);
   const [openTile, setOpenTile] = useState<string | null>(null);
   const [clockOpen, setClockOpen] = useState(false);
+  const [rulesOpen, setRulesOpen] = useState(false);
 
   useEffect(() => {
     setDraft(remote.days[date] ?? emptyDecisions(date));
@@ -77,6 +79,13 @@ export function TipWorksheet({
   }, [dirty, onDirty]);
 
   if (month.loading || remote.loading) return <p className="text-secondary">Loading the day…</p>;
+  if (month.failed) {
+    return (
+      <p className="text-amber-300">
+        Could not load this month&apos;s tip data ({month.failed}). The file may exist but the site could not read it.
+      </p>
+    );
+  }
   if (month.missing || !month.data || !worksheet) {
     return (
       <p className="text-secondary">
@@ -224,6 +233,9 @@ export function TipWorksheet({
           <button type="button" onClick={() => setClockOpen(true)} className="px-4 py-2 rounded-full text-sm bg-overlay/5 text-foreground">
             Who was on the clock
           </button>
+          <button type="button" onClick={() => setRulesOpen(true)} className="px-4 py-2 rounded-full text-sm bg-overlay/5 text-foreground">
+            How tips are split
+          </button>
           {dirty && state !== 'processed' && (
             <button type="button" onClick={() => request('save')} disabled={saving} className="px-4 py-2 rounded-full text-sm bg-overlay/5 text-foreground disabled:opacity-40">
               {saving && pending !== 'close' ? 'Saving…' : 'Save'}
@@ -320,6 +332,7 @@ export function TipWorksheet({
         parties={worksheet.parties}
         daypartHour={worksheet.daypartHour}
       />
+      <TipRulesGuide open={rulesOpen} onClose={() => setRulesOpen(false)} rules={month.data.rules} />
     </div>
   );
 }

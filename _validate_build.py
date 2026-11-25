@@ -48,7 +48,7 @@ required = [
     'netlify/functions/tip-data.mts',
     'netlify/functions/lib/passcode.mts',
     'scripts/strip_private_data.mjs',
-    'scripts/publish_tip_blobs.mjs',
+    'scripts/pack_tip_data.mjs',
     'data/.gitkeep', 'logs/.gitkeep', 'public/data/.gitkeep', 'output/.gitkeep',
 ]
 for rel in required:

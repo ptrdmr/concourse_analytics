@@ -61,12 +61,14 @@ export function useTipMonth(month: string, passcode: string) {
   const [data, setData] = useState<TipMonthFile | null>(month && passcode ? months.get(month) ?? null : null);
   const [loading, setLoading] = useState(Boolean(month && passcode) && !months.has(month));
   const [missing, setMissing] = useState(false);
+  const [failed, setFailed] = useState<string | null>(null);
 
   useEffect(() => {
     if (!month || !passcode) {
       setData(null);
       setLoading(false);
       setMissing(false);
+      setFailed(null);
       return;
     }
     const cached = months.get(month);
@@ -74,11 +76,13 @@ export function useTipMonth(month: string, passcode: string) {
       setData(cached);
       setLoading(false);
       setMissing(false);
+      setFailed(null);
       return;
     }
     let cancelled = false;
     setLoading(true);
     setMissing(false);
+    setFailed(null);
     fetchTipMonth(month, passcode)
       .then((res) => {
         if (res.status === 404) return null;
@@ -95,8 +99,10 @@ export function useTipMonth(month: string, passcode: string) {
         months.set(month, json);
         setData(json);
       })
-      .catch(() => {
-        if (!cancelled) setMissing(true);
+      .catch((err: unknown) => {
+        if (cancelled) return;
+        setData(null);
+        setFailed(err instanceof Error ? err.message : 'Failed to load');
       })
       .finally(() => {
         if (!cancelled) setLoading(false);
@@ -106,7 +112,7 @@ export function useTipMonth(month: string, passcode: string) {
     };
   }, [month, passcode]);
 
-  return { data, loading, missing };
+  return { data, loading, missing, failed };
 }
 
 export function useTipDecisions(from: string, to: string, passcode: string) {

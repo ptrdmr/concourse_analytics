@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build && node scripts/strip_private_data.mjs && node scripts/publish_tip_blobs.mjs",
+    "build": "next build && node scripts/strip_private_data.mjs && node scripts/pack_tip_data.mjs",
     "start": "next start",
     "lint": "next lint",
     "etl": "python scripts/export_dashboards.py",

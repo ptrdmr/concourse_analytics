@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-18T04:34:09.927024",
+  "generatedAt": "2026-11-25T04:34:12.615358",
   "tabs": [
     {
       "date": "2023-06-01",
@@ -13514,6 +13514,138 @@
       "gratuity": 0.0,
       "tabTotal": 282.75,
       "accountApplied": 960.5
+    },
+    {
+      "date": "2026-11-20",
+      "time": "12:46",
+      "txnId": "851811",
+      "party": "Diana Feilteau",
+      "accountNames": [
+        "11/20/2026 Diana Feilteau"
+      ],
+      "partyTypes": [
+        "Supercharge"
+      ],
+      "chargeType": "Party Service Charge",
+      "server": "Gabbi",
+      "terminal": "MPOS8",
+      "charges": {
+        "Party Service Charge": 96.7
+      },
+      "serviceCharge": 96.7,
+      "gratuity": 100.0,
+      "tabTotal": 670.97,
+      "accountApplied": 529.76
+    },
+    {
+      "date": "2026-11-20",
+      "time": "14:31",
+      "txnId": "854632",
+      "party": "Shruthi Sill",
+      "accountNames": [
+        "11/20/2026 Shruthi Sill"
+      ],
+      "partyTypes": [
+        "Supercharge"
+      ],
+      "chargeType": "Party Service Charge",
+      "server": "Brianna",
+      "terminal": "MPOS2",
+      "charges": {
+        "Party Service Charge": 170.0
+      },
+      "serviceCharge": 170.0,
+      "gratuity": 0.0,
+      "tabTotal": 1359.02,
+      "accountApplied": 539.42
+    },
+    {
+      "date": "2026-11-20",
+      "time": "16:48",
+      "txnId": "849160",
+      "party": "YLPW",
+      "accountNames": [
+        "YLPW 11-20-26"
+      ],
+      "partyTypes": [
+        "Supercharge"
+      ],
+      "chargeType": "Party Service Charge",
+      "server": "Sasha",
+      "terminal": "MPOS3",
+      "charges": {
+        "Party Service Charge": 180.55
+      },
+      "serviceCharge": 180.55,
+      "gratuity": 300.0,
+      "tabTotal": 1384.73,
+      "accountApplied": 960.5
+    },
+    {
+      "date": "2026-11-21",
+      "time": "18:40",
+      "txnId": "858156",
+      "party": "Duo Sculpt",
+      "accountNames": [
+        "Duo Sculpt 11-21-26"
+      ],
+      "partyTypes": [
+        "Strike Zone Suite"
+      ],
+      "chargeType": "VIP Service Charge",
+      "server": "Sasha",
+      "terminal": "CAFE1",
+      "charges": {
+        "VIP Service Charge": 184.0
+      },
+      "serviceCharge": 184.0,
+      "gratuity": 100.0,
+      "tabTotal": 1330.52,
+      "accountApplied": 1100.0
+    },
+    {
+      "date": "2026-11-21",
+      "time": "18:41",
+      "txnId": "864154",
+      "party": "Jenae Decker",
+      "accountNames": [
+        "11/21/2026 Jenae Decker"
+      ],
+      "partyTypes": [
+        "Supercharge"
+      ],
+      "chargeType": "Party Service Charge",
+      "server": "Brianna",
+      "terminal": "MPOS2",
+      "charges": {
+        "Party Service Charge": 99.0
+      },
+      "serviceCharge": 99.0,
+      "gratuity": 20.0,
+      "tabTotal": 660.45,
+      "accountApplied": 480.25
+    },
+    {
+      "date": "2026-11-22",
+      "time": "15:48",
+      "txnId": "864682",
+      "party": "Brenda Rendon",
+      "accountNames": [
+        "Brenda Rendon 11-22-26"
+      ],
+      "partyTypes": [
+        "Supercharge"
+      ],
+      "chargeType": "Party Service Charge",
+      "server": "Brianna",
+      "terminal": "MPOS6",
+      "charges": {
+        "Party Service Charge": 124.1
+      },
+      "serviceCharge": 124.1,
+      "gratuity": 100.0,
+      "tabTotal": 1040.65,
+      "accountApplied": 480.25
     }
   ],
   "meta": {
