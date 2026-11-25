@@ -15,9 +15,11 @@ import {
 } from 'recharts';
 import { useBookingPace } from '@/hooks/useBookingPace';
 import {
+  alignedCompareDate,
   buildPaceSeries,
   compareAsOf,
   daysBetween,
+  defaultDayRange,
   defaultEventMonth,
   eventMonths,
   historyCoverageFor,
@@ -29,6 +31,7 @@ import {
   shortDate,
   targetGaps,
   yearsForMonth,
+  type PaceGrain,
   type PacePayment,
   type PacePoint,
   type TargetGap,
@@ -63,7 +66,9 @@ function PaceChart({
   aheadKey,
   focusName,
   compareName,
+  aheadName,
   fullMonth,
+  grain = 'week',
   formatValue,
   formatAxis,
   expanded = false,
@@ -75,12 +80,19 @@ function PaceChart({
   aheadKey: string;
   focusName: string;
   compareName: string;
+  aheadName?: string;
   fullMonth: boolean;
+  grain?: PaceGrain;
   formatValue: (value: number) => string;
   formatAxis?: (value: number) => string;
   expanded?: boolean;
 }) {
   const tick = expanded ? 13 : 11;
+  const axisInterval = grain === 'week'
+    ? (expanded ? 2 : 'preserveStartEnd')
+    : grain === 'month'
+      ? (data.length > 18 && !expanded ? 'preserveStartEnd' : 0)
+      : 'preserveStartEnd';
   return (
     <>
       <h3 className={expanded ? 'text-lg font-semibold text-foreground' : 'text-sm font-medium text-foreground mb-3'}>{title}</h3>
@@ -88,10 +100,19 @@ function PaceChart({
         <ResponsiveContainer width="100%" height="100%">
           <LineChart data={data} margin={{ top: 8, right: expanded ? 24 : 8, left: 0, bottom: 0 }}>
             <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.06)" />
-            <XAxis dataKey="label" tick={{ fill: '#a3a3a3', fontSize: tick }} interval={expanded ? 2 : 'preserveStartEnd'} />
+            <XAxis
+              dataKey="label"
+              tick={{ fill: '#a3a3a3', fontSize: tick }}
+              interval={axisInterval}
+              minTickGap={grain === 'day' ? (expanded ? 8 : 24) : undefined}
+            />
             <YAxis tick={{ fill: '#a3a3a3', fontSize: tick }} width={expanded ? 72 : 44} tickFormatter={(v) => (formatAxis || formatValue)(Number(v))} />
             <Tooltip
               formatter={(value, name) => [formatValue(Number(value ?? 0)), String(name)]}
+              labelFormatter={(label, items) => {
+                const row = items?.[0]?.payload as PacePoint | undefined;
+                return row?.hint || String(label ?? '');
+              }}
               contentStyle={{ background: '#171717', border: '1px solid rgba(255,255,255,0.12)', borderRadius: 8 }}
               labelStyle={{ color: '#a3a3a3', fontSize: 12 }}
             />
@@ -99,7 +120,7 @@ function PaceChart({
             <Line type="monotone" dataKey={focusKey} name={focusName} stroke={THIS_YEAR} strokeWidth={expanded ? 2.5 : 2} dot={false} connectNulls={false} />
             <Line type="monotone" dataKey={compareKey} name={compareName} stroke={LAST_YEAR} strokeWidth={expanded ? 2.5 : 2} dot={false} connectNulls={false} />
             {fullMonth && (
-              <Line type="monotone" dataKey={aheadKey} name={`${compareName} rest of month`} stroke={LAST_YEAR} strokeWidth={expanded ? 2.5 : 2} strokeDasharray="6 4" dot={false} connectNulls={false} />
+              <Line type="monotone" dataKey={aheadKey} name={aheadName || `${compareName} rest of month`} stroke={LAST_YEAR} strokeWidth={expanded ? 2.5 : 2} strokeDasharray="6 4" dot={false} connectNulls={false} />
             )}
           </LineChart>
         </ResponsiveContainer>
@@ -116,7 +137,9 @@ function PaceChartCard(props: {
   aheadKey: string;
   focusName: string;
   compareName: string;
+  aheadName?: string;
   fullMonth: boolean;
+  grain?: PaceGrain;
   formatValue: (value: number) => string;
   formatAxis?: (value: number) => string;
 }) {
@@ -182,6 +205,8 @@ export function BookingPaceSection() {
   const [month, setMonth] = useState<string | null>(null);
   const [compareYear, setCompareYear] = useState<number | null>(null);
   const [fullMonth, setFullMonth] = useState(true);
+  const [grain, setGrain] = useState<PaceGrain>('week');
+  const [dayRange, setDayRange] = useState<[string, string] | null>(null);
 
   const months = useMemo(() => (data ? eventMonths(data.payments) : []), [data]);
   const focusMonth = month && months.includes(month)
@@ -196,6 +221,12 @@ export function BookingPaceSection() {
   const selectedCompare = compareYear != null && otherYears.includes(compareYear)
     ? compareYear
     : (otherYears.includes(focusYear - 1) ? focusYear - 1 : otherYears[0] ?? null);
+  const dayDefault = data?.dataThrough && focusMonth
+    ? defaultDayRange(data.dataThrough, focusMonth)
+    : null;
+  const activeDayRange = dayRange ?? dayDefault;
+  const dayStart = activeDayRange?.[0] ?? null;
+  const dayEnd = activeDayRange?.[1] ?? null;
 
   const view = useMemo(() => {
     if (!data || !focusMonth || !data.dataThrough) return null;
@@ -206,17 +237,27 @@ export function BookingPaceSection() {
       : null;
     const cutoff = selectedCompare != null ? compareAsOf(asOf, focusMonth, selectedCompare) : null;
     const throughMonth = (year: number) => monthEnd(`${year}-${focusMonth.slice(5, 7)}`);
+    let compareThrough = selectedCompare != null ? throughMonth(selectedCompare) : null;
+    if (grain === 'day' && dayEnd && selectedCompare != null && compareThrough) {
+      const alignedEnd = alignedCompareDate(dayEnd, focusMonth, selectedCompare);
+      if (alignedEnd > compareThrough) compareThrough = alignedEnd;
+    }
     const compareRows = compareMonth && cutoff
       ? paymentsForMonth(data.payments, compareMonth, cutoff)
       : [];
-    const compareAll = compareMonth
-      ? paymentsForMonth(data.payments, compareMonth, throughMonth(selectedCompare!))
+    const compareAll = compareMonth && compareThrough
+      ? paymentsForMonth(data.payments, compareMonth, compareThrough)
       : [];
     const focus = paceTotals(focusRows);
     const compare = paceTotals(compareRows);
+    const seriesOptions = {
+      fullMonth: grain === 'day' ? Boolean(dayEnd && dayEnd > asOf) : fullMonth,
+      grain,
+      range: dayStart && dayEnd ? [dayStart, dayEnd] as [string, string] : undefined,
+    };
     const series = selectedCompare != null && cutoff
-      ? buildPaceSeries(focusRows, compareAll, focusMonth, selectedCompare, asOf, cutoff, { fullMonth })
-      : buildPaceSeries(focusRows, [], focusMonth, focusYear, asOf, asOf, { fullMonth });
+      ? buildPaceSeries(focusRows, compareAll, focusMonth, selectedCompare, asOf, cutoff, seriesOptions)
+      : buildPaceSeries(focusRows, [], focusMonth, focusYear, asOf, asOf, seriesOptions);
     const targets = selectedCompare != null && cutoff
       ? [targetGaps(focus, compareAll, selectedCompare, focusMonth, cutoff)]
       : [];
@@ -256,7 +297,7 @@ export function BookingPaceSection() {
       targets,
       list: listRows(focusRows),
     };
-  }, [data, focusMonth, focusYear, selectedCompare, fullMonth]);
+  }, [data, focusMonth, focusYear, selectedCompare, fullMonth, grain, dayStart, dayEnd]);
 
   if (loading) {
     return (
@@ -277,6 +318,16 @@ export function BookingPaceSection() {
 
   const focusName = String(focusYear);
   const compareName = selectedCompare != null ? String(selectedCompare) : 'Last year';
+  const showAhead = grain === 'day' ? Boolean(dayEnd && dayEnd > view.asOf) : fullMonth;
+  const plottedRange: [string, string] | null = dayStart && dayEnd ? [dayStart, dayEnd] : null;
+
+  function setDayBound(index: 0 | 1, value: string) {
+    if (!/^\d{4}-\d{2}-\d{2}$/.test(value) || !dayStart || !dayEnd) return;
+    const next: [string, string] = [dayStart, dayEnd];
+    next[index] = value;
+    if (next[0] > next[1]) next[index === 0 ? 1 : 0] = value;
+    setDayRange(next);
+  }
 
   return (
     <section className="space-y-4">
@@ -293,7 +344,10 @@ export function BookingPaceSection() {
             Event month
             <select
               value={focusMonth}
-              onChange={(event) => setMonth(event.target.value)}
+              onChange={(event) => {
+                setMonth(event.target.value);
+                setDayRange(null);
+              }}
               className="rounded-lg bg-background/40 border border-border px-3 py-2 text-sm text-foreground focus:outline-none focus:ring-2 focus:ring-accent/40"
             >
               {[...months].reverse().map((key) => (
@@ -313,15 +367,68 @@ export function BookingPaceSection() {
               ))}
             </select>
           </label>
-          <label className="flex items-center gap-2 text-xs text-muted self-end pb-2">
-            <input
-              type="checkbox"
-              checked={fullMonth}
-              onChange={(event) => setFullMonth(event.target.checked)}
-              className="accent-accent"
-            />
-            Show full month
-          </label>
+          <div className="flex flex-col gap-1 text-xs text-muted">
+            <span id="pace-grain-label">By</span>
+            <div role="group" aria-labelledby="pace-grain-label" className="inline-flex rounded-lg border border-border overflow-hidden">
+              {(['day', 'week', 'month'] as const).map((id) => (
+                <button
+                  key={id}
+                  type="button"
+                  aria-pressed={grain === id}
+                  onClick={() => setGrain(id)}
+                  className={`px-3 py-2 text-sm capitalize ${
+                    grain === id
+                      ? 'bg-accent/20 text-accent'
+                      : 'text-secondary hover:bg-overlay/5 hover:text-foreground'
+                  }`}
+                >
+                  {id}
+                </button>
+              ))}
+            </div>
+          </div>
+          {grain === 'day' && plottedRange && (
+            <>
+              <label className="flex flex-col gap-1 text-xs text-muted">
+                From
+                <input
+                  type="date"
+                  value={plottedRange[0]}
+                  onChange={(event) => setDayBound(0, event.target.value)}
+                  className="rounded-lg bg-background/40 border border-border px-3 py-2 text-sm text-foreground focus:outline-none focus:ring-2 focus:ring-accent/40"
+                />
+              </label>
+              <label className="flex flex-col gap-1 text-xs text-muted">
+                Through
+                <input
+                  type="date"
+                  value={plottedRange[1]}
+                  onChange={(event) => setDayBound(1, event.target.value)}
+                  className="rounded-lg bg-background/40 border border-border px-3 py-2 text-sm text-foreground focus:outline-none focus:ring-2 focus:ring-accent/40"
+                />
+              </label>
+              {dayRange != null && (
+                <button
+                  type="button"
+                  onClick={() => setDayRange(null)}
+                  className="self-end pb-2 text-xs text-accent hover:underline"
+                >
+                  Reset
+                </button>
+              )}
+            </>
+          )}
+          {grain !== 'day' && (
+            <label className="flex items-center gap-2 text-xs text-muted self-end pb-2">
+              <input
+                type="checkbox"
+                checked={fullMonth}
+                onChange={(event) => setFullMonth(event.target.checked)}
+                className="accent-accent"
+              />
+              Show full month
+            </label>
+          )}
         </div>
       </div>
 
@@ -381,7 +488,9 @@ export function BookingPaceSection() {
           aheadKey="compareAheadDollars"
           focusName={focusName}
           compareName={compareName}
-          fullMonth={fullMonth}
+          aheadName={grain === 'day' ? `${compareName} after ${shortDate(view.asOf)}` : undefined}
+          fullMonth={showAhead}
+          grain={grain}
           formatValue={(value) => formatCurrency(value)}
           formatAxis={(value) => (value >= 1000 ? `$${Math.round(value / 1000)}k` : formatCurrency(value))}
         />
@@ -393,14 +502,14 @@ export function BookingPaceSection() {
           aheadKey="compareAheadEvents"
           focusName={focusName}
           compareName={compareName}
-          fullMonth={fullMonth}
+          aheadName={grain === 'day' ? `${compareName} after ${shortDate(view.asOf)}` : undefined}
+          fullMonth={showAhead}
+          grain={grain}
           formatValue={(value) => formatNumber(value)}
         />
       </div>
       <p className="text-xs text-muted -mt-2">
-        {fullMonth
-          ? `Solid lines stop at ${shortDate(view.asOf)}. Dashed lines are what that year still booked, by paid date, through the end of the month.`
-          : `Weeks before the month starts. The last point is ${shortDate(view.asOf)}.`}
+        {seriesFootnote(grain, fullMonth, view.asOf, plottedRange, compareName, focusMonth)}
         {' '}{historyFootnote(data.history, selectedCompare, focusMonth)}
       </p>
 
@@ -487,6 +596,31 @@ function historyFootnote(
     return `${year} party deposits use 17hats paid dates matched to POS accounts.`;
   }
   return '';
+}
+
+function seriesFootnote(
+  grain: PaceGrain,
+  fullMonth: boolean,
+  asOf: string,
+  range: [string, string] | null,
+  compareName: string,
+  focusMonth: string,
+): string {
+  if (grain === 'day' && range) {
+    const ahead = range[1] > asOf ? ` Dashed line is ${compareName} after ${shortDate(asOf)}.` : '';
+    return `Each day from ${shortDate(range[0])} through ${shortDate(range[1])}. Totals stay cumulative, so deposits paid before the window are included.${ahead}`;
+  }
+  if (grain === 'month') {
+    const eventEnd = monthEnd(focusMonth);
+    if (fullMonth && asOf < eventEnd) {
+      return `Each point is a month-end. Solid lines stop at ${shortDate(asOf)}. Dashed lines are what that year still booked through the end of the month.`;
+    }
+    const last = asOf < eventEnd ? shortDate(asOf) : shortDate(eventEnd);
+    return `Each point is a month-end. The last point is ${last}.`;
+  }
+  return fullMonth
+    ? `Solid lines stop at ${shortDate(asOf)}. Dashed lines are what that year still booked, by paid date, through the end of the month.`
+    : `Weeks before the month starts. The last point is ${shortDate(asOf)}.`;
 }
 
 function compareSentence(focusMonth: string, compareName: string, asOf: string, cutoff: string): string {

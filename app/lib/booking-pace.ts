@@ -36,6 +36,8 @@ export interface BookingPaceFile {
 
 export interface PacePoint {
   label: string;
+  /** Tooltip title when the axis label is abbreviated. */
+  hint?: string;
   focusEvents: number | null;
   focusDollars: number | null;
   compareEvents: number | null;
@@ -45,8 +47,14 @@ export interface PacePoint {
   compareAheadDollars: number | null;
 }
 
+export type PaceGrain = 'day' | 'week' | 'month';
+
 export interface PaceSeriesOptions {
   fullMonth?: boolean;
+  /** Week is the long run. Day is one point per day inside `range`. Month is one point per month-end. */
+  grain?: PaceGrain;
+  /** Inclusive dates on the focus calendar. Day grain only. */
+  range?: [string, string];
 }
 
 export interface TargetGap {
@@ -149,10 +157,29 @@ export function yearsForMonth(payments: PacePayment[], monthKey: string): number
 
 /** Same number of days before (or after) the compare month as `dataThrough` is for the focus month. */
 export function compareAsOf(dataThrough: string, focusMonth: string, compareYear: number): string {
+  return alignedCompareDate(dataThrough, focusMonth, compareYear);
+}
+
+/** The compare-year day that sits the same distance from its event month as `focusDay`. */
+export function alignedCompareDate(focusDay: string, focusMonth: string, compareYear: number): string {
   const focusStart = `${focusMonth}-01`;
   const compareStart = `${compareYear}-${focusMonth.slice(5, 7)}-01`;
-  const lag = daysBetween(dataThrough, focusStart);
-  return addDays(compareStart, -lag);
+  return addDays(compareStart, daysBetween(focusStart, focusDay));
+}
+
+/**
+ * Window for the day chart.
+ * While the event month is still open, start 7 days before `asOf` and run through
+ * the end of `asOf`'s own calendar month, stopping at the event month if that is sooner.
+ * Once the event month is over, show that whole month. The last week of "today"
+ * would mostly be deposits for other months.
+ */
+export function defaultDayRange(asOf: string, focusMonth: string): [string, string] {
+  const eventEnd = monthEnd(focusMonth);
+  if (asOf > eventEnd) return [`${focusMonth}-01`, eventEnd];
+  const start = addDays(asOf, -7);
+  const endOfAsOfMonth = monthEnd(asOf.slice(0, 7));
+  return [start, endOfAsOfMonth > eventEnd ? eventEnd : endOfAsOfMonth];
 }
 
 export function paymentsForMonth(payments: PacePayment[], monthKey: string, asOf: string): PacePayment[] {
@@ -227,6 +254,26 @@ function weekBefore(paid: string, start: string): number {
   return days > 0 ? Math.ceil(days / 7) : 0;
 }
 
+function shiftMonth(monthKey: string, delta: number): string {
+  const [year, month] = monthKey.split('-').map(Number);
+  const date = new Date(year, month - 1 + delta, 1);
+  return `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}`;
+}
+
+/** How many months `paid` falls before the event month. Negative once the month has started. */
+function monthsBefore(paid: string, eventMonth: string): number {
+  const [paidYear, paidMonth] = paid.slice(0, 7).split('-').map(Number);
+  const [eventYear, event] = eventMonth.split('-').map(Number);
+  return (eventYear * 12 + event) - (paidYear * 12 + paidMonth);
+}
+
+function monthTickLabel(monthKey: string, eventMonth: string): string {
+  const abbrev = (MONTH_NAMES[Number(monthKey.slice(5, 7)) - 1] || monthKey).slice(0, 3);
+  const before = monthsBefore(`${monthKey}-01`, eventMonth);
+  if (before >= 12) return `${abbrev} -${Math.floor(before / 12)}`;
+  return abbrev;
+}
+
 function sliceTotals(
   rows: PacePayment[] | undefined,
   cut: string,
@@ -264,6 +311,13 @@ export function buildPaceSeries(
   compareCutoff: string,
   options: PaceSeriesOptions = {},
 ): PacePoint[] {
+  const grain = options.grain ?? 'week';
+  if (grain === 'day') {
+    return buildDaySeries(focusRows, compareRows, focusMonth, compareYear, focusAsOf, compareCutoff, options);
+  }
+  if (grain === 'month') {
+    return buildMonthSeries(focusRows, compareRows, focusMonth, compareYear, focusAsOf, compareCutoff, options);
+  }
   const fullMonth = options.fullMonth === true;
   const focusStart = `${focusMonth}-01`;
   const compareStart = `${compareYear}-${focusMonth.slice(5, 7)}-01`;
@@ -328,6 +382,143 @@ export function buildPaceSeries(
     points.push(marker);
   }
   return points;
+}
+
+function hasPoint(point: PacePoint): boolean {
+  return point.focusEvents != null || point.compareEvents != null || point.compareAheadEvents != null;
+}
+
+function trimFlatStart(points: PacePoint[]): PacePoint[] {
+  const next = points.slice();
+  while (
+    next.length > 2
+    && (next[0].focusDollars || 0) === 0
+    && (next[0].compareDollars || 0) === 0
+  ) {
+    next.shift();
+  }
+  return next;
+}
+
+function cutPoint(
+  label: string,
+  focusRows: PacePayment[],
+  compareRows: PacePayment[],
+  focusCut: string,
+  compareCut: string,
+  focusAsOf: string,
+  compareCutoff: string,
+  fullMonth: boolean,
+): PacePoint {
+  const focus = focusCut <= focusAsOf ? totalsAt(focusRows, focusCut) : null;
+  return pacePoint(label, focus, sliceTotals(compareRows, compareCut, compareCutoff, fullMonth));
+}
+
+function buildDaySeries(
+  focusRows: PacePayment[],
+  compareRows: PacePayment[],
+  focusMonth: string,
+  compareYear: number,
+  focusAsOf: string,
+  compareCutoff: string,
+  options: PaceSeriesOptions,
+): PacePoint[] {
+  const fallback = defaultDayRange(focusAsOf, focusMonth);
+  let start = options.range?.[0] || fallback[0];
+  let end = options.range?.[1] || fallback[1];
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(start) || !/^\d{4}-\d{2}-\d{2}$/.test(end)) return [];
+  if (start > end) {
+    const swap = start;
+    start = end;
+    end = swap;
+  }
+  const showAhead = end > focusAsOf;
+  const points: PacePoint[] = [];
+  let guard = 0;
+  for (let day = start; day <= end && guard < 1500; day = addDays(day, 1)) {
+    guard += 1;
+    const compareCut = alignedCompareDate(day, focusMonth, compareYear);
+    const point = cutPoint(
+      shortDate(day),
+      focusRows,
+      compareRows,
+      day,
+      compareCut,
+      focusAsOf,
+      compareCutoff,
+      showAhead,
+    );
+    if (hasPoint(point)) points.push(point);
+  }
+  return points;
+}
+
+function buildMonthSeries(
+  focusRows: PacePayment[],
+  compareRows: PacePayment[],
+  focusMonth: string,
+  compareYear: number,
+  focusAsOf: string,
+  compareCutoff: string,
+  options: PaceSeriesOptions,
+): PacePoint[] {
+  const fullMonth = options.fullMonth === true;
+  const focusStartMonth = focusMonth.slice(0, 7);
+  const compareStartMonth = `${compareYear}-${focusMonth.slice(5, 7)}`;
+
+  let maxOffset = 0;
+  for (const row of focusRows) maxOffset = Math.max(maxOffset, monthsBefore(row.paid, focusStartMonth));
+  for (const row of compareRows) maxOffset = Math.max(maxOffset, monthsBefore(row.paid, compareStartMonth));
+  maxOffset = Math.min(Math.max(maxOffset, 3), 36);
+
+  const asOfOffset = monthsBefore(focusAsOf, focusStartMonth);
+  const lastOffset = fullMonth ? 0 : Math.max(asOfOffset, 0);
+  const points: PacePoint[] = [];
+  let placedAsOf = false;
+
+  for (let offset = maxOffset; offset >= lastOffset; offset -= 1) {
+    const focusMonthKey = shiftMonth(focusStartMonth, -offset);
+    const compareMonthKey = shiftMonth(compareStartMonth, -offset);
+    const monthEndCut = monthEnd(focusMonthKey);
+    const partial = focusMonthKey === focusAsOf.slice(0, 7) && focusAsOf < monthEndCut;
+
+    if (fullMonth && !placedAsOf && monthEndCut > focusAsOf) {
+      const asOfIsMonthEnd = monthEnd(focusAsOf.slice(0, 7)) === focusAsOf;
+      if (!asOfIsMonthEnd) {
+        const marker = cutPoint(
+          shortDate(focusAsOf),
+          focusRows,
+          compareRows,
+          focusAsOf,
+          compareCutoff,
+          focusAsOf,
+          compareCutoff,
+          true,
+        );
+        marker.hint = `Through ${shortDate(focusAsOf)}`;
+        if (hasPoint(marker)) points.push(marker);
+      }
+      placedAsOf = true;
+    }
+
+    const focusCut = !fullMonth && partial ? focusAsOf : monthEndCut;
+    const compareCut = !fullMonth && partial ? compareCutoff : monthEnd(compareMonthKey);
+    const label = !fullMonth && partial ? shortDate(focusAsOf) : monthTickLabel(focusMonthKey, focusStartMonth);
+    const point = cutPoint(
+      label,
+      focusRows,
+      compareRows,
+      focusCut,
+      compareCut,
+      focusAsOf,
+      compareCutoff,
+      fullMonth,
+    );
+    point.hint = `Through ${shortDate(focusCut)}`;
+    if (hasPoint(point)) points.push(point);
+  }
+
+  return trimFlatStart(points);
 }
 
 export function listRows(rows: PacePayment[]): PaceListRow[] {
