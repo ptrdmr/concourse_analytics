@@ -1,5 +1,5 @@
 {
-  "pulledAt": "2026-11-25T04:35:54",
+  "pulledAt": "2026-11-26T04:36:01",
   "reservations": [
     {
       "id": 37008,
@@ -9858,7 +9858,8 @@
       "transactionId": null,
       "title": "LANE BUMPER",
       "parentId": 40802,
-      "txnIds": []
+      "txnIds": [],
+      "goneAt": "2026-11-26"
     },
     {
       "id": 40842,
@@ -27303,7 +27304,8 @@
       "transactionId": null,
       "title": "deedee macipl",
       "parentId": null,
-      "txnIds": []
+      "txnIds": [],
+      "goneAt": "2026-11-26"
     },
     {
       "id": 42598,
@@ -29684,7 +29686,7 @@
       "id": 42813,
       "created": "2026-11-16T10:44:11",
       "event": "2026-11-25",
-      "statusId": 0,
+      "statusId": 2,
       "type": "Online Reservations",
       "accountId": 12719,
       "transactionId": 861548,
@@ -30182,7 +30184,7 @@
       "id": 42849,
       "created": "2026-11-17T22:42:31",
       "event": "2026-11-25",
-      "statusId": 0,
+      "statusId": 2,
       "type": "Online Reservations",
       "accountId": 12742,
       "transactionId": 862246,
@@ -30763,7 +30765,7 @@
       "id": 42895,
       "created": "2026-11-19T09:26:10",
       "event": "2026-11-25",
-      "statusId": 0,
+      "statusId": 2,
       "type": "Online Reservations",
       "accountId": 12756,
       "transactionId": 862719,
@@ -30778,7 +30780,7 @@
       "id": 42896,
       "created": "2026-11-19T13:39:13",
       "event": "2026-11-25",
-      "statusId": 0,
+      "statusId": 2,
       "type": "Online Reservations",
       "accountId": 12757,
       "transactionId": 862770,
@@ -31255,7 +31257,7 @@
       "id": 42934,
       "created": "2026-11-22T11:02:42",
       "event": "2026-11-25",
-      "statusId": 0,
+      "statusId": 2,
       "type": "Online Reservations",
       "accountId": 12782,
       "transactionId": 864477,
@@ -31282,7 +31284,7 @@
       "id": 42937,
       "created": "2026-11-22T16:57:45",
       "event": "2026-11-25",
-      "statusId": 0,
+      "statusId": 2,
       "type": "Online Reservations",
       "accountId": 12783,
       "transactionId": 864735,
@@ -31312,7 +31314,7 @@
       "id": 42939,
       "created": "2026-11-23T10:09:53",
       "event": "2026-11-25",
-      "statusId": 0,
+      "statusId": 2,
       "type": "all you can bowl",
       "accountId": 12785,
       "transactionId": 864973,
@@ -31670,7 +31672,7 @@
       "id": 42966,
       "created": "2026-11-24T13:32:05",
       "event": "2026-11-25",
-      "statusId": 0,
+      "statusId": 2,
       "type": "Online Reservations",
       "accountId": 12805,
       "transactionId": 865429,
@@ -31730,7 +31732,7 @@
       "id": 42970,
       "created": "2026-11-24T21:04:10",
       "event": "2026-11-25",
-      "statusId": 0,
+      "statusId": 2,
       "type": "Online Reservations",
       "accountId": 12809,
       "transactionId": 865727,
@@ -31740,6 +31742,246 @@
         865726,
         865727
       ]
+    },
+    {
+      "id": 42971,
+      "created": "2026-11-25T09:10:23",
+      "event": "2026-11-25",
+      "statusId": 2,
+      "type": "all you can bowl",
+      "accountId": 12810,
+      "transactionId": 865792,
+      "title": "Hieu Dao-Tran",
+      "parentId": null,
+      "txnIds": [
+        865791,
+        865792
+      ]
+    },
+    {
+      "id": 42972,
+      "created": "2026-11-25T10:37:24",
+      "event": "2026-11-28",
+      "statusId": 0,
+      "type": "Online Reservations",
+      "accountId": 12811,
+      "transactionId": 865796,
+      "title": "Emily Trosclair",
+      "parentId": null,
+      "txnIds": [
+        865795,
+        865796
+      ]
+    },
+    {
+      "id": 42973,
+      "created": "2026-11-25T11:13:25",
+      "event": "2026-11-25",
+      "statusId": 2,
+      "type": "Online Reservations",
+      "accountId": 12812,
+      "transactionId": 865805,
+      "title": "Bethany Bennett",
+      "parentId": null,
+      "txnIds": [
+        865804,
+        865805
+      ]
+    },
+    {
+      "id": 42974,
+      "created": "2026-11-25T11:58:48",
+      "event": "2026-12-09",
+      "statusId": 2,
+      "type": "Make-up/Pre-Bowl",
+      "accountId": null,
+      "transactionId": null,
+      "title": "Diane Robles -VB4D - T1",
+      "parentId": null,
+      "txnIds": []
+    },
+    {
+      "id": 42975,
+      "created": "2026-11-25T12:29:24",
+      "event": "2026-12-14",
+      "statusId": 2,
+      "type": "Online Reservations",
+      "accountId": null,
+      "transactionId": null,
+      "title": "Friar Tux - Eric Acuna",
+      "parentId": null,
+      "txnIds": []
+    },
+    {
+      "id": 42976,
+      "created": "2026-11-25T13:23:26",
+      "event": "2026-11-25",
+      "statusId": 2,
+      "type": "Online Reservations",
+      "accountId": 12813,
+      "transactionId": 865875,
+      "title": "Adam Sargeant",
+      "parentId": null,
+      "txnIds": [
+        865874,
+        865875
+      ]
+    },
+    {
+      "id": 42977,
+      "created": "2026-11-25T14:17:27",
+      "event": "2026-11-25",
+      "statusId": 2,
+      "type": "Online Reservations",
+      "accountId": 12814,
+      "transactionId": 865896,
+      "title": "Angel Lopez",
+      "parentId": null,
+      "txnIds": [
+        865895,
+        865896
+      ]
+    },
+    {
+      "id": 42978,
+      "created": "2026-11-25T15:11:28",
+      "event": "2026-12-06",
+      "statusId": 0,
+      "type": "Online Reservations",
+      "accountId": 12815,
+      "transactionId": 865944,
+      "title": "Dan Renwod",
+      "parentId": null,
+      "txnIds": [
+        865943,
+        865944
+      ]
+    },
+    {
+      "id": 42979,
+      "created": "2026-11-25T15:31:07",
+      "event": "2026-12-04",
+      "statusId": 2,
+      "type": "Pair and Spair",
+      "accountId": 12816,
+      "transactionId": 865959,
+      "title": "Cynthia Aredondo",
+      "parentId": null,
+      "txnIds": [
+        865958,
+        865959
+      ]
+    },
+    {
+      "id": 42982,
+      "created": "2026-11-25T15:35:43",
+      "event": "2026-12-16",
+      "statusId": 2,
+      "type": "Online Reservations",
+      "accountId": 12817,
+      "transactionId": 865964,
+      "title": "Aj Pham",
+      "parentId": null,
+      "txnIds": [
+        865963,
+        865964
+      ]
+    },
+    {
+      "id": 42983,
+      "created": "2026-11-25T15:40:13",
+      "event": "2026-12-18",
+      "statusId": 2,
+      "type": "Undefined",
+      "accountId": null,
+      "transactionId": null,
+      "title": "Brian Steelman - Pair + Spare",
+      "parentId": null,
+      "txnIds": []
+    },
+    {
+      "id": 42984,
+      "created": "2026-11-25T15:41:22",
+      "event": "2026-12-18",
+      "statusId": 2,
+      "type": "Undefined",
+      "accountId": null,
+      "transactionId": null,
+      "title": "Monique Flores - Strike Zone",
+      "parentId": null,
+      "txnIds": []
+    },
+    {
+      "id": 42985,
+      "created": "2026-11-25T15:56:28",
+      "event": "2026-11-25",
+      "statusId": 2,
+      "type": "Online Reservations",
+      "accountId": 12818,
+      "transactionId": 865988,
+      "title": "Angie Lam",
+      "parentId": null,
+      "txnIds": [
+        865987,
+        865988
+      ]
+    },
+    {
+      "id": 42986,
+      "created": "2026-11-25T16:09:37",
+      "event": "2026-12-10",
+      "statusId": 2,
+      "type": "Strikezone 4 Lane Suite",
+      "accountId": 12819,
+      "transactionId": 866001,
+      "title": "Hal's Glass",
+      "parentId": null,
+      "txnIds": [
+        866000,
+        866001
+      ]
+    },
+    {
+      "id": 42987,
+      "created": "2026-11-25T16:44:28",
+      "event": "2026-11-29",
+      "statusId": 0,
+      "type": "Online Reservations",
+      "accountId": 12820,
+      "transactionId": 866031,
+      "title": "Robert Rojano",
+      "parentId": null,
+      "txnIds": [
+        866030,
+        866031
+      ]
+    },
+    {
+      "id": 42988,
+      "created": "2026-11-25T21:38:31",
+      "event": "2026-12-13",
+      "statusId": 0,
+      "type": "Online Reservations",
+      "accountId": 12821,
+      "transactionId": 866341,
+      "title": "Courtney Haldeman",
+      "parentId": null,
+      "txnIds": [
+        866340,
+        866341
+      ]
+    },
+    {
+      "id": 42989,
+      "created": "2026-11-25T22:10:00",
+      "event": "2026-11-28",
+      "statusId": 2,
+      "type": "Adult Party",
+      "accountId": null,
+      "transactionId": null,
+      "title": "New Reservation",
+      "parentId": null,
+      "txnIds": []
     }
   ],
   "ledger": [
@@ -146052,6 +146294,188 @@
       "at": "2026-11-25T03:53:08",
       "amount": -10.78,
       "txnId": 865769
+    },
+    {
+      "id": 38915,
+      "accountId": 12810,
+      "at": "2026-11-25T09:10:25",
+      "amount": 37.08,
+      "txnId": 865791
+    },
+    {
+      "id": 38916,
+      "accountId": 12811,
+      "at": "2026-11-25T10:37:25",
+      "amount": 245.14,
+      "txnId": 865795
+    },
+    {
+      "id": 38917,
+      "accountId": 12812,
+      "at": "2026-11-25T11:13:26",
+      "amount": 139.05,
+      "txnId": 865804
+    },
+    {
+      "id": 38918,
+      "accountId": 12757,
+      "at": "2026-11-25T12:32:58",
+      "amount": -101.97,
+      "txnId": 862770
+    },
+    {
+      "id": 38919,
+      "accountId": 12813,
+      "at": "2026-11-25T13:23:27",
+      "amount": 139.05,
+      "txnId": 865874
+    },
+    {
+      "id": 38920,
+      "accountId": 12814,
+      "at": "2026-11-25T14:17:28",
+      "amount": 139.05,
+      "txnId": 865895
+    },
+    {
+      "id": 38921,
+      "accountId": 12742,
+      "at": "2026-11-25T15:00:22",
+      "amount": -278.1,
+      "txnId": 862246
+    },
+    {
+      "id": 38922,
+      "accountId": 12815,
+      "at": "2026-11-25T15:11:29",
+      "amount": 245.14,
+      "txnId": 865943
+    },
+    {
+      "id": 38923,
+      "accountId": 12816,
+      "at": "2026-11-25T15:34:32",
+      "amount": 602.55,
+      "txnId": 865958
+    },
+    {
+      "id": 38924,
+      "accountId": 12817,
+      "at": "2026-11-25T15:36:40",
+      "amount": 765.61,
+      "txnId": 865963
+    },
+    {
+      "id": 38925,
+      "accountId": 12818,
+      "at": "2026-11-25T15:56:29",
+      "amount": 203.94,
+      "txnId": 865987
+    },
+    {
+      "id": 38926,
+      "accountId": 12819,
+      "at": "2026-11-25T16:11:28",
+      "amount": 900.0,
+      "txnId": 866000
+    },
+    {
+      "id": 38927,
+      "accountId": 12820,
+      "at": "2026-11-25T16:44:29",
+      "amount": 367.71,
+      "txnId": 866030
+    },
+    {
+      "id": 38928,
+      "accountId": 12814,
+      "at": "2026-11-25T17:30:16",
+      "amount": -139.05,
+      "txnId": 865896
+    },
+    {
+      "id": 38929,
+      "accountId": 12805,
+      "at": "2026-11-25T17:30:37",
+      "amount": -203.94,
+      "txnId": 865429
+    },
+    {
+      "id": 38930,
+      "accountId": 12809,
+      "at": "2026-11-25T18:06:47",
+      "amount": -101.97,
+      "txnId": 865727
+    },
+    {
+      "id": 38931,
+      "accountId": 12782,
+      "at": "2026-11-25T18:07:10",
+      "amount": -278.1,
+      "txnId": 864477
+    },
+    {
+      "id": 38932,
+      "accountId": 12783,
+      "at": "2026-11-25T18:27:56",
+      "amount": -203.94,
+      "txnId": 864735
+    },
+    {
+      "id": 38933,
+      "accountId": 12756,
+      "at": "2026-11-25T18:59:05",
+      "amount": -139.05,
+      "txnId": 862719
+    },
+    {
+      "id": 38934,
+      "accountId": 12812,
+      "at": "2026-11-25T19:00:53",
+      "amount": -139.05,
+      "txnId": 865805
+    },
+    {
+      "id": 38935,
+      "accountId": 12813,
+      "at": "2026-11-25T19:27:51",
+      "amount": -139.05,
+      "txnId": 865875
+    },
+    {
+      "id": 38936,
+      "accountId": 12719,
+      "at": "2026-11-25T20:00:09",
+      "amount": -203.94,
+      "txnId": 861548
+    },
+    {
+      "id": 38937,
+      "accountId": 12818,
+      "at": "2026-11-25T20:12:59",
+      "amount": -203.94,
+      "txnId": 865988
+    },
+    {
+      "id": 38938,
+      "accountId": 12785,
+      "at": "2026-11-25T20:40:14",
+      "amount": -37.08,
+      "txnId": 864973
+    },
+    {
+      "id": 38939,
+      "accountId": 12810,
+      "at": "2026-11-25T20:58:39",
+      "amount": -37.08,
+      "txnId": 865792
+    },
+    {
+      "id": 38940,
+      "accountId": 12821,
+      "at": "2026-11-25T21:38:32",
+      "amount": 245.14,
+      "txnId": 866340
     }
   ],
   "accounts": [
@@ -188703,6 +189127,66 @@
     {
       "id": 12809,
       "name": "11/25/2026 Ana Flores",
+      "collection": "Event"
+    },
+    {
+      "id": 12810,
+      "name": "11/25/2026 Hieu Dao-Tran",
+      "collection": "Event"
+    },
+    {
+      "id": 12811,
+      "name": "11/28/2026 Emily Trosclair",
+      "collection": "Event"
+    },
+    {
+      "id": 12812,
+      "name": "11/25/2026 Bethany Bennett",
+      "collection": "Event"
+    },
+    {
+      "id": 12813,
+      "name": "11/25/2026 Adam Sargeant",
+      "collection": "Event"
+    },
+    {
+      "id": 12814,
+      "name": "11/25/2026 Angel Lopez",
+      "collection": "Event"
+    },
+    {
+      "id": 12815,
+      "name": "12/6/2026 Dan Renwod",
+      "collection": "Event"
+    },
+    {
+      "id": 12816,
+      "name": "Cynthia Arredondo 12-04-26",
+      "collection": "Pair & Spare"
+    },
+    {
+      "id": 12817,
+      "name": "Aj Pham 12-16-26",
+      "collection": "Event"
+    },
+    {
+      "id": 12818,
+      "name": "11/25/2026 Angie Lam",
+      "collection": "Event"
+    },
+    {
+      "id": 12819,
+      "name": "Hal's Glass 12-10-26",
+      "collection": "VIP Suites"
+    },
+    {
+      "id": 12820,
+      "name": "11/29/2026 Robert Rojano",
+      "collection": "Event"
+    },
+    {
+      "id": 12821,
+      "name": "12/13/2026 Courtney Haldeman",
       "collection": "Event"
     }
   ]

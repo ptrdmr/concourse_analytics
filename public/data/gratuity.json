@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-25T04:34:11.310579",
+  "generatedAt": "2026-11-26T04:34:13.121141",
   "daypartHour": 17,
   "dates": {
     "2023-06-30": {
@@ -58471,6 +58471,92 @@
       "meta": {
         "lines": 96,
         "zeroLines": 58,
+        "tipOut": 0.0,
+        "unknownTimes": 0,
+        "unmappedTerminals": [
+          "FRONTDESK1",
+          "FRONTDESK2",
+          "MPOS3",
+          "MPOS8",
+          "System Terminal"
+        ]
+      }
+    },
+    "2026-11-25": {
+      "pre17": {
+        "Bar": {
+          "Ciera": 92.9,
+          "Tony S.": 92.9,
+          "amanda": 200.33,
+          "Traver": 17.67
+        },
+        "Cafe": {
+          "Allyssa": 9.57,
+          "Sasha": 80.0
+        },
+        "Other": {}
+      },
+      "post17": {
+        "Bar": {
+          "Ciera": 261.36,
+          "Tony S.": 261.41,
+          "Traver": 65.0
+        },
+        "Cafe": {
+          "Allyssa": 78.32,
+          "Brianna": 78.32
+        },
+        "Other": {}
+      },
+      "meta": {
+        "lines": 404,
+        "zeroLines": 27,
+        "tipOut": 0.0,
+        "unknownTimes": 0,
+        "unmappedTerminals": [
+          "FRONTDESK1",
+          "FRONTDESK2",
+          "System Terminal"
+        ]
+      }
+    },
+    "2026-11-24": {
+      "pre17": {
+        "Bar": {
+          "Ciera": 6.31,
+          "nicole": 6.33,
+          "Trinity D.": 6.33,
+          "Tony S.": 6.33,
+          "Christopher": 20.0,
+          "Adam": 71.66
+        },
+        "Cafe": {
+          "Angela": 4.01,
+          "hailey": 56.5
+        },
+        "Other": {}
+      },
+      "post17": {
+        "Bar": {
+          "Ciera": 68.93,
+          "nicole": 68.97,
+          "Trinity D.": 68.97,
+          "Tony S.": 68.97,
+          "Christopher": 20.0
+        },
+        "Cafe": {
+          "Angela": 68.74
+        },
+        "Other": {
+          "Ciera": 47.04,
+          "nicole": 47.06,
+          "Trinity D.": 47.06,
+          "Tony S.": 47.06
+        }
+      },
+      "meta": {
+        "lines": 374,
+        "zeroLines": 48,
         "tipOut": 0.0,
         "unknownTimes": 0,
         "unmappedTerminals": [

@@ -1,8 +1,8 @@
 {
-  "generatedAt": "2026-11-25T04:34:09.519222",
+  "generatedAt": "2026-11-26T04:34:11.276689",
   "dateRange": [
     "2023-01-01",
-    "2026-11-23"
+    "2026-11-25"
   ],
   "employees": {
     "maddiea": {
@@ -6539,6 +6539,24 @@
           "serviceChargeOther": 0.0,
           "nonRevenueCollected": 0.0
         },
+        "2026-11-25": {
+          "sales": 2857.07,
+          "tickets": 56,
+          "gratuity": 0.0,
+          "serviceChargeVip": 0.0,
+          "serviceChargeParty": 0.0,
+          "serviceChargeOther": 0.0,
+          "nonRevenueCollected": 0.0
+        },
+        "2026-11-24": {
+          "sales": 1513.44,
+          "tickets": 38,
+          "gratuity": 0.0,
+          "serviceChargeVip": 0.0,
+          "serviceChargeParty": 0.0,
+          "serviceChargeOther": 0.0,
+          "nonRevenueCollected": 411.0
+        },
         "2026-11-19": {
           "sales": 152.5,
           "tickets": 6,
@@ -6658,10 +6676,10 @@
         }
       },
       "deptMix": {
-        "Bowling": 1169693.62,
+        "Bowling": 1173494.13,
         "League Fees": 73447.7,
         "Food": 23134.54,
-        "League Lineage": 7829.0,
+        "League Lineage": 8399.0,
         "Arcade": 2264.85,
         "Bar": 1132.0,
         "General Income": 1095.06,
@@ -6671,19 +6689,19 @@
       "topItems": [
         {
           "name": "Time Bowling",
-          "revenue": 510998.34
+          "revenue": 512492.34
         },
         {
           "name": "Lane Reservation Charge",
-          "revenue": 323379.48
+          "revenue": 323963.49
         },
         {
           "name": "Rental Shoes",
-          "revenue": 188248.94
+          "revenue": 189147.44
         },
         {
           "name": "Game Bowling",
-          "revenue": 97130.64
+          "revenue": 97904.64
         },
         {
           "name": "Big Ballers",
@@ -6695,7 +6713,7 @@
         },
         {
           "name": "League Bowler Game",
-          "revenue": 12643.9
+          "revenue": 12693.9
         },
         {
           "name": "VB4D Fees",
@@ -6706,8 +6724,8 @@
           "revenue": 7231.8
         },
         {
-          "name": "All you can bowl - Charge",
-          "revenue": 6318.0
+          "name": "Vegas or Bust Lineage",
+          "revenue": 6422.0
         }
       ]
     },
@@ -20497,6 +20515,24 @@
           "serviceChargeOther": 0.0,
           "nonRevenueCollected": 43.0
         },
+        "2026-11-25": {
+          "sales": 26.75,
+          "tickets": 1,
+          "gratuity": 0.0,
+          "serviceChargeVip": 0.0,
+          "serviceChargeParty": 0.0,
+          "serviceChargeOther": 0.0,
+          "nonRevenueCollected": 0.0
+        },
+        "2026-11-24": {
+          "sales": 348.0,
+          "tickets": 8,
+          "gratuity": 0.0,
+          "serviceChargeVip": 0.0,
+          "serviceChargeParty": 0.0,
+          "serviceChargeOther": 0.0,
+          "nonRevenueCollected": 0.0
+        },
         "2026-11-23": {
           "sales": 47.0,
           "tickets": 2,
@@ -20625,9 +20661,9 @@
         }
       },
       "deptMix": {
-        "Bowling": 608201.34,
+        "Bowling": 608549.34,
         "Parties": 176521.03,
-        "Food": 68779.78,
+        "Food": 68806.53,
         "Bar": 14114.0,
         "League Fees": 9866.98,
         "General Income": 5543.91,
@@ -20645,11 +20681,11 @@
         },
         {
           "name": "Game Bowling",
-          "revenue": 83080.75
+          "revenue": 83176.75
         },
         {
           "name": "Time Bowling",
-          "revenue": 78518.88
+          "revenue": 78626.88
         },
         {
           "name": "Summer Special Charge",
@@ -20669,7 +20705,7 @@
         },
         {
           "name": "Rental Shoes",
-          "revenue": 48444.0
+          "revenue": 48543.0
         },
         {
           "name": "Catering - Unlimited Pizzas",
@@ -33691,6 +33727,15 @@
           "serviceChargeOther": 0.0,
           "nonRevenueCollected": 0.0
         },
+        "2026-11-25": {
+          "sales": 3163.1,
+          "tickets": 67,
+          "gratuity": 82.67,
+          "serviceChargeVip": 0.0,
+          "serviceChargeParty": 0.0,
+          "serviceChargeOther": 0.0,
+          "nonRevenueCollected": 0.0
+        },
         "2026-11-22": {
           "sales": 640.16,
           "tickets": 15,
@@ -33837,29 +33882,29 @@
         }
       },
       "deptMix": {
-        "Bowling": 1035119.68,
-        "Food": 139365.11,
+        "Bowling": 1038199.66,
+        "Food": 139446.07,
         "League Fees": 126649.82,
         "Arcade": 85541.86,
         "Parties": 6634.0,
         "League Lineage": 4755.0,
         "Bar": 4645.5,
-        "General Income": 838.74,
+        "General Income": 840.9,
         "Vending Machines": 0.0,
         "Unknown": 0.0
       },
       "topItems": [
         {
           "name": "Time Bowling",
-          "revenue": 508300.85
+          "revenue": 509902.85
         },
         {
           "name": "Lane Reservation Charge",
-          "revenue": 272730.63
+          "revenue": 273416.61
         },
         {
           "name": "Rental Shoes",
-          "revenue": 168095.67
+          "revenue": 168635.67
         },
         {
           "name": "Arcade Daily Deposit",
@@ -42225,6 +42270,24 @@
           "serviceChargeOther": 0.0,
           "nonRevenueCollected": 0.0
         },
+        "2026-11-25": {
+          "sales": 1881.93,
+          "tickets": 37,
+          "gratuity": 0.0,
+          "serviceChargeVip": 0.0,
+          "serviceChargeParty": 0.0,
+          "serviceChargeOther": 0.0,
+          "nonRevenueCollected": 0.0
+        },
+        "2026-11-24": {
+          "sales": 2628.78,
+          "tickets": 86,
+          "gratuity": 71.66,
+          "serviceChargeVip": 0.0,
+          "serviceChargeParty": 0.0,
+          "serviceChargeOther": 0.0,
+          "nonRevenueCollected": 0.0
+        },
         "2026-11-18": {
           "sales": 1288.07,
           "tickets": 71,
@@ -42344,11 +42407,11 @@
         }
       },
       "deptMix": {
-        "Bowling": 1618781.81,
+        "Bowling": 1622472.68,
         "League Fees": 576323.89,
-        "Food": 64560.1,
+        "Food": 64967.94,
         "Parties": 35533.64,
-        "Bar": 18114.0,
+        "Bar": 18526.0,
         "Arcade": 8805.45,
         "General Income": 5060.64,
         "League Lineage": 4510.0,
@@ -42358,19 +42421,19 @@
       "topItems": [
         {
           "name": "Time Bowling",
-          "revenue": 664473.16
+          "revenue": 665733.16
         },
         {
           "name": "Lane Reservation Charge",
-          "revenue": 388289.56
+          "revenue": 389040.43
         },
         {
           "name": "Rental Shoes",
-          "revenue": 247902.75
+          "revenue": 248627.75
         },
         {
           "name": "Game Bowling",
-          "revenue": 116726.8
+          "revenue": 117506.8
         },
         {
           "name": "Vegas or Bust Fees",
@@ -55384,6 +55447,15 @@
           "serviceChargeOther": 0.0,
           "nonRevenueCollected": 1752.0
         },
+        "2026-11-24": {
+          "sales": 399.0,
+          "tickets": 11,
+          "gratuity": 0.0,
+          "serviceChargeVip": 0.0,
+          "serviceChargeParty": 0.0,
+          "serviceChargeOther": 0.0,
+          "nonRevenueCollected": 273.0
+        },
         "2026-11-23": {
           "sales": 8.0,
           "tickets": 1,
@@ -55522,7 +55594,7 @@
       },
       "deptMix": {
         "League Fees": 509114.49,
-        "League Lineage": 33843.0,
+        "League Lineage": 34242.0,
         "Food": 5331.32,
         "Bowling": 4578.97,
         "General Income": 58.77,
@@ -62245,6 +62317,24 @@
           "serviceChargeOther": 0.0,
           "nonRevenueCollected": 0.0
         },
+        "2026-11-25": {
+          "sales": 1901.8,
+          "tickets": 66,
+          "gratuity": 354.31,
+          "serviceChargeVip": 0.0,
+          "serviceChargeParty": 0.0,
+          "serviceChargeOther": 0.0,
+          "nonRevenueCollected": 0.0
+        },
+        "2026-11-24": {
+          "sales": 1148.94,
+          "tickets": 35,
+          "gratuity": 122.36,
+          "serviceChargeVip": 0.0,
+          "serviceChargeParty": 0.0,
+          "serviceChargeOther": 0.0,
+          "nonRevenueCollected": 0.0
+        },
         "2026-11-23": {
           "sales": 1008.5,
           "tickets": 36,
@@ -62400,8 +62490,8 @@
         }
       },
       "deptMix": {
-        "Bar": 843217.0,
-        "Food": 100612.12,
+        "Bar": 845847.0,
+        "Food": 101032.86,
         "Bowling": 15674.08,
         "League Fees": 5219.5,
         "Parties": 1260.0,
@@ -62415,7 +62505,7 @@
         },
         {
           "name": "Titos",
-          "revenue": 32960.0
+          "revenue": 33030.0
         },
         {
           "name": "Michelob Ultra Draft",
@@ -62427,7 +62517,7 @@
         },
         {
           "name": "Jameson",
-          "revenue": 24659.0
+          "revenue": 24689.0
         },
         {
           "name": "Draft - Modelo",
@@ -62435,15 +62525,15 @@
         },
         {
           "name": "Coors Light Draft",
-          "revenue": 21088.0
+          "revenue": 21218.0
         },
         {
           "name": "Well Vodka",
-          "revenue": 18240.0
+          "revenue": 18280.0
         },
         {
           "name": "Jack Daniels",
-          "revenue": 15730.0
+          "revenue": 15750.0
         },
         {
           "name": "Huckleberry Draft",
@@ -78932,6 +79022,24 @@
         "2026-10-01": {
           "sales": 0.0,
           "tickets": 6,
+          "gratuity": 0.0,
+          "serviceChargeVip": 0.0,
+          "serviceChargeParty": 0.0,
+          "serviceChargeOther": 0.0,
+          "nonRevenueCollected": 0.0
+        },
+        "2026-11-25": {
+          "sales": 0.0,
+          "tickets": 9,
+          "gratuity": 0.0,
+          "serviceChargeVip": 0.0,
+          "serviceChargeParty": 0.0,
+          "serviceChargeOther": 0.0,
+          "nonRevenueCollected": 0.0
+        },
+        "2026-11-24": {
+          "sales": 0.0,
+          "tickets": 9,
           "gratuity": 0.0,
           "serviceChargeVip": 0.0,
           "serviceChargeParty": 0.0,
@@ -108181,6 +108289,15 @@
           "serviceChargeOther": 0.0,
           "nonRevenueCollected": 0.0
         },
+        "2026-11-25": {
+          "sales": 2396.2,
+          "tickets": 73,
+          "gratuity": 200.33,
+          "serviceChargeVip": 0.0,
+          "serviceChargeParty": 0.0,
+          "serviceChargeOther": 0.0,
+          "nonRevenueCollected": 0.0
+        },
         "2026-11-23": {
           "sales": 963.3,
           "tickets": 24,
@@ -108318,10 +108435,10 @@
         }
       },
       "deptMix": {
-        "Bar": 365881.0,
-        "Food": 227654.44,
+        "Bar": 367935.0,
+        "Food": 227960.64,
         "Parties": 133667.0,
-        "Bowling": 48341.6,
+        "Bowling": 48377.6,
         "General Income": 2020.08,
         "Arcade": 301.5,
         "Unknown": 0.0
@@ -108337,7 +108454,7 @@
         },
         {
           "name": "Large",
-          "revenue": 24891.5
+          "revenue": 24912.5
         },
         {
           "name": "Half House",
@@ -108357,7 +108474,7 @@
         },
         {
           "name": "Titos",
-          "revenue": 16190.0
+          "revenue": 16200.0
         },
         {
           "name": "Pacifico Draft",
@@ -114195,6 +114312,15 @@
           "serviceChargeOther": 0.0,
           "nonRevenueCollected": 0.0
         },
+        "2026-11-24": {
+          "sales": 933.48,
+          "tickets": 25,
+          "gratuity": 122.36,
+          "serviceChargeVip": 0.0,
+          "serviceChargeParty": 0.0,
+          "serviceChargeOther": 0.0,
+          "nonRevenueCollected": 0.0
+        },
         "2026-11-22": {
           "sales": 923.5,
           "tickets": 34,
@@ -114287,8 +114413,8 @@
         }
       },
       "deptMix": {
-        "Bar": 716201.5,
-        "Food": 123487.71,
+        "Bar": 716978.5,
+        "Food": 123644.19,
         "Parties": 47256.0,
         "Bowling": 35023.59,
         "General Income": 1420.14,
@@ -114319,7 +114445,7 @@
         },
         {
           "name": "Coors Light Draft",
-          "revenue": 20711.0
+          "revenue": 20835.0
         },
         {
           "name": "Catering - Unlimited Pizzas",
@@ -114331,7 +114457,7 @@
         },
         {
           "name": "Well Vodka",
-          "revenue": 15152.0
+          "revenue": 15168.0
         },
         {
           "name": "Huckleberry Draft",
@@ -121114,6 +121240,15 @@
           "sales": 1057.74,
           "tickets": 47,
           "gratuity": 83.43,
+          "serviceChargeVip": 0.0,
+          "serviceChargeParty": 0.0,
+          "serviceChargeOther": 0.0,
+          "nonRevenueCollected": 0.0
+        },
+        "2026-11-25": {
+          "sales": 0.0,
+          "tickets": 3,
+          "gratuity": 0.0,
           "serviceChargeVip": 0.0,
           "serviceChargeParty": 0.0,
           "serviceChargeOther": 0.0,
@@ -128368,6 +128503,15 @@
           "serviceChargeOther": 0.0,
           "nonRevenueCollected": 0.0
         },
+        "2026-11-25": {
+          "sales": 835.37,
+          "tickets": 37,
+          "gratuity": 80.0,
+          "serviceChargeVip": 0.0,
+          "serviceChargeParty": 0.0,
+          "serviceChargeOther": 0.0,
+          "nonRevenueCollected": 0.0
+        },
         "2026-11-23": {
           "sales": 1124.84,
           "tickets": 57,
@@ -128469,7 +128613,7 @@
         }
       },
       "deptMix": {
-        "Food": 395468.47,
+        "Food": 396303.84,
         "Bowling": 86532.52,
         "Bar": 17353.5,
         "Parties": 5310.0,
@@ -128485,7 +128629,7 @@
         },
         {
           "name": "Large",
-          "revenue": 50221.51
+          "revenue": 50305.51
         },
         {
           "name": "Soda",
@@ -128493,11 +128637,11 @@
         },
         {
           "name": "Chicken Wings",
-          "revenue": 31814.5
+          "revenue": 31899.5
         },
         {
           "name": "Chicken Strips",
-          "revenue": 21974.0
+          "revenue": 22075.5
         },
         {
           "name": "Large.",
@@ -128513,7 +128657,7 @@
         },
         {
           "name": "Mozzarella Sticks",
-          "revenue": 14390.0
+          "revenue": 14401.0
         },
         {
           "name": "Medium",
@@ -151076,6 +151220,15 @@
           "serviceChargeOther": 0.0,
           "nonRevenueCollected": 0.0
         },
+        "2026-11-24": {
+          "sales": 2257.88,
+          "tickets": 57,
+          "gratuity": 40.0,
+          "serviceChargeVip": 0.0,
+          "serviceChargeParty": 0.0,
+          "serviceChargeOther": 0.0,
+          "nonRevenueCollected": 13.0
+        },
         "2026-11-23": {
           "sales": 2007.57,
           "tickets": 37,
@@ -151240,28 +151393,28 @@
         }
       },
       "deptMix": {
-        "Bowling": 802083.08,
-        "Food": 108074.72,
+        "Bowling": 804190.8,
+        "Food": 108202.1,
         "Arcade": 37574.2,
         "League Fees": 31573.41,
         "Bar": 22783.0,
         "Parties": 9562.39,
-        "General Income": 2673.82,
-        "League Lineage": 323.0,
+        "General Income": 2677.6,
+        "League Lineage": 342.0,
         "Unknown": 0.0
       },
       "topItems": [
         {
           "name": "Time Bowling",
-          "revenue": 316945.82
+          "revenue": 317818.82
         },
         {
           "name": "Lane Reservation Charge",
-          "revenue": 247726.32
+          "revenue": 247934.04
         },
         {
           "name": "Rental Shoes",
-          "revenue": 104866.25
+          "revenue": 105119.25
         },
         {
           "name": "Pair & Spare Charge",
@@ -151277,7 +151430,7 @@
         },
         {
           "name": "Large",
-          "revenue": 12144.51
+          "revenue": 12165.51
         },
         {
           "name": "Vegas or Bust25",
@@ -154887,6 +155040,15 @@
           "serviceChargeOther": 0.0,
           "nonRevenueCollected": 0.0
         },
+        "2026-11-24": {
+          "sales": 1067.3,
+          "tickets": 37,
+          "gratuity": 122.36,
+          "serviceChargeVip": 0.0,
+          "serviceChargeParty": 0.0,
+          "serviceChargeOther": 0.0,
+          "nonRevenueCollected": 0.0
+        },
         "2026-11-19": {
           "sales": 1242.0,
           "tickets": 29,
@@ -154943,9 +155105,9 @@
         }
       },
       "deptMix": {
-        "Bar": 235069.0,
-        "Food": 157091.92,
-        "Bowling": 85980.36,
+        "Bar": 235818.0,
+        "Food": 157302.22,
+        "Bowling": 86088.36,
         "Parties": 10341.0,
         "League Fees": 3873.0,
         "General Income": 2209.93,
@@ -154955,11 +155117,11 @@
       "topItems": [
         {
           "name": "Large",
-          "revenue": 16092.5
+          "revenue": 16113.5
         },
         {
           "name": "Time Bowling",
-          "revenue": 14960.5
+          "revenue": 15068.5
         },
         {
           "name": "Supercharge 4 Lane",
@@ -154979,7 +155141,7 @@
         },
         {
           "name": "Coors Light Draft",
-          "revenue": 11804.0
+          "revenue": 11885.0
         },
         {
           "name": "Kingpin - 8 Lane Suite - Time",
@@ -159543,6 +159705,15 @@
           "serviceChargeOther": 0.0,
           "nonRevenueCollected": 0.0
         },
+        "2026-11-25": {
+          "sales": 2952.66,
+          "tickets": 99,
+          "gratuity": 87.89,
+          "serviceChargeVip": 0.0,
+          "serviceChargeParty": 0.0,
+          "serviceChargeOther": 0.0,
+          "nonRevenueCollected": 0.0
+        },
         "2026-11-18": {
           "sales": 1114.67,
           "tickets": 66,
@@ -159626,7 +159797,7 @@
         }
       },
       "deptMix": {
-        "Food": 218423.54,
+        "Food": 221376.2,
         "Bowling": 11637.0,
         "Bar": 1751.0,
         "General Income": 443.67,
@@ -159637,11 +159808,11 @@
       "topItems": [
         {
           "name": "Large",
-          "revenue": 27250.0
+          "revenue": 27544.0
         },
         {
           "name": "Chicken Wings",
-          "revenue": 18940.0
+          "revenue": 19314.0
         },
         {
           "name": "Soda",
@@ -159649,11 +159820,11 @@
         },
         {
           "name": "Chicken Strips",
-          "revenue": 11498.5
+          "revenue": 11672.5
         },
         {
           "name": "Soda Pitcher",
-          "revenue": 9798.6
+          "revenue": 9993.48
         },
         {
           "name": "French Fries",
@@ -159661,19 +159832,19 @@
         },
         {
           "name": "Large.",
-          "revenue": 9024.0
+          "revenue": 9078.0
         },
         {
           "name": "Mozzarella Sticks",
-          "revenue": 7747.5
+          "revenue": 7868.5
         },
         {
           "name": "Concourse Nacho",
-          "revenue": 6605.0
+          "revenue": 6722.5
         },
         {
           "name": "Medium",
-          "revenue": 6289.0
+          "revenue": 6307.0
         }
       ]
     },
@@ -163749,6 +163920,15 @@
           "serviceChargeOther": 0.0,
           "nonRevenueCollected": 0.0
         },
+        "2026-11-25": {
+          "sales": 0.0,
+          "tickets": 0,
+          "gratuity": 78.32,
+          "serviceChargeVip": 0.0,
+          "serviceChargeParty": 0.0,
+          "serviceChargeOther": 0.0,
+          "nonRevenueCollected": 0.0
+        },
         "2026-11-22": {
           "sales": 3556.08,
           "tickets": 79,
@@ -165208,6 +165388,15 @@
           "serviceChargeOther": 0.0,
           "nonRevenueCollected": 0.0
         },
+        "2026-11-25": {
+          "sales": 1013.62,
+          "tickets": 17,
+          "gratuity": 0.0,
+          "serviceChargeVip": 0.0,
+          "serviceChargeParty": 0.0,
+          "serviceChargeOther": 0.0,
+          "nonRevenueCollected": 0.0
+        },
         "2026-11-23": {
           "sales": 1628.09,
           "tickets": 55,
@@ -165336,8 +165525,8 @@
         }
       },
       "deptMix": {
-        "Bowling": 198298.89,
-        "Food": 8763.93,
+        "Bowling": 199298.01,
+        "Food": 8778.43,
         "Arcade": 5986.0,
         "League Fees": 1670.0,
         "League Lineage": 1150.0,
@@ -165348,15 +165537,15 @@
       "topItems": [
         {
           "name": "Time Bowling",
-          "revenue": 76082.62
+          "revenue": 76442.62
         },
         {
           "name": "Lane Reservation Charge",
-          "revenue": 46191.58
+          "revenue": 46710.7
         },
         {
           "name": "Rental Shoes",
-          "revenue": 27493.0
+          "revenue": 27613.0
         },
         {
           "name": "Game Bowling",
@@ -167616,6 +167805,24 @@
           "serviceChargeOther": 0.0,
           "nonRevenueCollected": 0.0
         },
+        "2026-11-25": {
+          "sales": 3196.94,
+          "tickets": 85,
+          "gratuity": 354.26,
+          "serviceChargeVip": 0.0,
+          "serviceChargeParty": 0.0,
+          "serviceChargeOther": 0.0,
+          "nonRevenueCollected": 0.0
+        },
+        "2026-11-24": {
+          "sales": 468.0,
+          "tickets": 13,
+          "gratuity": 122.28,
+          "serviceChargeVip": 0.0,
+          "serviceChargeParty": 0.0,
+          "serviceChargeOther": 0.0,
+          "nonRevenueCollected": 0.0
+        },
         "2026-11-23": {
           "sales": 770.22,
           "tickets": 23,
@@ -167735,9 +167942,9 @@
         }
       },
       "deptMix": {
-        "Bar": 150053.0,
-        "Food": 31902.12,
-        "Bowling": 3433.42,
+        "Bar": 152840.0,
+        "Food": 32100.06,
+        "Bowling": 4113.42,
         "Arcade": 100.0,
         "General Income": 41.4,
         "League Lineage": 38.0,
@@ -167754,11 +167961,11 @@
         },
         {
           "name": "Coors Light Draft",
-          "revenue": 5257.0
+          "revenue": 5309.0
         },
         {
           "name": "Titos",
-          "revenue": 5040.0
+          "revenue": 5110.0
         },
         {
           "name": "Michelob Ultra Draft",
@@ -167766,11 +167973,11 @@
         },
         {
           "name": "Watermelon Margarita",
-          "revenue": 4101.0
+          "revenue": 4125.0
         },
         {
           "name": "Jack Daniels",
-          "revenue": 3840.0
+          "revenue": 3970.0
         },
         {
           "name": "Huckleberry Draft",
@@ -168518,6 +168725,15 @@
           "serviceChargeOther": 0.0,
           "nonRevenueCollected": 0.0
         },
+        "2026-11-24": {
+          "sales": 405.76,
+          "tickets": 14,
+          "gratuity": 56.5,
+          "serviceChargeVip": 0.0,
+          "serviceChargeParty": 0.0,
+          "serviceChargeOther": 0.0,
+          "nonRevenueCollected": 0.0
+        },
         "2026-11-22": {
           "sales": 981.66,
           "tickets": 48,
@@ -168610,17 +168826,17 @@
         }
       },
       "deptMix": {
-        "Food": 48746.07,
+        "Food": 49151.83,
         "Bar": 18.0
       },
       "topItems": [
         {
           "name": "Large",
-          "revenue": 5710.0
+          "revenue": 5752.0
         },
         {
           "name": "Chicken Wings",
-          "revenue": 4273.0
+          "revenue": 4290.0
         },
         {
           "name": "Chicken Strips",
@@ -168644,7 +168860,7 @@
         },
         {
           "name": "Concourse Nacho",
-          "revenue": 1640.0
+          "revenue": 1655.0
         },
         {
           "name": "Soda",
@@ -168652,7 +168868,7 @@
         },
         {
           "name": "Mozzarella Sticks",
-          "revenue": 1482.0
+          "revenue": 1515.0
         }
       ]
     },
@@ -169388,6 +169604,15 @@
           "serviceChargeOther": 0.0,
           "nonRevenueCollected": 0.0
         },
+        "2026-11-24": {
+          "sales": 1015.02,
+          "tickets": 44,
+          "gratuity": 72.75,
+          "serviceChargeVip": 0.0,
+          "serviceChargeParty": 0.0,
+          "serviceChargeOther": 0.0,
+          "nonRevenueCollected": 0.0
+        },
         "2026-11-21": {
           "sales": 1280.46,
           "tickets": 34,
@@ -169462,33 +169687,33 @@
         }
       },
       "deptMix": {
-        "Food": 10730.67,
+        "Food": 11745.69,
         "Bar": 124.0
       },
       "topItems": [
         {
           "name": "Large",
-          "revenue": 1301.0
+          "revenue": 1406.0
         },
         {
           "name": "Chicken Wings",
-          "revenue": 645.0
+          "revenue": 696.0
         },
         {
           "name": "Crinkle Cut Fries",
-          "revenue": 608.0
+          "revenue": 688.0
         },
         {
           "name": "Soda Pitcher",
-          "revenue": 528.96
-        },
-        {
-          "name": "Large.",
-          "revenue": 511.0
+          "revenue": 584.64
         },
         {
           "name": "Carne Asada Fries",
-          "revenue": 508.5
+          "revenue": 545.5
+        },
+        {
+          "name": "Large.",
+          "revenue": 538.0
         },
         {
           "name": "Medium",
@@ -169496,7 +169721,7 @@
         },
         {
           "name": "Chicken Strips",
-          "revenue": 435.0
+          "revenue": 464.0
         },
         {
           "name": "Large..",
@@ -169504,7 +169729,7 @@
         },
         {
           "name": "Mozzarella Sticks",
-          "revenue": 285.0
+          "revenue": 340.0
         }
       ]
     },
