@@ -1,9 +1,9 @@
 {
-  "generatedAt": "2026-11-26T04:37:33.073116-08:00",
+  "generatedAt": "2026-11-27T04:37:27.985952-08:00",
   "timezone": "America/Los_Angeles",
   "dateRange": [
-    "2025-11-27",
-    "2026-11-26"
+    "2025-11-28",
+    "2026-11-27"
   ],
   "roles": {
     "1918014": "Maintenace",
@@ -23842,20 +23842,6 @@
       "hiredAt": "2024-01-22T21:40:24+00:00",
       "active": false,
       "days": {
-        "2025-11-27": {
-          "hours": 6.52,
-          "laborCost": 136.85,
-          "punches": 1,
-          "scheduledShifts": 0,
-          "lateMinutes": 0,
-          "noShow": 0,
-          "byRole": {
-            "Maintenace": {
-              "hours": 6.52,
-              "laborCost": 136.85
-            }
-          }
-        },
         "2025-11-29": {
           "hours": 6.07,
           "laborCost": 127.4,
@@ -24527,20 +24513,6 @@
       "hiredAt": "2024-01-22T21:40:24+00:00",
       "active": true,
       "days": {
-        "2025-11-27": {
-          "hours": 7.85,
-          "laborCost": 196.25,
-          "punches": 1,
-          "scheduledShifts": 0,
-          "lateMinutes": 0,
-          "noShow": 0,
-          "byRole": {
-            "Maintenace": {
-              "hours": 7.85,
-              "laborCost": 196.25
-            }
-          }
-        },
         "2025-11-28": {
           "hours": 8.0,
           "laborCost": 200.0,
@@ -28136,6 +28108,20 @@
             "Maintenace": {
               "hours": 8.08,
               "laborCost": 218.25
+            }
+          }
+        },
+        "2026-11-26": {
+          "hours": 7.92,
+          "laborCost": 213.75,
+          "punches": 1,
+          "scheduledShifts": 0,
+          "lateMinutes": 0,
+          "noShow": 0,
+          "byRole": {
+            "Maintenace": {
+              "hours": 7.92,
+              "laborCost": 213.75
             }
           }
         }

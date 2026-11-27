@@ -1,12 +1,12 @@
 {
-  "generatedAt": "2026-11-26T04:37:34.764538",
+  "generatedAt": "2026-11-27T04:37:29.625246",
   "dateRange": [
     "2023-01-01",
-    "2026-11-26"
+    "2026-11-27"
   ],
   "laborDateRange": [
-    "2025-11-27",
-    "2026-11-26"
+    "2025-11-28",
+    "2026-11-27"
   ],
   "employees": [
     {
@@ -257536,6 +257536,20 @@
           "scheduledShifts": 0,
           "lateMinutes": 0.0,
           "noShow": 0
+        },
+        "2026-11-26": {
+          "sales": 0.0,
+          "tickets": 4,
+          "gratuity": 0.0,
+          "serviceChargeVip": 0.0,
+          "serviceChargeParty": 0.0,
+          "serviceChargeOther": 0.0,
+          "nonRevenueCollected": 0.0,
+          "hours": 0.0,
+          "laborCost": 0.0,
+          "scheduledShifts": 0,
+          "lateMinutes": 0.0,
+          "noShow": 0
         }
       },
       "deptMix": {
@@ -295876,26 +295890,6 @@
       "hiredAt": "2024-01-22T21:40:24+00:00",
       "active": false,
       "days": {
-        "2025-11-27": {
-          "sales": 0.0,
-          "tickets": 0,
-          "gratuity": 0.0,
-          "serviceChargeVip": 0.0,
-          "serviceChargeParty": 0.0,
-          "serviceChargeOther": 0.0,
-          "nonRevenueCollected": 0.0,
-          "hours": 6.52,
-          "laborCost": 136.85,
-          "scheduledShifts": 0,
-          "lateMinutes": 0,
-          "noShow": 0,
-          "byRole": {
-            "Maintenace": {
-              "hours": 6.52,
-              "laborCost": 136.85
-            }
-          }
-        },
         "2025-11-29": {
           "sales": 0.0,
           "tickets": 0,
@@ -296938,26 +296932,6 @@
       "hiredAt": "2024-01-22T21:40:24+00:00",
       "active": true,
       "days": {
-        "2025-11-27": {
-          "sales": 0.0,
-          "tickets": 0,
-          "gratuity": 0.0,
-          "serviceChargeVip": 0.0,
-          "serviceChargeParty": 0.0,
-          "serviceChargeOther": 0.0,
-          "nonRevenueCollected": 0.0,
-          "hours": 7.85,
-          "laborCost": 196.25,
-          "scheduledShifts": 0,
-          "lateMinutes": 0,
-          "noShow": 0,
-          "byRole": {
-            "Maintenace": {
-              "hours": 7.85,
-              "laborCost": 196.25
-            }
-          }
-        },
         "2025-11-28": {
           "sales": 0.0,
           "tickets": 0,
@@ -302095,6 +302069,26 @@
             "Maintenace": {
               "hours": 8.08,
               "laborCost": 218.25
+            }
+          }
+        },
+        "2026-11-26": {
+          "sales": 0.0,
+          "tickets": 0,
+          "gratuity": 0.0,
+          "serviceChargeVip": 0.0,
+          "serviceChargeParty": 0.0,
+          "serviceChargeOther": 0.0,
+          "nonRevenueCollected": 0.0,
+          "hours": 7.92,
+          "laborCost": 213.75,
+          "scheduledShifts": 0,
+          "lateMinutes": 0,
+          "noShow": 0,
+          "byRole": {
+            "Maintenace": {
+              "hours": 7.92,
+              "laborCost": 213.75
             }
           }
         }
